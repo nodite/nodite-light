@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "types": ["jest", "node"],
+    "typeRoots": ["node_modules/@types", "typings"],
     "module": "commonjs",
     "lib": ["dom", "es5"],
     "jsx": "react-jsx",

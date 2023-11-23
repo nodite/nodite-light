@@ -1,0 +1,47 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "target": "es2017",
+    "lib": ["es2015", "es2016", "es2017", "es2018", "dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "downlevelIteration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "allowJs": false,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "importHelpers": true,
+    "baseUrl": "src",
+    "outDir": "./dist",
+    "paths": {
+      "@app": ["./app.ts"],
+      "@core/*": ["core/*"],
+      "@components/*": ["components/*"],
+      "@config/*": ["config/*"]
+    },
+    "plugins": [{ "transform": "ts-optchain/transform" }]
+  },
+  "exclude": [
+    "dist",
+    "node_modules",
+    "test/**/*",
+    "ci/**/*",
+    "scripts/**/*",
+    "__mocks__/**/*",
+    "**/node_modules/**/*",
+    "**/dts/**/*",
+    "**/dist/**/*",
+    "**/*.(spec|test).ts"
+  ],
+  "compileOnSave": true,
+  "typeAcquisition": {
+    "enable": true
+  }
+}

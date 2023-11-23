@@ -1,0 +1,50 @@
+{
+  "name": "@nodite-chakra/admin-api",
+  "version": "0.0.1",
+  "private": true,
+  "main": "src/server.ts",
+  "engines": {
+    "node": ">=8.10.0"
+  },
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "start:dev": "npm run server:dev",
+    "server:prod": "node dist/server.js",
+    "server:dev": "ts-node-dev --inspect=0.0.0.0:9229 --exit-child --respawn -r tsconfig-paths/register src/server.ts",
+    "test": "jest -c jest.config.js --env=node",
+    "test:cov": "jest -c jest.config.js --coverage --env=node",
+    "test:watch": "jest -c jest.config.js -i --watchAll",
+    "lint": "eslint ./src/**/*.ts",
+    "lint:fix": "eslint **/*.ts --fix",
+    "prettier": "prettier --check \"{*.js,!(node*)**/*.ts}\"",
+    "prettier:fix": "prettier --write \"{*.js,!(node*)**/*.ts}\"",
+    "loglevel:change": "runtime-node-refresh",
+    "swagger": "ts-node src/swagger.ts"
+  },
+  "author": "Oscaner Miao <oscaner1997@gmail.com>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "apicache": "^1.6.3",
+    "dotenv": "^14.3.2",
+    "express": "^4.17.1",
+    "express-http-context": "^1.2.4",
+    "fs": "^0.0.1-security",
+    "http-status": "^1.5.0",
+    "joi": "^17.5.0",
+    "md5": "^2.3.0",
+    "morgan": "^1.10.0",
+    "node-mocks-http": "^1.11.0",
+    "path": "^0.12.7",
+    "runtime-node-refresh": "^1.0.6",
+    "supertest": "^6.1.6",
+    "swagger-ui-express": "^4.3.0",
+    "ts-jest": "^27.1.1",
+    "uuid": "^9.0.0",
+    "winston": "^3.6.0"
+  },
+  "devDependencies": {
+    "@types/apicache": "^1.6.0",
+    "@types/express": "^4.17.13",
+    "@types/morgan": "^1.9.3"
+  }
+}
