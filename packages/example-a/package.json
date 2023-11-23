@@ -1,0 +1,21 @@
+{
+  "name": "example-a",
+  "version": "1.0.0-alpha",
+  "description": "bar",
+  "author": "Oscaner Miao <oscaner1997@gmail.com>",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf coverage lib",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "files": [
+    "src",
+    "lib"
+  ],
+  "license": "MIT",
+  "devDependencies": {}
+}
