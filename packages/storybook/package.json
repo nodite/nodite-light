@@ -1,0 +1,36 @@
+{
+  "name": "storybook",
+  "private": true,
+  "version": "1.0.0-alpha",
+  "description": "Storybook",
+  "author": "Oscaner Miao <oscaner1997@gmail.com>",
+  "scripts": {
+    "build": "npm run build-storybook",
+    "build-storybook": "storybook build",
+    "clean": "rm -rf storybook-static",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "lint:tsc": "tsc --noEmit",
+    "storybook": "storybook dev -p 6006"
+  },
+  "dependencies": {
+    "@nodite-chakra/button": "1.0.0-alpha",
+    "storybook": "^7.5.3"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^7.5.3",
+    "@storybook/addon-interactions": "^7.5.3",
+    "@storybook/addon-links": "^7.5.3",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/blocks": "^7.5.3",
+    "@storybook/react": "^7.5.3",
+    "@storybook/react-vite": "^7.5.3",
+    "@storybook/testing-library": "^0.2.2",
+    "eslint-plugin-storybook": "^0.6.15",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "vite": "^5.0.0"
+  },
+  "license": "MIT"
+}

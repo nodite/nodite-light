@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "name": "react-template",
+  "version": "1.0.0-alpha",
+  "description": "placeholder",
+  "author": "Oscaner Miao <oscaner1997@gmail.com>",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf coverage lib",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "17 || 18",
+    "styled-components": "4 || 5 || 6"
+  },
+  "files": [
+    "src",
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT"
+}
