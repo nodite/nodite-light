@@ -1,0 +1,22 @@
+{
+  "name": "example-b",
+  "version": "1.0.0-alpha",
+  "description": "foo",
+  "author": "Mark <mark@remarkablemark.org>",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf coverage src",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "example-a": "^1.0.0-alpha"
+  },
+  "files": [
+    "src"
+  ],
+  "license": "MIT"
+}

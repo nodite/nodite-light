@@ -1,0 +1,26 @@
+{
+  "name": "@remarkable/button",
+  "version": "1.0.0-alpha",
+  "description": "Button",
+  "author": "Mark <mark@remarkablemark.org>",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf coverage src",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "peerDependencies": {
+    "react": "17 || 18",
+    "styled-components": "4 || 5 || 6"
+  },
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT"
+}

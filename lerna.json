@@ -1,0 +1,22 @@
+{
+  "command": {
+    "publish": {
+      "conventionalCommits": true,
+      "createRelease": "github",
+      "exact": true,
+      "ignoreChanges": [
+        "**/*.md",
+        "**/*.spec.*",
+        "**/*.test.*",
+        "**/*config*",
+        "**/__fixtures__/**",
+        "**/__tests__/**"
+      ],
+      "message": "chore(release): publish",
+      "yes": true
+    }
+  },
+  "packages": ["packages/*", "services/*", "websites/*"],
+  "version": "independent",
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json"
+}

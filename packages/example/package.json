@@ -1,0 +1,22 @@
+{
+  "name": "@remarkable/example",
+  "version": "1.0.0-alpha",
+  "description": "example",
+  "author": "Mark <mark@remarkablemark.org>",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf coverage src",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT"
+}
