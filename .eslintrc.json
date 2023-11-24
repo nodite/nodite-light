@@ -3,7 +3,6 @@
   "env": {
     "es2021": true,
     "jest": true,
-    "jest/globals": true,
     "node": true
   },
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:jsx-a11y/recommended"],
