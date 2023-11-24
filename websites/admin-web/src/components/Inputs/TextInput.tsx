@@ -80,4 +80,4 @@ export const TextInput: TextInputComponent = React.forwardRef(
       </fieldset>
     )
   }
-)
+) as TextInputComponent
