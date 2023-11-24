@@ -25,7 +25,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "apicache": "^1.6.3",
-    "dotenv": "^14.3.2",
+    "dotenv": "^16.3.1",
     "express": "^4.17.1",
     "express-http-context": "^1.2.4",
     "fs": "^0.0.1-security",
