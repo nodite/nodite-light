@@ -109,4 +109,4 @@ export const PasswordInput: PasswordInputComponent = React.forwardRef(
       </fieldset>
     )
   }
-)
+) as PasswordInputComponent
