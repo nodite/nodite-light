@@ -30,12 +30,13 @@
     "prettier/prettier": "error",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
-    "tsdoc/syntax": "error",
+    "tsdoc/syntax": "warn",
     "max-len": [
       "error",
       {
         "code": 130
       }
-    ]
+    ],
+    "class-methods-use-this": "off"
   }
 }

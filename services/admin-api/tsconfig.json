@@ -24,7 +24,8 @@
       "@app": ["./app.ts"],
       "@core/*": ["core/*"],
       "@components/*": ["components/*"],
-      "@config/*": ["config/*"]
+      "@config/*": ["config/*"],
+      "@dotsoa/*": ["../.tsoa/*"]
     },
     "plugins": [{ "transform": "ts-optchain/transform" }]
   },

@@ -1,3 +1,4 @@
+import { IResponse } from '@core/interfaces/httpResponse';
 import AppError from '@core/utils/appError';
 import errorHandler from '@core/utils/errorHandler';
 import { NextFunction, Request, Response } from 'express';
@@ -20,8 +21,10 @@ const errorHandling = (
     ? error.message
     : httpStatus[httpStatus.INTERNAL_SERVER_ERROR];
   res.status(httpStatusCode).json({
-    error: responseError,
-  });
+    error: true,
+    httpCode: httpStatusCode,
+    message: responseError,
+  } as IResponse<unknown>);
 };
 
 export default errorHandling;

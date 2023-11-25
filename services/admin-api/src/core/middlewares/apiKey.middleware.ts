@@ -16,7 +16,10 @@ const apiKey = (req: Request, res: Response, next: NextFunction) => {
   logger.error(
     'Missing x-api-key in request header or it does not match with env variable',
   );
-  throw new AppError(httpStatus.UNAUTHORIZED, 'Access forbidden');
+  throw new AppError(
+    httpStatus.UNAUTHORIZED,
+    'Access forbidden: invalid x-api-key',
+  );
 };
 
 export default apiKey;

@@ -1,9 +1,7 @@
-import healthCheck from '@components/healthcheck/healthCheck.router';
-import user from '@components/user/user.router';
+import { RegisterRoutes } from '@dotsoa/routes';
 import { Router } from 'express';
 
 const router: Router = Router();
-router.use(healthCheck);
-router.use(user);
+RegisterRoutes(router);
 
 export default router;

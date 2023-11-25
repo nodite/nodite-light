@@ -30,7 +30,8 @@
     "node/prefer-global/url-search-params": ["error", "always"],
     "node/prefer-global/url": ["error", "always"],
     "node/prefer-promises/dns": "error",
-    "node/prefer-promises/fs": "error"
+    "node/prefer-promises/fs": "error",
+    "class-methods-use-this": "off"
   },
   "settings": {
     "import/resolver": {

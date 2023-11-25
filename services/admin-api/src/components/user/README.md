@@ -11,16 +11,6 @@ Read the following for more detailed explanation:
 
 This is a typical CRUD (*C*reate, *R*ead, *U*pdate, *D*elete) use case. Some of its endpoints are procted by `x-api-key` a special token that client needs to provide when making API calls. You will also find there example validation for request inputs using Joi validator.
 
-### How to make my api endpoints accessible
-
-Simple! Just include your router file in `api.ts`.
-
-```javascript
-import user from '@components/user/user.router';
-
-router.use(user);
-```
-
 ### Testing
 
 tbc...

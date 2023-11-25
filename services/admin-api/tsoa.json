@@ -1,0 +1,36 @@
+{
+  "entryFile": "src/app.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": ["src/components/**/*.controller.ts"],
+  "spec": {
+    "outputDirectory": ".tsoa",
+    "specVersion": 3,
+    "securityDefinitions": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "JWT Authorization header using the Bearer scheme.<br>Enter the token with the `Bearer: ` prefix, e.g. \"Bearer abcde12345\"."
+      },
+      "ApiKey": {
+        "name": "x-api-key",
+        "description": "API Key",
+        "in": "header",
+        "type": "apiKey"
+      }
+    }
+  },
+  "routes": {
+    "routesDir": ".tsoa"
+  },
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@app": ["./app.ts"],
+      "@core/*": ["core/*"],
+      "@components/*": ["components/*"],
+      "@config/*": ["config/*"],
+      "@dotsoa/*": ["../.tsoa/*"]
+    }
+  }
+}

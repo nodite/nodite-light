@@ -1,36 +1,95 @@
+import BaseController from '@components/base.controller';
 import { IUser } from '@components/user/user.interface';
-import {
-  create,
-  deleteById,
-  read,
-  update,
-} from '@components/user/user.service';
-import { Request, Response } from 'express';
+import { UserCreationParams, UserService } from '@components/user/user.service';
+import { AuthorizedRequest } from '@core/interfaces/authorizedRequest';
+import { IResponse } from '@core/interfaces/httpResponse';
+import validation from '@core/middlewares/validate.middleware';
 import httpStatus from 'http-status';
+import {
+  Body,
+  Delete,
+  Get,
+  Middlewares,
+  OperationId,
+  Path,
+  Post,
+  Put,
+  Query,
+  Request,
+  Route,
+  Tags,
+} from 'tsoa';
 
-const createUser = (req: Request, res: Response) => {
-  const user = req.body as IUser;
-  create(user);
-  res.status(httpStatus.CREATED);
-  res.send({ message: 'Created' });
-};
+import createUserValidation from './createUser.validation';
 
-const readUser = (req: Request, res: Response) => {
-  res.status(httpStatus.OK);
-  res.send({ message: 'Read', output: read(req.params.id) });
-};
+@Route('user')
+@Tags('User')
+export class UserController extends BaseController {
+  userService: UserService;
 
-const updateUser = (req: Request, res: Response) => {
-  const user = req.body as IUser;
-  update(user);
-  res.status(httpStatus.OK);
-  res.send({ message: 'Updated' });
-};
+  constructor() {
+    super();
+    this.userService = new UserService();
+  }
 
-const deleteUser = (req: Request, res: Response) => {
-  deleteById(req.params.email);
-  res.status(httpStatus.ACCEPTED);
-  res.send({ message: 'Removed' });
-};
+  /**
+   * @summary Get current user
+   */
+  @Get('curr')
+  public async getCurr(
+    @Request() req: AuthorizedRequest,
+  ): Promise<IResponse<IUser>> {
+    return this.formatResponse(this.userService.get(req.userId || ''));
+  }
 
-export { createUser, deleteUser, readUser, updateUser };
+  /**
+   * @summary Get user by id
+   */
+  @Get('{userId}')
+  @OperationId('user:get')
+  public async getUser(
+    @Path() userId: string,
+    @Query() name?: string,
+  ): Promise<IResponse<IUser>> {
+    this.setStatus(httpStatus.OK);
+    return this.formatResponse(this.userService.get(userId, name));
+  }
+
+  /**
+   * @summary Create user
+   */
+  @Post()
+  @Middlewares([validation(createUserValidation)])
+  @OperationId('user:create')
+  public async createUser(
+    @Body() requestBody: UserCreationParams,
+  ): Promise<IResponse<IUser>> {
+    this.setStatus(httpStatus.CREATED);
+    return this.formatResponse(this.userService.create(requestBody));
+  }
+
+  /**
+   * @summary Update user
+   */
+  @Put('{userId}')
+  @OperationId('user:update')
+  public async updateUser(
+    @Path() userId: string,
+    @Body() requestBody: IUser,
+  ): Promise<IResponse<IUser>> {
+    this.setStatus(httpStatus.ACCEPTED);
+    return this.formatResponse(this.userService.update(userId, requestBody));
+  }
+
+  /**
+   * @summary Delete user
+   */
+  @Delete('{userId}')
+  @OperationId('user:delete')
+  public async deleteUser(@Path() userId: string): Promise<IResponse<boolean>> {
+    this.setStatus(httpStatus.ACCEPTED);
+    return this.formatResponse(this.userService.delete(userId));
+  }
+}
+
+export default UserController;

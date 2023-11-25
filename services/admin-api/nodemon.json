@@ -1,0 +1,5 @@
+{
+  "exec": "npm run tsoa",
+  "watch": ["src", "tsoa.json"],
+  "ext": "ts"
+}

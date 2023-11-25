@@ -1,5 +1,7 @@
 import Joi from 'joi';
 
+import pkjJson from '../../package.json';
+
 // All env variables used by the app should be defined in this file.
 
 // To define new env:
@@ -11,11 +13,10 @@ import Joi from 'joi';
 
 const envsSchema = Joi.object()
   .keys({
-    NODE_ENV: Joi.string()
-      .valid('production', 'integration', 'development')
-      .required(),
+    NODE_ENV: Joi.string().valid('production', 'development').required(),
     PORT: Joi.number().default(8080),
     API_KEY_TOKEN: Joi.string().required(),
+    JWT_SECRET: Joi.string().required(),
   })
   .unknown(true);
 
@@ -32,7 +33,9 @@ if (error) {
 
 // map env vars and make it visible outside module
 export default {
+  version: pkjJson.version,
   env: envVars.NODE_ENV,
   port: envVars.PORT,
   xApiKey: envVars.API_KEY_TOKEN,
+  jwtSecret: envVars.JWT_SECRET,
 };
