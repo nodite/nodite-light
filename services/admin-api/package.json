@@ -8,9 +8,9 @@
   },
   "scripts": {
     "build": "tsoa spec-and-routes && tsc && tsc-alias",
+    "start:prod": "node dist/server.js",
     "start:dev": "concurrently \"nodemon\" \"nodemon -x npm run server:dev\"",
-    "server:prod": "node dist/server.js",
-    "server:dev": "ts-node-dev --ignore-watch dist --inspect=0.0.0.0:9229 --exit-child --respawn -r tsconfig-paths/register src/server.ts",
+    "server:dev": "ts-node-dev --ignore-watch dist,node_modules,src --transpile-only --inspect=0.0.0.0:9229 --exit-child --respawn -r tsconfig-paths/register src/server.ts",
     "test": "jest -c jest.config.js --env=node",
     "test:cov": "jest -c jest.config.js --coverage --env=node",
     "test:watch": "jest -c jest.config.js -i --watchAll",
@@ -46,10 +46,10 @@
     "winston": "^3.6.0"
   },
   "devDependencies": {
+    "@types/apicache": "^1.6.0",
     "@types/express": "^4.17.13",
     "@types/jest": "^29.5.10",
     "@types/morgan": "^1.9.3",
-    "@types/apicache": "^1.6.0",
     "@types/node": "^20.9.4",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
@@ -63,10 +63,10 @@
     "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-security": "^1.7.1",
     "prettier": "^3.1.0",
+    "ts-jest": "^29.1.1",
     "ts-node-dev": "^2.0.0",
     "tsc-alias": "^1.5.0",
     "tsconfig-paths": "^4.2.0",
-    "ts-jest": "^29.1.1",
     "typescript": "^5.3.2"
   }
 }

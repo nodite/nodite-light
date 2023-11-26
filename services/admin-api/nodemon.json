@@ -1,5 +1,6 @@
 {
   "exec": "npm run tsoa",
-  "watch": ["src", "tsoa.json"],
-  "ext": "ts"
+  "watch": ["src/**/*", "tsoa.json"],
+  "ignore": ["dist", "node_modules"],
+  "ext": "*"
 }

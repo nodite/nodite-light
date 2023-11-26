@@ -1,0 +1,12 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+COPY services/admin-api/package*.json ./services/admin-api/
+
+RUN npm i
+
+COPY . /app
+
+CMD [ "npm", "run", "start:dev:admin-api" ]
