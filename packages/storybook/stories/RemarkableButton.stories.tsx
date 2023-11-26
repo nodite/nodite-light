@@ -1,4 +1,4 @@
-import Button from '@nodite-chakra/button/src/Button';
+import Button from '@nodite-light/button/src/Button';
 
 export default {
   title: 'Example/NoditeChakraButton',

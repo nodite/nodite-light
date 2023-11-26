@@ -1,8 +1,8 @@
 {
-  "name": "@nodite-chakra/root",
+  "name": "@nodite-light/root",
   "version": "0.0.1",
-  "description": "A framework with Chakra-UI, use Javascript, Typescript & Nodejs for everything.",
-  "repository": "git@github.com:nodite/nodite-chakra.git",
+  "description": "A web framework with React & Express, use Javascript, Typescript & Nodejs for everything.",
+  "repository": "git@github.com:nodite/nodite-light.git",
   "author": "Oscaner Miao <oscaner1997@gmail.com>",
   "license": "Apache-2.0",
   "private": true,
@@ -19,8 +19,8 @@
   "scripts": {
     "postinstall": "husky install",
     "start:dev": "lerna run start:dev --parallel",
-    "start:dev:admin-api": "lerna run start:dev --scope @nodite-chakra/admin-api",
-    "start:dev:admin-web": "lerna run start:dev --scope @nodite-chakra/admin-web",
+    "start:dev:admin-api": "lerna run start:dev --scope @nodite-light/admin-api",
+    "start:dev:admin-web": "lerna run start:dev --scope @nodite-light/admin-web",
     "docker:dev:up": "npm run docker:dev:build && docker-compose -f docker-compose.dev.yml up",
     "docker:dev:down": "docker-compose -f docker-compose.dev.yml down",
     "docker:dev:build": "docker-compose -f docker-compose.dev.yml build",

@@ -1,4 +1,4 @@
-# @nodite-chakra/button
+# @nodite-light/button
 
 ## Usage
 

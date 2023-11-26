@@ -1,4 +1,4 @@
-# nodite-chakra
+# nodite-light
 
 ## Prerequisites
 
@@ -10,8 +10,8 @@
 Clone the repository:
 
 ```sh
-git clone https://github.com/nodite/nodite-chakra.git
-cd nodite-chakra
+git clone https://github.com/nodite/nodite-light.git
+cd nodite-light
 ```
 
 Install the dependencies:
@@ -165,7 +165,7 @@ Release is automated with [Lerna](https://lerna.js.org/).
 If npm publish failed:
 
 1. Delete the Git tags on remote
-2. Rerun the [publish](https://github.com/nodite/nodite-chakra/actions/workflows/publish.yml) workflow
+2. Rerun the [publish](https://github.com/nodite/nodite-light/actions/workflows/publish.yml) workflow
 
 Because Lerna commits and pushes the release to the remote repository, branch protection rules have been disabled.
 
@@ -173,11 +173,11 @@ To prevent race conditions with Lerna release, don't merge PRs until after the p
 
 ### Canary
 
-To release a canary version for testing, run the [publish](https://github.com/nodite/nodite-chakra/actions/workflows/publish.yml) workflow with a branch other than `master`.
+To release a canary version for testing, run the [publish](https://github.com/nodite/nodite-light/actions/workflows/publish.yml) workflow with a branch other than `master`.
 
 ### Dry Run
 
-To see the to-be-updated versions, run the [publish](https://github.com/nodite/nodite-chakra/actions/workflows/publish.yml) workflow and enable **Dry run**.
+To see the to-be-updated versions, run the [publish](https://github.com/nodite/nodite-light/actions/workflows/publish.yml) workflow and enable **Dry run**.
 
 ## License
 

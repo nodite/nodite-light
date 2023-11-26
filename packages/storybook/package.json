@@ -14,7 +14,7 @@
     "storybook": "storybook dev -p 6006"
   },
   "dependencies": {
-    "@nodite-chakra/button": "1.0.0-alpha",
+    "@nodite-light/button": "1.0.0-alpha",
     "storybook": "^7.5.3"
   },
   "devDependencies": {
