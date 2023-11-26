@@ -19,11 +19,21 @@ jest.mock('@core/middlewares/apiKey.middleware', () =>
   jest.fn((req: Request, res: Response, next) => next()),
 );
 
-jest.mock('@components/user/user.service', () => ({
-  create: () => createUser(),
-  update: () => updateUser(),
-  delete: () => deleteUser(),
-}));
+// mock authorized middleware to pass the test
+jest.mock('@core/middlewares/authorized.middleware', () =>
+  jest.fn((req: Request, res: Response, next) => next()),
+);
+
+jest.mock('@components/user/user.service', () => {
+  class UserService {
+    public create = createUser;
+
+    public update = updateUser;
+
+    public delete = deleteUser;
+  }
+  return { UserService };
+});
 
 describe('User API', () => {
   describe('Create User [POST] /user/', () => {
@@ -39,7 +49,7 @@ describe('User API', () => {
         .post('/admin-api/user')
         .send(noDataUserMock)
         .expect(httpStatus.BAD_REQUEST);
-      expect(res.body.error).toContain('is required');
+      expect(res.body.message).toContain('is required');
     });
 
     test('should return 400 status with error message if something went wrong with creating user', async () => {
@@ -51,7 +61,7 @@ describe('User API', () => {
         .post('/admin-api/user')
         .send(userMock)
         .expect(httpStatus.BAD_REQUEST);
-      expect(res.body.error).toBe(ERROR_MESSAGE);
+      expect(res.body.message).toBe(ERROR_MESSAGE);
     });
   });
 });
