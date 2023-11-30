@@ -17,6 +17,11 @@ const envsSchema = Joi.object()
     PORT: Joi.number().default(8080),
     API_KEY_TOKEN: Joi.string().required(),
     JWT_SECRET: Joi.string().required(),
+    DB_NAME: Joi.string().optional().default('nodite'),
+    DB_USER: Joi.string().optional().default('root'),
+    DB_PASS: Joi.string().optional().default('nodite'),
+    DB_HOST: Joi.string().optional().default('localhost'),
+    DB_PORT: Joi.number().optional().default(3306),
   })
   .unknown(true);
 
@@ -38,4 +43,9 @@ export default {
   port: envVars.PORT,
   xApiKey: envVars.API_KEY_TOKEN,
   jwtSecret: envVars.JWT_SECRET,
+  dbName: envVars.DB_NAME,
+  dbUser: envVars.DB_USER,
+  dbPass: envVars.DB_PASS,
+  dbHost: envVars.DB_HOST,
+  dbPort: envVars.DB_PORT,
 };
