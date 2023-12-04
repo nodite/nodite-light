@@ -47,7 +47,7 @@
     "@types/styled-components": "^5.1.31",
     "@types/yargs": "17.0.32",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
-    "@typescript-eslint/parser": "^6.11.0",
+    "@typescript-eslint/parser": "^6.13.1",
     "autoprefixer": "^10.4.16",
     "clsx": "^2.0.0",
     "concurrently": "^8.2.2",
