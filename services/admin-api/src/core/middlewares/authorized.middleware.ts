@@ -1,8 +1,8 @@
 import config from '@config/config';
 import { AuthorizedRequest } from '@core/interfaces/authorizedRequest';
 import AppError from '@core/utils/appError';
-import logger from '@core/utils/logger';
 import { NextFunction, Response } from 'express';
+import { unless } from 'express-unless';
 import httpStatus from 'http-status';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 
@@ -15,32 +15,37 @@ const authorized = (
     authorization?: string;
   };
 
-  const appError = new AppError(
-    httpStatus.UNAUTHORIZED,
-    'Access forbidden: invalid authorization',
-  );
-
   if (!authorization) {
-    logger.error('Missing authorization in request header');
-    throw appError;
+    return next(
+      new AppError(
+        httpStatus.UNAUTHORIZED,
+        'Missing authorization in request header',
+      ),
+    );
   }
 
   if (authorization?.indexOf('Bearer ') === -1) {
-    logger.error('Invalid authorization format');
-    throw appError;
+    return next(
+      new AppError(httpStatus.UNAUTHORIZED, 'Invalid authorization format'),
+    );
   }
 
   const [, token] = (authorization as string).split(' ');
 
   try {
-    const decoded = jwt.verify(token, config.jwtSecret.trim()) as JwtPayload;
-    req.userId = decoded.id;
+    const decoded = jwt.verify(
+      token,
+      config.jwtSecret.trim(),
+    ) as AuthorizedRequest['user'] & JwtPayload;
+
+    req.user = decoded;
   } catch (err) {
-    logger.error('Invalid jwt token: ', (err as Error).message);
-    throw appError;
+    return next(new AppError(httpStatus.UNAUTHORIZED, (err as Error).message));
   }
 
   return next();
 };
+
+authorized.unless = unless;
 
 export default authorized;

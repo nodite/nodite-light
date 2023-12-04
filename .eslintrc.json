@@ -30,7 +30,7 @@
     "prettier/prettier": "error",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
-    "tsdoc/syntax": "warn",
+    "tsdoc/syntax": "off",
     "max-len": [
       "error",
       {

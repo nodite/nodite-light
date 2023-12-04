@@ -1,26 +1,44 @@
-export interface IUser {
+import { IBase } from '@components/base.interface';
+
+export interface IUser extends IBase {
   /**
-   * @format uuid
+   * User ID
    */
-  id: string;
+  userId: number;
 
   /**
-   * @example Oscaner Miao
+   * Username
    */
-  name: string;
+  username: string;
 
   /**
-   * @example oscaner1997\@gmail.com
+   * Nickname
+   */
+  nickname: string;
+
+  /**
+   * Email
+   * @format email
    */
   email: string;
 
   /**
-   * @example active
+   * Phone
    */
-  status?: 'active' | 'inactive';
+  phone: string;
 
   /**
-   * @example 12345678910
+   * Sex
    */
-  phone?: string;
+  sex: 0 | 1;
+
+  /**
+   * Avatar
+   */
+  avatar: string;
+
+  /**
+   * Password
+   */
+  password: string;
 }

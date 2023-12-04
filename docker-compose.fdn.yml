@@ -1,10 +1,24 @@
 version: '3'
 
 services:
+  mysql:
+    build:
+      context: .
+      dockerfile: docker/mysql/Dockerfile
+    environment:
+      MYSQL_DATABASE: nodite
+      # MYSQL_USER: root
+      # MYSQL_PASSWORD: nodite
+      MYSQL_ROOT_PASSWORD: nodite
+    ports:
+      - 3306:3306
+    volumes:
+      - ./volumes/mysql:/var/lib/mysql
+
   postgres:
     build:
       context: .
-      dockerfile: Dockerfile.postgres
+      dockerfile: docker/postgres/Dockerfile
     environment:
       - PG_MAJOR
       - POSTGRES_USER=postgres
@@ -14,7 +28,6 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./docker/postgres-entrypoint.sh:/usr/local/bin/postgres-entrypoint.sh
       - ./volumes/postgres:/var/lib/postgresql/data
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U postgres']
