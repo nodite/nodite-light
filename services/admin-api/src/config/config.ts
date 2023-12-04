@@ -1,6 +1,5 @@
+import pkjJson from '@root/package.json';
 import Joi from 'joi';
-
-import pkjJson from '../../package.json';
 
 // All env variables used by the app should be defined in this file.
 
@@ -17,6 +16,14 @@ const envsSchema = Joi.object()
     PORT: Joi.number().default(8080),
     API_KEY_TOKEN: Joi.string().required(),
     JWT_SECRET: Joi.string().required(),
+    JWT_EXPIRES_IN: Joi.number().default(3600),
+    // TODO: multiple db engine.
+    DB_ENGINE: Joi.string().default('mysql').valid('mysql'),
+    DB_NAME: Joi.string().default('nodite'),
+    DB_USER: Joi.string().default('root'),
+    DB_PASS: Joi.string().default('nodite'),
+    DB_HOST: Joi.string().default('localhost'),
+    DB_PORT: Joi.number().default(3306),
   })
   .unknown(true);
 
@@ -38,4 +45,11 @@ export default {
   port: envVars.PORT,
   xApiKey: envVars.API_KEY_TOKEN,
   jwtSecret: envVars.JWT_SECRET,
+  jwtExpiresIn: envVars.JWT_EXPIRES_IN,
+  dbEngine: envVars.DB_ENGINE,
+  dbName: envVars.DB_NAME,
+  dbUser: envVars.DB_USER,
+  dbPass: envVars.DB_PASS,
+  dbHost: envVars.DB_HOST,
+  dbPort: envVars.DB_PORT,
 };

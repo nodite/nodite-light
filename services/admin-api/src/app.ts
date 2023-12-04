@@ -30,7 +30,16 @@ app.use(httpLogger.errorHandler);
 app.use(uniqueReqId);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(consts.API_ROOT_PATH, [protectedByApiKey, authorized], api);
+app.use(
+  consts.API_ROOT_PATH,
+  [
+    protectedByApiKey,
+    authorized.unless({
+      path: [`${consts.API_ROOT_PATH}/auth/login`],
+    }),
+  ],
+  api,
+);
 app.use(swaggerApiDocs);
 app.use(healthCheck);
 app.use(http404);

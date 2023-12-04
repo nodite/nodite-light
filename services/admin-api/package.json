@@ -9,8 +9,8 @@
   "scripts": {
     "build": "tsoa spec-and-routes && tsc && tsc-alias",
     "start:prod": "node dist/server.js",
-    "start:dev": "concurrently \"nodemon\" \"nodemon -x npm run server:dev\"",
-    "server:dev": "ts-node-dev --ignore-watch dist,node_modules,src --transpile-only --inspect=0.0.0.0:9229 --exit-child --respawn -r tsconfig-paths/register src/server.ts",
+    "start:dev": "concurrently \"nodemon\" \"npm run server:dev\"",
+    "server:dev": "ts-node-dev --ignore-watch dist,node_modules,.tsoa --transpile-only --inspect=0.0.0.0:9229 --exit-child --respawn -r tsconfig-paths/register src/server.ts",
     "test": "jest -c jest.config.js --env=node",
     "test:cov": "jest -c jest.config.js --coverage --env=node",
     "test:watch": "jest -c jest.config.js -i --watchAll",
@@ -25,23 +25,30 @@
   "license": "Apache-2.0",
   "dependencies": {
     "apicache": "^1.6.3",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.3.1",
     "express": "^4.17.1",
     "express-http-context": "^1.2.4",
     "express-rate-limit": "^7.1.5",
+    "express-unless": "^2.1.3",
     "fs": "^0.0.1-security",
+    "glob": "^10.3.10",
     "helmet": "^7.1.0",
     "http-status": "^1.5.0",
     "joi": "^17.5.0",
     "jsonwebtoken": "^9.0.2",
+    "lodash": "^4.17.21",
     "md5": "^2.3.0",
     "morgan": "^1.10.0",
+    "mysql2": "^3.6.5",
     "node-mocks-http": "^1.11.0",
     "path": "^0.12.7",
     "runtime-node-refresh": "^1.0.6",
+    "sequelize": "^6.35.1",
     "supertest": "^6.1.6",
     "swagger-ui-express": "^5.0.0",
     "tsoa": "^5.1.1",
+    "typescript": "^5.3.2",
     "uuid": "^9.0.0",
     "winston": "^3.6.0"
   },
@@ -66,7 +73,6 @@
     "ts-jest": "^29.1.1",
     "ts-node-dev": "^2.0.0",
     "tsc-alias": "^1.5.0",
-    "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.3.2"
+    "tsconfig-paths": "^4.2.0"
   }
 }

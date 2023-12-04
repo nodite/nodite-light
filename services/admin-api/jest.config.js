@@ -1,3 +1,4 @@
+/* eslint-disable node/no-unpublished-require */
 /* eslint-disable @typescript-eslint/no-var-requires */
 // TODO: use babel to run it with ES6
 const { pathsToModuleNameMapper } = require('ts-jest');

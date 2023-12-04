@@ -21,6 +21,7 @@
     "baseUrl": "src",
     "outDir": "./dist",
     "paths": {
+      "@root/*": ["../*"],
       "@app": ["./app.ts"],
       "@core/*": ["core/*"],
       "@components/*": ["components/*"],
