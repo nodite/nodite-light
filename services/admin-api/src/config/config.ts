@@ -24,6 +24,9 @@ const envsSchema = Joi.object()
     DB_PASS: Joi.string().default('nodite'),
     DB_HOST: Joi.string().default('localhost'),
     DB_PORT: Joi.number().default(3306),
+    REDIS_URL: Joi.string().default('redis://localhost:6379'),
+    REDIS_USER: Joi.string().allow(null, ''),
+    REDIS_PASS: Joi.string().allow(null, ''),
   })
   .unknown(true);
 
@@ -52,4 +55,7 @@ export default {
   dbPass: envVars.DB_PASS,
   dbHost: envVars.DB_HOST,
   dbPort: envVars.DB_PORT,
+  redisUrl: envVars.REDIS_URL,
+  redisUser: envVars.REDIS_USER,
+  redisPass: envVars.REDIS_PASS,
 };

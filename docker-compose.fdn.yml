@@ -15,6 +15,27 @@ services:
     volumes:
       - ./volumes/mysql:/var/lib/mysql
 
+  redis:
+    build:
+      context: .
+      dockerfile: docker/redis/Dockerfile
+    ports:
+      - 6379:6379
+    volumes:
+      - ./volumes/redis:/data
+
+  redis-commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: ghcr.io/joeferner/redis-commander:latest
+    restart: always
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - '6378:8081'
+    depends_on:
+      - redis
+
   postgres:
     build:
       context: .

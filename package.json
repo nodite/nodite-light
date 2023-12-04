@@ -25,6 +25,7 @@
     "docker:dev:stop": "docker-compose -f docker-compose.dev.yml stop",
     "fdn:up": "docker-compose -f docker-compose.fdn.yml build && docker-compose -f docker-compose.fdn.yml up -d",
     "fdn:stop": "docker-compose -f docker-compose.fdn.yml stop",
+    "fdn:down": "docker-compose -f docker-compose.fdn.yml down",
     "build": "lerna run build",
     "clean": "lerna run clean --parallel",
     "create-package": "ts-node scripts/create-package",

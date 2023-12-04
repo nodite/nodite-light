@@ -2,7 +2,6 @@ import { exit } from 'node:process';
 
 import app from '@app';
 import config from '@config/config';
-import Database from '@core/utils/database';
 import logger from '@core/utils/logger';
 import errorHandler from 'core/utils/errorHandler';
 import { Server } from 'http';
@@ -11,15 +10,6 @@ const { port } = config;
 
 const server: Server = app.listen(port, (): void => {
   logger.info(`Aapplication listens on PORT: ${port}`);
-  new Database().connect({
-    host: config.dbHost,
-    port: config.dbPort,
-    user: config.dbUser,
-    pass: config.dbPass,
-    dbName: config.dbName,
-    engine: config.dbEngine,
-    exitOnFail: true,
-  });
 });
 
 const exitHandler = (): void => {
