@@ -1,11 +1,8 @@
 import { BaseSchema } from '@components/base.model';
-import config from '@config/config';
-import { AuthorizedRequest } from '@core/interfaces/authorizedRequest';
 import AppError from '@core/utils/appError';
 import logger from '@core/utils/logger';
 import bcrypt from 'bcrypt';
 import httpStatus from 'http-status';
-import jwt from 'jsonwebtoken';
 import { DataTypes, Model, ModelAttributeColumnOptions } from 'sequelize';
 
 import { IUser } from './user.interface';
@@ -68,17 +65,6 @@ export class UserModel extends Model {
       throw new AppError(httpStatus.UNAUTHORIZED, 'Invalid password');
     }
     return true;
-  }
-
-  genJwtToken(): string {
-    const payload = {
-      userId: this.getDataValue('userId'),
-      username: this.getDataValue('username'),
-      email: this.getDataValue('email'),
-    } as AuthorizedRequest['user'];
-    return jwt.sign(payload as object, config.jwtSecret, {
-      expiresIn: config.jwtExpiresIn,
-    });
   }
 }
 

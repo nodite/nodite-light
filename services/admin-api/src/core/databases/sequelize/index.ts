@@ -1,39 +1,22 @@
 import path from 'node:path';
 import { exit } from 'node:process';
 
+import { SequelizeStoreOptions } from '@core/databases/sequelize/interface';
 import logger from '@core/utils/logger';
 import { sync } from 'glob';
 import { Sequelize } from 'sequelize';
 
-// eslint-disable-next-line no-underscore-dangle, @typescript-eslint/naming-convention
-let _DB: Sequelize;
+// eslint-disable-next-line import/no-mutable-exports
+let sequelize: Sequelize;
 
-interface SequelizeStoreOptions {
-  host?: string;
-  port?: number;
-  user?: string;
-  pass?: string;
-  dbName?: string;
-  engine?: string;
-  storagePath?: string;
-  exitOnFail?: boolean;
-}
-
-const logging = (sql: string) => {
-  logger.debug(sql);
-};
-
-export class Database {
+export default class Database {
   async connect(options: SequelizeStoreOptions): Promise<Sequelize | null> {
-    let sequelize: Sequelize;
-
     const {
       host = 'localhost',
       port = 3306,
       user = 'root',
       pass = 'nodite',
       dbName = 'nodite',
-      exitOnFail = true,
     } = options;
 
     // for sqlite engines
@@ -55,7 +38,7 @@ export class Database {
           sequelize = new Sequelize({
             dialect: 'sqlite',
             storage: `${storagePath}/${dbName}.sqlite`,
-            logging,
+            logging: (sql: string) => logger.debug(sql),
           });
           break;
 
@@ -70,7 +53,7 @@ export class Database {
             dialect: engine,
             username: user,
             password: pass,
-            logging,
+            logging: (sql: string) => logger.debug(sql),
           });
           break;
 
@@ -78,14 +61,12 @@ export class Database {
         default:
           engine = 'in:memory';
           sequelize = new Sequelize('sqlite::memory:', {
-            logging,
+            logging: (sql: string) => logger.debug(sql),
           });
           break;
       }
 
       await sequelize.authenticate();
-
-      _DB = sequelize;
 
       logger.info(`Successfully connected to "${engine}" database server`);
 
@@ -104,22 +85,17 @@ export class Database {
       );
 
       logger.info('successfully loaded models');
-
-      return _DB;
     } catch (err) {
       logger.error(`Failed to connect to ${engine} server: ${err}`);
-
-      if (exitOnFail) {
-        exit(1);
-      }
+      exit(1);
     }
 
-    return null;
+    return sequelize;
   }
 
   async disconnect() {
-    await _DB.close();
+    await sequelize.close();
   }
 }
 
-export default Database;
+export { sequelize };
