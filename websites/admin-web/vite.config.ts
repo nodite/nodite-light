@@ -1,51 +1,53 @@
 /// <reference types="vitest" />
-/// <reference types="vite/client" />
+// Plugins
+import { fileURLToPath, URL } from 'node:url';
 
-import react from '@vitejs/plugin-react-swc'
-import { join, resolve } from 'path'
-import { defineConfig, loadEnv } from 'vite'
+import vue from '@vitejs/plugin-vue';
+import AutoImport from 'unplugin-auto-import/vite';
+// Utilities
+import { defineConfig } from 'vite';
+import vuetify from 'vite-plugin-vuetify';
 
-export default defineConfig(({ mode }) => {
-  process.env = { ...process.env, ...loadEnv(mode, join(__dirname)) }
-
-  return {
-    plugins: [react()],
-    envDir: join(__dirname),
-    envPrefix: ['API_', 'VITE_'],
-    define: {
-      'import.meta.env.APP_VERSION': `"${process.env.npm_package_version}"`,
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    vue(),
+    // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
+    vuetify({
+      autoImport: true,
+      styles: { configFile: 'src/styles/variables.scss' },
+    }),
+    AutoImport({
+      imports: ['vue', 'vue-router', 'pinia'],
+    }),
+  ],
+  define: { 'process.env': {} },
+  test: {
+    globals: true,
+    environment: 'happy-dom',
+  },
+  resolve: {
+    alias: {
+      '~': fileURLToPath(new URL('./', import.meta.url)),
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@data': fileURLToPath(new URL('./src/data', import.meta.url)),
     },
-    test: {
-      globals: true,
-      environment: 'jsdom',
-      cache: { dir: './node_modules/.vitest' },
-      include: ['./**/*.{test,spec}.{ts,tsx}'],
-    },
-    publicDir: resolve(__dirname, 'public'),
-    root: resolve(__dirname, 'src'),
-    build: {
-      emptyOutDir: true,
-      outDir: resolve(__dirname, 'dist'),
-      rollupOptions: {
-        input: {
-          app: resolve(__dirname, 'src/index.html'),
-        },
+    extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx', '.vue'],
+  },
+  server: {
+    port: 4399,
+    proxy: {
+      '/sdApi': {
+        target: 'http://me.yunrobot.cn:7860',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/sdApi/, ''),
       },
     },
-    resolve: {
-      alias: [
-        { find: '@', replacement: resolve(__dirname, 'src') },
-        { find: '~', replacement: resolve(__dirname, 'public') },
-      ],
+  },
+  css: {
+    preprocessorOptions: {
+      scss: { charset: false },
+      css: { charset: false },
     },
-    base: process.env.VITE_BASE_URL,
-    server: {
-      port: 3000,
-      base: '/',
-      proxy: {},
-      watch: {
-        usePolling: true,
-      },
-    },
-  }
-})
+  },
+});
