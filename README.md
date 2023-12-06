@@ -1,5 +1,9 @@
 # nodite-light
 
+## Scope
+
+- [admin-api](services/admin-api/README.md)
+
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/)
@@ -157,27 +161,6 @@ For example:
 ```sh
 npm run test -- --scope=example-a
 ```
-
-## Release
-
-Release is automated with [Lerna](https://lerna.js.org/).
-
-If npm publish failed:
-
-1. Delete the Git tags on remote
-2. Rerun the [publish](https://github.com/nodite/nodite-light/actions/workflows/publish.yml) workflow
-
-Because Lerna commits and pushes the release to the remote repository, branch protection rules have been disabled.
-
-To prevent race conditions with Lerna release, don't merge PRs until after the publish workflow is done.
-
-### Canary
-
-To release a canary version for testing, run the [publish](https://github.com/nodite/nodite-light/actions/workflows/publish.yml) workflow with a branch other than `master`.
-
-### Dry Run
-
-To see the to-be-updated versions, run the [publish](https://github.com/nodite/nodite-light/actions/workflows/publish.yml) workflow and enable **Dry run**.
 
 ## License
 
