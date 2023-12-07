@@ -2,8 +2,8 @@
   "name": "@nodite-light/admin-web",
   "version": "0.0.1",
   "scripts": {
-    "start:dev": "vite --mode dev",
-    "build": "vite build --mode prod",
+    "start:dev": "vite",
+    "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
