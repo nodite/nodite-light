@@ -18,7 +18,7 @@
     "@tiptap/starter-kit": "^2.0.2",
     "@tiptap/vue-3": "^2.0.2",
     "@vueup/vue-quill": "^1.1.1",
-    "@vueuse/core": "^9.13.0",
+    "@vueuse/core": "^10.7.0",
     "@vueuse/integrations": "^9.13.0",
     "@yeger/vue-masonry-wall": "^3.4.4",
     "apexcharts": "^3.37.3",
