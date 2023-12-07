@@ -14,6 +14,6 @@ export const jwtAsync = Promise.promisifyAll(
     : (jwt as typeof jwt & { destroy: () => 'stateless' }),
 );
 
-export type JwtDestroyType = boolean | 'stateless';
+export type JwtDestroyType = Awaited<ReturnType<typeof jwtAsync.destroy>>;
 
 export default jwtAsync;
