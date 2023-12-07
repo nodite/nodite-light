@@ -6,7 +6,6 @@
 // Components
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
 import '@/styles/main.scss';
-import 'vue3-lottie/dist/style.css';
 
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
 import MasonryWall from '@yeger/vue-masonry-wall';
