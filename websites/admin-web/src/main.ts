@@ -1,0 +1,40 @@
+/**
+ * main.js
+ *
+ */
+
+// Components
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
+import '@/styles/main.scss';
+import 'vue3-lottie/dist/style.css';
+
+import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
+import MasonryWall from '@yeger/vue-masonry-wall';
+import piniaPersist from 'pinia-plugin-persist';
+// Composables
+import { createApp } from 'vue';
+import VueVirtualScroller from 'vue-virtual-scroller';
+import VueApexCharts from 'vue3-apexcharts';
+import Vue3Lottie from 'vue3-lottie';
+import PerfectScrollbar from 'vue3-perfect-scrollbar';
+
+import App from '@/App.vue';
+import i18n from '@/plugins/i18n';
+import vuetify from '@/plugins/vuetify';
+import router from '@/router';
+
+const pinia = createPinia();
+pinia.use(piniaPersist);
+const app = createApp(App);
+
+app.use(router);
+app.use(PerfectScrollbar);
+app.use(MasonryWall);
+app.use(VueVirtualScroller);
+app.use(VueApexCharts);
+app.use(pinia);
+app.use(i18n);
+app.use(Vue3Lottie, { name: 'LottieAnimation' });
+app.use(autoAnimatePlugin);
+app.use(vuetify);
+app.mount('#app');

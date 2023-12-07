@@ -1,7 +1,7 @@
 {
   "name": "@nodite-light/root",
   "version": "0.0.1",
-  "description": "A web framework with React & Express, use Javascript, Typescript & Nodejs for everything.",
+  "description": "A web framework with Vue & Express, use Javascript, Typescript & Nodejs for everything.",
   "repository": "git@github.com:nodite/nodite-light.git",
   "author": "Oscaner Miao <oscaner1997@gmail.com>",
   "license": "Apache-2.0",
@@ -9,6 +9,9 @@
   "keywords": [
     "chakra-ui",
     "express",
+    "vue",
+    "vuejs",
+    "vuetify",
     "react",
     "nodejs",
     "typescript",
@@ -37,6 +40,7 @@
   "devDependencies": {
     "@commitlint/cli": "18.4.3",
     "@commitlint/config-conventional": "18.4.3",
+    "@rushstack/eslint-patch": "^1.6.0",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "14.1.2",
     "@types/jest": "^29.5.10",
@@ -48,6 +52,8 @@
     "@types/yargs": "17.0.32",
     "@typescript-eslint/eslint-plugin": "^6.13.2",
     "@typescript-eslint/parser": "^6.13.1",
+    "@vitejs/plugin-vue": "^4.5.1",
+    "@vue/eslint-config-typescript": "^12.0.0",
     "autoprefixer": "^10.4.16",
     "clsx": "^2.0.0",
     "concurrently": "^8.2.2",

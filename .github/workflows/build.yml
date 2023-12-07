@@ -16,6 +16,11 @@ jobs:
           cache: npm
           node-version-file: .nvmrc
 
+      - name: Ensure dotenv
+        run: |
+          cp websites/admin-web/.env.template websites/admin-web/.env
+          cp services/admin-api/.env.template services/admin-api/.env
+
       - name: Install dependencies
         run: npm ci --prefer-offline
 
