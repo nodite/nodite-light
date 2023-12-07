@@ -29,7 +29,7 @@
     "flag-icons": "^6.6.6",
     "focus-trap": "^7.4.0",
     "happy-dom": "^9.6.1",
-    "md-editor-v3": "^2.11.2",
+    "md-editor-v3": "^4.9.0",
     "microsoft-cognitiveservices-speech-sdk": "^1.27.0",
     "moment": "^2.29.4",
     "openai": "^3.2.1",
