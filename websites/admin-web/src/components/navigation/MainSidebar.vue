@@ -7,13 +7,14 @@
 import { Icon } from '@iconify/vue';
 
 import MainMenu from '@/components/navigation/MainMenu.vue';
-import configs from '@/configs';
+import { routes } from '@/router';
 import { useCustomizeThemeStore } from '@/stores/customizeTheme';
+
 const customizeTheme = useCustomizeThemeStore();
-const navigation = ref(configs.navigation);
+const navigation = ref(routes);
 
 const openGithubSite = () => {
-  window.open('https://github.com/yangjiakai', '_blank');
+  window.open('https://github.com/oscaner', '_blank');
 };
 
 onMounted(() => {
@@ -52,7 +53,7 @@ const scrollToBottom = () => {
     <!---Nav List -->
     <!-- ---------------------------------------------- -->
 
-    <main-menu :menu="navigation.menu"></main-menu>
+    <main-menu :menu="navigation"></main-menu>
 
     <!-- ---------------------------------------------- -->
     <!---Bottom Area -->
@@ -70,12 +71,12 @@ const scrollToBottom = () => {
             <v-btn class="mr-2" size="40" color="white" :class="`text-${customizeTheme.primaryColor.colorName}`" icon>
               <Icon width="30" icon="line-md:github-loop" />
             </v-btn>
-            Yang J.K.
+            Oscaner
           </v-card-title>
           <v-card-subtitle> </v-card-subtitle>
           <v-card-text>
             <div><b>Github:</b></div>
-            <div>github.com/yangjiakai</div>
+            <div>github.com/oscaner</div>
           </v-card-text>
           <v-card-actions>
             <v-btn color="white" block prepend-icon="mdi-thumb-up-outline" variant="elevated" @click="openGithubSite">

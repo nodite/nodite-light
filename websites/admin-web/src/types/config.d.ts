@@ -1,3 +1,5 @@
+import { RouteRecordRaw } from 'vue-router';
+
 interface Config {
   theme: ThemeConfig.Config;
   locales: unknown;
@@ -56,15 +58,24 @@ declare namespace ThemeConfig {
 }
 
 declare namespace NavigationConfig {
-  interface Menu {
+  type Router = RouteRecordRaw & {
     icon?: string;
-    key?: string;
-    text?: string;
-    link?: string;
-    regex?: RegExp;
-    disabled?: boolean;
-    items?: NonNullable<Menu[]>;
-  }
+    iKey?: string; // i18n key
+    iType?: 'overline' | 'directory' | 'menu' | 'action'; // menu type
+    // text?: string; // use meta.title
+    // link?: string; // use path
+    meta?: {
+      [key: string]: string | boolean | undefined;
+      disabled?: boolean;
+      regex?: RegExp;
+      hidden?: boolean;
+      layout?: string;
+      title?: string;
+    };
+    children?: Router[];
+  };
+
+  type Menu = Router;
 
   interface Config {
     menu: Menu[];

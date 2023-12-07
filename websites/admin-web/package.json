@@ -30,6 +30,7 @@
     "happy-dom": "^12.10.3",
     "http-status": "^1.7.3",
     "js-cookie": "^3.0.5",
+    "lodash": "^4.17.21",
     "md-editor-v3": "^4.9.0",
     "microsoft-cognitiveservices-speech-sdk": "^1.27.0",
     "moment": "^2.29.4",
