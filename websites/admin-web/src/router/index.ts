@@ -1,7 +1,11 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
+
+import { NavigationConfig } from '@/types/config';
 
 import AuthRoutes from './auth.routes';
 import LandingRoutes from './landing.routes';
+
+export const dynamicRoutes = [];
 
 export const routes = [
   {
@@ -22,24 +26,50 @@ export const routes = [
     name: 'error',
     component: () => import(/* webpackChunkName: "error" */ '@/views/errors/NotFoundPage.vue'),
   },
+
   // lottie Animation
   {
-    path: '/ui/lottie-animation',
-    name: 'ui-lottie-animation',
-    component: () => import(/* webpackChunkName: "ui-lottie-animation" */ '@/views/ui/LottieAnimationPage.vue'),
+    iType: 'overline',
     meta: {
-      requiresAuth: true,
-      layout: 'ui',
-      category: 'UI',
-      title: 'LottieAnimation',
+      title: 'UI - Theme Preview',
     },
+    children: [
+      {
+        icon: 'mdi-animation-outline',
+        iKey: 'menu.lottieAnimation',
+        iType: 'menu',
+        path: '/ui/lottie-animation',
+        name: 'ui-lottie-animation',
+        component: () => import(/* webpackChunkName: "ui-lottie-animation" */ '@/views/ui/LottieAnimationPage.vue'),
+        meta: {
+          requiresAuth: true,
+          layout: 'ui',
+          category: 'UI',
+          title: 'Lottie Animation',
+        },
+      },
+    ],
   },
 
-  ...LandingRoutes,
-  ...AuthRoutes,
-] as RouteRecordRaw[];
+  {
+    iType: 'overline',
+    meta: {
+      title: 'Landing',
+    },
+    children: [...LandingRoutes],
+  },
 
-export const dynamicRoutes = [];
+  {
+    iType: 'overline',
+    iKey: 'menu.pages',
+    meta: {
+      title: 'Pages',
+    },
+    children: [...AuthRoutes],
+  },
+
+  ...dynamicRoutes,
+] as NavigationConfig.Router[];
 
 const router = createRouter({
   history: createWebHistory(),
