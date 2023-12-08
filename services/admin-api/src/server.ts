@@ -1,12 +1,11 @@
-import { exit } from 'node:process';
-
 import app from '@app';
 import config from '@config/config';
+import errorHandler from '@core/utils/errorHandler';
 import logger from '@core/utils/logger';
-import errorHandler from 'core/utils/errorHandler';
 import { Server } from 'http';
 
 const { port } = config;
+const { exit } = process;
 
 const server: Server = app.listen(port, (): void => {
   logger.info(`Aapplication listens on PORT: ${port}`);

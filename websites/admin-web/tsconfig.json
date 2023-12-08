@@ -1,10 +1,10 @@
 {
+  "extends": "../../tsconfig",
   "compilerOptions": {
     "baseUrl": "./",
     "target": "ESNext",
     "module": "ESNext",
     "lib": ["ESNext", "dom", "dom.iterable", "scripthost"],
-
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
@@ -13,9 +13,9 @@
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./src/*"]
-    },
-    "types": ["vitest/globals"]
+      "@/*": ["./src/*"],
+      "~/*": ["./*"]
+    }
+    // "types": ["vitest/globals"]
   }
 }
