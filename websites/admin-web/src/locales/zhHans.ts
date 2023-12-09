@@ -10,6 +10,9 @@ export default {
     contact: '联系我们',
     tos: '服务条款',
     policy: '隐私政策',
+    noSignIn: '未登陆',
+    networkError: '网络错误，请稍后再试',
+    authExpired: '身份验证已过期，请重新登录',
   },
   login: {
     title: '登录',

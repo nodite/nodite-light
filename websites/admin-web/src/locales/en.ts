@@ -10,6 +10,9 @@ export default {
     contact: 'Contact Us',
     tos: 'Terms of Service',
     policy: 'Privacy Policy',
+    noSignIn: 'No signed in.',
+    networkError: 'Network Error, Please try again later.',
+    authExpired: 'Authentication expired, please signin again.',
   },
   login: {
     title: 'Sign In',
