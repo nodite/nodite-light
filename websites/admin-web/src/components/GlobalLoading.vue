@@ -1,11 +1,11 @@
 <!--
-* @Component: 
+* @Component:
 * @Maintainer: J.K. Yang
-* @Description: 
+* @Description:
 -->
 <script setup lang="ts">
 import Loading from '@/components/loading/Loading02.vue';
-import { useAppStore } from '@/stores/appStore';
+import { useAppStore } from '@/stores/modules/appStore';
 const appStore = useAppStore();
 </script>
 

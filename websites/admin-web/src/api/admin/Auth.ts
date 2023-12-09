@@ -12,7 +12,7 @@
 import type { RequestParams } from '@/types/request';
 import { ContentType } from '@/types/request';
 import { request } from '@/utils/request/index';
-import type { IResponseJwtDestroyType, IResponseString, LoginBody } from './data-contracts';
+import type { IResponseJwtDestroyType, IResponseLoginResponse, LoginBody } from './data-contracts';
 
 /**
  * No description
@@ -23,7 +23,7 @@ import type { IResponseJwtDestroyType, IResponseString, LoginBody } from './data
  * @request POST:/auth/login
  */
 export const login = (data: LoginBody, params: RequestParams = {}) =>
-  request<IResponseString>({
+  request<IResponseLoginResponse>({
     path: `/auth/login`,
     method: 'POST',
     body: data,
@@ -33,7 +33,7 @@ export const login = (data: LoginBody, params: RequestParams = {}) =>
     ...params,
   });
 export const loginSkipErrorHandler = (data: LoginBody, params: RequestParams = {}) =>
-  request<IResponseString>({
+  request<IResponseLoginResponse>({
     path: `/auth/login`,
     method: 'POST',
     body: data,

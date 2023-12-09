@@ -24,20 +24,20 @@ const commonParams: Partial<GenerateApiParams> = {
 };
 
 const gen = async () => {
-  let API_HOST = '';
+  let API_HOST = 'http://localhost:8080';
 
   envPath.some((path) => {
     dotenv.config({
       path,
     });
 
-    const VITE_APP_BASE_API = process.env.VITE_APP_BASE_API;
+    const VITE_OPENAPI_HOST = process.env.VITE_OPENAPI_HOST;
 
-    if (VITE_APP_BASE_API) {
-      API_HOST = VITE_APP_BASE_API;
+    if (VITE_OPENAPI_HOST) {
+      API_HOST = VITE_OPENAPI_HOST;
     }
 
-    return !!VITE_APP_BASE_API;
+    return !!VITE_OPENAPI_HOST;
   });
 
   await generateApi({

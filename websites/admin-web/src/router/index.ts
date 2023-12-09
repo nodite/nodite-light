@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
+import i18n from '@/plugins/i18n';
+import { useAuthStore } from '@/stores/modules/authStore';
 import { NavigationConfig } from '@/types/config';
+import * as toolkit from '@/utils/request/toolkit';
 
 import AuthRoutes from './auth.routes';
 import LandingRoutes from './landing.routes';
@@ -16,7 +19,6 @@ export const routes = [
   {
     path: '/dashboard',
     meta: {
-      requiresAuth: true,
       layout: 'landing',
     },
     component: () => import('@/views/pages/DashBoard.vue'),
@@ -42,7 +44,6 @@ export const routes = [
         name: 'ui-lottie-animation',
         component: () => import(/* webpackChunkName: "ui-lottie-animation" */ '@/views/ui/LottieAnimationPage.vue'),
         meta: {
-          requiresAuth: true,
           layout: 'ui',
           category: 'UI',
           title: 'Lottie Animation',
@@ -84,6 +85,21 @@ const router = createRouter({
       return { top: 0 };
     }
   },
+});
+
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+
+  if (!to.meta?.noAuth && (!toolkit.token.get() || !authStore.isLoggedIn)) {
+    toolkit.redirectToLogin(i18n.global.t('common.noSignIn'));
+    return;
+  }
+
+  if (to.meta?.noAuth) return next();
+
+  authStore.getUser().then((user) => {
+    next();
+  });
 });
 
 export default router;

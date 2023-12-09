@@ -11,6 +11,7 @@ export default [
     meta: {
       hidden: true,
       title: 'Auth Pages',
+      noAuth: true,
     },
     children: [
       {
@@ -24,6 +25,7 @@ export default [
           hidden: true,
           layout: 'auth',
           title: 'SignIn',
+          noAuth: true,
         },
       },
       {
@@ -37,6 +39,7 @@ export default [
           hidden: true,
           layout: 'auth',
           title: 'SignUp',
+          noAuth: true,
         },
       },
       {
@@ -47,10 +50,10 @@ export default [
         name: 'verify-email',
         component: () => import(/* webpackChunkName: "verify-email" */ '@/views/auth/VerifyEmailPage.vue'),
         meta: {
-          requiresAuth: true,
           hidden: true,
           layout: 'auth',
           title: 'VerifyEmail',
+          noAuth: false,
         },
       },
     ],

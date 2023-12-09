@@ -7,7 +7,7 @@ import jwtAsync, { JwtDestroyType } from '@core/utils/jwt';
 import httpStatus from 'http-status';
 import lodash from 'lodash';
 
-import { LoginBody } from './auth.interface';
+import { LoginBody, LoginResponse } from './auth.interface';
 
 export class AuthService {
   userService: UserService;
@@ -19,9 +19,9 @@ export class AuthService {
   /**
    * Login
    * @param body LoginBody
-   * @returns string
+   * @returns LoginResponse
    */
-  public async login(body: LoginBody): Promise<string> {
+  public async login(body: LoginBody): Promise<LoginResponse> {
     let user: UserModel | null = null;
 
     if (!lodash.isEmpty(body.username)) {
@@ -44,9 +44,12 @@ export class AuthService {
       email: user.getDataValue('email'),
     } as AuthorizedRequest['user'];
 
-    return jwtAsync.sign(payload as object, config.jwtSecret, {
+    return {
+      token: await jwtAsync.sign(payload as object, config.jwtSecret, {
+        expiresIn: config.jwtExpiresIn,
+      }),
       expiresIn: config.jwtExpiresIn,
-    });
+    };
   }
 
   /**

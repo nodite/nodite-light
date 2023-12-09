@@ -8,7 +8,7 @@ import { Icon } from '@iconify/vue';
 import { useLocale } from 'vuetify';
 
 import config from '@/configs';
-import { useCustomizeThemeStore } from '@/stores/customizeTheme';
+import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
 const { current } = useLocale();
 const { availableLocales } = config.locales;
 const customizeTheme = useCustomizeThemeStore();

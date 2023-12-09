@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
 
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/stores/modules/authStore';
 
 const authStore = useAuthStore();
 const username = ref('');

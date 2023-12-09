@@ -12,5 +12,9 @@ export const useAppStore = defineStore({
   },
 
   getters: {},
-  actions: {},
+  actions: {
+    setGlobalLoading(value: boolean) {
+      this.globalLoading = value;
+    },
+  },
 });

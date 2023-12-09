@@ -13,9 +13,11 @@ export default {
     noSignIn: 'No signed in.',
     networkError: 'Network Error, Please try again later.',
     authExpired: 'Authentication expired, please signin again.',
+    validateFailed: 'Validate failed, please check your input.',
   },
   login: {
     title: 'Sign In',
+    username: 'Username',
     email: 'Email',
     password: 'Password',
     button: 'Sign In',
@@ -24,6 +26,12 @@ export default {
     noaccount: "Don't have an account?",
     create: 'Create one here',
     error: 'The email / password combination is invalid',
+    success: 'Login successfully',
+    rules: {
+      usernameRequired: 'Username is required',
+      passwordRequired: 'Password is required',
+      passwordMax: 'Password must be less than 10 characters',
+    },
   },
   register: {
     title: 'Create Account',

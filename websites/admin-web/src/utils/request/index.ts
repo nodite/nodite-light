@@ -3,11 +3,10 @@ import axios from 'axios';
 import httpStatus from 'http-status';
 
 import i18n from '@/plugins/i18n';
-import { useSnackbarStore } from '@/stores/snackbarStore';
+import { useSnackbarStore } from '@/stores/modules/snackbarStore';
 import { ContentType, FullRequestParams, IResponse } from '@/types/request';
 import * as toolkit from '@/utils/request/toolkit';
 
-const snackbarStore = useSnackbarStore();
 const requestCanceler = new toolkit.RequestCanceler();
 
 // Set default content type
@@ -25,6 +24,7 @@ const axiosInstance = axios.create({
 // Request interceptors
 axiosInstance.interceptors.request.use((config) => {
   config.headers.Authorization = `Bearer ${toolkit.token.get()}`;
+  config.headers['x-api-key'] = import.meta.env.VITE_APP_API_KEY || '';
   config.headers.datasource = 'master';
   requestCanceler.addPendingRequest(config);
   return config;
@@ -40,7 +40,9 @@ axiosInstance.interceptors.response.use(
     console.error(error);
     if (error?.config) requestCanceler.removePendingRequest(error.config);
     if (error?.code === 'ERR_CANCELED') return;
-    snackbarStore.showErrorMessage(error.message || i18n.global.t('common.networkError'));
+    useSnackbarStore().showErrorMessage(
+      error?.response?.data?.message || error.message || i18n.global.t('common.networkError'),
+    );
   },
 );
 
@@ -115,7 +117,7 @@ export async function request({
     return;
   }
 
-  snackbarStore.showErrorMessage(axiosResponse.data?.message || i18n.global.t('common.networkError'));
+  useSnackbarStore().showErrorMessage(axiosResponse.data?.message || i18n.global.t('common.networkError'));
 
   throw axiosResponse.data;
 }

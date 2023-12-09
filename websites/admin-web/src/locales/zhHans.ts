@@ -13,9 +13,11 @@ export default {
     noSignIn: '未登陆',
     networkError: '网络错误，请稍后再试',
     authExpired: '身份验证已过期，请重新登录',
+    validateFailed: '验证失败，请检查您的输入',
   },
   login: {
     title: '登录',
+    username: '用户名',
     email: '电子邮件',
     password: '密码',
     button: '登录',
@@ -24,6 +26,12 @@ export default {
     noaccount: '还没有帐号？',
     create: '在此处创建一个',
     error: '电子邮件/密码组合无效',
+    success: '登陆成功',
+    rules: {
+      usernameRequired: '用户名是必填项',
+      passwordRequired: '密码是必填项',
+      passwordMax: '密码必须少于10个字符',
+    },
   },
   register: {
     title: '创建帐号',

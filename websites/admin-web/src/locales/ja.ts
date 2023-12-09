@@ -10,9 +10,11 @@ export default {
     contact: 'お問い合わせ',
     tos: '利用規約',
     policy: '個人情報保護方針',
+    validateFailed: '検証に失敗しました。入力内容を確認してください。',
   },
   login: {
     title: 'サインイン',
+    username: 'ユーザー名',
     email: 'Eメール',
     password: 'パスワード',
     button: 'サインイン',
@@ -21,6 +23,12 @@ export default {
     noaccount: 'アカウントをお持ちではありませんか？',
     create: 'ここで作成します',
     error: 'メールとパスワードの組み合わせが無効です',
+    success: 'ログイン成功',
+    rules: {
+      usernameRequired: 'ユーザー名は必須です',
+      passwordRequired: 'パスワードは必須です',
+      passwordMax: 'パスワードは10文字未満である必要があります',
+    },
   },
   register: {
     title: 'アカウントを作成する',

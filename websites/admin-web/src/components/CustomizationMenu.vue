@@ -2,7 +2,7 @@
 import { Icon } from '@iconify/vue';
 import { useTheme } from 'vuetify';
 
-import { useCustomizeThemeStore } from '@/stores/customizeTheme';
+import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
 interface Color {
   colorId: number;
   colorName: string;

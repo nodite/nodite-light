@@ -4,18 +4,14 @@
 * @Description:
 -->
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
-
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/stores/modules/authStore';
 
 import StatusMenu from './StatusMenu.vue';
-const router = useRouter();
 
 const authStore = useAuthStore();
+
 const handleLogout = () => {
   authStore.logout();
-  console.log('---');
-  console.log(router);
 };
 
 const navs = [
@@ -59,12 +55,11 @@ const navs = [
           </template>
 
           <v-list-item-title class="font-weight-bold text-primary">
-            YANG J.K.
+            {{ authStore.user?.nickname || authStore.user?.username }}
             <StatusMenu />
           </v-list-item-title>
           <v-list-item-subtitle>
-            <!-- {{ $store.state.user.email  }} -->
-            yjkbako@gmail.com
+            {{ authStore.user?.email }}
           </v-list-item-subtitle>
         </v-list-item>
       </v-list>

@@ -9,8 +9,8 @@ export const token = {
   get: (): string | undefined => Cookie.get(token.KEY),
 
   set: (jwtToken: string, expiresIn?: number): void => {
-    Cookie.set(token.KEY, jwtToken, { expires: expiresIn });
-    Cookie.set(token.KEY_EXPIRES_IN, String(expiresIn), { expires: expiresIn });
+    Cookie.set(token.KEY, jwtToken);
+    Cookie.set(token.KEY_EXPIRES_IN, String(expiresIn));
   },
 
   remove: (): void => {

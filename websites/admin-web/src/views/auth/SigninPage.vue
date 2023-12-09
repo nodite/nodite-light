@@ -1,59 +1,64 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
 
-import { useAuthStore } from '@/stores/authStore';
+import i18n from '@/plugins/i18n';
+import { useAuthStore } from '@/stores/modules/authStore';
+import { useSnackbarStore } from '@/stores/modules/snackbarStore';
 
+const snackbarStore = useSnackbarStore();
 const authStore = useAuthStore();
-const isLoading = ref(false);
-const isSignInDisabled = ref(false);
 
+// auth state
+const authState = ref({
+  isLoading: false,
+  isSignInDisabled: false,
+});
+
+// login form
 const refLoginForm = ref();
-const email = ref('vuetify3-visitor@gmail.com');
-const password = ref('sfm12345');
-const isFormValid = ref(true);
 
-// show password field
-const showPassword = ref(false);
+const loginForm = ref({
+  username: 'admin',
+  password: 'admin',
+  isFormValid: true,
+  showPassword: false,
+});
+
+const loginRules = ref({
+  username: [(v: string) => !!v || i18n.global.t('login.rules.usernameRequired')],
+  password: [
+    (v: string) => !!v || i18n.global.t('login.rules.passwordRequired'),
+    (v: string) => (v && v.length <= 10) || i18n.global.t('login.rules.passwordMax'),
+  ],
+});
 
 const handleLogin = async () => {
   const { valid } = await refLoginForm.value.validate();
-  if (valid) {
-    isLoading.value = true;
-    isSignInDisabled.value = true;
-    authStore.loginWithEmailAndPassword(email.value, password.value);
+  if (valid && loginForm.value.isFormValid) {
+    authState.value.isLoading = true;
+    authState.value.isSignInDisabled = true;
+    authStore.login(loginForm.value);
   } else {
-    console.log('no');
+    snackbarStore.showErrorMessage(i18n.global.t('common.validateFailed'));
   }
 };
 
-const signInWithGoolgle = () => {
-  authStore.loginWithGoogle();
+// other sign in providers
+const signInWithWeChat = () => {
+  authStore.loginWithWeChat();
 };
-
-// Error Check
-const emailRules = ref([
-  (v: string) => !!v || 'E-mail is required',
-  (v: string) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-]);
-
-const passwordRules = ref([
-  (v: string) => !!v || 'Password is required',
-  (v: string) => (v && v.length <= 10) || 'Password must be less than 10 characters',
-]);
 
 // error provider
-const errorProvider = ref(false);
-const errorProviderMessages = ref('');
+const errorHandler = ref({
+  errorProvider: false,
+  errorProviderMessage: '',
+  error: false,
+  errorMessages: '',
+});
 
-const error = ref(false);
-const errorMessages = ref('');
 const resetErrors = () => {
-  error.value = false;
-  errorMessages.value = '';
-};
-
-const signInWithFacebook = () => {
-  alert(authStore.isLoggedIn);
+  errorHandler.value.error = false;
+  errorHandler.value.errorMessages = '';
 };
 </script>
 <template>
@@ -65,49 +70,51 @@ const signInWithFacebook = () => {
     <!-- sign in form -->
 
     <v-card-text>
-      <v-form ref="refLoginForm" class="text-left" v-model="isFormValid" lazy-validation>
+      <v-form ref="refLoginForm" class="text-left" v-model="loginForm.isFormValid" lazy-validation>
+        <!-- username -->
         <v-text-field
-          ref="refEmail"
-          v-model="email"
+          v-model="loginForm.username"
           required
-          :error="error"
-          :label="$t('login.email')"
+          :error="errorHandler.error"
+          :label="$t('login.username')"
           density="default"
           variant="underlined"
           color="primary"
           bg-color="#fff"
-          :rules="emailRules"
-          name="email"
+          :rules="loginRules.username"
+          name="username"
           outlined
           validateOn="blur"
-          placeholder="403474473@qq.com"
+          placeholder=""
           @keyup.enter="handleLogin"
           @change="resetErrors"
         ></v-text-field>
+
+        <!-- password -->
         <v-text-field
-          ref="refPassword"
-          v-model="password"
-          :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="showPassword ? 'text' : 'password'"
-          :error="error"
-          :error-messages="errorMessages"
+          v-model="loginForm.password"
+          :append-inner-icon="loginForm.showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="loginForm.showPassword ? 'text' : 'password'"
+          :error="errorHandler.error"
+          :error-messages="errorHandler.errorMessages"
           :label="$t('login.password')"
-          placeholder="sfm12345"
+          placeholder=""
           density="default"
           variant="underlined"
           color="primary"
           bg-color="#fff"
-          :rules="passwordRules"
+          :rules="loginRules.password"
           name="password"
           outlined
           validateOn="blur"
           @change="resetErrors"
           @keyup.enter="handleLogin"
-          @click:append-inner="showPassword = !showPassword"
+          @click:append-inner="loginForm.showPassword = !loginForm.showPassword"
         ></v-text-field>
+
         <v-btn
-          :loading="isLoading"
-          :disabled="isSignInDisabled"
+          :loading="authState.isLoading"
+          :disabled="authState.isSignInDisabled"
           block
           size="x-large"
           color="primary"
@@ -116,6 +123,7 @@ const signInWithFacebook = () => {
           >{{ $t('login.button') }}</v-btn
         >
 
+        <!-- orsign overtext -->
         <div class="text-grey text-center text-caption font-weight-bold text-uppercase my-5">
           {{ $t('login.orsign') }}
         </div>
@@ -127,36 +135,26 @@ const signInWithFacebook = () => {
           elevation="1"
           block
           size="x-large"
-          @click="signInWithGoolgle"
-          :disabled="isSignInDisabled"
+          @click="signInWithWeChat"
+          :disabled="authState.isSignInDisabled"
         >
-          <Icon icon="logos:google-icon" class="mr-3 my-2" />
-          Google
-        </v-btn>
-        <v-btn
-          class="mb-2 lighten-2 text-capitalize"
-          elevation="1"
-          color="white"
-          block
-          size="x-large"
-          :disabled="isSignInDisabled"
-          @click="signInWithFacebook"
-        >
-          <Icon icon="logos:facebook" class="mr-3" />
-          Facebook
+          <Icon icon="ic:baseline-wechat" class="mr-3 my-2" />
+          WeChat
         </v-btn>
 
-        <div v-if="errorProvider" class="error--text my-2">
-          {{ errorProviderMessages }}
+        <!-- error message -->
+        <div v-if="errorHandler.errorProvider" class="error--text my-2">
+          {{ errorHandler.errorProviderMessage }}
         </div>
 
+        <!-- forgot password -->
         <div class="mt-5 text-center">
           <router-link class="text-primary" to="/auth/forgot-password">
             {{ $t('login.forgot') }}
           </router-link>
         </div>
-      </v-form></v-card-text
-    >
+      </v-form>
+    </v-card-text>
   </v-card>
   <div class="text-center mt-6">
     {{ $t('login.noaccount') }}

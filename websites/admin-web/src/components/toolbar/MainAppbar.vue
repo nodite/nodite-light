@@ -7,7 +7,7 @@
 import { useDisplay } from 'vuetify';
 
 import LanguageSwitcher from '@/components/toolbar/LanguageSwitcher.vue';
-import { useCustomizeThemeStore } from '@/stores/customizeTheme';
+import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
 
 import ToolbarUser from './ToolbarUser.vue';
 const { mdAndUp } = useDisplay();

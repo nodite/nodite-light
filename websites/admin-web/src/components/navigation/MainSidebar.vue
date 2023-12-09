@@ -8,7 +8,7 @@ import { Icon } from '@iconify/vue';
 
 import MainMenu from '@/components/navigation/MainMenu.vue';
 import { routes } from '@/router';
-import { useCustomizeThemeStore } from '@/stores/customizeTheme';
+import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
 
 const customizeTheme = useCustomizeThemeStore();
 const navigation = ref(routes);

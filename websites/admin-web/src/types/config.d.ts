@@ -71,6 +71,7 @@ declare namespace NavigationConfig {
       hidden?: boolean;
       layout?: string;
       title?: string;
+      noAuth?: boolean;
     };
     children?: Router[];
   };

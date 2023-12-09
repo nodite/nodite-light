@@ -9,12 +9,18 @@
  * ---------------------------------------------------------------
  */
 
-export interface IResponseString {
+export interface LoginResponse {
+  /** @format double */
+  expiresIn: number;
+  token: string;
+}
+
+export interface IResponseLoginResponse {
   error: boolean;
   /** @format double */
   httpCode: number;
   message: string;
-  data?: string;
+  data?: LoginResponse;
 }
 
 /** From T, pick a set of properties whose keys are in the union K */
