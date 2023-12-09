@@ -1,6 +1,7 @@
 declare interface ImportMeta {
   readonly env: {
     // Environment variables defined in .env
+    readonly VITE_APP_TITLE: string;
     readonly VITE_APP_BASE_API: string;
   };
 }
