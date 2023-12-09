@@ -9,7 +9,8 @@
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "openapi": "tsx openapi.config.ts"
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.7.0",
@@ -64,7 +65,9 @@
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.21",
     "sass": "^1.61.0",
+    "swagger-typescript-api": "^13.0.3",
     "tailwindcss": "^3.3.1",
+    "tsx": "^4.6.2",
     "unplugin-auto-import": "^0.17.2",
     "vite": "^5.0.6",
     "vite-plugin-vuetify": "^1.0.2",

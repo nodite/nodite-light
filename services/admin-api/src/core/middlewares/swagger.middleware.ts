@@ -6,6 +6,8 @@ import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import swaggerUi from 'swagger-ui-express';
 
+swaggerDocument.servers[0].url = consts.API_ROOT_PATH;
+
 const swaggerForbidden = () => {
   logger.error('Trying to access swagger docs on production');
   throw new AppError(
@@ -14,11 +16,14 @@ const swaggerForbidden = () => {
   );
 };
 
-const swaggerBasePath = (req: Request, res: Response, next: NextFunction) => {
-  swaggerDocument.servers[0].url = consts.API_ROOT_PATH;
-  swaggerUi.setup(swaggerDocument)(req, res, () => {
+const swaggerJsonPath = (req: Request, res: Response) => {
+  return res.json(swaggerDocument);
+};
+
+const swaggerDocsPath = (req: Request, res: Response, next: NextFunction) => {
+  swaggerUi.setup(swaggerDocument, {})(req, res, () => {
     next();
   });
 };
 
-export { swaggerBasePath, swaggerForbidden };
+export { swaggerDocsPath, swaggerForbidden, swaggerJsonPath };
