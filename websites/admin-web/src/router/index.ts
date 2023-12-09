@@ -72,7 +72,7 @@ export const routes = [
 ] as NavigationConfig.Router[];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.VITE_APP_BASE_PATH || '/'),
   // hash模式：createWebHashHistory，history模式：createWebHistory
   // process.env.NODE_ENV === "production"
 

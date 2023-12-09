@@ -13,6 +13,7 @@ export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd());
 
   return {
+    base: env.VITE_APP_BASE_PATH || '/',
     plugins: [
       vue(),
       // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
