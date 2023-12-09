@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: docker/mysql/Dockerfile
+    privileged: true
     environment:
       MYSQL_DATABASE: nodite
       # MYSQL_USER: root
@@ -14,15 +15,20 @@ services:
       - 3306:3306
     volumes:
       - ./volumes/mysql:/var/lib/mysql
+    networks:
+      - default
 
   redis:
     build:
       context: .
       dockerfile: docker/redis/Dockerfile
+    privileged: true
     ports:
       - 6379:6379
     volumes:
       - ./volumes/redis:/data
+    networks:
+      - default
 
   redis-commander:
     container_name: redis-commander
@@ -35,11 +41,14 @@ services:
       - '6378:8081'
     depends_on:
       - redis
+    networks:
+      - default
 
   postgres:
     build:
       context: .
       dockerfile: docker/postgres/Dockerfile
+    privileged: true
     environment:
       - PG_MAJOR
       - POSTGRES_USER=postgres
