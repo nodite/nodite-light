@@ -6,6 +6,7 @@ import vue from '@vitejs/plugin-vue';
 import AutoImport from 'unplugin-auto-import/vite';
 // Utilities
 import { defineConfig, loadEnv } from 'vite';
+import { compression } from 'vite-plugin-compression2';
 import vuetify from 'vite-plugin-vuetify';
 
 // https://vitejs.dev/config/
@@ -24,6 +25,7 @@ export default defineConfig(({ command, mode }) => {
       AutoImport({
         imports: ['vue', 'vue-router', 'pinia'],
       }),
+      compression(),
     ],
     define: { 'process.env': {} },
     test: {
