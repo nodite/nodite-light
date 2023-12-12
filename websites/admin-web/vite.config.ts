@@ -3,6 +3,7 @@
 import { fileURLToPath, URL } from 'node:url';
 
 import vue from '@vitejs/plugin-vue';
+import lodash from 'lodash';
 import AutoImport from 'unplugin-auto-import/vite';
 // Utilities
 import { defineConfig, loadEnv, version as viteVersion } from 'vite';
@@ -31,12 +32,11 @@ export default defineConfig(({ command, mode }) => {
       compression(),
     ],
     define: {
-      'process.env': env,
-      'import.meta.versions': {
+      'process.env': lodash.merge(env, {
         vite: viteVersion,
         vue: vueVersion,
         vuetify: vuetifyVersion,
-      },
+      }),
     },
     test: {
       globals: true,

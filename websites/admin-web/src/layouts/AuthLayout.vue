@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const title = import.meta.env.VITE_APP_TITLE;
-const { vue, vuetify, vite } = import.meta.versions;
+const { vue, vuetify, vite } = process.env;
 </script>
 
 <template>
