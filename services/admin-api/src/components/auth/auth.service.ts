@@ -45,7 +45,7 @@ export class AuthService {
     } as AuthorizedRequest['user'];
 
     return {
-      token: await jwtAsync.sign(payload as object, config.jwtSecret, {
+      token: await jwtAsync().sign(payload as object, config.jwtSecret, {
         expiresIn: config.jwtExpiresIn,
       }),
       expiresIn: config.jwtExpiresIn,
@@ -60,7 +60,7 @@ export class AuthService {
   public async logout(
     user: AuthorizedRequest['user'],
   ): Promise<JwtDestroyType> {
-    return jwtAsync.destroy(user?.jti || '');
+    return jwtAsync().destroy(user?.jti || '');
   }
 }
 

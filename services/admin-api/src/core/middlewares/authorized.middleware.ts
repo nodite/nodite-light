@@ -35,7 +35,7 @@ const authorized = async (
   const [, token] = (authorization as string).split(' ');
 
   try {
-    const decoded = (await jwtAsync.verify(
+    const decoded = (await jwtAsync().verify(
       token,
       config.jwtSecret.trim(),
     )) as AuthorizedRequest['user'] & JwtPayload;

@@ -66,7 +66,8 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async logout() {
-      await AuthApi.logout();
+      const res = await AuthApi.logout();
+      console.log('logout', res);
       toolkit.token.remove();
       this.$reset();
       router.push({ name: 'auth-signin' });

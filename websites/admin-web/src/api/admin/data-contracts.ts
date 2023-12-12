@@ -39,9 +39,9 @@ export interface PickIUserUsernameOrEmailOrPassword {
 export type LoginBody = PickIUserUsernameOrEmailOrPassword;
 
 /** Recursively unwraps the "awaited type" of a type. Non-promise "thenables" should resolve to `never`. This emulates the behavior of `await`. */
-export type AwaitedReturnTypeTypeofjwtAsyncDestroy = any;
+export type AwaitedReturnTypeAwaitedReturnTypeTypeofjwtAsync5Bdestroy5D = any;
 
-export type JwtDestroyType = AwaitedReturnTypeTypeofjwtAsyncDestroy;
+export type JwtDestroyType = AwaitedReturnTypeAwaitedReturnTypeTypeofjwtAsync5Bdestroy5D;
 
 export interface IResponseJwtDestroyType {
   error: boolean;
