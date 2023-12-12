@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import i18n from '@/plugins/i18n';
 import { useAuthStore } from '@/stores/modules/authStore';
+import { useProfileStore } from '@/stores/modules/profileStore';
 import { NavigationConfig } from '@/types/config';
 import * as toolkit from '@/utils/request/toolkit';
 
@@ -97,7 +98,9 @@ router.beforeEach((to, from, next) => {
 
   if (to.meta?.noAuth) return next();
 
-  authStore.getUser().then((user) => {
+  const profileStore = useProfileStore();
+
+  profileStore.getProfile().then((profile) => {
     next();
   });
 });

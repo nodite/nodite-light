@@ -1,19 +1,15 @@
-import lodash from 'lodash';
 import { defineStore } from 'pinia';
 
 import * as AuthApi from '@/api/admin/Auth';
-import { IUser } from '@/api/admin/data-contracts';
-import * as UserApi from '@/api/admin/User';
+import { LoginBody } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
 import router from '@/router';
 import { useSnackbarStore } from '@/stores/modules/snackbarStore';
 import * as toolkit from '@/utils/request/toolkit';
 
-import { useAppStore } from './appStore';
-
 export type AuthState = {
   isLoggedIn: boolean;
-  user: IUser | undefined;
+  user: LoginBody | undefined;
 };
 
 export const useAuthStore = defineStore('auth', {
@@ -24,23 +20,12 @@ export const useAuthStore = defineStore('auth', {
 
   persist: {
     enabled: true,
-    strategies: [
-      { storage: localStorage },
-      // { storage: sessionStorage, paths: ["profile"] }
-    ],
+    strategies: [{ storage: localStorage, paths: ['isLoggedIn'] }],
   },
 
   getters: {},
 
   actions: {
-    async getUser() {
-      if (lodash.isEmpty(this.user)) {
-        console.log('fetch user');
-        this.user = await UserApi.curr();
-      }
-      return this.user;
-    },
-
     async registerWithEmailAndPassword(userInfo: unknown) {
       router.push('/');
     },

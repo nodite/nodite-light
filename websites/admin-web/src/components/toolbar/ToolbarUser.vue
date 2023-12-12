@@ -5,10 +5,12 @@
 -->
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/modules/authStore';
+import { useProfileStore } from '@/stores/modules/profileStore';
 
 import StatusMenu from './StatusMenu.vue';
 
 const authStore = useAuthStore();
+const profileStore = useProfileStore();
 
 const handleLogout = () => {
   authStore.logout();
@@ -55,11 +57,11 @@ const navs = [
           </template>
 
           <v-list-item-title class="font-weight-bold text-primary">
-            {{ authStore.user?.nickname || authStore.user?.username }}
+            {{ profileStore.profile?.nickname || profileStore.profile?.username }}
             <StatusMenu />
           </v-list-item-title>
           <v-list-item-subtitle>
-            {{ authStore.user?.email }}
+            {{ profileStore.profile?.email }}
           </v-list-item-subtitle>
         </v-list-item>
       </v-list>
