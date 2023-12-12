@@ -1,4 +1,4 @@
-import { LoginBody } from '@components/auth/auth.interface';
+import { LoginBody, LoginResponse } from '@components/auth/auth.interface';
 import { AuthService } from '@components/auth/auth.service';
 import LoginBodyValidation from '@components/auth/auth.validate';
 import BaseController from '@components/base.controller';
@@ -24,7 +24,9 @@ export class AuthController extends BaseController {
    */
   @Post('login')
   @Middlewares([validate(LoginBodyValidation)])
-  public async login(@Body() body: LoginBody): Promise<IResponse<string>> {
+  public async login(
+    @Body() body: LoginBody,
+  ): Promise<IResponse<LoginResponse>> {
     const result = await this.authService.login(body);
     this.setStatus(httpStatus.OK);
     return this.response(result);

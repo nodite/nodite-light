@@ -17,7 +17,7 @@ import AuthLayout from '@/layouts/AuthLayout.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import LandingLayout from '@/layouts/LandingLayout.vue';
 import UILayout from '@/layouts/UILayout.vue';
-import { useCustomizeThemeStore } from '@/stores/customizeTheme';
+import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
 
 const customizeTheme = useCustomizeThemeStore();
 const route = useRoute();
@@ -32,6 +32,7 @@ const layouts = {
   ui: UILayout,
   landing: LandingLayout,
   auth: AuthLayout,
+  error: DefaultLayout,
 };
 
 type LayoutName = 'default' | 'ui' | 'landing' | 'auth' | 'error';

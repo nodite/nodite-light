@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import lodash from 'lodash';
 
-import { useCustomizeThemeStore } from '@/stores/customizeTheme';
+import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
 import { NavigationConfig } from '@/types/config';
 
 const customizeTheme = useCustomizeThemeStore();

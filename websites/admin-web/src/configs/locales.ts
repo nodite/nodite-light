@@ -7,6 +7,7 @@ let locale = 'en';
 
 try {
   const { 0: browserLang } = navigator.language.split('-');
+  if (browserLang == 'zh') locale = 'zhHans';
   if (supported.includes(browserLang)) locale = browserLang;
 } catch (e) {
   console.log(e);

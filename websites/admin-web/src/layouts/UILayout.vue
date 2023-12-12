@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import Breadcrumb from '@/components/Breadcrumb.vue';
+// import GlobalLoading from '@/components/GlobalLoading.vue';
 import MainSidevar from '@/components/navigation/MainSidebar.vue';
 import PageTitle from '@/components/PageTitle.vue';
 import MainAppbar from '@/components/toolbar/MainAppbar.vue';
 import ToolBox from '@/components/Toolbox.vue';
-import { useCustomizeThemeStore } from '@/stores/customizeTheme';
-const customizeTheme = useCustomizeThemeStore();
+import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
 
-// import GlobalLoading from "@/components/GlobalLoading.vue";
+const customizeTheme = useCustomizeThemeStore();
 </script>
 
 <template>

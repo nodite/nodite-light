@@ -8,6 +8,7 @@ import errorHandling from '@core/middlewares/errorHandling.middleware';
 import uniqueReqId from '@core/middlewares/uniqueReqId.middleware';
 import httpLogger from '@core/utils/httpLogger';
 import api from 'api';
+import cors from 'cors';
 import express, { Application } from 'express';
 import httpContext from 'express-http-context';
 import rateLimit from 'express-rate-limit';
@@ -22,6 +23,11 @@ const apiLimiter = rateLimit({
 });
 
 app.disable('x-powered-by');
+app.use(
+  cors({
+    origin: [/localhost/],
+  }),
+);
 app.use(helmet());
 app.use(apiLimiter);
 app.use(httpContext.middleware);

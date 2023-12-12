@@ -3,6 +3,7 @@
 ## Scope
 
 - [admin-api](services/admin-api/README.md)
+- [admin-web](websites/admin-web/README.md)
 
 ## Prerequisites
 
