@@ -72,7 +72,7 @@
     "unplugin-auto-import": "^0.17.2",
     "vite": "^5.0.6",
     "vite-plugin-compression2": "^0.11.0",
-    "vite-plugin-vuetify": "^1.0.2",
+    "vite-plugin-vuetify": "^2.0.1",
     "vitest": "^0.30.1"
   }
 }
