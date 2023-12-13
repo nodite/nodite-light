@@ -11,6 +11,7 @@ export default {
     tos: '利用規約',
     policy: '個人情報保護方針',
     validateFailed: '検証に失敗しました。入力内容を確認してください。',
+    maintenance: 'システム保守',
   },
   login: {
     title: 'サインイン',

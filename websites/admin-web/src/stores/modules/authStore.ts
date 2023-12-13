@@ -26,16 +26,12 @@ export const useAuthStore = defineStore('auth', {
   getters: {},
 
   actions: {
-    async registerWithEmailAndPassword(userInfo: unknown) {
-      router.push('/');
+    async register(userInfo: Record<string, unknown>) {
+      useSnackbarStore().showWarningMessage(i18n.global.t('common.maintenance'));
     },
 
-    async login(userInfo: Record<string, unknown>) {
-      const response = await AuthApi.login({
-        username: userInfo.username as string,
-        email: userInfo.email as string,
-        password: userInfo.password as string,
-      });
+    async login(userInfo: LoginBody) {
+      const response = await AuthApi.login(userInfo);
       toolkit.token.set(response?.token || '', response?.expiresIn);
       this.isLoggedIn = true;
       useSnackbarStore().showSuccessMessage(i18n.global.t('login.success'));

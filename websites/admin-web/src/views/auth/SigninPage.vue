@@ -9,9 +9,11 @@ const snackbarStore = useSnackbarStore();
 const authStore = useAuthStore();
 
 // auth state
-const authState = ref({
+const loginState = ref({
   isLoading: false,
   isSignInDisabled: false,
+  isFormValid: true,
+  showPassword: false,
 });
 
 // login form
@@ -20,8 +22,6 @@ const refLoginForm = ref();
 const loginForm = ref({
   username: 'admin',
   password: 'admin',
-  isFormValid: true,
-  showPassword: false,
 });
 
 const loginRules = ref({
@@ -34,10 +34,10 @@ const loginRules = ref({
 
 const handleLogin = async () => {
   const { valid } = await refLoginForm.value.validate();
-  if (valid && loginForm.value.isFormValid) {
-    authState.value.isLoading = true;
-    authState.value.isSignInDisabled = true;
-    authStore.login(loginForm.value);
+  if (valid && loginState.value.isFormValid) {
+    loginState.value.isLoading = true;
+    loginState.value.isSignInDisabled = true;
+    authStore.login(loginForm.value as never);
   } else {
     snackbarStore.showErrorMessage(i18n.global.t('common.validateFailed'));
   }
@@ -70,7 +70,7 @@ const resetErrors = () => {
     <!-- sign in form -->
 
     <v-card-text>
-      <v-form ref="refLoginForm" class="text-left" v-model="loginForm.isFormValid" lazy-validation>
+      <v-form ref="refLoginForm" class="text-left" v-model="loginState.isFormValid" lazy-validation>
         <!-- username -->
         <v-text-field
           v-model="loginForm.username"
@@ -93,8 +93,8 @@ const resetErrors = () => {
         <!-- password -->
         <v-text-field
           v-model="loginForm.password"
-          :append-inner-icon="loginForm.showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="loginForm.showPassword ? 'text' : 'password'"
+          :append-inner-icon="loginState.showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="loginState.showPassword ? 'text' : 'password'"
           :error="errorHandler.error"
           :error-messages="errorHandler.errorMessages"
           :label="$t('login.password')"
@@ -109,12 +109,12 @@ const resetErrors = () => {
           validateOn="blur"
           @change="resetErrors"
           @keyup.enter="handleLogin"
-          @click:append-inner="loginForm.showPassword = !loginForm.showPassword"
+          @click:append-inner="loginState.showPassword = !loginState.showPassword"
         ></v-text-field>
 
         <v-btn
-          :loading="authState.isLoading"
-          :disabled="authState.isSignInDisabled"
+          :loading="loginState.isLoading"
+          :disabled="loginState.isSignInDisabled"
           block
           size="x-large"
           color="primary"
@@ -136,7 +136,7 @@ const resetErrors = () => {
           block
           size="x-large"
           @click="signInWithWeChat"
-          :disabled="authState.isSignInDisabled"
+          :disabled="loginState.isSignInDisabled"
         >
           <Icon icon="ic:baseline-wechat" class="mr-3 my-2" />
           WeChat

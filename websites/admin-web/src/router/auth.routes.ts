@@ -3,7 +3,7 @@ import { NavigationConfig } from '@/types/config';
 export default [
   {
     icon: 'mdi-file-lock-outline',
-    iKey: 'menu.auth',
+    // iKey: 'menu.auth', // not need for hidden route
     iType: 'directory',
     name: 'auth-pages',
     path: '/auth',
@@ -16,7 +16,7 @@ export default [
     children: [
       {
         icon: 'mdi-login',
-        iKey: 'menu.authLogin',
+        // iKey: 'menu.authLogin', // not need for hidden route
         iType: 'menu',
         path: '/auth/signin',
         name: 'auth-signin',
@@ -30,7 +30,7 @@ export default [
       },
       {
         icon: 'mdi-logout',
-        iKey: 'menu.authRegister',
+        // iKey: 'menu.authRegister', // not need for hidden route
         iType: 'menu',
         path: '/auth/signup',
         name: 'auth-signup',
@@ -44,7 +44,7 @@ export default [
       },
       {
         icon: 'mdi-email-check',
-        iKey: 'menu.authVerify',
+        // iKey: 'menu.authVerify', // not need for hidden route
         iType: 'menu',
         path: '/auth/verify-email',
         name: 'verify-email',

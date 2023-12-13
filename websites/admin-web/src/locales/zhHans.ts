@@ -14,6 +14,7 @@ export default {
     networkError: '网络错误，请稍后再试',
     authExpired: '身份验证已过期，请重新登录',
     validateFailed: '验证失败，请检查您的输入',
+    maintenance: '系统维护中',
   },
   login: {
     title: '登录',
@@ -35,7 +36,7 @@ export default {
   },
   register: {
     title: '创建帐号',
-    username: '全名',
+    username: '用户名(用于登陆)',
     email: '电子邮件',
     password: '密码',
     button: '创建帐号',
