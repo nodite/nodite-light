@@ -6,14 +6,17 @@ import lodash from 'lodash';
 
 lodash.set(jwt, 'destroy', () => 'stateless');
 
-export const jwtAsync = Promise.promisifyAll(
-  redisClient
-    ? new JWTR(redisClient as never, {
-        prefix: 'jwt:token:',
-      })
-    : (jwt as typeof jwt & { destroy: () => 'stateless' }),
-);
+export const jwtAsync = () =>
+  Promise.promisifyAll(
+    redisClient
+      ? new JWTR(redisClient as never, {
+          prefix: 'jwt:token:',
+        })
+      : (jwt as typeof jwt & { destroy: () => 'stateless' }),
+  );
 
-export type JwtDestroyType = Awaited<ReturnType<typeof jwtAsync.destroy>>;
+export type JwtDestroyType = Awaited<
+  ReturnType<Awaited<ReturnType<typeof jwtAsync>>['destroy']>
+>;
 
 export default jwtAsync;

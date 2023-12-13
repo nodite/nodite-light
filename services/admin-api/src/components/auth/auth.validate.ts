@@ -11,4 +11,10 @@ export const LoginBodyValidation: ValidationSchema = {
     .xor('username', 'email'),
 };
 
-export default LoginBodyValidation;
+export const RegisterBodyValidation: ValidationSchema = {
+  body: Joi.object().keys({
+    username: Joi.string(),
+    email: Joi.string().email(),
+    password: Joi.string().required(),
+  }),
+};

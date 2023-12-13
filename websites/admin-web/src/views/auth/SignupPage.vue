@@ -4,55 +4,61 @@ import { Icon } from '@iconify/vue';
 import { useAuthStore } from '@/stores/modules/authStore';
 
 const authStore = useAuthStore();
-const username = ref('');
 
 // sign in buttons
-const isLoading = ref(false);
-const isSignInDisabled = ref(false);
+const signupState = ref({
+  isLoading: false,
+  isSignInDisabled: false,
+  isFormValid: true,
+  showPassword: false,
+});
 
-const refLoginForm = ref();
-const isFormValid = ref(true);
-const email = ref('');
-const password = ref('');
+// login form
+const refSignupForm = ref();
 
-// show password field
-const showPassword = ref(false);
+const signupForm = ref({
+  username: '',
+  email: '',
+  password: '',
+});
+
+const signupRules = ref({
+  username: [(v: string) => !!v || 'UserNmae is required'],
+  email: [(v: string) => !!v || 'E-mail is required', (v: string) => /.+@.+\..+/.test(v) || 'E-mail must be valid'],
+  password: [
+    (v: string) => !!v || 'Password is required',
+    (v: string) => (v && v.length <= 10) || 'Password must be less than 10 characters',
+  ],
+});
 
 // Submit
 const handleRegister = async () => {
-  const { valid } = await refLoginForm.value.validate();
+  const { valid } = await refSignupForm.value.validate();
   if (valid) {
-    isLoading.value = true;
-    isSignInDisabled.value = true;
-    authStore.registerWithEmailAndPassword(email.value, password.value);
+    signupState.value.isLoading = true;
+    signupState.value.isSignInDisabled = true;
+    authStore.register(signupForm.value);
   } else {
     console.log('no');
   }
 };
 
-// Error Check
-const emailRules = ref([
-  (v: string) => !!v || 'E-mail is required',
-  (v: string) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-]);
-
-const usernameRules = ref([(v: string) => !!v || 'UserNmae is required']);
-
-const passwordRules = ref([
-  (v: string) => !!v || 'Password is required',
-  (v: string) => (v && v.length <= 10) || 'Password must be less than 10 characters',
-]);
+// other sign in providers
+const signInWithWeChat = () => {
+  authStore.loginWithWeChat();
+};
 
 // error provider
-const errorProvider = ref(false);
-const errorProviderMessages = ref('');
-
-const error = ref(false);
-const errorMessages = ref('');
+const errorHandler = ref({
+  errorProvider: false,
+  errorProviderMessage: '',
+  error: false,
+  errorMessages: '',
+});
 
 const resetErrors = () => {
-  error.value = false;
-  errorMessages.value = '';
+  errorHandler.value.error = false;
+  errorHandler.value.errorMessages = '';
 };
 </script>
 <template>
@@ -61,66 +67,67 @@ const resetErrors = () => {
       <span class="flex-fill"> {{ $t('register.title') }} </span>
     </v-card-title>
     <v-card-subtitle>Let's build amazing products</v-card-subtitle>
-    <!-- sign in form -->
 
+    <!-- sign in form -->
     <v-card-text>
-      <v-form ref="refLoginForm" class="text-left" v-model="isFormValid" lazy-validation>
+      <v-form ref="refSignupForm" class="text-left" v-model="signupState.isFormValid" lazy-validation>
         <v-text-field
-          v-model="username"
+          v-model="signupForm.username"
           required
-          :error="error"
+          :error="errorHandler.error"
           :label="$t('register.username')"
           density="default"
           variant="underlined"
           color="primary"
           bg-color="#fff"
-          :rules="usernameRules"
+          :rules="signupRules.username"
           name="username"
           outlined
           validateOn="blur"
           @keyup.enter="handleRegister"
           @change="resetErrors"
         ></v-text-field>
+
         <v-text-field
-          ref="refEmail"
-          v-model="email"
+          v-model="signupForm.email"
           required
-          :error="error"
+          :error="errorHandler.error"
           :label="$t('register.email')"
           density="default"
           variant="underlined"
           color="primary"
           bg-color="#fff"
-          :rules="emailRules"
+          :rules="signupRules.email"
           name="email"
           outlined
           validateOn="blur"
           @keyup.enter="handleRegister"
           @change="resetErrors"
         ></v-text-field>
+
         <v-text-field
-          ref="refPassword"
-          v-model="password"
-          :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="showPassword ? 'text' : 'password'"
-          :error="error"
-          :error-messages="errorMessages"
+          v-model="signupForm.password"
+          :append-inner-icon="signupState.showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="signupState.showPassword ? 'text' : 'password'"
+          :error="errorHandler.error"
+          :error-messages="errorHandler.errorMessages"
           :label="$t('register.password')"
           density="default"
           variant="underlined"
           color="primary"
           bg-color="#fff"
-          :rules="passwordRules"
+          :rules="signupRules.password"
           name="password"
           outlined
           validateOn="blur"
           @change="resetErrors"
           @keyup.enter="handleRegister"
-          @click:append-inner="showPassword = !showPassword"
+          @click:append-inner="signupState.showPassword = !signupState.showPassword"
         ></v-text-field>
+
         <v-btn
-          :loading="isLoading"
-          :disabled="isSignInDisabled"
+          :loading="signupState.isLoading"
+          :disabled="signupState.isSignInDisabled"
           block
           size="x-large"
           color="primary"
@@ -135,23 +142,20 @@ const resetErrors = () => {
 
         <!-- external providers list -->
         <v-btn
-          class="mb-2 lighten-2 text-capitalize"
+          class="mb-2 text-capitalize"
+          color="white"
+          elevation="1"
           block
           size="x-large"
-          color="white"
-          @click="authStore.loginWithGoogle()"
-          :disabled="isSignInDisabled"
+          @click="signInWithWeChat"
+          :disabled="signupState.isSignInDisabled"
         >
-          <Icon icon="logos:google-icon" class="mr-3 my-2" />
-          Google
-        </v-btn>
-        <v-btn class="mb-2 lighten-2 text-capitalize" block color="white" size="x-large" :disabled="isSignInDisabled">
-          <Icon icon="logos:facebook" class="mr-3" />
-          Facebook
+          <Icon icon="ic:baseline-wechat" class="mr-3 my-2" />
+          WeChat
         </v-btn>
 
-        <div v-if="errorProvider" class="error--text my-5">
-          {{ errorProviderMessages }}
+        <div v-if="errorHandler.errorProvider" class="error--text my-5">
+          {{ errorHandler.errorProviderMessage }}
         </div>
 
         <div class="my-5 text-center">
@@ -164,6 +168,7 @@ const resetErrors = () => {
       </v-form></v-card-text
     >
   </v-card>
+
   <div class="text-center mt-6">
     {{ $t('register.account') }}
     <router-link to="/auth/signin" class="text-primary font-weight-bold">

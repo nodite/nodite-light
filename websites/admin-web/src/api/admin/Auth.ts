@@ -12,7 +12,42 @@
 import type { RequestParams } from '@/types/request';
 import { ContentType } from '@/types/request';
 import { request } from '@/utils/request/index';
-import type { IResponseJwtDestroyType, IResponseLoginResponse, LoginBody } from './data-contracts';
+import type {
+  IResponseJwtDestroyType,
+  IResponseLoginResponse,
+  IResponseTrue,
+  LoginBody,
+  RegisterBody,
+} from './data-contracts';
+
+/**
+ * No description
+ *
+ * @tags auth
+ * @name register
+ * @summary Register
+ * @request POST:/auth/register
+ */
+export const register = (data: RegisterBody, params: RequestParams = {}) =>
+  request<IResponseTrue>({
+    path: `/auth/register`,
+    method: 'POST',
+    body: data,
+    type: ContentType.Json,
+    format: 'json',
+    skipErrorHandler: false,
+    ...params,
+  });
+export const registerSkipErrorHandler = (data: RegisterBody, params: RequestParams = {}) =>
+  request<IResponseTrue>({
+    path: `/auth/register`,
+    method: 'POST',
+    body: data,
+    type: ContentType.Json,
+    format: 'json',
+    skipErrorHandler: true,
+    ...params,
+  });
 
 /**
  * No description

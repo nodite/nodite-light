@@ -1,3 +1,4 @@
+import { IUser } from '@components/user/user.interface';
 import { UserModel } from '@components/user/user.model';
 import { UserService } from '@components/user/user.service';
 import config from '@config/config';
@@ -7,13 +8,26 @@ import jwtAsync, { JwtDestroyType } from '@core/utils/jwt';
 import httpStatus from 'http-status';
 import lodash from 'lodash';
 
-import { LoginBody, LoginResponse } from './auth.interface';
+import { LoginBody, LoginResponse, RegisterBody } from './auth.interface';
 
 export class AuthService {
   userService: UserService;
 
   constructor() {
     this.userService = new UserService();
+  }
+
+  /**
+   * Register
+   * @param body
+   * @returns
+   */
+  public async register(body: RegisterBody): Promise<void> {
+    const user = {} as IUser;
+    user.username = body.username;
+    user.email = body.email;
+    user.password = body.password;
+    await this.userService.create(user);
   }
 
   /**
@@ -45,7 +59,7 @@ export class AuthService {
     } as AuthorizedRequest['user'];
 
     return {
-      token: await jwtAsync.sign(payload as object, config.jwtSecret, {
+      token: await jwtAsync().sign(payload as object, config.jwtSecret, {
         expiresIn: config.jwtExpiresIn,
       }),
       expiresIn: config.jwtExpiresIn,
@@ -60,7 +74,7 @@ export class AuthService {
   public async logout(
     user: AuthorizedRequest['user'],
   ): Promise<JwtDestroyType> {
-    return jwtAsync.destroy(user?.jti || '');
+    return jwtAsync().destroy(user?.jti || '');
   }
 }
 

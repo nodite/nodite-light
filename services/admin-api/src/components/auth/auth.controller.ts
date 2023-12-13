@@ -1,6 +1,13 @@
-import { LoginBody, LoginResponse } from '@components/auth/auth.interface';
+import {
+  LoginBody,
+  LoginResponse,
+  RegisterBody,
+} from '@components/auth/auth.interface';
 import { AuthService } from '@components/auth/auth.service';
-import LoginBodyValidation from '@components/auth/auth.validate';
+import {
+  LoginBodyValidation,
+  RegisterBodyValidation,
+} from '@components/auth/auth.validate';
 import BaseController from '@components/base.controller';
 import { AuthorizedRequest } from '@core/interfaces/authorizedRequest';
 import { IResponse } from '@core/interfaces/httpResponse';
@@ -17,6 +24,17 @@ export class AuthController extends BaseController {
   constructor() {
     super();
     this.authService = new AuthService();
+  }
+
+  /**
+   * @summary Register
+   */
+  @Post('register')
+  @Middlewares([validate(RegisterBodyValidation)])
+  public async register(@Body() body: RegisterBody): Promise<IResponse<true>> {
+    await this.authService.register(body);
+    this.setStatus(httpStatus.CREATED);
+    return this.response(true);
   }
 
   /**

@@ -14,6 +14,7 @@ export default {
     networkError: 'Network Error, Please try again later.',
     authExpired: 'Authentication expired, please signin again.',
     validateFailed: 'Validate failed, please check your input.',
+    maintenance: 'System Maintenance',
   },
   login: {
     title: 'Sign In',

@@ -9,18 +9,12 @@
  * ---------------------------------------------------------------
  */
 
-export interface LoginResponse {
-  /** @format double */
-  expiresIn: number;
-  token: string;
-}
-
-export interface IResponseLoginResponse {
+export interface IResponseTrue {
   error: boolean;
   /** @format double */
   httpCode: number;
   message: string;
-  data?: LoginResponse;
+  data?: true;
 }
 
 /** From T, pick a set of properties whose keys are in the union K */
@@ -36,12 +30,38 @@ export interface PickIUserUsernameOrEmailOrPassword {
   password: string;
 }
 
-export type LoginBody = PickIUserUsernameOrEmailOrPassword;
+export type RegisterBody = PickIUserUsernameOrEmailOrPassword;
+
+export interface LoginResponse {
+  /** @format double */
+  expiresIn: number;
+  token: string;
+}
+
+export interface IResponseLoginResponse {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: LoginResponse;
+}
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickIUserUsernameOrPassword {
+  /** Username */
+  username: string;
+  /** Password */
+  password: string;
+}
+
+export type LoginBody = PickIUserUsernameOrPassword & {
+  email?: string;
+};
 
 /** Recursively unwraps the "awaited type" of a type. Non-promise "thenables" should resolve to `never`. This emulates the behavior of `await`. */
-export type AwaitedReturnTypeTypeofjwtAsyncDestroy = any;
+export type AwaitedReturnTypeAwaitedReturnTypeTypeofjwtAsync5Bdestroy5D = any;
 
-export type JwtDestroyType = AwaitedReturnTypeTypeofjwtAsyncDestroy;
+export type JwtDestroyType = AwaitedReturnTypeAwaitedReturnTypeTypeofjwtAsync5Bdestroy5D;
 
 export interface IResponseJwtDestroyType {
   error: boolean;
