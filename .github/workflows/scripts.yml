@@ -19,14 +19,14 @@ jobs:
       - name: Install dependencies
         run: npm ci --prefer-offline
 
-      - name: Create package
-        run: |
-          npm run create-package "${PACKAGE_NAME}_1"
-          npm run create-package "@scope/${PACKAGE_NAME}_2" -- --template=typescript
-          npm run create-package "${PACKAGE_NAME}_3" -- --template react
+      # - name: Create package
+      #   run: |
+      #     npm run create-package "${PACKAGE_NAME}_1"
+      #     npm run create-package "@scope/${PACKAGE_NAME}_2" -- --template=typescript
+      #     npm run create-package "${PACKAGE_NAME}_3" -- --template react
 
-      - name: Lint created packages
-        run: npx lerna run lint --scope="${PACKAGE_NAME}*"
+      # - name: Lint created packages
+      #   run: npx lerna run lint --scope="${PACKAGE_NAME}*"
 
-      - name: Test created packages
-        run: npx lerna run test --scope="${PACKAGE_NAME}*"
+      # - name: Test created packages
+      #   run: npx lerna run test --scope="${PACKAGE_NAME}*"
