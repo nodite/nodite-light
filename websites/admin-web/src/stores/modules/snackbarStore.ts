@@ -11,10 +11,7 @@ export const useSnackbarStore = defineStore({
     type: '' as MessageType,
   }),
 
-  persist: {
-    enabled: true,
-    strategies: [{ storage: localStorage, paths: [''] }],
-  },
+  persist: [{ storage: localStorage, paths: [''] }],
 
   getters: {},
   actions: {

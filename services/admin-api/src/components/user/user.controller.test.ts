@@ -1,11 +1,11 @@
 // import app from '@app';
-// import AppError from '@core/utils/appError';
+// import AppError from '@nodite-light/admin-core/lib/utils/appError';
 // import httpStatus from 'http-status';
 // import { agent as request } from 'supertest';
 
-const createUser = jest.fn();
-const updateUser = jest.fn();
-const deleteUser = jest.fn();
+// const createUser = jest.fn();
+// const updateUser = jest.fn();
+// const deleteUser = jest.fn();
 
 // const userMock = {
 //   username: 'John',
@@ -16,30 +16,30 @@ const deleteUser = jest.fn();
 // const noDataUserMock = {};
 
 // mock api key middleware to pass the test
-jest.mock('@core/middlewares/apiKey.middleware', () =>
-  jest.fn((req: Request, res: Response, next) => next()),
-);
+// jest.mock('@nodite-light/admin-core/lib/middlewares/apiKey.middleware', () =>
+//   jest.fn((req: Request, res: Response, next) => next()),
+// );
 
 // mock authorized middleware to pass the test
-jest.mock('@core/middlewares/authorized.middleware', () => {
-  const authorized = jest.fn((req: Request, res: Response, next) => next());
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (authorized as any).unless = jest.fn(() => {
-    return (req: Request, res: Response, next) => next();
-  });
-  return authorized;
-});
+// jest.mock('@nodite-light/admin-core/lib/middlewares/authorized.middleware', () => {
+//   const authorized = jest.fn((req: Request, res: Response, next) => next());
+//   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//   (authorized as any).unless = jest.fn(() => {
+//     return (req: Request, res: Response, next) => next();
+//   });
+//   return authorized;
+// });
 
-jest.mock('@components/user/user.service', () => {
-  class UserService {
-    public create = createUser;
+// jest.mock('@components/user/user.service', () => {
+//   class UserService {
+//     public create = createUser;
 
-    public update = updateUser;
+//     public update = updateUser;
 
-    public delete = deleteUser;
-  }
-  return { UserService };
-});
+//     public delete = deleteUser;
+//   }
+//   return { UserService };
+// });
 
 describe('User API', () => {
   describe('Create User [POST] /user/', () => {

@@ -1,4 +1,4 @@
-import { IResponse } from '@core/interfaces/httpResponse';
+import { IResponse } from '@nodite-light/admin-core/lib/interfaces/httpResponse';
 import { Controller } from 'tsoa';
 
 export abstract class BaseController extends Controller {

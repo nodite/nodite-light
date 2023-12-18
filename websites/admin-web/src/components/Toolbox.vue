@@ -10,7 +10,12 @@ const toolboxShow = ref(false);
 </script>
 
 <template>
-  <v-btn class="toolbox-activator elevation-10" @click="toolboxShow = !toolboxShow" size="50" color="white">
+  <v-btn
+    class="toolbox-activator elevation-10"
+    @click="toolboxShow = !toolboxShow"
+    size="50"
+    color="white"
+  >
     <Icon width="30" icon="ri:openai-fill" />
   </v-btn>
 
@@ -21,14 +26,22 @@ const toolboxShow = ref(false);
       <!-- ---------------------------------------------- -->
       <v-btn size="50" @click="false">
         <v-icon size="30">mdi-code-tags</v-icon>
-        <v-tooltip activator="parent" location="left" :text="$t('toolbox.codeAssistant.title')"></v-tooltip>
+        <v-tooltip
+          activator="parent"
+          location="left"
+          :text="$t('toolbox.codeAssistant.title')"
+        ></v-tooltip>
       </v-btn>
       <!-- ---------------------------------------------- -->
       <!-- Code Assistant -->
       <!-- ---------------------------------------------- -->
       <v-btn size="50" @click="false">
         <v-icon size="30">mdi-seesaw</v-icon>
-        <v-tooltip activator="parent" location="left" :text="$t('toolbox.playGround.title')"></v-tooltip>
+        <v-tooltip
+          activator="parent"
+          location="left"
+          :text="$t('toolbox.playGround.title')"
+        ></v-tooltip>
       </v-btn>
     </v-card>
   </transition>

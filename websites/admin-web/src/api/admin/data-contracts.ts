@@ -30,12 +30,14 @@ export interface PickIUserUsernameOrEmailOrPassword {
   password: string;
 }
 
+/** Type RegisterBody. */
 export type RegisterBody = PickIUserUsernameOrEmailOrPassword;
 
+/** Interface LoginResponse. */
 export interface LoginResponse {
+  token: string;
   /** @format double */
   expiresIn: number;
-  token: string;
 }
 
 export interface IResponseLoginResponse {
@@ -43,6 +45,7 @@ export interface IResponseLoginResponse {
   /** @format double */
   httpCode: number;
   message: string;
+  /** Interface LoginResponse. */
   data?: LoginResponse;
 }
 
@@ -54,6 +57,7 @@ export interface PickIUserUsernameOrPassword {
   password: string;
 }
 
+/** Type LoginBody. */
 export type LoginBody = PickIUserUsernameOrPassword & {
   email?: string;
 };
@@ -71,25 +75,108 @@ export interface IResponseJwtDestroyType {
   data?: JwtDestroyType;
 }
 
+/** Interface IMenu. */
+export interface IMenu {
+  /** Status */
+  status?: 0 | 1;
+  /** Deleted */
+  deleted?: 0 | 1 | 100;
+  /** Create by */
+  createBy?: string;
+  /**
+   * Create time
+   * @format date-time
+   */
+  createTime?: string;
+  /** Update by */
+  updateBy?: string;
+  /**
+   * Update time
+   * @format date-time
+   */
+  updateTime?: string;
+  /**
+   * Menu ID
+   * @format double
+   */
+  menuId: number;
+  /**
+   * Parent menu ID
+   * @format double
+   */
+  parentId: number;
+  /** Menu name */
+  name: string;
+  /** Menu name i18n key */
+  iKey: string;
+  /** Menu type */
+  iType: string;
+  /** Menu path */
+  path: string;
+  /** Menu redirect */
+  redirect: string;
+  /** Menu component */
+  component: string;
+  /** Menu icon */
+  icon: string;
+  /** Menu hidden */
+  hidden: boolean;
+  /** Menu layout */
+  layout: string;
+  /** Menu perms */
+  perms: string;
+}
+
+export interface IResponseIMenuArray {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: IMenu[];
+}
+
+/** Type MenuTree. */
+export type MenuTree = IMenu & {
+  children?: MenuTree[];
+};
+
+export interface IResponseMenuTreeArray {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: MenuTree[];
+}
+
+export interface IResponseIMenu {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  /** Interface IMenu. */
+  data?: IMenu;
+}
+
+/** Interface IUser. */
 export interface IUser {
   /** Status */
   status?: 0 | 1;
   /** Deleted */
   deleted?: 0 | 1 | 100;
   /** Create by */
-  create_by?: string;
+  createBy?: string;
   /**
    * Create time
    * @format date-time
    */
-  create_time?: string;
+  createTime?: string;
   /** Update by */
-  update_by?: string;
+  updateBy?: string;
   /**
    * Update time
    * @format date-time
    */
-  update_time?: string;
+  updateTime?: string;
   /**
    * User ID
    * @format double
@@ -127,6 +214,7 @@ export interface IResponseIUser {
   /** @format double */
   httpCode: number;
   message: string;
+  /** Interface IUser. */
   data?: IUser;
 }
 

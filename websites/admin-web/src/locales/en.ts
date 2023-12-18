@@ -157,6 +157,15 @@ export default {
     viewReport: 'View Report',
   },
 
+  // sidebar.
+  sidebar: {
+    system: {
+      overline: 'System',
+      directory: 'System Management',
+      menu: 'Menus',
+    },
+  },
+
   // toolbox
   toolbox: {
     apikey: {
@@ -185,6 +194,7 @@ export default {
       title: 'Playground',
     },
   },
+
   chatgpt: {
     config: {
       title: 'ChatGPT Config',
@@ -201,6 +211,9 @@ export default {
   $vuetify: {
     badge: 'Badge',
     close: 'Close',
+    input: {
+      appendAction: 'Append action',
+    },
     dataIterator: {
       noResultsText: 'No matching records found',
       loadingText: 'Loading items...',

@@ -117,7 +117,9 @@ export async function request({
     return;
   }
 
-  useSnackbarStore().showErrorMessage(axiosResponse.data?.message || i18n.global.t('common.networkError'));
+  useSnackbarStore().showErrorMessage(
+    axiosResponse.data?.message || i18n.global.t('common.networkError'),
+  );
 
   throw axiosResponse.data;
 }

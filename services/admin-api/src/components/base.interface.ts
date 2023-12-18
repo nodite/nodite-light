@@ -18,23 +18,23 @@ export interface IBase {
    * Create by
    * @example Oscaner Miao
    */
-  create_by?: string;
+  createBy?: string;
 
   /**
    * Create time
    * @format date-time
    */
-  create_time?: Date;
+  createTime?: Date;
 
   /**
    * Update by
    * @example Oscaner Miao
    */
-  update_by?: string;
+  updateBy?: string;
 
   /**
    * Update time
    * @format date-time
    */
-  update_time?: Date;
+  updateTime?: Date;
 }

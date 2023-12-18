@@ -1,10 +1,10 @@
-import config from '@config/config';
-import consts from '@config/consts';
 import {
   swaggerDocsPath,
   swaggerForbidden,
   swaggerJsonPath,
-} from '@core/middlewares/swagger.middleware';
+} from '@middlewares/swagger.middleware';
+import config from '@nodite-light/admin-core/lib/config/config';
+import consts from '@nodite-light/admin-core/lib/config/consts';
 import { Router } from 'express';
 import swaggerUi from 'swagger-ui-express';
 

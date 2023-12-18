@@ -1,12 +1,12 @@
 import http404 from '@components/404/404.router';
 import healthCheck from '@components/healthcheck/healthCheck.router';
 import swaggerApiDocs from '@components/swagger-ui/swagger.router';
-import consts from '@config/consts';
-import protectedByApiKey from '@core/middlewares/apiKey.middleware';
-import authorized from '@core/middlewares/authorized.middleware';
-import errorHandling from '@core/middlewares/errorHandling.middleware';
-import uniqueReqId from '@core/middlewares/uniqueReqId.middleware';
-import httpLogger from '@core/utils/httpLogger';
+import protectedByApiKey from '@nodite-light/admin-auth/lib/middlewares/apiKey.middleware';
+import authorized from '@nodite-light/admin-auth/lib/middlewares/authorized.middleware';
+import consts from '@nodite-light/admin-core/lib/config/consts';
+import errorHandling from '@nodite-light/admin-core/lib/middlewares/errorHandling.middleware';
+import uniqueReqId from '@nodite-light/admin-core/lib/middlewares/uniqueReqId.middleware';
+import httpLogger from '@nodite-light/admin-core/lib/utils/httpLogger';
 import api from 'api';
 import cors from 'cors';
 import express, { Application } from 'express';
@@ -38,12 +38,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   consts.API_ROOT_PATH,
-  [
-    protectedByApiKey,
-    authorized.unless({
-      path: [`${consts.API_ROOT_PATH}/auth/login`],
-    }),
-  ],
+  [protectedByApiKey, authorized.unless({ path: consts.AUTH_WHITELIST })],
   api,
 );
 app.use(swaggerApiDocs);

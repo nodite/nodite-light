@@ -1,6 +1,9 @@
-import { ValidationSchema } from '@core/interfaces/validationSchema';
+import { ValidationSchema } from '@nodite-light/admin-core/lib/interfaces/validationSchema';
 import Joi from 'joi';
 
+/**
+ * LoginBodyValidation.
+ */
 export const LoginBodyValidation: ValidationSchema = {
   body: Joi.object()
     .keys({
@@ -11,6 +14,9 @@ export const LoginBodyValidation: ValidationSchema = {
     .xor('username', 'email'),
 };
 
+/**
+ * RegisterBodyValidation.
+ */
 export const RegisterBodyValidation: ValidationSchema = {
   body: Joi.object().keys({
     username: Joi.string(),

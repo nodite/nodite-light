@@ -9,7 +9,6 @@ import '@/styles/main.scss';
 
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
 import MasonryWall from '@yeger/vue-masonry-wall';
-import piniaPersist from 'pinia-plugin-persist';
 // Composables
 import { createApp } from 'vue';
 import VueVirtualScroller from 'vue-virtual-scroller';
@@ -23,7 +22,6 @@ import vuetify from '@/plugins/vuetify';
 import router from '@/router';
 import pinia from '@/stores';
 
-pinia.use(piniaPersist);
 const app = createApp(App);
 
 app.use(router);

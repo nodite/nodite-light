@@ -4,6 +4,7 @@ import * as AuthApi from '@/api/admin/Auth';
 import { LoginBody } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
 import router from '@/router';
+import { useProfileStore } from '@/stores/modules/profileStore';
 import { useSnackbarStore } from '@/stores/modules/snackbarStore';
 import * as toolkit from '@/utils/request/toolkit';
 
@@ -18,10 +19,7 @@ export const useAuthStore = defineStore('auth', {
     user: undefined,
   }),
 
-  persist: {
-    enabled: true,
-    strategies: [{ storage: localStorage, paths: ['isLoggedIn'] }],
-  },
+  persist: [{ storage: localStorage, paths: ['isLoggedIn', 'user.username', 'user.email'] }],
 
   getters: {},
 
@@ -31,7 +29,7 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async login(userInfo: LoginBody) {
-      const response = await AuthApi.login(userInfo);
+      const response = await AuthApi.adminAuthLogin(userInfo);
       toolkit.token.set(response?.token || '', response?.expiresIn);
       this.isLoggedIn = true;
       useSnackbarStore().showSuccessMessage(i18n.global.t('login.success'));
@@ -46,12 +44,12 @@ export const useAuthStore = defineStore('auth', {
       useSnackbarStore().showWarningMessage('Google login is not supported yet.');
     },
 
-    async logout() {
-      const res = await AuthApi.logout();
-      console.log('logout', res);
+    async logout(redirect: boolean = false) {
+      await AuthApi.adminAuthLogout();
       toolkit.token.remove();
-      this.$reset();
-      router.push({ name: 'auth-signin' });
+      this.$patch({ isLoggedIn: false });
+      await useProfileStore().$reset();
+      if (redirect) toolkit.redirectToLogin();
     },
   },
 });

@@ -1,0 +1,37 @@
+{
+  "name": "@nodite-light/admin-core",
+  "version": "0.0.1",
+  "private": true,
+  "description": "admin core",
+  "author": "Oscaner Miao <oscaner1997@gmail.com>",
+  "main": "dist/index.ts",
+  "files": [
+    "src",
+    "lib"
+  ],
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "build:watch": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --check \"{*.js,!(node*)**/*.ts}\"",
+    "prettier:fix": "prettier --write \"{*.js,!(node*)**/*.ts}\""
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-http-context": "^1.2.4",
+    "http-status": "^1.7.3",
+    "joi": "^17.11.0",
+    "lodash": "^4.17.21",
+    "md5": "^2.3.0",
+    "morgan": "^1.10.0",
+    "runtime-node-refresh": "^1.0.7",
+    "tsoa": "^5.1.1",
+    "uuid": "^9.0.1",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "@types/md5": "^2.3.5",
+    "node-mocks-http": "^1.14.0"
+  }
+}

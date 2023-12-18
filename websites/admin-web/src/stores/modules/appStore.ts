@@ -6,10 +6,7 @@ export const useAppStore = defineStore({
     globalLoading: false,
   }),
 
-  persist: {
-    enabled: true,
-    strategies: [{ storage: localStorage, paths: [] }],
-  },
+  persist: [{ storage: localStorage, paths: [] }],
 
   getters: {},
   actions: {

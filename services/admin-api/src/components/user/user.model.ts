@@ -1,102 +1,75 @@
-import { BaseSchema } from '@components/base.model';
-import AppError from '@core/utils/appError';
-import logger from '@core/utils/logger';
+import { BaseModel } from '@components/base.model';
+import { TableSchema } from '@components/user/_iac/user.schema';
+import UserSeeds from '@components/user/_iac/user.seeds.json';
+import AppError from '@nodite-light/admin-core/lib/utils/appError';
+import { Database } from '@nodite-light/admin-database/lib/nodite-sequelize';
 import bcrypt from 'bcrypt';
 import httpStatus from 'http-status';
-import { DataTypes, Model, ModelAttributeColumnOptions } from 'sequelize';
+import { Sequelize } from 'sequelize';
 
-import { IUser } from './user.interface';
+/**
+ * Class UserModel.
+ */
+export class UserModel extends BaseModel {
+  static readonly TABLE_NAME = 'sys_user';
 
-const TableSchema = {
-  userId: {
-    field: 'user_id',
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    unique: true,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  username: {
-    type: DataTypes.STRING(32),
-    allowNull: false,
-    unique: true,
-  },
-  nickname: {
-    type: DataTypes.STRING(32),
-  },
-  email: {
-    type: DataTypes.STRING(256),
-    allowNull: false,
-    unique: true,
-    validate: {
-      isEmail: true,
-    },
-  },
-  phone: {
-    type: DataTypes.STRING(32),
-  },
-  sex: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0,
-  },
-  avatar: {
-    type: DataTypes.STRING(256),
-  },
-  password: {
-    type: DataTypes.STRING(256),
-    allowNull: false,
-  },
-  ...BaseSchema,
-} as Record<string, ModelAttributeColumnOptions>;
+  /**
+   * register.
+   * @param sequelize
+   */
+  @Database.register(UserModel.TABLE_NAME)
+  private static async register(sequelize: Sequelize) {
+    const model = UserModel.init(TableSchema, {
+      ...UserModel.BaseInitOptions,
+      sequelize,
+      tableName: UserModel.TABLE_NAME,
+      hooks: {
+        beforeBulkCreate(instances) {
+          instances.forEach((instance) => {
+            instance.bcryptPassword();
+          });
+        },
+        beforeCreate: (instance) => {
+          instance.bcryptPassword();
+        },
+        beforeUpdate: (instance) => {
+          instance.bcryptPassword();
+        },
+      },
+    });
 
-export class UserModel extends Model {
+    if (!(await model.exists())) {
+      await model.sync();
+      await model.bulkCreate(UserSeeds);
+    }
+  }
+
+  public skipBcryptPassword = false;
+
+  /**
+   * bcryptPassword.
+   * @returns
+   */
   bcryptPassword(): void {
+    if (this.skipBcryptPassword) return;
     const salt = bcrypt.genSaltSync(10, 'a');
     const pass = this.getDataValue('password');
     if (!pass) return;
-    this.setDataValue(
-      'password',
-      bcrypt.hashSync(this.getDataValue('password'), salt),
-    );
+    this.setDataValue('password', bcrypt.hashSync(this.getDataValue('password'), salt));
   }
 
-  validPassword(password: string): boolean {
-    if (!bcrypt.compareSync(password, this.getDataValue('password'))) {
+  /**
+   * validPassword.
+   * @param rawPassword
+   * @param encodedPassword
+   * @returns
+   */
+  static validPassword(rawPassword: string, encodedPassword: string): boolean {
+    if (!bcrypt.compareSync(rawPassword, encodedPassword)) {
       throw new AppError(httpStatus.UNAUTHORIZED, 'Invalid password');
     }
     return true;
   }
 }
 
-export const init = async (sequelize) => {
-  await UserModel.init(TableSchema, {
-    sequelize,
-    tableName: 'sys_user',
-    omitNull: true,
-    underscored: true,
-    updatedAt: false,
-    createdAt: false,
-    hooks: {
-      beforeCreate: (user) => {
-        user.bcryptPassword();
-      },
-      beforeUpdate: (user) => {
-        user.bcryptPassword();
-      },
-    },
-  }).sync();
-
-  logger.debug('Find or creating the admin user...');
-
-  await UserModel.findOrCreate({
-    where: { userId: 1 },
-    defaults: {
-      userId: 1,
-      username: 'admin',
-      email: 'nodite-light@example.com',
-      password: 'admin',
-    } as IUser as never,
-  });
-
-  return UserModel;
-};
+export default {};

@@ -3,7 +3,7 @@
   "noImplicitAdditionalProperties": "throw-on-extras",
   "controllerPathGlobs": ["src/components/**/*.controller.ts"],
   "spec": {
-    "outputDirectory": ".tsoa",
+    "outputDirectory": "src/_tsoa",
     "specVersion": 3,
     "securityDefinitions": {
       "BearerAuth": {
@@ -21,16 +21,15 @@
     }
   },
   "routes": {
-    "routesDir": ".tsoa"
+    "routesDir": "src/_tsoa"
   },
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
       "@app": ["./app.ts"],
-      "@core/*": ["core/*"],
       "@components/*": ["components/*"],
-      "@config/*": ["config/*"],
-      "@dotsoa/*": ["../.tsoa/*"]
+      "@middlewares/*": ["middlewares/*"],
+      "@dotsoa/*": ["./_tsoa/*"]
     }
   }
 }

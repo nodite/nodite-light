@@ -4,11 +4,11 @@
 * @Description:
 -->
 <script setup lang="ts">
-import Toolbar1 from './components/Toolbar1.vue';
-import Toolbar2 from './components/Toolbar2.vue';
-import Toolbar3 from './components/Toolbar3.vue';
-import Toolbar4 from './components/Toolbar4.vue';
-import Toolbar5 from './components/Toolbar5.vue';
+import Toolbar1 from '@/views/landing/toolbar/components/Toolbar1.vue';
+import Toolbar2 from '@/views/landing/toolbar/components/Toolbar2.vue';
+import Toolbar3 from '@/views/landing/toolbar/components/Toolbar3.vue';
+import Toolbar4 from '@/views/landing/toolbar/components/Toolbar4.vue';
+import Toolbar5 from '@/views/landing/toolbar/components/Toolbar5.vue';
 </script>
 
 <template>

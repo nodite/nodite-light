@@ -1,5 +1,6 @@
 import type { AxiosRequestConfig } from 'axios';
 import Cookie from 'js-cookie';
+import lodash from 'lodash';
 
 // toolkit: token
 export const token = {
@@ -51,7 +52,9 @@ export class RequestCanceler {
   }
 
   private generateRequestKey({ method, url, params, data }: AxiosRequestConfig): string {
-    return [url || '', method || '', JSON.stringify(params || {}), JSON.stringify(data || {})].join('_');
+    return [url || '', method || '', JSON.stringify(params || {}), JSON.stringify(data || {})].join(
+      '_',
+    );
   }
 
   public addPendingRequest(config: AxiosRequestConfig): void {
@@ -79,11 +82,16 @@ export class RequestCanceler {
 
 // toolkit: redirectToLogin
 export const redirectToLogin = (msg?: string) => {
+  console.log();
   const searchParams: Record<string, string> = {
-    redirect: window.location.pathname.replace(import.meta.env.VITE_APP_BASE_PATH, '/'),
+    redirect:
+      '/' +
+      lodash.trim(window.location.pathname.replace(import.meta.env.VITE_APP_BASE_PATH, ''), '/'),
   };
 
   if (msg) searchParams.msg = msg;
 
-  window.location.href = `${import.meta.env.VITE_APP_BASE_PATH || ''}/auth/signin?${new URLSearchParams(searchParams)}`;
+  window.location.href = `${
+    import.meta.env.VITE_APP_BASE_PATH || ''
+  }/auth/signin?${new URLSearchParams(searchParams)}`;
 };

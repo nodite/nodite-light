@@ -5,7 +5,7 @@ const isHex = (hex: string) => /^#(?:[A-Fa-f0-9]{3}){1,2}$/.test(hex);
 // Return: boolean
 
 const isRGB = (rgb: string) =>
-  // eslint-disable-next-line max-len
+  // eslint-disable-next-line max-len, vue/max-len
   /^rgb[(](?:\s*0*(?:\d\d?(?:\.\d+)?(?:\s*%)?|\.\d+\s*%|100(?:\.0*)?\s*%|(?:1\d\d|2[0-4]\d|25[0-5])(?:\.\d+)?)\s*(?:,(?![)])|(?=[)]))){3}[)]$/.test(
     rgb,
   );
@@ -15,7 +15,7 @@ const isRGB = (rgb: string) =>
 // Return: boolean
 
 const isRGBA = (rgba: string) =>
-  // eslint-disable-next-line max-len
+  // eslint-disable-next-line max-len, vue/max-len
   /^^rgba[(](?:\s*0*(?:\d\d?(?:\.\d+)?(?:\s*%)?|\.\d+\s*%|100(?:\.0*)?\s*%|(?:1\d\d|2[0-4]\d|25[0-5])(?:\.\d+)?)\s*,){3}\s*0*(?:\.\d+|1(?:\.0*)?)\s*[)]$/.test(
     rgba,
   );
@@ -57,7 +57,8 @@ export const colorShade = (color: string, percentage: number) => {
   // Calculate the shade
   const shade = lighten ? 0 : percentage * 255 ** 2;
   // Calculate the primary color
-  const calcPrimary = (p: string | number) => Math.round((base * Math.floor(Number(p)) ** 2 + shade) ** 0.5);
+  const calcPrimary = (p: string | number) =>
+    Math.round((base * Math.floor(Number(p)) ** 2 + shade) ** 0.5);
 
   // Parse the color to rgb
   const [r, g, b, a] = (isHex(color) ? hexToRGB(color) : parseRGB(color)) ?? [0, 0, 0];

@@ -6,7 +6,13 @@
           <h1 class="text-h5 my-5 d-flex align-center text-title">
             <Icon icon="logos:webix-icon" class="mr-3 my-2" />News
           </h1>
-          <v-card elevation="0" class="my-5 pa-3" v-for="card in newsCards" :key="card.id" color="secondary">
+          <v-card
+            elevation="0"
+            class="my-5 pa-3"
+            v-for="card in newsCards"
+            :key="card.id"
+            color="secondary"
+          >
             <v-card-text class="text-content">
               <v-row align="center" no-gutters>
                 <v-col cols="2" class="text-left">
@@ -67,7 +73,9 @@
           <v-card color="secondary" class="info-card">
             <div class="card-top r text-content">
               <Icon class="mr-5 text-h4" icon="logos:capacitorjs-icon" />
-              <div class="flex-fill">Who has the advantage now? Who do you think will win the election?</div>
+              <div class="flex-fill">
+                Who has the advantage now? Who do you think will win the election?
+              </div>
               <span>9:31 am</span>
             </div>
             <v-card-text class="text-content">
@@ -84,7 +92,11 @@
                           <strong class="ml-1 text-info">Google</strong></v-col
                         >
                         <v-col cols="4" sm="5" md="7">
-                          <v-progress-linear model-value="79" color="#E89888" rounded></v-progress-linear
+                          <v-progress-linear
+                            model-value="79"
+                            color="#E89888"
+                            rounded
+                          ></v-progress-linear
                         ></v-col>
                         <v-col cols="2">79%</v-col>
                       </v-row>
@@ -98,7 +110,11 @@
                           <strong class="ml-1 text-info">Meta</strong></v-col
                         >
                         <v-col cols="4" sm="5" md="7">
-                          <v-progress-linear model-value="21" color="#B931F0" rounded></v-progress-linear
+                          <v-progress-linear
+                            model-value="21"
+                            color="#B931F0"
+                            rounded
+                          ></v-progress-linear
                         ></v-col>
                         <v-col cols="2">70%</v-col>
                       </v-row>
@@ -152,7 +168,12 @@
               </v-card>
 
               <v-card class="d-flex mt-5">
-                <v-img max-width="200" aspect-ratio="1" cover src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
+                <v-img
+                  max-width="200"
+                  aspect-ratio="1"
+                  cover
+                  src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                >
                 </v-img>
 
                 <div class="pa-2 flex-fill">
@@ -176,7 +197,10 @@
             </v-card-actions>
           </v-card>
           <!-- Info Card4 -->
-          <v-card color="secondary" class="info-card d-flex justify-space-between align-center pa-5 text-content">
+          <v-card
+            color="secondary"
+            class="info-card d-flex justify-space-between align-center pa-5 text-content"
+          >
             <v-avatar size="50" color="red">
               <v-img src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"></v-img>
             </v-avatar>
@@ -252,7 +276,9 @@ const newsCards = [
     id: 5,
     title: 'Ant-design',
     icon: 'logos:ant-design',
-    content: 'Help designers/developers building beautiful products more flexible and working with happiness',
+    content:
+      'Help designers/developers building beautiful ' +
+      'products more flexible and working with happiness',
   },
 ];
 

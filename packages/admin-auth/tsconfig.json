@@ -1,0 +1,29 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "es2017",
+    "lib": ["es2015", "es2016", "es2017", "es2018", "dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "downlevelIteration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "allowJs": false,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "importHelpers": true,
+    "baseUrl": "src",
+    "outDir": "./lib",
+    "paths": {
+      "@/*": ["*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

@@ -1,5 +1,6 @@
 const isObject = (val: unknown): boolean => Boolean(val) && typeof val === 'object';
-const mergeArrayWithDedupe = (a: string[], b: string[]): string[] => Array.from(new Set([...a, ...b]));
+const mergeArrayWithDedupe = (a: string[], b: string[]): string[] =>
+  Array.from(new Set([...a, ...b]));
 
 /**
  * Recursively merge the content of the new object to the existing one

@@ -153,6 +153,16 @@ export default {
     tickets: '支持票',
     viewReport: '查看报告',
   },
+
+  // sidebar
+  sidebar: {
+    system: {
+      overline: '系统',
+      directory: '系统管理',
+      menu: '菜单管理',
+    },
+  },
+
   // toolbox
   toolbox: {
     apikey: {
@@ -196,6 +206,9 @@ export default {
   $vuetify: {
     badge: '徽章',
     close: '关',
+    input: {
+      appendAction: '追加操作',
+    },
     dataIterator: {
       noResultsText: '未找到匹配的记录',
       loadingText: '正在载入项目...',

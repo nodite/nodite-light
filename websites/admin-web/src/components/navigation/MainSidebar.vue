@@ -7,11 +7,11 @@
 import { Icon } from '@iconify/vue';
 
 import MainMenu from '@/components/navigation/MainMenu.vue';
-import { routes } from '@/router';
 import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
+import { useNavStore } from '@/stores/modules/navStore';
 
 const customizeTheme = useCustomizeThemeStore();
-const navigation = ref(routes);
+const navigation = ref(useNavStore().sidebar);
 
 const openGithubSite = () => {
   window.open('https://github.com/oscaner', '_blank');
@@ -34,7 +34,12 @@ const scrollToBottom = () => {
 </script>
 
 <template>
-  <v-navigation-drawer border="none" elevation="1" v-model="customizeTheme.mainSidebar" id="mainMenu">
+  <v-navigation-drawer
+    border="none"
+    elevation="1"
+    v-model="customizeTheme.mainSidebar"
+    id="mainMenu"
+  >
     <!-- ---------------------------------------------- -->
     <!---Top Area -->
     <!-- ---------------------------------------------- -->
@@ -66,9 +71,19 @@ const scrollToBottom = () => {
         variant="text"
         style="box-shadow: rgba(0, 0, 0, 0.05) 0px -25px 15px -20px"
       >
-        <v-card class="d-flex flex-column gradient pa-2" :class="customizeTheme.primaryColor.colorName" height="200">
+        <v-card
+          class="d-flex flex-column gradient pa-2"
+          :class="customizeTheme.primaryColor.colorName"
+          height="200"
+        >
           <v-card-title>
-            <v-btn class="mr-2" size="40" color="white" :class="`text-${customizeTheme.primaryColor.colorName}`" icon>
+            <v-btn
+              class="mr-2"
+              size="40"
+              color="white"
+              :class="`text-${customizeTheme.primaryColor.colorName}`"
+              icon
+            >
               <Icon width="30" icon="line-md:github-loop" />
             </v-btn>
             Oscaner
@@ -79,7 +94,13 @@ const scrollToBottom = () => {
             <div>github.com/oscaner</div>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="white" block prepend-icon="mdi-thumb-up-outline" variant="elevated" @click="openGithubSite">
+            <v-btn
+              color="white"
+              block
+              prepend-icon="mdi-thumb-up-outline"
+              variant="elevated"
+              @click="openGithubSite"
+            >
               Star-Me
             </v-btn>
           </v-card-actions>

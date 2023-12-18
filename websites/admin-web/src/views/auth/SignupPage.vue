@@ -24,7 +24,10 @@ const signupForm = ref({
 
 const signupRules = ref({
   username: [(v: string) => !!v || 'UserNmae is required'],
-  email: [(v: string) => !!v || 'E-mail is required', (v: string) => /.+@.+\..+/.test(v) || 'E-mail must be valid'],
+  email: [
+    (v: string) => !!v || 'E-mail is required',
+    (v: string) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+  ],
   password: [
     (v: string) => !!v || 'Password is required',
     (v: string) => (v && v.length <= 10) || 'Password must be less than 10 characters',
@@ -70,7 +73,12 @@ const resetErrors = () => {
 
     <!-- sign in form -->
     <v-card-text>
-      <v-form ref="refSignupForm" class="text-left" v-model="signupState.isFormValid" lazy-validation>
+      <v-form
+        ref="refSignupForm"
+        class="text-left"
+        v-model="signupState.isFormValid"
+        lazy-validation
+      >
         <v-text-field
           v-model="signupForm.username"
           required

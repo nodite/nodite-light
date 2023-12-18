@@ -16,7 +16,12 @@
     <v-toolbar color="primary">
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
       <v-toolbar-title></v-toolbar-title>
-      <v-text-field variant="solo" prepend-inner-icon="mdi-magnify" hide-details placeholder="Search"></v-text-field>
+      <v-text-field
+        variant="solo"
+        prepend-inner-icon="mdi-magnify"
+        hide-details
+        placeholder="Search"
+      ></v-text-field>
       <v-btn class="text-none" stacked>
         <v-badge dot color="success">
           <v-icon>mdi-home-outline</v-icon>

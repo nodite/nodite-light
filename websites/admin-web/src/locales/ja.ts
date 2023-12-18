@@ -194,6 +194,9 @@ export default {
   $vuetify: {
     badge: 'バッジ',
     close: '閉じる',
+    input: {
+      appendAction: 'アクションを追加',
+    },
     dataIterator: {
       noResultsText: '一致するレコードが見つかりません',
       loadingText: 'アイテムを読み込んでいます...',
