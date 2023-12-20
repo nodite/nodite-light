@@ -34,7 +34,6 @@
     "js-cookie": "^3.0.5",
     "lodash": "^4.17.21",
     "md-editor-v3": "^4.9.0",
-    "microsoft-cognitiveservices-speech-sdk": "^1.27.0",
     "moment": "^2.29.4",
     "pinia": "^2.0.34",
     "pinia-plugin-persistedstate": "^3.2.1",
