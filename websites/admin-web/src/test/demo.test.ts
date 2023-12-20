@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 
-import { add } from './demo';
-import Demo from './Demo.vue';
+import { add } from '@/test/demo';
+import Demo from '@/test/Demo.vue';
 
 // demo1
 test('first', () => {

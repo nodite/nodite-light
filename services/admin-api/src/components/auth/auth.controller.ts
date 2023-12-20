@@ -1,21 +1,18 @@
-import {
-  LoginBody,
-  LoginResponse,
-  RegisterBody,
-} from '@components/auth/auth.interface';
+import { LoginBody, LoginResponse, RegisterBody } from '@components/auth/auth.interface';
 import { AuthService } from '@components/auth/auth.service';
-import {
-  LoginBodyValidation,
-  RegisterBodyValidation,
-} from '@components/auth/auth.validate';
+import { LoginBodyValidation, RegisterBodyValidation } from '@components/auth/auth.validate';
 import BaseController from '@components/base.controller';
-import { AuthorizedRequest } from '@core/interfaces/authorizedRequest';
-import { IResponse } from '@core/interfaces/httpResponse';
-import validate from '@core/middlewares/validate.middleware';
-import { JwtDestroyType } from '@core/utils/jwt';
+import { AuthorizedRequest } from '@nodite-light/admin-auth/lib/interfaces/authorizedRequest';
+import { Permissions } from '@nodite-light/admin-auth/lib/middlewares/authorized.middleware';
+import { JwtDestroyType } from '@nodite-light/admin-auth/lib/utils/jwt';
+import { IResponse } from '@nodite-light/admin-core/lib/interfaces/httpResponse';
+import validate from '@nodite-light/admin-core/lib/middlewares/validate.middleware';
 import httpStatus from 'http-status';
-import { Body, Delete, Middlewares, Post, Request, Route, Tags } from 'tsoa';
+import { Body, Delete, Middlewares, OperationId, Post, Request, Route, Tags } from 'tsoa';
 
+/**
+ * Class AuthController.
+ */
 @Route('auth')
 @Tags('auth')
 export class AuthController extends BaseController {
@@ -31,6 +28,7 @@ export class AuthController extends BaseController {
    */
   @Post('register')
   @Middlewares([validate(RegisterBodyValidation)])
+  @OperationId('admin:auth:register')
   public async register(@Body() body: RegisterBody): Promise<IResponse<true>> {
     await this.authService.register(body);
     this.setStatus(httpStatus.CREATED);
@@ -42,9 +40,8 @@ export class AuthController extends BaseController {
    */
   @Post('login')
   @Middlewares([validate(LoginBodyValidation)])
-  public async login(
-    @Body() body: LoginBody,
-  ): Promise<IResponse<LoginResponse>> {
+  @OperationId('admin:auth:login')
+  public async login(@Body() body: LoginBody): Promise<IResponse<LoginResponse>> {
     const result = await this.authService.login(body);
     this.setStatus(httpStatus.OK);
     return this.response(result);
@@ -54,9 +51,9 @@ export class AuthController extends BaseController {
    * @summary Logout
    */
   @Delete('logout')
-  public async logout(
-    @Request() req: AuthorizedRequest,
-  ): Promise<IResponse<JwtDestroyType>> {
+  @Permissions()
+  @OperationId('admin:auth:logout')
+  public async logout(@Request() req: AuthorizedRequest): Promise<IResponse<JwtDestroyType>> {
     const result = await this.authService.logout(req.user);
     this.setStatus(httpStatus.OK);
     return this.response(result);

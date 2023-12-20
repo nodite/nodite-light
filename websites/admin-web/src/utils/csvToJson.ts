@@ -1,3 +1,4 @@
+/* eslint-disable vue/max-len */
 /* eslint-disable max-len */
 // 定义CSV格式的文本
 const csvText = `site_id,category_id,category_name,category_name_cn,site_name,description,icon,href

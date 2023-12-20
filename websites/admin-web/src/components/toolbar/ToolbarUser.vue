@@ -4,16 +4,15 @@
 * @Description:
 -->
 <script setup lang="ts">
+import StatusMenu from '@/components/toolbar/StatusMenu.vue';
 import { useAuthStore } from '@/stores/modules/authStore';
 import { useProfileStore } from '@/stores/modules/profileStore';
-
-import StatusMenu from './StatusMenu.vue';
 
 const authStore = useAuthStore();
 const profileStore = useProfileStore();
 
-const handleLogout = () => {
-  authStore.logout();
+const handleLogout = async () => {
+  authStore.logout(true);
 };
 
 const navs = [
@@ -71,7 +70,14 @@ const navs = [
       <!-- ---------------------------------------------- -->
 
       <v-list variant="flat" elevation="0" :lines="false" density="compact">
-        <v-list-item color="primary" v-for="(nav, i) in navs" :key="i" :to="nav.link" link density="compact">
+        <v-list-item
+          color="primary"
+          v-for="(nav, i) in navs"
+          :key="i"
+          :to="nav.link"
+          link
+          density="compact"
+        >
           <template v-slot:prepend>
             <v-avatar size="30">
               <v-icon>{{ nav.icon }}</v-icon>

@@ -30,9 +30,10 @@
   border-radius: 8px;
   background: #f5f5f5 no-repeat;
   background-size: 60px 10px;
-  background-image: linear-gradient(#ddd 100px, transparent 0), linear-gradient(#ddd 100px, transparent 0),
+  background-image: linear-gradient(#ddd 100px, transparent 0),
     linear-gradient(#ddd 100px, transparent 0), linear-gradient(#ddd 100px, transparent 0),
-    linear-gradient(#ddd 100px, transparent 0), linear-gradient(#ddd 100px, transparent 0);
+    linear-gradient(#ddd 100px, transparent 0), linear-gradient(#ddd 100px, transparent 0),
+    linear-gradient(#ddd 100px, transparent 0);
 
   background-position:
     15px 30px,
@@ -53,8 +54,8 @@
   border-radius: 8px;
   background: #fff no-repeat;
   background-size: 60px 10px;
-  background-image: linear-gradient(#ddd 100px, transparent 0), linear-gradient(#ddd 100px, transparent 0),
-    linear-gradient(#ddd 100px, transparent 0);
+  background-image: linear-gradient(#ddd 100px, transparent 0),
+    linear-gradient(#ddd 100px, transparent 0), linear-gradient(#ddd 100px, transparent 0);
   background-position:
     50% 30px,
     50% 60px,

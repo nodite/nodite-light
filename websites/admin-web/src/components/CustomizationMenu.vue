@@ -69,7 +69,13 @@ const updatePrimaryColor = (newColor: Color) => {
       <v-icon class="text-white">mdi-cog-outline</v-icon>
     </div>
 
-    <v-navigation-drawer v-model="themeDrawer" location="right" temporary width="300" class="theme-drawer">
+    <v-navigation-drawer
+      v-model="themeDrawer"
+      location="right"
+      temporary
+      width="300"
+      class="theme-drawer"
+    >
       <div class="pa-5">
         <div class="top-area">
           <div class="d-flex align-center">
@@ -95,7 +101,12 @@ const updatePrimaryColor = (newColor: Color) => {
             <span class="ml-5">Dark Mode</span>
           </div>
           <div class="px-3 pt-3" v-else>
-            <v-btn @click="customizeTheme.darkTheme = !customizeTheme.darkTheme" icon color="white" class="text-red">
+            <v-btn
+              @click="customizeTheme.darkTheme = !customizeTheme.darkTheme"
+              icon
+              color="white"
+              class="text-red"
+            >
               <Icon width="30" icon="line-md:moon-filled-alt-to-sunny-filled-loop-transition" />
             </v-btn>
             <span class="ml-5">Light Mode</span>
@@ -106,8 +117,19 @@ const updatePrimaryColor = (newColor: Color) => {
         <div class="primary-color-area">
           <b>Primary Colors</b>
           <v-item-group class="mt-3" v-model="currentColor" selected-class="elevation-12" mandatory>
-            <v-item v-for="color in primaryColors" :key="color.colorId" :value="color" v-slot="{ isSelected, toggle }">
-              <v-btn @click="toggle" class="text-white mr-1" icon size="30" :color="color.colorValue">
+            <v-item
+              v-for="color in primaryColors"
+              :key="color.colorId"
+              :value="color"
+              v-slot="{ isSelected, toggle }"
+            >
+              <v-btn
+                @click="toggle"
+                class="text-white mr-1"
+                icon
+                size="30"
+                :color="color.colorValue"
+              >
                 <Icon width="22" v-if="isSelected" icon="line-md:confirm" />
               </v-btn>
             </v-item>
@@ -116,7 +138,12 @@ const updatePrimaryColor = (newColor: Color) => {
         <hr class="my-6" />
         <div class="">
           <b>MiniSideBar</b>
-          <v-switch color="primary" class="ml-2" hide-details :label="`Mini: ${customizeTheme.miniSidebar}`"></v-switch>
+          <v-switch
+            color="primary"
+            class="ml-2"
+            hide-details
+            :label="`Mini: ${customizeTheme.miniSidebar}`"
+          ></v-switch>
         </div>
         <hr class="mb-6" />
         <div>

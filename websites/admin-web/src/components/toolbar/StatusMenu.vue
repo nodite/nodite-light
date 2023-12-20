@@ -46,7 +46,9 @@ const currentStatus = ref<UserStatus>({
 });
 
 const setStatus = (status: string) => {
-  currentStatus.value = userStatusList.find((userStatus) => userStatus.code === status) as UserStatus;
+  currentStatus.value = userStatusList.find(
+    (userStatus) => userStatus.code === status,
+  ) as UserStatus;
 };
 </script>
 

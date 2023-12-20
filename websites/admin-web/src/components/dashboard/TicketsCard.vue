@@ -107,7 +107,11 @@ onMounted(() => {
             <copy-label :text="item.user.email" />
           </td>
           <td>
-            <v-chip size="small" :color="item.priority === 'High' ? 'pink' : 'primary'" class="font-weight-bold">
+            <v-chip
+              size="small"
+              :color="item.priority === 'High' ? 'pink' : 'primary'"
+              class="font-weight-bold"
+            >
               {{ item.priority }}</v-chip
             >
           </td>
@@ -124,7 +128,9 @@ onMounted(() => {
           </td>
           <td>{{ item.date }}</td>
           <td>
-            <v-btn elevation="4" variant="elevated" size="small" @click="open(item)"> Open Text </v-btn>
+            <v-btn elevation="4" variant="elevated" size="small" @click="open(item)">
+              Open Text
+            </v-btn>
           </td>
         </tr>
       </tbody>

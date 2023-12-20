@@ -65,13 +65,13 @@ declare namespace NavigationConfig {
     // text?: string; // use meta.title
     // link?: string; // use path
     meta?: {
-      [key: string]: string | boolean | undefined;
+      [key: string]: string | number | boolean | undefined;
       disabled?: boolean;
       regex?: RegExp;
       hidden?: boolean;
       layout?: string;
       title?: string;
-      noAuth?: boolean;
+      inWhiteList?: boolean; // in white list
     };
     children?: Router[];
   };

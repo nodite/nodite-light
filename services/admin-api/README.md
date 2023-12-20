@@ -80,15 +80,15 @@ npm run lint:fix
 ## Logging
 
 ```javascript
-import logger from '@core/utils/logger';
+import logger from "@nodite-light/admin-core/lib/utils/logger";
 
-logger.error('message'); // level 0
-logger.warn('message'); // level 1
-logger.info('message'); // level 2
-logger.http('message'); // level 3
-logger.verbose('message'); // level 4
-logger.debug('message'); // level 5
-logger.silly('message'); // level 6
+logger.error("message"); // level 0
+logger.warn("message"); // level 1
+logger.info("message"); // level 2
+logger.http("message"); // level 3
+logger.verbose("message"); // level 4
+logger.debug("message"); // level 5
+logger.silly("message"); // level 6
 ```
 
 In development mode, log messages of all severity levels will be printed to the console.

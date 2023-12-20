@@ -1,0 +1,10 @@
+[
+  {
+    "userId": 1,
+    "username": "admin",
+    "email": "nodite-light@example.com",
+    "password": "admin",
+    "createBy": "system",
+    "updateBy": "system"
+  }
+]

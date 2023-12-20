@@ -5,7 +5,11 @@
     "jest": true,
     "node": true
   },
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:jsx-a11y/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:jsx-a11y/recommended"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 12,
@@ -27,16 +31,43 @@
     "@typescript-eslint/no-unused-vars": "error",
     "no-console": "error",
     "no-debugger": "error",
-    "prettier/prettier": "error",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "tsdoc/syntax": "off",
     "max-len": [
       "error",
       {
-        "code": 130
+        "code": 100
       }
     ],
-    "class-methods-use-this": "off"
+    "vue/max-len": [
+      "error",
+      {
+        "code": 100,
+        "template": 100,
+        "tabWidth": 2,
+        "comments": 100,
+        "ignorePattern": "",
+        "ignoreComments": false,
+        "ignoreTrailingComments": false,
+        "ignoreUrls": false,
+        "ignoreStrings": false,
+        "ignoreTemplateLiterals": false,
+        "ignoreRegExpLiterals": false,
+        "ignoreHTMLAttributeValues": true,
+        "ignoreHTMLTextContents": false
+      }
+    ],
+    "class-methods-use-this": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 100,
+        "endOfLine": "auto",
+        "semi": true,
+        "singleQuote": true,
+        "trailingComma": "all"
+      }
+    ]
   }
 }

@@ -4,7 +4,10 @@ import configs from '@/configs';
  * @param value
  * @param currency
  */
-export const formatCurrency = (value: number, currency?: CurrencyConfig.Currency): number | string => {
+export const formatCurrency = (
+  value: number,
+  currency?: CurrencyConfig.Currency,
+): number | string => {
   const { currency: currencyConfig } = configs;
 
   const c: CurrencyConfig.Currency = currency || currencyConfig.currency;
@@ -28,7 +31,9 @@ export const formatPrice = (price: number, currency: CurrencyConfig.Currency) =>
 
     if (currency.currencySymbol) {
       const priceSeparator =
-        currency.currencySymbolNumberOfSpaces > 0 ? ' '.repeat(currency.currencySymbolNumberOfSpaces) : '';
+        currency.currencySymbolNumberOfSpaces > 0
+          ? ' '.repeat(currency.currencySymbolNumberOfSpaces)
+          : '';
       let priceParts = [numberFormatted, priceSeparator, currency.currencySymbol];
 
       if (currency.currencySymbolPosition === 'left') {
@@ -51,7 +56,12 @@ export const formatPrice = (price: number, currency: CurrencyConfig.Currency) =>
  * @param dec_point
  * @param thousands_sep
  */
-export const numberFormat = (number: number, decimals: number, dec_point: string, thousands_sep: string) => {
+export const numberFormat = (
+  number: number,
+  decimals: number,
+  dec_point: string,
+  thousands_sep: string,
+) => {
   if (isNaN(number)) {
     return number;
   }

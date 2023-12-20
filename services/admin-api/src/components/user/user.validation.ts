@@ -1,6 +1,9 @@
-import { ValidationSchema } from '@core/interfaces/validationSchema';
+import { ValidationSchema } from '@nodite-light/admin-core/lib/interfaces/validationSchema';
 import Joi from 'joi';
 
+/**
+ * CreateUserValidation.
+ */
 export const CreateUserValidation: ValidationSchema = {
   body: Joi.object().keys({
     username: Joi.string().required(),

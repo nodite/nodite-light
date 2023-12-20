@@ -29,15 +29,12 @@ export const useCustomizeThemeStore = defineStore({
     // mainSidebar: isMobile() ? false : true,
   }),
 
-  persist: {
-    enabled: true,
-    strategies: [
-      {
-        storage: localStorage,
-        paths: ['darkTheme', 'primaryColor', 'localCode', 'mainSidebar'],
-      },
-    ],
-  },
+  persist: [
+    {
+      storage: localStorage,
+      paths: ['darkTheme', 'primaryColor', 'localCode', 'mainSidebar'],
+    },
+  ],
 
   getters: {},
   actions: {

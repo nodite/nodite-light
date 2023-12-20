@@ -37,7 +37,7 @@
     "microsoft-cognitiveservices-speech-sdk": "^1.27.0",
     "moment": "^2.29.4",
     "pinia": "^2.0.34",
-    "pinia-plugin-persist": "^1.0.0",
+    "pinia-plugin-persistedstate": "^3.2.1",
     "plantuml-encoder": "^1.4.0",
     "roboto-fontface": "*",
     "unsplash-js": "^7.0.15",

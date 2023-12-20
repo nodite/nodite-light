@@ -1,5 +1,13 @@
 import type { EChartsOption } from 'echarts';
-import { BarChart, LineChart, MapChart, PictorialBarChart, PieChart, RadarChart, ScatterChart } from 'echarts/charts';
+import {
+  BarChart,
+  LineChart,
+  MapChart,
+  PictorialBarChart,
+  PieChart,
+  RadarChart,
+  ScatterChart,
+} from 'echarts/charts';
 import {
   AriaComponent,
   CalendarComponent,

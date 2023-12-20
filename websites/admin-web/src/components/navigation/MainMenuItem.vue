@@ -49,7 +49,11 @@ const validator = {
   <template v-if="!validator.isHidden()">
     <template v-if="validator.isOverline()">
       <!-- overline -->
-      <div v-bind="props" v-if="!customizeTheme.miniSidebar && validator.hasTitle()" class="pa-1 mt-2 text-overline">
+      <div
+        v-bind="props"
+        v-if="!customizeTheme.miniSidebar && validator.hasTitle()"
+        class="pa-1 mt-2 text-overline"
+      >
         {{ menuItem.iKey ? $t(menuItem.iKey) : menuItem.meta?.title }}
       </div>
       <template v-if="validator.hasChildren()">

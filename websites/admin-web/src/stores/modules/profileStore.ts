@@ -12,18 +12,18 @@ export const useProfileStore = defineStore('profile', {
     profile: undefined,
   }),
 
-  persist: {
-    enabled: true,
-    strategies: [{ storage: localStorage }],
-  },
+  persist: [{ storage: sessionStorage }],
 
   getters: {},
 
   actions: {
+    /**
+     * Get profiles.
+     * @returns
+     */
     async getProfile() {
       if (lodash.isEmpty(this.profile)) {
-        console.log('fetch profile');
-        this.profile = await UserApi.curr();
+        this.profile = await UserApi.adminUserCurr();
       }
       return this.profile;
     },

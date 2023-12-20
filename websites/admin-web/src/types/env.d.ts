@@ -6,11 +6,7 @@ declare interface ImportMeta {
     readonly VITE_APP_BASE_API: string;
     readonly VITE_APP_API_KEY: string;
   };
-  readonly versions: {
-    readonly vite: string;
-    readonly vue: string;
-    readonly vuetify: string;
-  };
+  glob: (path: string) => Record<string, () => Promise<unknown>>;
 }
 
 declare module '*.vue' {

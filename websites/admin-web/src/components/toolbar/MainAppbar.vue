@@ -7,9 +7,9 @@
 import { useDisplay } from 'vuetify';
 
 import LanguageSwitcher from '@/components/toolbar/LanguageSwitcher.vue';
+import ToolbarUser from '@/components/toolbar/ToolbarUser.vue';
 import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
 
-import ToolbarUser from './ToolbarUser.vue';
 const { mdAndUp } = useDisplay();
 const customizeTheme = useCustomizeThemeStore();
 </script>
@@ -27,7 +27,9 @@ const customizeTheme = useCustomizeThemeStore();
       <!-- ---------------------------------------------- -->
       <!-- NavIcon -->
       <!-- ---------------------------------------------- -->
-      <v-app-bar-nav-icon @click="customizeTheme.mainSidebar = !customizeTheme.mainSidebar"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon
+        @click="customizeTheme.mainSidebar = !customizeTheme.mainSidebar"
+      ></v-app-bar-nav-icon>
 
       <v-spacer></v-spacer>
 

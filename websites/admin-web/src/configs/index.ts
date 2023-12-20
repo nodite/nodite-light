@@ -1,5 +1,6 @@
-import currency from './currencies';
-import locales from './locales';
+import currency from '@/configs/currencies';
+import locales from '@/configs/locales';
+
 export default {
   // product display information
   product: {

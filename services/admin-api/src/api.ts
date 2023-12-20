@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/default-param-last */
-import '@core/databases/connect';
+import '@nodite-light/admin-database/lib/connect';
 
-import { RegisterRoutes } from '@dotsoa/routes';
+import { RegisterRoutes } from '@_tsoa/routes';
 import { Router } from 'express';
 import { ValidationService } from 'tsoa';
 
@@ -18,11 +18,8 @@ ValidationService.prototype.ValidateParam = (
   _minimalSwaggerConfig,
 ) => rawValue;
 
-RegisterRoutes.prototype.getValidatedArgs = (
-  args: never,
-  _request: never,
-  _response: never,
-) => Object.keys(args);
+RegisterRoutes.prototype.getValidatedArgs = (args: never, _request: never, _response: never) =>
+  Object.keys(args);
 
 const router: Router = Router();
 RegisterRoutes(router);

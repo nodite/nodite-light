@@ -1,15 +1,16 @@
-import { IUser } from '@components/user/user.interface';
-import { UserModel } from '@components/user/user.model';
+import { LoginBody, LoginResponse, RegisterBody } from '@components/auth/auth.interface';
+import { IUser } from '@components/user/_iac/user.interface';
 import { UserService } from '@components/user/user.service';
-import config from '@config/config';
-import { AuthorizedRequest } from '@core/interfaces/authorizedRequest';
-import AppError from '@core/utils/appError';
-import jwtAsync, { JwtDestroyType } from '@core/utils/jwt';
+import { AuthorizedRequest } from '@nodite-light/admin-auth/lib/interfaces/authorizedRequest';
+import jwtAsync, { JwtDestroyType } from '@nodite-light/admin-auth/lib/utils/jwt';
+import config from '@nodite-light/admin-core/lib/config/config';
+import AppError from '@nodite-light/admin-core/lib/utils/appError';
 import httpStatus from 'http-status';
 import lodash from 'lodash';
 
-import { LoginBody, LoginResponse, RegisterBody } from './auth.interface';
-
+/**
+ * Class AuthService.
+ */
 export class AuthService {
   userService: UserService;
 
@@ -32,15 +33,15 @@ export class AuthService {
 
   /**
    * Login
-   * @param body LoginBody
-   * @returns LoginResponse
+   * @param body
+   * @returns
    */
   public async login(body: LoginBody): Promise<LoginResponse> {
-    let user: UserModel | null = null;
+    let user: IUser | null = null;
 
-    if (!lodash.isEmpty(body.username)) {
+    if (body.username) {
       user = await this.userService.getByUsername(body.username || '');
-    } else if (!lodash.isEmpty(body.email)) {
+    } else if (body.email) {
       user = await this.userService.getByEmail(body.email || '');
     }
 
@@ -49,14 +50,14 @@ export class AuthService {
     }
 
     // valid password.
-    user.validPassword(body.password);
+    this.userService.validPassword(body.password, user.password);
 
     // generate jwt token.
-    const payload = {
-      userId: user.getDataValue('userId'),
-      username: user.getDataValue('username'),
-      email: user.getDataValue('email'),
-    } as AuthorizedRequest['user'];
+    const payload: AuthorizedRequest['user'] = {
+      userId: user.userId,
+      username: user.username,
+      email: user.email,
+    };
 
     return {
       token: await jwtAsync().sign(payload as object, config.jwtSecret, {
@@ -68,12 +69,10 @@ export class AuthService {
 
   /**
    * Logout
-   * @param user AuthorizedRequest['user']
-   * @returns JwtDestroyType
+   * @param user
+   * @returns
    */
-  public async logout(
-    user: AuthorizedRequest['user'],
-  ): Promise<JwtDestroyType> {
+  public async logout(user: AuthorizedRequest['user']): Promise<JwtDestroyType> {
     return jwtAsync().destroy(user?.jti || '');
   }
 }

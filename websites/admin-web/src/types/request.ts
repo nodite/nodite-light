@@ -9,7 +9,8 @@ export enum ContentType {
   Text = 'text/plain',
 }
 
-export interface FullRequestParams extends Omit<AxiosRequestConfig, 'data' | 'params' | 'url' | 'responseType'> {
+export interface FullRequestParams
+  extends Omit<AxiosRequestConfig, 'data' | 'params' | 'url' | 'responseType'> {
   /** set parameter to `true` for call `securityWorker` for this request */
   secure?: boolean;
   /** request path */
@@ -26,7 +27,10 @@ export interface FullRequestParams extends Omit<AxiosRequestConfig, 'data' | 'pa
   skipErrorHandler?: boolean;
 }
 
-export type RequestParams = Omit<FullRequestParams, 'body' | 'method' | 'query' | 'path' | 'skipErrorHandler'>;
+export type RequestParams = Omit<
+  FullRequestParams,
+  'body' | 'method' | 'query' | 'path' | 'skipErrorHandler'
+>;
 
 export interface IResponse<T = unknown> {
   error: boolean;

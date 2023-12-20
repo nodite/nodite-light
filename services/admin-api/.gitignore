@@ -42,4 +42,4 @@ src/**/*.js.map
 coverage/
 
 # tsoa output #
-.tsoa
+src/_tsoa

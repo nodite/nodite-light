@@ -78,7 +78,9 @@ const messages = [
         <!-- Main Content-->
         <!-- ---------------------------------------------- -->
         <div>
-          <v-list-item-title class="font-weight-bold text-primary">{{ message.title }}</v-list-item-title>
+          <v-list-item-title class="font-weight-bold text-primary">{{
+            message.title
+          }}</v-list-item-title>
           <v-list-item-subtitle>{{ message.subtitle }}</v-list-item-subtitle>
         </div>
       </v-list-item>

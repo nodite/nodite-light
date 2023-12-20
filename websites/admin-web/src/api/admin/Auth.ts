@@ -9,42 +9,42 @@
  * ---------------------------------------------------------------
  */
 
-import type { RequestParams } from '@/types/request';
-import { ContentType } from '@/types/request';
-import { request } from '@/utils/request/index';
+import type { RequestParams } from "@/types/request";
+import { ContentType } from "@/types/request";
+import { request } from "@/utils/request/index";
 import type {
   IResponseJwtDestroyType,
   IResponseLoginResponse,
   IResponseTrue,
   LoginBody,
   RegisterBody,
-} from './data-contracts';
+} from "./data-contracts";
 
 /**
  * No description
  *
  * @tags auth
- * @name register
+ * @name adminAuthRegister
  * @summary Register
  * @request POST:/auth/register
  */
-export const register = (data: RegisterBody, params: RequestParams = {}) =>
+export const adminAuthRegister = (data: RegisterBody, params: RequestParams = {}) =>
   request<IResponseTrue>({
     path: `/auth/register`,
-    method: 'POST',
+    method: "POST",
     body: data,
     type: ContentType.Json,
-    format: 'json',
+    format: "json",
     skipErrorHandler: false,
     ...params,
   });
-export const registerSkipErrorHandler = (data: RegisterBody, params: RequestParams = {}) =>
+export const adminAuthRegisterSkipErrorHandler = (data: RegisterBody, params: RequestParams = {}) =>
   request<IResponseTrue>({
     path: `/auth/register`,
-    method: 'POST',
+    method: "POST",
     body: data,
     type: ContentType.Json,
-    format: 'json',
+    format: "json",
     skipErrorHandler: true,
     ...params,
   });
@@ -53,27 +53,27 @@ export const registerSkipErrorHandler = (data: RegisterBody, params: RequestPara
  * No description
  *
  * @tags auth
- * @name login
+ * @name adminAuthLogin
  * @summary Login
  * @request POST:/auth/login
  */
-export const login = (data: LoginBody, params: RequestParams = {}) =>
+export const adminAuthLogin = (data: LoginBody, params: RequestParams = {}) =>
   request<IResponseLoginResponse>({
     path: `/auth/login`,
-    method: 'POST',
+    method: "POST",
     body: data,
     type: ContentType.Json,
-    format: 'json',
+    format: "json",
     skipErrorHandler: false,
     ...params,
   });
-export const loginSkipErrorHandler = (data: LoginBody, params: RequestParams = {}) =>
+export const adminAuthLoginSkipErrorHandler = (data: LoginBody, params: RequestParams = {}) =>
   request<IResponseLoginResponse>({
     path: `/auth/login`,
-    method: 'POST',
+    method: "POST",
     body: data,
     type: ContentType.Json,
-    format: 'json',
+    format: "json",
     skipErrorHandler: true,
     ...params,
   });
@@ -82,23 +82,23 @@ export const loginSkipErrorHandler = (data: LoginBody, params: RequestParams = {
  * No description
  *
  * @tags auth
- * @name logout
+ * @name adminAuthLogout
  * @summary Logout
  * @request DELETE:/auth/logout
  */
-export const logout = (params: RequestParams = {}) =>
+export const adminAuthLogout = (params: RequestParams = {}) =>
   request<IResponseJwtDestroyType>({
     path: `/auth/logout`,
-    method: 'DELETE',
-    format: 'json',
+    method: "DELETE",
+    format: "json",
     skipErrorHandler: false,
     ...params,
   });
-export const logoutSkipErrorHandler = (params: RequestParams = {}) =>
+export const adminAuthLogoutSkipErrorHandler = (params: RequestParams = {}) =>
   request<IResponseJwtDestroyType>({
     path: `/auth/logout`,
-    method: 'DELETE',
-    format: 'json',
+    method: "DELETE",
+    format: "json",
     skipErrorHandler: true,
     ...params,
   });

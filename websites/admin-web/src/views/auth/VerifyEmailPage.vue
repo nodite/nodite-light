@@ -47,7 +47,9 @@ onUnmounted(() => {
 <template>
   <v-card class="pa-5">
     <h1 class="text-h5 font-weight-bold">Please verify the email</h1>
-    <div class="mb-5 text-grey text-caption">Please check your email for the link to verify the email.</div>
+    <div class="mb-5 text-grey text-caption">
+      Please check your email for the link to verify the email.
+    </div>
     <v-btn
       class="text-capitalize"
       block

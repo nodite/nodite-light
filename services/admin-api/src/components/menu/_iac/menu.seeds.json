@@ -1,0 +1,68 @@
+[
+  {
+    "menuName": "系统",
+    "icon": "",
+    "iKey": "sidebar.system.overline",
+    "iType": "overline",
+    "createBy": "system",
+    "updateBy": "system",
+    "children": [
+      {
+        "menuName": "系统管理",
+        "icon": "",
+        "iKey": "sidebar.system.directory",
+        "iType": "directory",
+        "createBy": "system",
+        "updateBy": "system",
+        "children": [
+          {
+            "menuName": "菜单管理",
+            "icon": "",
+            "iKey": "sidebar.system.menu",
+            "iType": "menu",
+            "path": "menu",
+            "component": "menu/ListPage",
+            "layout": "ui",
+            "perms": "admin:menu:list",
+            "createBy": "system",
+            "updateBy": "system",
+            "children": [
+              {
+                "menuName": "菜单查询",
+                "iType": "action",
+                "hidden": true,
+                "perms": "admin:menu:query",
+                "createBy": "system",
+                "updateBy": "system"
+              },
+              {
+                "menuName": "菜单新增",
+                "iType": "action",
+                "hidden": true,
+                "perms": "admin:menu:create",
+                "createBy": "system",
+                "updateBy": "system"
+              },
+              {
+                "menuName": "菜单编辑",
+                "iType": "action",
+                "hidden": true,
+                "perms": "admin:menu:edit",
+                "createBy": "system",
+                "updateBy": "system"
+              },
+              {
+                "menuName": "菜单删除",
+                "iType": "action",
+                "hidden": true,
+                "perms": "admin:menu:delete",
+                "createBy": "system",
+                "updateBy": "system"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
