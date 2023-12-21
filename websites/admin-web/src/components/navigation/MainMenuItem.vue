@@ -3,6 +3,7 @@ import lodash from 'lodash';
 
 import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
 import { NavigationConfig } from '@/types/config';
+import * as navUtil from '@/utils/navigation';
 
 const customizeTheme = useCustomizeThemeStore();
 
@@ -18,11 +19,11 @@ const props = defineProps({
 });
 
 const validator = {
-  getIType: () => {
-    return props.menuItem.iType || 'menu';
+  getiType: (): NavigationConfig.MenuType => {
+    return props.menuItem.meta?.iType || 'menu';
   },
   hasTitle: () => {
-    return props.menuItem.iKey || props.menuItem.meta?.title;
+    return Boolean(navUtil.toi18Title(props.menuItem));
   },
   hasChildren: () => {
     return !lodash.isEmpty(props.menuItem.children);
@@ -30,17 +31,17 @@ const validator = {
   isHidden: () => {
     return Boolean(props.menuItem.meta?.hidden) || !validator.hasTitle();
   },
-  isOverline: () => {
-    return validator.getIType() === 'overline';
+  isOverline: (): boolean => {
+    return validator.getiType() === 'overline';
   },
-  isDirectory: () => {
-    return validator.getIType() === 'directory';
+  isDirectory: (): boolean => {
+    return validator.getiType() === 'directory';
   },
-  isMenu: () => {
-    return validator.getIType() === 'menu';
+  isMenu: (): boolean => {
+    return validator.getiType() === 'menu';
   },
-  isAction: () => {
-    return validator.getIType() === 'action';
+  isAction: (): boolean => {
+    return validator.getiType() === 'action';
   },
 };
 </script>
@@ -54,14 +55,14 @@ const validator = {
         v-if="!customizeTheme.miniSidebar && validator.hasTitle()"
         class="pa-1 mt-2 text-overline"
       >
-        {{ menuItem.iKey ? $t(menuItem.iKey) : menuItem.meta?.title }}
+        {{ navUtil.toi18Title(props.menuItem) }}
       </div>
       <template v-if="validator.hasChildren()">
         <!-- subMenu -->
         <main-menu-item
           v-bind="props"
           v-for="subMenuItem in menuItem.children"
-          :key="subMenuItem.iKey"
+          :key="subMenuItem.meta?.iKey"
           :menu-item="subMenuItem"
           :menu-level="menuLevel + 1"
         ></main-menu-item>
@@ -75,8 +76,8 @@ const validator = {
         <template v-slot:activator="{ props }">
           <v-list-item
             v-bind="props"
-            :prepend-icon="menuItem.icon || 'mdi-circle-medium'"
-            :title="menuItem.iKey ? $t(menuItem.iKey) : menuItem.meta?.title"
+            :prepend-icon="menuItem.meta?.icon || 'mdi-circle-medium'"
+            :title="navUtil.toi18Title(menuItem)"
           ></v-list-item>
         </template>
         <template v-if="validator.hasChildren()">
@@ -84,7 +85,7 @@ const validator = {
           <main-menu-item
             v-bind="props"
             v-for="subMenuItem in menuItem.children"
-            :key="subMenuItem.iKey"
+            :key="subMenuItem.meta?.iKey"
             :menu-item="subMenuItem"
             :menu-level="menuLevel + 1"
           ></main-menu-item>
@@ -96,14 +97,14 @@ const validator = {
       <!-- menu -->
       <v-list-item
         v-bind="props"
-        :key="menuItem.iKey"
+        :key="menuItem.meta?.iKey"
         :to="menuItem.path"
-        :prepend-icon="menuItem.icon || 'mdi-circle-medium'"
+        :prepend-icon="menuItem.meta?.icon || 'mdi-circle-medium'"
         :active-class="`active-nav-${customizeTheme.primaryColor.colorName}`"
         density="compact"
       >
         <v-list-item-title v-bind="props">
-          {{ menuItem.iKey ? $t(menuItem.iKey) : menuItem.meta?.title }}
+          {{ navUtil.toi18Title(menuItem) }}
         </v-list-item-title>
       </v-list-item>
     </template>

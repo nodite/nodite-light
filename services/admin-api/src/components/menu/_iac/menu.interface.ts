@@ -12,14 +12,24 @@ export interface IMenu extends IBase {
   menuId: number;
 
   /**
+   * Menu name
+   */
+  menuName: string;
+
+  /**
    * Parent menu ID
    */
   parentId: number;
 
   /**
-   * Menu name
+   * Order number
    */
-  name: string;
+  orderNum: number;
+
+  /**
+   * Menu icon
+   */
+  icon: string;
 
   /**
    * Menu name i18n key
@@ -45,11 +55,6 @@ export interface IMenu extends IBase {
    * Menu component
    */
   component: string;
-
-  /**
-   * Menu icon
-   */
-  icon: string;
 
   /**
    * Menu hidden

@@ -161,8 +161,8 @@ export default {
   sidebar: {
     system: {
       overline: 'System',
-      directory: 'System Management',
-      menu: 'Menus',
+      directory: 'System Mgmt',
+      menu: 'Menu Mgmt',
     },
   },
 

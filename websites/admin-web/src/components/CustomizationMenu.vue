@@ -3,11 +3,13 @@ import { Icon } from '@iconify/vue';
 import { useTheme } from 'vuetify';
 
 import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
+
 interface Color {
   colorId: number;
   colorName: string;
   colorValue: string;
 }
+
 const customizeTheme = useCustomizeThemeStore();
 const theme = useTheme();
 const themeDrawer = ref(false);
@@ -150,8 +152,8 @@ const updatePrimaryColor = (newColor: Color) => {
           <v-btn color="" class="gradient info" block size="large">Contact Me</v-btn>
         </div>
         <div class="ml-5 mt-5 d-flex align-center">
-          <v-icon color="primary" class="mr-6">mdi-email-outline</v-icon>
-          <a href="mailto:yjkbako@gmail.com">yjkbako@gmail.com</a>
+          <v-icon color="primary" class="mr-2">mdi-email-outline</v-icon>
+          <a href="mailto:oscaner1997@gmail.com">oscaner1997@gmail.com</a>
         </div>
         <div>
           <img src="@/assets/wechat.jpg" alt="" />

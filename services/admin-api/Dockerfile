@@ -25,6 +25,6 @@ COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/node_modules ./node_modules
 
 # Run the server in production mode
-CMD npm run server:prod
+CMD npm run start:prod
 
 EXPOSE 8080
