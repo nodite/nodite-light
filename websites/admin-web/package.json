@@ -14,7 +14,7 @@
     "openapi": "tsx openapi.config.ts"
   },
   "dependencies": {
-    "@formkit/auto-animate": "^0.7.0",
+    "@formkit/auto-animate": "^0.8.1",
     "@mdi/font": "^7.3.67",
     "@tiptap/pm": "^2.0.2",
     "@tiptap/starter-kit": "^2.0.2",
