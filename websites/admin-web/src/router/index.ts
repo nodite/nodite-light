@@ -1,3 +1,16 @@
+/*
+ * File: index.ts                                                              *
+ * Project: @nodite-light/admin-web                                            *
+ * Created Date: We Dec 2023                                                   *
+ * Author: Oscaner Miao                                                        *
+ * -----                                                                       *
+ * Last Modified: Thu Dec 21 2023                                              *
+ * Modified By: Oscaner Miao                                                   *
+ * -----                                                                       *
+ * Copyright (c) 2023 @nodite                                                  *
+ * ----------	---	---------------------------------------------------------    *
+ */
+
 import lodash from 'lodash';
 import { createRouter, createWebHistory } from 'vue-router';
 
@@ -7,7 +20,6 @@ import { useAppStore } from '@/stores/modules/appStore';
 import { useAuthStore } from '@/stores/modules/authStore';
 import { useNavStore } from '@/stores/modules/navStore';
 import { useProfileStore } from '@/stores/modules/profileStore';
-import { useSnackbarStore } from '@/stores/modules/snackbarStore';
 import { NavigationConfig } from '@/types/config';
 import * as toolkit from '@/utils/request/toolkit';
 import * as url from '@/utils/url';
@@ -32,7 +44,6 @@ export const staticRoutes = [
       {
         path: '/index',
         component: () => import('@/views/Index.vue'),
-        name: 'Index',
         meta: {
           title: 'Homepage',
           hidden: true,
@@ -68,12 +79,16 @@ router.beforeEach(async (to, from) => {
 
   const authStore = useAuthStore();
 
-  // Not need auth.
-  if (to.meta?.inWhiteList) {
+  // Authorized user shouldn't visit auth pages.
+  if (authStore.isAuthorized && to.path === '/auth/signin') {
+    return { path: '/' };
+  }
+  // In white list.
+  else if (to.meta?.inWhiteList) {
     return;
   }
-  // Need auth, but unauthorized.
-  if (!toolkit.token.get() || !authStore.isLoggedIn) {
+  // Unauthorized.
+  else if (!authStore.isAuthorized) {
     toolkit.redirectToLogin(i18n.global.t('common.noSignIn'));
     return false;
   }
@@ -82,7 +97,6 @@ router.beforeEach(async (to, from) => {
   const navStore = useNavStore();
   try {
     if (!navStore.isRouterReady) {
-      console.log('refresh routers');
       // Waiting profile ready.
       await profileStore.getProfile();
 

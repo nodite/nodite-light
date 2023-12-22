@@ -48,6 +48,7 @@ const scrollToBottom = () => {
         style="box-shadow: rgba(0, 0, 0, 0.05) 0px 25px 15px -20px"
         height="100"
         class="d-flex align-center justify-center"
+        :to="{ path: '/' }"
       >
         <img v-if="customizeTheme.darkTheme" width="200" src="@/assets/logo_dark.svg" alt="" />
         <img v-else width="200" src="@/assets/logo_light.svg" alt="" />

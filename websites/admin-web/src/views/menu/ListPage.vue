@@ -1,39 +1,25 @@
+<!--
+* Component: ListPage.vue
+* Project: @nodite-light/admin-web
+* Created Time: 2023-12-07 16:24
+* Created By: Oscaner Miao
+-->
 <script setup lang="ts">
-import SalesCard from '@/components/dashboard/SalesCard.vue';
-import TicketsCard from '@/components/dashboard/TicketsCard.vue';
+const animations = ref([]);
 </script>
+
 <template>
-  <div class="pa-5">
-    <!-- ---------------------------------------------- -->
-    <!---First Row -->
-    <!-- ---------------------------------------------- -->
-    <v-row class="flex-0" dense>
-      <v-col cols="12" xl="4">
-        <!-- Sales Card -->
-        <v-card class="card-shadow" height="420">
-          <!-- <sales-card></sales-card> -->
-          <sales-card
-            :value="1837.32"
-            class="h-100"
-            :percentage="3.2"
-            style="min-height: 380px"
-            :percentage-label="$t('dashboard.lastweek')"
-            :action-label="$t('dashboard.viewReport')"
-          ></sales-card>
+  <v-card class="mt-5 pa-5" elevation="0">
+    <v-row>
+      <v-col cols="12" sm="6" md="4" lg="3" v-for="animation in animations" :key="animation">
+        <v-card>
+          <v-card-title class="font-weight-bold text-grey-darken-3"> </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text> </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="12" xl="6">
-        <v-card class="card-shadow" height="420"><tickets-card></tickets-card> </v-card>
-      </v-col>
     </v-row>
-    <!-- ---------------------------------------------- -->
-    <!---Second Row -->
-    <!-- ---------------------------------------------- -->
-
-    <!-- ---------------------------------------------- -->
-    <!---Third Row -->
-    <!-- ---------------------------------------------- -->
-    <v-row class="card-shadow flex-grow-0" dense> </v-row>
-  </div>
+  </v-card>
 </template>
-<style lang="scss" scoped></style>
+
+<style scoped lang="scss"></style>

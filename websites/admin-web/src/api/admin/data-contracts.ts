@@ -100,13 +100,20 @@ export interface IMenu {
    * @format double
    */
   menuId: number;
+  /** Menu name */
+  menuName: string;
   /**
    * Parent menu ID
    * @format double
    */
   parentId: number;
-  /** Menu name */
-  name: string;
+  /**
+   * Order number
+   * @format double
+   */
+  orderNum: number;
+  /** Menu icon */
+  icon: string;
   /** Menu name i18n key */
   iKey: string;
   /** Menu type */
@@ -117,8 +124,6 @@ export interface IMenu {
   redirect: string;
   /** Menu component */
   component: string;
-  /** Menu icon */
-  icon: string;
   /** Menu hidden */
   hidden: boolean;
   /** Menu layout */

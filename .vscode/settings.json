@@ -36,5 +36,8 @@
   },
   "[vue]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "psi-header.config": {
+    "company": "@nodite"
   }
 }

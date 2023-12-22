@@ -2,25 +2,26 @@ import { NavigationConfig } from '@/types/config';
 
 export default [
   {
-    icon: 'mdi-file-lock-outline',
-    iKey: 'menu.auth',
-    iType: 'directory',
     path: '/auth',
     redirect: '/auth/signin',
     meta: {
+      icon: 'mdi-file-lock-outline',
+      iKey: 'menu.auth',
+      iType: 'directory',
       hidden: true,
       title: 'Auth Pages',
       inWhiteList: true,
     },
     children: [
       {
-        icon: 'mdi-login',
-        iKey: 'menu.authLogin',
-        iType: 'menu',
+        name: 'auth-signin',
         path: '/auth/signin',
         component: () =>
           import(/* webpackChunkName: "auth-signin" */ '@/views/auth/SigninPage.vue'),
         meta: {
+          icon: 'mdi-login',
+          iKey: 'menu.authLogin',
+          iType: 'menu',
           hidden: true,
           layout: 'auth',
           title: 'SignIn',
@@ -28,13 +29,13 @@ export default [
         },
       },
       {
-        icon: 'mdi-logout',
-        iKey: 'menu.authRegister',
-        iType: 'menu',
         path: '/auth/signup',
         component: () =>
           import(/* webpackChunkName: "auth-signup" */ '@/views/auth/SignupPage.vue'),
         meta: {
+          icon: 'mdi-logout',
+          iKey: 'menu.authRegister',
+          iType: 'menu',
           hidden: true,
           layout: 'auth',
           title: 'SignUp',
@@ -42,13 +43,13 @@ export default [
         },
       },
       {
-        icon: 'mdi-email-check',
-        iKey: 'menu.authVerify',
-        iType: 'menu',
         path: '/auth/verify-email',
         component: () =>
           import(/* webpackChunkName: "verify-email" */ '@/views/auth/VerifyEmailPage.vue'),
         meta: {
+          icon: 'mdi-email-check',
+          iKey: 'menu.authVerify',
+          iType: 'menu',
           hidden: true,
           layout: 'auth',
           title: 'VerifyEmail',

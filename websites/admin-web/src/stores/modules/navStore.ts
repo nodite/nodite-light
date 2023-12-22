@@ -1,12 +1,23 @@
+/*
+ * File: navStore.ts                                                           *
+ * Project: @nodite-light/admin-web                                            *
+ * Created Date: We Dec 2023                                                   *
+ * Author: Oscaner Miao                                                        *
+ * -----                                                                       *
+ * Last Modified: Thu Dec 21 2023                                              *
+ * Modified By: Oscaner Miao                                                   *
+ * -----                                                                       *
+ * Copyright (c) 2023 @nodite                                                  *
+ * ----------	---	---------------------------------------------------------    *
+ */
+
 import lodash from 'lodash';
 
 import { MenuTree } from '@/api/admin/data-contracts';
 import * as MenuApi from '@/api/admin/Menu';
 import { staticRoutes } from '@/router';
 import { NavigationConfig } from '@/types/config';
-
-// load all views.
-const views = import.meta.glob('@/views/**/*.vue');
+import * as navUtil from '@/utils/navigation';
 
 export type NavState = {
   menuTree: MenuTree[];
@@ -24,7 +35,7 @@ export const useNavStore = defineStore('nav', {
   persist: [{ storage: sessionStorage, paths: ['menuTree', 'sidebar'] }],
 
   getters: {
-    isRouterReady(state): boolean {
+    isRouterReady(state: NavState): boolean {
       return !lodash.isEmpty(state.routers);
     },
   },
@@ -34,7 +45,7 @@ export const useNavStore = defineStore('nav', {
      * Get menu tree.
      * @returns
      */
-    async getMenuTree() {
+    async getMenuTree(): Promise<MenuTree[]> {
       if (lodash.isEmpty(this.menuTree)) {
         this.menuTree = (await MenuApi.adminMenuTree()) || [];
       }
@@ -45,9 +56,9 @@ export const useNavStore = defineStore('nav', {
      * Get routers.
      * @returns
      */
-    async getRouters() {
+    async getRouters(): Promise<NavigationConfig.Router[]> {
       if (lodash.isEmpty(this.routers)) {
-        this.routers = this._convertMenuTreeToRouter(await this.getMenuTree()) || [];
+        this.routers = navUtil.convertMenuTreeToRouter(await this.getMenuTree()) || [];
       }
       return this.routers;
     },
@@ -56,7 +67,7 @@ export const useNavStore = defineStore('nav', {
      * Get sidebar.
      * @returns
      */
-    async getSidebar() {
+    async getSidebar(): Promise<NavigationConfig.Router[]> {
       if (lodash.isEmpty(this.sidebar)) {
         this.sidebar = [...staticRoutes, ...(await this.getRouters())].filter((route) => {
           // remove non-root menu.
@@ -64,55 +75,6 @@ export const useNavStore = defineStore('nav', {
         });
       }
       return this.sidebar;
-    },
-
-    /**
-     * Convert menu tree to routers.
-     * @param menuTree
-     * @returns
-     */
-    _convertMenuTreeToRouter(menuTree?: MenuTree[]): NavigationConfig.Router[] | undefined {
-      return lodash.map(menuTree, (menu) => {
-        const router = {
-          icon: menu.icon || undefined,
-          iKey: menu.iKey || undefined,
-          iType: menu.iType as NavigationConfig.Router['iType'],
-          path: menu.path,
-          redirect: menu.redirect || undefined,
-          component: this._loadComponent(menu.component),
-          meta: {
-            parentId: menu.parentId || undefined,
-            disabled: menu.status === 0,
-            hidden: menu.hidden,
-            layout: menu.layout,
-            title: menu.name,
-          },
-        } as NavigationConfig.Router;
-
-        if (!router.component) {
-          delete router.component;
-        }
-
-        if (menu.children && menu.children.length > 0) {
-          router.children = this._convertMenuTreeToRouter(menu.children);
-        } else {
-          delete router.children;
-        }
-
-        return router;
-      });
-    },
-
-    /**
-     * Load component.
-     * @param component
-     * @returns
-     */
-    _loadComponent(component: string) {
-      const importView = lodash.find(views, (value, key) => {
-        return key.endsWith(`views/${component}.vue`);
-      });
-      return importView ? () => importView() : undefined;
     },
   },
 });

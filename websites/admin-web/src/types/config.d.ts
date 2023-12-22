@@ -1,5 +1,9 @@
 import { RouteRecordRaw } from 'vue-router';
 
+declare namespace Common {
+  type ArrayElem<ArrType> = ArrType extends readonly (infer ElementType)[] ? ElementType : never;
+}
+
 interface Config {
   theme: ThemeConfig.Config;
   locales: unknown;
@@ -58,20 +62,21 @@ declare namespace ThemeConfig {
 }
 
 declare namespace NavigationConfig {
+  type MenuType = 'overline' | 'directory' | 'menu' | 'action';
+
   type Router = RouteRecordRaw & {
-    icon?: string;
-    iKey?: string; // i18n key
-    iType?: 'overline' | 'directory' | 'menu' | 'action'; // menu type
-    // text?: string; // use meta.title
-    // link?: string; // use path
+    matched?: Omit<Router, 'matched' | 'children'>[];
     meta?: {
-      [key: string]: string | number | boolean | undefined;
+      icon?: string;
+      iKey?: string; // i18n key
+      iType?: MenuType; // menu type
       disabled?: boolean;
       regex?: RegExp;
       hidden?: boolean;
       layout?: string;
       title?: string;
       inWhiteList?: boolean; // in white list
+      [key: string]: string | number | boolean | undefined;
     };
     children?: Router[];
   };
