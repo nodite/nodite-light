@@ -1,3 +1,5 @@
+// import { ImportGlobOptions } from 'vite';
+
 declare interface ImportMeta {
   readonly env: {
     // Environment variables defined in .env
@@ -6,7 +8,7 @@ declare interface ImportMeta {
     readonly VITE_APP_BASE_API: string;
     readonly VITE_APP_API_KEY: string;
   };
-  glob: (path: string) => Record<string, () => Promise<unknown>>;
+  glob: (glob: string | string[], options?: ImportGlobOptions) => Record<string, undefined>;
 }
 
 declare module '*.vue' {

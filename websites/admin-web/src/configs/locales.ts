@@ -1,8 +1,7 @@
-import enMessages from '@/locales/en';
-import jaMessages from '@/locales/ja';
-import zhHansMessages from '@/locales/zhHans';
+import messages from '@/locales';
 
-const supported = ['en', 'zhHans', 'ja'];
+const supported = Object.keys(messages);
+
 let locale = 'en';
 
 try {
@@ -27,26 +26,23 @@ export default {
       flag: 'us',
       name: 'united-states',
       label: 'English',
-      messages: enMessages,
+      messages: messages.en,
     },
     {
       code: 'zhHans',
       flag: 'cn',
       name: 'china',
       label: '中文',
-      messages: zhHansMessages,
+      messages: messages.zhHans,
     },
     {
       code: 'ja',
       flag: 'jp',
       name: 'japan',
       label: '日本語',
-      messages: jaMessages,
+      messages: messages.ja,
     },
   ],
-  messages: {
-    en: enMessages,
-    zhHans: zhHansMessages,
-    ja: jaMessages,
-  },
+
+  messages: messages,
 };
