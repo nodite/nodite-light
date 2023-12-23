@@ -36,7 +36,7 @@ const customizeTheme = useCustomizeThemeStore();
       <Breadcrumb></Breadcrumb>
     </div>
 
-    <div class="flex-fill">
+    <div class="flex-fill pa-3">
       <slot></slot>
     </div>
     <ToolBox />

@@ -14,4 +14,14 @@ export default {
   authExpired: '身份验证已过期，请重新登录',
   validateFailed: '验证失败，请检查您的输入',
   maintenance: '系统维护中',
+
+  visibility: {
+    show: '显示',
+    hidden: '隐藏',
+  },
+
+  status: {
+    enabled: '启用',
+    disabled: '禁用',
+  },
 };

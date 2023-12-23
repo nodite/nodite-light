@@ -1,0 +1,21 @@
+{
+  "name": "@nodite-light/vuetify-tree-data-table",
+  "version": "0.0.1",
+  "private": true,
+  "description": "@nodite-light/vuetify-tree-data-table",
+  "author": "Oscaner Miao <oscaner1997@gmail.com>",
+  "main": "src/index.ts",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --check \"{*.js,!(node*)**/*.ts}\"",
+    "prettier:fix": "prettier --write \"{*.js,!(node*)**/*.ts}\""
+  },
+  "dependencies": {
+    "vue": "^3.3.13",
+    "vuetify": "^3.4.8"
+  }
+}

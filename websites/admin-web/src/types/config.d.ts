@@ -63,6 +63,7 @@ declare namespace ThemeConfig {
 
 declare namespace NavigationConfig {
   type MenuType = 'overline' | 'directory' | 'menu' | 'action';
+  type LayoutType = 'default' | 'auth' | 'landing' | 'ui';
 
   type Router = RouteRecordRaw & {
     matched?: Omit<Router, 'matched' | 'children'>[];
@@ -73,7 +74,7 @@ declare namespace NavigationConfig {
       disabled?: boolean;
       regex?: RegExp;
       hidden?: boolean;
-      layout?: string;
+      layout?: LayoutType; // default: ui
       title?: string;
       inWhiteList?: boolean; // in white list
       [key: string]: string | number | boolean | undefined;

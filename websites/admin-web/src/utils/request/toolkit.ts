@@ -82,7 +82,6 @@ export class RequestCanceler {
 
 // toolkit: redirectToLogin
 export const redirectToLogin = (msg?: string) => {
-  console.log();
   const searchParams: Record<string, string> = {
     redirect:
       '/' +

@@ -17,6 +17,8 @@ import * as AuthApi from '@/api/admin/Auth';
 import { LoginBody } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
 import router from '@/router';
+import { useMenuStore } from '@/stores/modules/menuStore';
+import { useNavStore } from '@/stores/modules/navStore';
 import { useProfileStore } from '@/stores/modules/profileStore';
 import { useSnackbarStore } from '@/stores/modules/snackbarStore';
 import * as toolkit from '@/utils/request/toolkit';
@@ -58,6 +60,8 @@ export const useAuthStore = defineStore('auth', {
       const response = await AuthApi.adminAuthLogin(userInfo);
       toolkit.token.set(response?.token || '', response?.expiresIn);
       this.isLoggedIn = true;
+      await useMenuStore().$reset();
+      await useNavStore().$reset();
       useSnackbarStore().showSuccessMessage(i18n.global.t('login.success'));
       router.push('/');
     },

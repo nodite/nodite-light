@@ -1,3 +1,5 @@
+import { localeZhHans as IconPicker } from '@nodite-light/vuetify-icon-picker';
+
 export default {
   badge: '徽章',
   close: '关',
@@ -64,4 +66,6 @@ export default {
       currentPage: '当前页，第{0}页',
     },
   },
+
+  icon_picker: IconPicker,
 };

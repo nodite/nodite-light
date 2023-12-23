@@ -9,9 +9,18 @@ import { Icon } from '@iconify/vue';
 import MainMenu from '@/components/navigation/MainMenu.vue';
 import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
 import { useNavStore } from '@/stores/modules/navStore';
+import { NavigationConfig } from '@/types/config';
 
 const customizeTheme = useCustomizeThemeStore();
-const navigation = ref(useNavStore().sidebar);
+const menus = ref([] as NavigationConfig.Menu[]);
+
+watchEffect(() => {
+  useNavStore()
+    .getSidebar()
+    .then((res) => {
+      menus.value = res;
+    });
+});
 
 const openGithubSite = () => {
   window.open('https://github.com/oscaner', '_blank');
@@ -59,7 +68,7 @@ const scrollToBottom = () => {
     <!---Nav List -->
     <!-- ---------------------------------------------- -->
 
-    <main-menu :menu="navigation"></main-menu>
+    <main-menu :menus="menus"></main-menu>
 
     <!-- ---------------------------------------------- -->
     <!---Bottom Area -->

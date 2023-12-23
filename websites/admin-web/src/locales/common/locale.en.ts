@@ -14,4 +14,14 @@ export default {
   authExpired: 'Authentication expired, please signin again.',
   validateFailed: 'Validate failed, please check your input.',
   maintenance: 'System Maintenance',
+
+  visibility: {
+    show: 'Show',
+    hidden: 'Hidden',
+  },
+
+  status: {
+    enabled: 'Enabled',
+    disabled: 'Disabled',
+  },
 };

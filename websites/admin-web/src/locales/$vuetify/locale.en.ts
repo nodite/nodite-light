@@ -1,3 +1,5 @@
+import { localeEn as IconPicker } from '@nodite-light/vuetify-icon-picker';
+
 export default {
   badge: 'Badge',
   close: 'Close',
@@ -65,4 +67,6 @@ export default {
       currentPage: 'Current Page, Page {0}',
     },
   },
+
+  icon_picker: IconPicker,
 };

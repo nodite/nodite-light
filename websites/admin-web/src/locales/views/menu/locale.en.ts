@@ -1,1 +1,44 @@
-export default {};
+export default {
+  form: {
+    parentRoot: 'Root',
+    save: 'Save',
+    create: 'New',
+    edit: 'Edit',
+    delete: 'Delete',
+    cancel: 'Cancel',
+    newHeader: 'New Menu',
+    editHeader: 'Edit Menu - {0}',
+    parent: 'Parent Menu',
+    menuName: 'Menu Name',
+    orderNum: 'Order',
+    iType: 'Menu Type',
+    icon: 'Icon',
+    iKey: 'i18n Key',
+    iKeyHint: 'Please contact the frontend engineer to add to locales.',
+    path: 'Path',
+    redirect: 'redirect to',
+    component: 'Component',
+    componentHint: 'The path of the component to be rendered.',
+    layout: 'Layout',
+    layoutHint: 'The layout used for component render.',
+    perms: 'Permission',
+    hidden: 'Visibility',
+    status: 'Status',
+  },
+
+  headers: {
+    menuName: 'Name',
+    orderNum: 'Order',
+    path: 'Path',
+    iType: 'Type',
+    hidden: 'Visibility',
+    perms: 'Perms',
+  },
+
+  type: {
+    overline: 'Overline',
+    directory: 'Directory',
+    menu: 'Menu',
+    action: 'Action',
+  },
+};

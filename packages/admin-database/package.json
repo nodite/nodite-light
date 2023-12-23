@@ -4,7 +4,7 @@
   "private": true,
   "description": "admin database",
   "author": "Oscaner Miao <oscaner1997@gmail.com>",
-  "main": "dist/index.ts",
+  "main": "lib/index.ts",
   "files": [
     "src",
     "lib"

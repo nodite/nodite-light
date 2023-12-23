@@ -13,26 +13,24 @@
 
 import lodash from 'lodash';
 
-import { MenuTree } from '@/api/admin/data-contracts';
-import * as MenuApi from '@/api/admin/Menu';
 import { staticRoutes } from '@/router';
 import { NavigationConfig } from '@/types/config';
 import * as navUtil from '@/utils/navigation';
 
+import { useMenuStore } from './menuStore';
+
 export type NavState = {
-  menuTree: MenuTree[];
   routers: NavigationConfig.Router[];
-  sidebar: NavigationConfig.Router[];
+  sidebar: NavigationConfig.Menu[];
 };
 
 export const useNavStore = defineStore('nav', {
   state: (): NavState => ({
-    menuTree: [],
     routers: [],
     sidebar: [],
   }),
 
-  persist: [{ storage: sessionStorage, paths: ['menuTree', 'sidebar'] }],
+  persist: [{ storage: sessionStorage, paths: ['sidebar'] }],
 
   getters: {
     isRouterReady(state: NavState): boolean {
@@ -42,23 +40,12 @@ export const useNavStore = defineStore('nav', {
 
   actions: {
     /**
-     * Get menu tree.
-     * @returns
-     */
-    async getMenuTree(): Promise<MenuTree[]> {
-      if (lodash.isEmpty(this.menuTree)) {
-        this.menuTree = (await MenuApi.adminMenuTree()) || [];
-      }
-      return this.menuTree;
-    },
-
-    /**
      * Get routers.
      * @returns
      */
     async getRouters(): Promise<NavigationConfig.Router[]> {
       if (lodash.isEmpty(this.routers)) {
-        this.routers = navUtil.convertMenuTreeToRouter(await this.getMenuTree()) || [];
+        this.routers = navUtil.convertMenuTreeToRouter(await useMenuStore().getMenuTree()) || [];
       }
       return this.routers;
     },
@@ -67,7 +54,7 @@ export const useNavStore = defineStore('nav', {
      * Get sidebar.
      * @returns
      */
-    async getSidebar(): Promise<NavigationConfig.Router[]> {
+    async getSidebar(): Promise<NavigationConfig.Menu[]> {
       if (lodash.isEmpty(this.sidebar)) {
         this.sidebar = [...staticRoutes, ...(await this.getRouters())].filter((route) => {
           // remove non-root menu.

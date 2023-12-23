@@ -6,6 +6,7 @@
     "iType": "overline",
     "createBy": "system",
     "updateBy": "system",
+    "deleted": 9,
     "children": [
       {
         "menuName": "系统管理",
@@ -14,6 +15,7 @@
         "iType": "directory",
         "createBy": "system",
         "updateBy": "system",
+        "deleted": 9,
         "children": [
           {
             "menuName": "菜单管理",
@@ -26,38 +28,43 @@
             "perms": "admin:menu:list",
             "createBy": "system",
             "updateBy": "system",
+            "deleted": 9,
             "children": [
               {
                 "menuName": "菜单查询",
                 "iType": "action",
-                "hidden": true,
+                "hidden": 1,
                 "perms": "admin:menu:query",
                 "createBy": "system",
-                "updateBy": "system"
+                "updateBy": "system",
+                "deleted": 9
               },
               {
                 "menuName": "菜单新增",
                 "iType": "action",
-                "hidden": true,
+                "hidden": 1,
                 "perms": "admin:menu:create",
                 "createBy": "system",
-                "updateBy": "system"
+                "updateBy": "system",
+                "deleted": 9
               },
               {
                 "menuName": "菜单编辑",
                 "iType": "action",
-                "hidden": true,
+                "hidden": 1,
                 "perms": "admin:menu:edit",
                 "createBy": "system",
-                "updateBy": "system"
+                "updateBy": "system",
+                "deleted": 9
               },
               {
                 "menuName": "菜单删除",
                 "iType": "action",
-                "hidden": true,
+                "hidden": 1,
                 "perms": "admin:menu:delete",
                 "createBy": "system",
-                "updateBy": "system"
+                "updateBy": "system",
+                "deleted": 9
               }
             ]
           }

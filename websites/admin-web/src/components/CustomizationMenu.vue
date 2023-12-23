@@ -11,45 +11,49 @@ interface Color {
 }
 
 const customizeTheme = useCustomizeThemeStore();
+
 const theme = useTheme();
+
 const themeDrawer = ref(false);
+
 const currentColor = ref<Color>({
   colorId: 2,
   colorName: 'grey',
   colorValue: '#344767',
 });
-const primaryColors = ref([
-  {
-    colorId: 1,
-    colorName: 'purple',
-    colorValue: '#CB0C9F',
-  },
-  {
-    colorId: 2,
-    colorName: 'grey',
-    colorValue: '#344767',
-  },
-  {
-    colorId: 3,
-    colorName: 'info',
-    colorValue: '#17C1E8',
-  },
-  {
-    colorId: 4,
-    colorName: 'success',
-    colorValue: '#82D616',
-  },
-  {
-    colorId: 5,
-    colorName: 'warning',
-    colorValue: '#F2825A',
-  },
-  {
-    colorId: 6,
-    colorName: 'error',
-    colorValue: '#EA0606',
-  },
-]);
+
+// const primaryColors = ref([
+//   {
+//     colorId: 1,
+//     colorName: 'purple',
+//     colorValue: '#CB0C9F',
+//   },
+//   {
+//     colorId: 2,
+//     colorName: 'grey',
+//     colorValue: '#344767',
+//   },
+//   {
+//     colorId: 3,
+//     colorName: 'info',
+//     colorValue: '#17C1E8',
+//   },
+//   {
+//     colorId: 4,
+//     colorName: 'success',
+//     colorValue: '#82D616',
+//   },
+//   {
+//     colorId: 5,
+//     colorName: 'warning',
+//     colorValue: '#F2825A',
+//   },
+//   {
+//     colorId: 6,
+//     colorName: 'error',
+//     colorValue: '#EA0606',
+//   },
+// ]);
 
 onMounted(() => updatePrimaryColor(customizeTheme.primaryColor));
 
@@ -62,6 +66,23 @@ const updatePrimaryColor = (newColor: Color) => {
   theme.themes.value.dark.colors.primary = newColor.colorValue;
   customizeTheme.setPrimaryColor(newColor);
   currentColor.value = newColor;
+};
+
+const setDarkTheme = (dark: boolean) => {
+  customizeTheme.setDarkTheme(dark);
+  updatePrimaryColor(
+    dark
+      ? {
+          colorId: 3,
+          colorName: 'info',
+          colorValue: '#17C1E8',
+        }
+      : {
+          colorId: 2,
+          colorName: 'grey',
+          colorValue: '#344767',
+        },
+  );
 };
 </script>
 
@@ -93,7 +114,7 @@ const updatePrimaryColor = (newColor: Color) => {
           <b>Global Theme Mode</b>
           <div class="px-3 pt-3" v-if="customizeTheme.darkTheme">
             <v-btn
-              @click="customizeTheme.darkTheme = !customizeTheme.darkTheme"
+              @click="setDarkTheme(!customizeTheme.darkTheme)"
               icon
               color="grey-darken-4"
               class="text-white"
@@ -104,7 +125,7 @@ const updatePrimaryColor = (newColor: Color) => {
           </div>
           <div class="px-3 pt-3" v-else>
             <v-btn
-              @click="customizeTheme.darkTheme = !customizeTheme.darkTheme"
+              @click="setDarkTheme(!customizeTheme.darkTheme)"
               icon
               color="white"
               class="text-red"
@@ -114,8 +135,10 @@ const updatePrimaryColor = (newColor: Color) => {
             <span class="ml-5">Light Mode</span>
           </div>
         </div>
+
         <hr class="my-6" />
 
+        <!--
         <div class="primary-color-area">
           <b>Primary Colors</b>
           <v-item-group class="mt-3" v-model="currentColor" selected-class="elevation-12" mandatory>
@@ -137,6 +160,8 @@ const updatePrimaryColor = (newColor: Color) => {
             </v-item>
           </v-item-group>
         </div>
+
+
         <hr class="my-6" />
         <div class="">
           <b>MiniSideBar</b>
@@ -148,6 +173,8 @@ const updatePrimaryColor = (newColor: Color) => {
           ></v-switch>
         </div>
         <hr class="mb-6" />
+        -->
+
         <div>
           <v-btn color="" class="gradient info" block size="large">Contact Me</v-btn>
         </div>

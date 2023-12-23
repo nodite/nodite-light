@@ -1,7 +1,9 @@
 html {
   font-family: $font-family;
 
-
+  .d-none-children > * {
+    display: none !important;
+  }
 
   .v-application {
     [class*="text-"] {
@@ -70,7 +72,7 @@ html {
       tbody {
         tr {
 
-          font-size: 0.875em;
+          font-size: 0.875rem;
           transition: box-shadow 0.2s, transform 0.2s;
 
 
@@ -101,7 +103,7 @@ html {
 
   .v-list-item {
 
-    // align-center 
+    // align-center
     .v-list-item__append,
     .v-list-item__prepend {
       height: 100%;

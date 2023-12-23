@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { PropType } from 'vue';
+
 import MainMenuItem from '@/components/navigation/MainMenuItem.vue';
 import { NavigationConfig } from '@/types/config';
 
-const props = defineProps({
+defineProps({
   // Data
-  menu: {
-    type: Array<NavigationConfig.Menu>,
+  menus: {
+    type: Array as PropType<NavigationConfig.Menu[]>,
     default: () => [],
   },
 });
@@ -13,9 +15,9 @@ const props = defineProps({
 
 <template>
   <v-list class="menu-list" nav dense color="primary">
-    <template v-for="menuArea in props.menu" :key="menuArea.key">
+    <template v-for="menu in menus" :key="menu.menuId">
       <!-- menu level 0 -->
-      <main-menu-item :menu-item="menuArea" :menu-level="0"></main-menu-item>
+      <main-menu-item :menu-item="menu" :menu-level="0"></main-menu-item>
     </template>
   </v-list>
 </template>
