@@ -3,7 +3,7 @@
     "../../.eslintrc",
     "airbnb-base",
     "airbnb-typescript",
-    "plugin:security/recommended",
+    "plugin:security/recommended-legacy",
     "eslint:recommended",
     "plugin:node/recommended",
     "prettier",
