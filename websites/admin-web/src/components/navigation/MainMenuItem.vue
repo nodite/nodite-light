@@ -3,7 +3,7 @@ import lodash from 'lodash';
 
 import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
 import { NavigationConfig } from '@/types/config';
-import * as navUtil from '@/utils/navigation';
+import * as menuUtil from '@/utils/menu';
 
 const customizeTheme = useCustomizeThemeStore();
 
@@ -23,7 +23,7 @@ const validator = {
     return props.menuItem.meta?.iType || 'menu';
   },
   hasTitle: () => {
-    return Boolean(navUtil.toi18Title(props.menuItem));
+    return Boolean(menuUtil.toI18Title(props.menuItem.meta));
   },
   hasChildren: () => {
     return !lodash.isEmpty(props.menuItem.children);
@@ -55,7 +55,7 @@ const validator = {
         v-if="!customizeTheme.miniSidebar && validator.hasTitle()"
         class="pa-1 mt-2 text-overline"
       >
-        {{ navUtil.toi18Title(props.menuItem) }}
+        {{ menuUtil.toI18Title(props.menuItem.meta) }}
       </div>
       <template v-if="validator.hasChildren()">
         <!-- subMenu -->
@@ -77,7 +77,7 @@ const validator = {
           <v-list-item
             v-bind="props"
             :prepend-icon="menuItem.meta?.icon || 'mdi-circle-medium'"
-            :title="navUtil.toi18Title(menuItem)"
+            :title="menuUtil.toI18Title(menuItem.meta)"
           ></v-list-item>
         </template>
         <template v-if="validator.hasChildren()">
@@ -104,7 +104,7 @@ const validator = {
         density="compact"
       >
         <v-list-item-title v-bind="props">
-          {{ navUtil.toi18Title(menuItem) }}
+          {{ menuUtil.toI18Title(menuItem.meta) }}
         </v-list-item-title>
       </v-list-item>
     </template>

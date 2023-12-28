@@ -13,8 +13,7 @@
 
 import lodash from 'lodash';
 
-import { MenuTree } from '@/api/admin/data-contracts';
-import i18n from '@/plugins/i18n';
+import { IMenu, MenuTree } from '@/api/admin/data-contracts';
 import { NavigationConfig } from '@/types/config';
 
 // load all views.
@@ -33,6 +32,29 @@ export const loadComponent = (component: string) => {
 };
 
 /**
+ * Convert menu to router.
+ * @param menu
+ * @returns
+ */
+export const convertMenuToRouter = (menu: IMenu): NavigationConfig.Router => {
+  return {
+    path: menu.path,
+    redirect: menu.redirect || undefined,
+    component: loadComponent(menu.component),
+    meta: {
+      icon: menu.icon || undefined,
+      iKey: menu.iKey || undefined,
+      iType: menu.iType as NavigationConfig.MenuType,
+      parentId: menu.parentId || undefined,
+      disabled: Number(menu.status) === 0,
+      hidden: menu.hidden,
+      layout: menu.layout || 'ui',
+      title: menu.menuName,
+    },
+  } as NavigationConfig.Router;
+};
+
+/**
  * Convert menu tree to routers.
  * @param menuTree
  * @returns
@@ -41,21 +63,7 @@ export const convertMenuTreeToRouter = (
   menuTree?: MenuTree[],
 ): NavigationConfig.Router[] | undefined => {
   return lodash.map(menuTree, (menu) => {
-    const router = {
-      path: menu.path,
-      redirect: menu.redirect || undefined,
-      component: loadComponent(menu.component),
-      meta: {
-        icon: menu.icon || undefined,
-        iKey: menu.iKey || undefined,
-        iType: menu.iType as NavigationConfig.MenuType,
-        parentId: menu.parentId || undefined,
-        disabled: menu.status === 0,
-        hidden: menu.hidden,
-        layout: menu.layout,
-        title: menu.menuName,
-      },
-    } as NavigationConfig.Router;
+    const router = convertMenuToRouter(menu);
 
     if (!router.component) {
       delete router.component;
@@ -69,10 +77,4 @@ export const convertMenuTreeToRouter = (
 
     return router;
   });
-};
-
-export const toi18Title = (router: NavigationConfig.Router): string | undefined => {
-  return router.meta?.iKey && i18n.global.te(router.meta.iKey)
-    ? i18n.global.t(router.meta.iKey)
-    : router.meta?.title;
 };

@@ -54,8 +54,9 @@ export const TableSchema = {
     defaultValue: '',
   },
   hidden: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
+    type: DataTypes.TINYINT({ length: 1 }),
+    defaultValue: 0,
+    comment: '0: show, 1: hidden',
   },
   layout: {
     type: DataTypes.STRING(32),

@@ -125,7 +125,7 @@ export interface IMenu {
   /** Menu component */
   component: string;
   /** Menu hidden */
-  hidden: boolean;
+  hidden: 0 | 1;
   /** Menu layout */
   layout: string;
   /** Menu perms */

@@ -104,7 +104,8 @@ router.beforeEach(async (to, from) => {
       const navRouters = await navStore.getRouters();
 
       for (const navRouter of navRouters) {
-        if (url.isHttp(navRouter.path)) {
+        // external link, or disabled.
+        if (url.isHttp(navRouter.path) || navRouter.meta?.disabled) {
           continue;
         }
         router.addRoute(navRouter);

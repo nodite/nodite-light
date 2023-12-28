@@ -59,7 +59,7 @@ export interface IMenu extends IBase {
   /**
    * Menu hidden
    */
-  hidden: boolean;
+  hidden: 0 | 1;
 
   /**
    * Menu layout

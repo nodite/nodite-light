@@ -20,9 +20,9 @@ export const useCustomizeThemeStore = defineStore({
     miniSidebar: false,
     darkTheme: false,
     primaryColor: {
-      colorId: 2,
-      colorName: 'grey',
-      colorValue: '#344767',
+      colorId: 3,
+      colorName: 'info',
+      colorValue: '#17C1E8',
     },
     localCode: 'en',
     mainSidebar: true,
@@ -38,6 +38,9 @@ export const useCustomizeThemeStore = defineStore({
 
   getters: {},
   actions: {
+    setDarkTheme(payload: boolean) {
+      this.darkTheme = payload;
+    },
     setMiniSideBar(payload: boolean) {
       this.miniSidebar = payload;
     },

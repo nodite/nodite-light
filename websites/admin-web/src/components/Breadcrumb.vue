@@ -3,7 +3,7 @@ import lodash from 'lodash';
 
 import { Common, NavigationConfig } from '@/types/config';
 import { BreadcrumbItem } from '@/types/vuetify/components/VBreadcrumbs';
-import * as navUtil from '@/utils/navigation';
+import * as menuUtil from '@/utils/menu';
 
 const route = useRoute() as unknown as NavigationConfig.Router;
 
@@ -18,7 +18,7 @@ watchEffect(() => {
     lodash.map(route.matched, (item) => {
       return {
         to: item.path ? { path: item.path } : undefined,
-        title: navUtil.toi18Title(item as NavigationConfig.Router) as string,
+        title: menuUtil.toI18Title(item.meta) as string,
         disabled: false,
       };
     }) || [],

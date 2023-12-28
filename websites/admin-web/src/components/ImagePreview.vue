@@ -1,5 +1,5 @@
 <!--
-* @Component: 
+* @Component:
 * @Maintainer: J.K. Yang
 * @Description: PhotoPreviewCard
 -->

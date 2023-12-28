@@ -43,6 +43,7 @@ axiosInstance.interceptors.response.use(
     useSnackbarStore().showErrorMessage(
       error?.response?.data?.message || error.message || i18n.global.t('common.networkError'),
     );
+    return error?.response;
   },
 );
 
@@ -96,6 +97,8 @@ export async function request({
     data,
     url: path,
   });
+
+  if (!axiosResponse) return;
 
   // skip error handler
   if (skipErrorHandler) {
