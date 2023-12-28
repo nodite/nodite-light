@@ -7,12 +7,7 @@
 
 ## Remaining tasks
 
-- [ ] User Register
-- [ ] Email Sending
-- [ ] Menu
-- [ ] Permission
-- [ ] Profile Page
-- [ ] Menu by User Permission
+[Nodite Kanban](https://www.yuque.com/oscaner/yzgrux/vv5795wmezv37q0n?inner=FC6Os) (暂未公开)
 
 ## Prerequisites
 

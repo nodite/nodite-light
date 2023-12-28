@@ -12,7 +12,13 @@
 import type { RequestParams } from "@/types/request";
 import { ContentType } from "@/types/request";
 import { request } from "@/utils/request/index";
-import type { IMenu, IResponseIMenu, IResponseIMenuArray, IResponseMenuTreeArray } from "./data-contracts";
+import type {
+  IMenu,
+  IResponseIMenu,
+  IResponseIMenuArray,
+  IResponseMenuTreeArray,
+  IResponseVoid,
+} from "./data-contracts";
 
 /**
  * No description
@@ -86,6 +92,59 @@ export const adminMenuCreateSkipErrorHandler = (data: IMenu, params: RequestPara
   request<IResponseIMenu>({
     path: `/menu`,
     method: "POST",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags menu
+ * @name adminMenuDelete
+ * @summary Delete menu
+ * @request DELETE:/menu/{id}
+ */
+export const adminMenuDelete = (id: number, params: RequestParams = {}) =>
+  request<IResponseVoid>({
+    path: `/menu/${id}`,
+    method: "DELETE",
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminMenuDeleteSkipErrorHandler = (id: number, params: RequestParams = {}) =>
+  request<IResponseVoid>({
+    path: `/menu/${id}`,
+    method: "DELETE",
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags menu
+ * @name adminMenuEdit
+ * @request PUT:/menu/{id}
+ */
+export const adminMenuEdit = (id: number, data: IMenu, params: RequestParams = {}) =>
+  request<IResponseIMenu>({
+    path: `/menu/${id}`,
+    method: "PUT",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminMenuEditSkipErrorHandler = (id: number, data: IMenu, params: RequestParams = {}) =>
+  request<IResponseIMenu>({
+    path: `/menu/${id}`,
+    method: "PUT",
     body: data,
     type: ContentType.Json,
     format: "json",

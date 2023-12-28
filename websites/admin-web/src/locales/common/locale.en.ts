@@ -24,4 +24,11 @@ export default {
     enabled: 'Enabled',
     disabled: 'Disabled',
   },
+
+  form: {
+    required: '{0} is required',
+    invalid: 'Invalid data',
+    saving: "It's saving, please wait a moment.",
+    success: 'Saved successfully.',
+  },
 };

@@ -1,10 +1,6 @@
 html {
   font-family: $font-family;
 
-  .d-none-children > * {
-    display: none !important;
-  }
-
   .v-application {
     [class*="text-"] {
       font-family: $font-family, sans-serif !important;

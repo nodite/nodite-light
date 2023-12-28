@@ -3,9 +3,9 @@ import { ValidationSchema } from '@nodite-light/admin-core/lib/interfaces/valida
 import Joi from 'joi';
 
 /**
- * CreateMenuValidation.
+ * SaveValidation.
  */
-export const CreateMenuValidation: ValidationSchema = {
+export const SaveValidation: ValidationSchema = {
   body: Joi.object().keys({
     menuName: Joi.string().required().max(50),
     orderNum: Joi.number().optional().max(9999),

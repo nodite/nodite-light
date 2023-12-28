@@ -10,7 +10,7 @@
     "children": [
       {
         "menuName": "系统管理",
-        "icon": "",
+        "icon": "mdi-cog-outline",
         "iKey": "sidebar.system.directory",
         "iType": "directory",
         "createBy": "system",
@@ -19,7 +19,7 @@
         "children": [
           {
             "menuName": "菜单管理",
-            "icon": "",
+            "icon": "mdi-format-list-bulleted",
             "iKey": "sidebar.system.menu",
             "iType": "menu",
             "path": "menu",

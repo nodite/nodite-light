@@ -23,6 +23,7 @@ export type ItemSlot = InstanceType<typeof VDataTable>['$props'];
 
 export type Item = {
   [key: string]: unknown;
+  level?: number;
   children?: Item[];
 };
 

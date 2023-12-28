@@ -57,12 +57,16 @@ export const useMenuStore = defineStore('menu', {
       return this.menuTree;
     },
 
-    async editMenu(menu: IMenu | MenuTree): Promise<void> {
-      console.log(menu);
+    async createMenu(menu: IMenu): Promise<void> {
+      await MenuApi.adminMenuCreate(menu);
     },
 
-    async deleteMenu(menu: IMenu | MenuTree): Promise<void> {
-      console.log(menu);
+    async updateMenu(menu: IMenu): Promise<void> {
+      await MenuApi.adminMenuEdit(menu.menuId, menu);
+    },
+
+    async deleteMenu(menu: IMenu): Promise<void> {
+      await MenuApi.adminMenuDelete(menu.menuId);
     },
   },
 });

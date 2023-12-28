@@ -87,8 +87,8 @@ export class UserController extends BaseController {
    * @summary Update user
    */
   @Put('{userId}')
-  @OperationId('admin:user:update')
-  @Permissions('admin:user:update')
+  @OperationId('admin:user:edit')
+  @Permissions('admin:user:edit')
   public async update(@Path() userId: number, @Body() body: IUser): Promise<IResponse<IUser>> {
     const user = await this.userService.update(userId, body);
     this.setStatus(httpStatus.ACCEPTED);
@@ -101,10 +101,10 @@ export class UserController extends BaseController {
   @Delete('{userId}')
   @OperationId('admin:user:delete')
   @Permissions('admin:user:delete')
-  public async delete(@Path() userId: number): Promise<IResponse<number>> {
-    const user = await this.userService.delete(userId);
-    this.setStatus(httpStatus.ACCEPTED);
-    return this.response(user);
+  public async delete(@Path() userId: number): Promise<IResponse<void>> {
+    await this.userService.delete(userId);
+    this.setStatus(httpStatus.NO_CONTENT);
+    return this.response();
   }
 }
 
