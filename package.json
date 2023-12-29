@@ -7,12 +7,13 @@
   "license": "Apache-2.0",
   "private": true,
   "keywords": [
-    "chakra-ui",
+    "nodite",
+    "nodite-light",
     "express",
+    "expressjs",
     "vue",
     "vuejs",
     "vuetify",
-    "react",
     "nodejs",
     "typescript",
     "javascript",
@@ -35,14 +36,12 @@
   "devDependencies": {
     "@commitlint/cli": "18.4.3",
     "@commitlint/config-conventional": "18.4.3",
+    "@commitlint/config-lerna-scopes": "^18.4.3",
     "@rushstack/eslint-patch": "^1.6.0",
     "@testing-library/jest-dom": "^6.1.5",
-    "@testing-library/react": "14.1.2",
     "@types/jest": "^29.5.10",
     "@types/jest-axe": "3.5.9",
     "@types/node": "^20.10.4",
-    "@types/react": "^18.2.42",
-    "@types/react-dom": "^18.0.6",
     "@types/styled-components": "^5.1.31",
     "@types/yargs": "17.0.32",
     "@typescript-eslint/eslint-plugin": "^6.13.2",
@@ -53,17 +52,8 @@
     "clsx": "^2.0.0",
     "concurrently": "^8.2.2",
     "eslint": "^8.55.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-airbnb-typescript": "^17.1.0",
-    "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-plugin-import": "^2.29.0",
-    "eslint-plugin-jest": "^27.6.0",
     "eslint-plugin-jsx-a11y": "6.8.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^5.0.1",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-security": "^2.1.0",
     "eslint-plugin-simple-import-sort": "10.0.0",
     "eslint-plugin-tsdoc": "0.2.17",
@@ -73,13 +63,11 @@
     "jest-axe": "8.0.0",
     "jest-environment-jsdom": "29.7.0",
     "jsdom": "^23.0.1",
-    "lerna": "^8.0.0",
+    "lerna": "^6.0.0",
     "lint-staged": "^15.2.0",
     "nodemon": "^3.0.1",
     "postcss": "^8.4.32",
     "prettier": "^3.1.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
     "styled-components": "6.1.6",
     "swagger-typescript-api": "^13.0.3",
     "ts-jest": "^29.1.1",
@@ -95,5 +83,11 @@
     "packages/*",
     "services/*",
     "websites/*"
-  ]
+  ],
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional",
+      "@commitlint/config-lerna-scopes"
+    ]
+  }
 }
