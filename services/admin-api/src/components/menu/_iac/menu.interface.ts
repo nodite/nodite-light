@@ -75,6 +75,6 @@ export interface IMenu extends IBase {
 /**
  * Type MenuTree.
  */
-export type MenuTree = IMenu & { children?: MenuTree[] };
+export type MenuTree = IMenu & { level?: number; children?: MenuTree[] };
 
 export default {};

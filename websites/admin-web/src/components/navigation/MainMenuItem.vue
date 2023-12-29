@@ -74,11 +74,11 @@ const validator = {
       <v-list-group :value="menuItem.children">
         <!-- activator -->
         <template v-slot:activator="{ props }">
-          <v-list-item
-            v-bind="props"
-            :prepend-icon="menuItem.meta?.icon || 'mdi-circle-medium'"
-            :title="menuUtil.toI18Title(menuItem.meta)"
-          ></v-list-item>
+          <v-list-item v-bind="props" :title="menuUtil.toI18Title(menuItem.meta)">
+            <template v-slot:prepend>
+              <v-icon size="small">{{ menuItem.meta?.icon || 'mdi-circle-medium' }}</v-icon>
+            </template>
+          </v-list-item>
         </template>
         <template v-if="validator.hasChildren()">
           <!-- subMenu -->
@@ -99,10 +99,12 @@ const validator = {
         v-bind="props"
         :key="menuItem.meta?.iKey"
         :to="menuItem.path"
-        :prepend-icon="menuItem.meta?.icon || 'mdi-circle-medium'"
         :active-class="`active-nav-${customizeTheme.primaryColor.colorName}`"
         density="compact"
       >
+        <template v-slot:prepend>
+          <v-icon size="small">{{ menuItem.meta?.icon || 'mdi-circle-medium' }}</v-icon>
+        </template>
         <v-list-item-title v-bind="props">
           {{ menuUtil.toI18Title(menuItem.meta) }}
         </v-list-item-title>

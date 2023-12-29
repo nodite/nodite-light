@@ -35,13 +35,13 @@ export default {
       label: '中文',
       messages: messages.zhHans,
     },
-    {
-      code: 'ja',
-      flag: 'jp',
-      name: 'japan',
-      label: '日本語',
-      messages: messages.ja,
-    },
+    // {
+    //   code: 'ja',
+    //   flag: 'jp',
+    //   name: 'japan',
+    //   label: '日本語',
+    //   messages: messages.ja,
+    // },
   ],
 
   messages: messages,

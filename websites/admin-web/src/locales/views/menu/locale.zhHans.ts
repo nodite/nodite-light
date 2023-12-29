@@ -27,6 +27,7 @@ export default {
   },
   headers: {
     menuName: '菜单名称',
+    i18nName: '国际化名称',
     orderNum: '排序',
     path: '路径',
     iType: '类型',

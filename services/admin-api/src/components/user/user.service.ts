@@ -100,7 +100,7 @@ export class UserService {
     const storedUser = await UserModel.findOne({ where: { userId: id } });
 
     if (lodash.isEmpty(storedUser)) {
-      throw new AppError(httpStatus.BAD_GATEWAY, 'User was not created!');
+      throw new AppError(httpStatus.BAD_REQUEST, 'User was not created!');
     }
 
     if (storedUser.getDataValue('password') === user.password) {

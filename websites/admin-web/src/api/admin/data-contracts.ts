@@ -143,6 +143,8 @@ export interface IResponseIMenuArray {
 /** Type MenuTree. */
 export type MenuTree = IMenu & {
   children?: MenuTree[];
+  /** @format double */
+  level?: number;
 };
 
 export interface IResponseMenuTreeArray {
@@ -160,6 +162,14 @@ export interface IResponseIMenu {
   message: string;
   /** Interface IMenu. */
   data?: IMenu;
+}
+
+export interface IResponseVoid {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: any;
 }
 
 /** Interface IUser. */
@@ -221,13 +231,4 @@ export interface IResponseIUser {
   message: string;
   /** Interface IUser. */
   data?: IUser;
-}
-
-export interface IResponseNumber {
-  error: boolean;
-  /** @format double */
-  httpCode: number;
-  message: string;
-  /** @format double */
-  data?: number;
 }

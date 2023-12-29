@@ -14,7 +14,7 @@
 import lodash from 'lodash';
 import { useDataTableItems } from 'vuetify/lib/components/VDataTable/composables/items.mjs';
 
-import { DataTableItemProps, Item } from '../types/VDataTable';
+import { DataTableItemProps } from '../types/VDataTable';
 
 const props = defineProps({
   level: {
@@ -37,24 +37,13 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  cellProps: {
+    type: Function,
+    default: () => ({}),
+  },
 } as any);
 
 const { items: tableItems } = useDataTableItems(props, { value: props.columns });
-
-const cellProps = ({ item, column }: { item: Item; column: { key: string } }) => {
-  if (lodash.isEmpty(item.children) && column.key === 'data-table-expand') {
-    return { class: 'd-none-children' };
-  } else if (['data-table-expand', 'data-table-select'].includes(column.key)) {
-    return {
-      class: `pl-${3 * props.level}`,
-    };
-  } else if (props.offsetColumns.includes(column.key)) {
-    return {
-      class: `pl-${3 * (props.level + 1)}`,
-    };
-  }
-  return {};
-};
 </script>
 
 <template>
@@ -72,6 +61,7 @@ const cellProps = ({ item, column }: { item: Item; column: { key: string } }) =>
         :columns="expandedProps.columns || []"
         :item-value="itemValue"
         :offset-columns="offsetColumns"
+        :cell-props="cellProps"
       >
         <template v-for="(_, name) in $slots" v-slot:[name]="data">
           <!-- slots -->

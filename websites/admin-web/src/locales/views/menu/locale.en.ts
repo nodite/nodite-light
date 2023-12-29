@@ -27,7 +27,8 @@ export default {
   },
 
   headers: {
-    menuName: 'Name',
+    menuName: 'Menu Name',
+    i18nName: 'i18n Name',
     orderNum: 'Order',
     path: 'Path',
     iType: 'Type',

@@ -1,13 +1,25 @@
 import BaseController from '@components/base.controller';
 import { IMenu, MenuTree } from '@components/menu/_iac/menu.interface';
 import { MenuService } from '@components/menu/menu.service';
-import CreateMenuValidation from '@components/menu/menu.validation';
+import SaveValidation from '@components/menu/menu.validation';
 import { AuthorizedRequest } from '@nodite-light/admin-auth/lib/interfaces/authorizedRequest';
 import { Permissions } from '@nodite-light/admin-auth/lib/middlewares/authorized.middleware';
 import { IResponse } from '@nodite-light/admin-core/lib/interfaces/httpResponse';
 import validate from '@nodite-light/admin-core/lib/middlewares/validate.middleware';
 import httpStatus from 'http-status';
-import { Body, Get, Middlewares, OperationId, Post, Request, Route, Tags } from 'tsoa';
+import {
+  Body,
+  Delete,
+  Get,
+  Middlewares,
+  OperationId,
+  Path,
+  Post,
+  Put,
+  Request,
+  Route,
+  Tags,
+} from 'tsoa';
 
 /**
  * Class MenuController.
@@ -50,13 +62,38 @@ export class MenuController extends BaseController {
    * @summary Create menu
    */
   @Post()
-  @Middlewares([validate(CreateMenuValidation)])
+  @Middlewares([validate(SaveValidation)])
   @OperationId('admin:menu:create')
   @Permissions('admin:menu:create')
   public async create(@Body() body: IMenu): Promise<IResponse<IMenu>> {
     const menu = await this.menuService.create(body);
     this.setStatus(httpStatus.CREATED);
-    return this.response(menu.toJSON<IMenu>());
+    return this.response(menu);
+  }
+
+  /**
+   * @summary Delete menu
+   */
+  @Delete('{id}')
+  @OperationId('admin:menu:delete')
+  @Permissions('admin:menu:delete')
+  public async delete(@Path() id: number): Promise<IResponse<void>> {
+    await this.menuService.delete(id);
+    this.setStatus(httpStatus.NO_CONTENT);
+    return this.response();
+  }
+
+  /**
+   * @summary Update menu
+   */
+  @Put('{id}')
+  @Middlewares([validate(SaveValidation)])
+  @OperationId('admin:menu:edit')
+  @Permissions('admin:menu:edit')
+  public async update(@Path() id: number, @Body() body: IMenu): Promise<IResponse<IMenu>> {
+    const menu = await this.menuService.update(id, body);
+    this.setStatus(httpStatus.ACCEPTED);
+    return this.response(menu);
   }
 }
 

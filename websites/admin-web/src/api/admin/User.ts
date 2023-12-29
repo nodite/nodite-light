@@ -12,7 +12,7 @@
 import type { RequestParams } from "@/types/request";
 import { ContentType } from "@/types/request";
 import { request } from "@/utils/request/index";
-import type { IResponseIUser, IResponseIUserArray, IResponseNumber, IUser } from "./data-contracts";
+import type { IResponseIUser, IResponseIUserArray, IResponseVoid, IUser } from "./data-contracts";
 
 /**
  * No description
@@ -206,11 +206,11 @@ export const adminUserGetSkipErrorHandler = (userId: number, params: RequestPara
  * No description
  *
  * @tags User
- * @name adminUserUpdate
+ * @name adminUserEdit
  * @summary Update user
  * @request PUT:/user/{userId}
  */
-export const adminUserUpdate = (userId: number, data: IUser, params: RequestParams = {}) =>
+export const adminUserEdit = (userId: number, data: IUser, params: RequestParams = {}) =>
   request<IResponseIUser>({
     path: `/user/${userId}`,
     method: "PUT",
@@ -220,7 +220,7 @@ export const adminUserUpdate = (userId: number, data: IUser, params: RequestPara
     skipErrorHandler: false,
     ...params,
   });
-export const adminUserUpdateSkipErrorHandler = (userId: number, data: IUser, params: RequestParams = {}) =>
+export const adminUserEditSkipErrorHandler = (userId: number, data: IUser, params: RequestParams = {}) =>
   request<IResponseIUser>({
     path: `/user/${userId}`,
     method: "PUT",
@@ -240,7 +240,7 @@ export const adminUserUpdateSkipErrorHandler = (userId: number, data: IUser, par
  * @request DELETE:/user/{userId}
  */
 export const adminUserDelete = (userId: number, params: RequestParams = {}) =>
-  request<IResponseNumber>({
+  request<IResponseVoid>({
     path: `/user/${userId}`,
     method: "DELETE",
     format: "json",
@@ -248,7 +248,7 @@ export const adminUserDelete = (userId: number, params: RequestParams = {}) =>
     ...params,
   });
 export const adminUserDeleteSkipErrorHandler = (userId: number, params: RequestParams = {}) =>
-  request<IResponseNumber>({
+  request<IResponseVoid>({
     path: `/user/${userId}`,
     method: "DELETE",
     format: "json",

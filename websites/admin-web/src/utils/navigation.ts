@@ -47,7 +47,7 @@ export const convertMenuToRouter = (menu: IMenu): NavigationConfig.Router => {
       iType: menu.iType as NavigationConfig.MenuType,
       parentId: menu.parentId || undefined,
       disabled: Number(menu.status) === 0,
-      hidden: menu.hidden,
+      hidden: Boolean(menu.hidden),
       layout: menu.layout || 'ui',
       title: menu.menuName,
     },

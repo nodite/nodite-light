@@ -24,4 +24,11 @@ export default {
     enabled: '启用',
     disabled: '禁用',
   },
+
+  form: {
+    required: '{0}是必填项',
+    invalid: '无效数据',
+    saving: '正在保存，请稍候',
+    success: '保存成功',
+  },
 };

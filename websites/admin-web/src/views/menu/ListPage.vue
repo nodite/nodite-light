@@ -17,10 +17,12 @@ import lodash from 'lodash';
 import { IMenu, MenuTree } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
 import { useMenuStore } from '@/stores/modules/menuStore';
+import { useNavStore } from '@/stores/modules/navStore';
 import * as menuUtil from '@/utils/menu';
 import MenuForm from '@/views/menu/components/MenuForm.vue';
 
 const menuStore = useMenuStore();
+const navStore = useNavStore();
 
 const talbeProps = {
   itemValue: 'menuId',
@@ -34,6 +36,7 @@ const data = ref({
   loading: true,
   headers: [] as DataTableItemProps['headers'],
   items: [] as MenuTree[],
+  deleting: false,
 });
 
 const menuFormData = ref({
@@ -51,6 +54,10 @@ watchEffect(() => {
     {
       title: i18n.global.t('views.menu.headers.menuName'),
       value: 'menuName',
+    },
+    {
+      title: i18n.global.t('views.menu.headers.i18nName'),
+      value: 'iKey',
     },
     {
       title: i18n.global.t('views.menu.headers.orderNum'),
@@ -88,14 +95,19 @@ const methods = {
     menuFormData.value.dialog = false;
     menuFormData.value.item = undefined;
   },
+  async cleanMenuStore() {
+    await menuStore.$reset();
+    await navStore.$reset();
+  },
   openMenuForm(menu: IMenu) {
     menuFormData.value.dialog = true;
     menuFormData.value.item = lodash.cloneDeep(menu);
-    // menuStore.editMenu(menu);
   },
-  deleteMenu(menu: IMenu) {
-    console.log('delete');
-    // menuStore.deleteMenu(menu);
+  async deleteMenu(menu: IMenu) {
+    // data.value.deleting = true;
+    await menuStore.deleteMenu(menu);
+    await methods.cleanMenuStore();
+    // data.value.deleting = false;
   },
 };
 </script>
@@ -111,11 +123,20 @@ const methods = {
           :dialog="menuFormData.dialog"
           :item="menuFormData.item"
           @close-menu-form="methods.closeMenuForm"
+          @clean-menu-store="methods.cleanMenuStore"
         />
       </v-toolbar>
     </template>
+
     <template v-slot:item.menuName="{ item }">
-      {{ menuUtil.toI18TitleWithMenu(item) }}
+      <v-label>
+        {{ item.menuName }}
+        <v-icon v-if="!!item.icon" size="small" class="ml-2">{{ item.icon }}</v-icon>
+      </v-label>
+    </template>
+
+    <template v-slot:item.iKey="{ item }">
+      <v-label>{{ menuUtil.toI18TitleWithMenu(item) }}</v-label>
     </template>
 
     <template v-slot:item.iType="{ value }">
@@ -152,8 +173,9 @@ const methods = {
         color="red"
         variant="text"
         @click="methods.deleteMenu(item)"
-        :disabled="item.deleted === 9"
         min-width="calc(var(--v-btn-height) + 0px)"
+        :disabled="item.deleted === 9 || data.deleting"
+        :loading="data.deleting"
       >
         <v-icon>mdi-delete</v-icon>
       </v-btn>

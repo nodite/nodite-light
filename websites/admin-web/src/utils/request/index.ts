@@ -1,5 +1,6 @@
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
+import { setupCache } from 'axios-cache-interceptor';
 import httpStatus from 'http-status';
 
 import i18n from '@/plugins/i18n';
@@ -13,13 +14,19 @@ const requestCanceler = new toolkit.RequestCanceler();
 axios.defaults.headers['Content-Type'] = ContentType.Json;
 
 // Create axios instance
-const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_APP_BASE_API || '/api',
-  timeout: 8 * 1000,
-  paramsSerializer: {
-    indexes: null,
+const axiosInstance = setupCache(
+  axios.create({
+    baseURL: import.meta.env.VITE_APP_BASE_API || '/api',
+    timeout: 8 * 1000,
+    paramsSerializer: {
+      indexes: null,
+    },
+  }),
+  {
+    ttl: 1000 * 1, // 1s to avoid duplicate get
+    methods: ['get', 'head'],
   },
-});
+);
 
 // Request interceptors
 axiosInstance.interceptors.request.use((config) => {
@@ -38,11 +45,15 @@ axiosInstance.interceptors.response.use(
   },
   async (error) => {
     console.error(error);
+
     if (error?.config) requestCanceler.removePendingRequest(error.config);
+
     if (error?.code === 'ERR_CANCELED') return;
+
     useSnackbarStore().showErrorMessage(
       error?.response?.data?.message || error.message || i18n.global.t('common.networkError'),
     );
+
     return error?.response;
   },
 );
@@ -105,10 +116,10 @@ export async function request({
     return axiosResponse;
   }
 
-  const code = axiosResponse.data?.httpCode;
+  const code = axiosResponse.data?.httpCode || axiosResponse.status;
 
-  // 200
-  if (code === httpStatus.OK) {
+  // successful response
+  if (httpStatus[`${code}_CLASS`] === httpStatus.classes.SUCCESSFUL) {
     return axiosResponse.data?.data ?? axiosResponse.data;
   }
 
@@ -124,5 +135,7 @@ export async function request({
     axiosResponse.data?.message || i18n.global.t('common.networkError'),
   );
 
-  throw axiosResponse.data;
+  console.error('request error', axiosResponse);
+
+  throw axiosResponse;
 }
