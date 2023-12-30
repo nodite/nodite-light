@@ -13,15 +13,14 @@
 <script setup lang="ts">
 import lodash from 'lodash';
 import { PropType } from 'vue';
+import { toast } from 'vuetify-sonner';
 
 import { IMenu } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
 import { useMenuStore } from '@/stores/modules/menuStore';
-import { useSnackbarStore } from '@/stores/modules/snackbarStore';
 import * as menuUtil from '@/utils/menu';
 
 const menuStore = useMenuStore();
-const snackbarStore = useSnackbarStore();
 
 const emit = defineEmits(['close-menu-form', 'clean-menu-store']);
 
@@ -126,7 +125,7 @@ const methods = {
   },
   closeMenuForm() {
     if (localData.value.isSaving) {
-      snackbarStore.showWarningMessage(i18n.global.t('common.form.saving'));
+      toast.warning(i18n.global.t('common.form.saving'));
       return;
     }
     methods.clearLocalData();
@@ -158,7 +157,7 @@ const methods = {
 
     localData.value.isSaving = false;
 
-    snackbarStore.showSuccessMessage(i18n.global.t('common.form.success'));
+    toast.success(i18n.global.t('common.form.success'));
 
     methods.closeMenuForm();
     emit('clean-menu-store');
