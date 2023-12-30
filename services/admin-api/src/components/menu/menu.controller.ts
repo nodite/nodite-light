@@ -51,7 +51,6 @@ export class MenuController extends BaseController {
    */
   @Get('/tree')
   @OperationId('admin:menu:tree')
-  @Permissions('admin:menu:list')
   public async listTree(@Request() req: AuthorizedRequest): Promise<IResponse<MenuTree[]>> {
     const menuTree = await this.menuService.selectMenuTree(req.user?.userId);
     this.setStatus(httpStatus.OK);

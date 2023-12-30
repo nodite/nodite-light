@@ -47,6 +47,7 @@ const staticData = ref({
   ],
   defaultFormData: {
     parentId: 0,
+    iType: 'overline',
     hidden: 0,
     status: 1,
   } as IMenu,
@@ -87,8 +88,11 @@ const formRules = ref({
   component: [],
   layout: [
     (v: string) =>
-      // v exists and v is in layouts
-      (!!v && lodash.map(staticData.value.layouts, 'value').includes(v)) ||
+      // v required
+      !!v || i18n.global.t('common.form.required', [i18n.global.t('views.menu.form.layout')]),
+    (v: string) =>
+      // v is in layouts
+      lodash.map(staticData.value.layouts, 'value').includes(v) ||
       i18n.global.t('common.form.invalid', [v]),
   ],
   perms: [],
