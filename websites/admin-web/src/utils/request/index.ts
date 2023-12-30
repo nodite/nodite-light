@@ -2,9 +2,9 @@ import type { AxiosResponse } from 'axios';
 import axios from 'axios';
 import { setupCache } from 'axios-cache-interceptor';
 import httpStatus from 'http-status';
+import { toast } from 'vuetify-sonner';
 
 import i18n from '@/plugins/i18n';
-import { useSnackbarStore } from '@/stores/modules/snackbarStore';
 import { ContentType, FullRequestParams, IResponse } from '@/types/request';
 import * as toolkit from '@/utils/request/toolkit';
 
@@ -50,7 +50,7 @@ axiosInstance.interceptors.response.use(
 
     if (error?.code === 'ERR_CANCELED') return;
 
-    useSnackbarStore().showErrorMessage(
+    toast.error(
       error?.response?.data?.message || error.message || i18n.global.t('common.networkError'),
     );
 
@@ -131,9 +131,7 @@ export async function request({
     return;
   }
 
-  useSnackbarStore().showErrorMessage(
-    axiosResponse.data?.message || i18n.global.t('common.networkError'),
-  );
+  toast.error(axiosResponse.data?.message || i18n.global.t('common.networkError'));
 
   console.error('request error', axiosResponse);
 

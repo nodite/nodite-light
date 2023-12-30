@@ -12,6 +12,7 @@
  */
 
 import { defineStore } from 'pinia';
+import { toast } from 'vuetify-sonner';
 
 import * as AuthApi from '@/api/admin/Auth';
 import { LoginBody } from '@/api/admin/data-contracts';
@@ -20,7 +21,6 @@ import router from '@/router';
 import { useMenuStore } from '@/stores/modules/menuStore';
 import { useNavStore } from '@/stores/modules/navStore';
 import { useProfileStore } from '@/stores/modules/profileStore';
-import { useSnackbarStore } from '@/stores/modules/snackbarStore';
 import * as toolkit from '@/utils/request/toolkit';
 
 export type AuthState = {
@@ -49,7 +49,7 @@ export const useAuthStore = defineStore('auth', {
 
   actions: {
     async register(userInfo: Record<string, unknown>) {
-      useSnackbarStore().showWarningMessage(i18n.global.t('common.maintenance'));
+      toast.warning(i18n.global.t('common.maintenance'));
     },
 
     /**
@@ -62,7 +62,7 @@ export const useAuthStore = defineStore('auth', {
       this.isLoggedIn = true;
       await useMenuStore().$reset();
       await useNavStore().$reset();
-      useSnackbarStore().showSuccessMessage(i18n.global.t('login.success'));
+      toast.success(i18n.global.t('login.success'));
       router.push('/');
     },
 
@@ -70,14 +70,14 @@ export const useAuthStore = defineStore('auth', {
      * Login with WeChat.
      */
     async loginWithWeChat() {
-      useSnackbarStore().showWarningMessage('WeChat login is not supported yet.');
+      toast.warning('WeChat login is not supported yet.');
     },
 
     /**
      * Login with Google.
      */
     async loginWithGoogle() {
-      useSnackbarStore().showWarningMessage('Google login is not supported yet.');
+      toast.warning('Google login is not supported yet.');
     },
 
     /**

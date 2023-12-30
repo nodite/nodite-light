@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
+import { toast } from 'vuetify-sonner';
 
 import i18n from '@/plugins/i18n';
 import { useAuthStore } from '@/stores/modules/authStore';
-import { useSnackbarStore } from '@/stores/modules/snackbarStore';
 
-const snackbarStore = useSnackbarStore();
 const authStore = useAuthStore();
 
 // auth state
@@ -39,7 +38,7 @@ const handleLogin = async () => {
     loginState.value.isSignInDisabled = true;
     authStore.login(loginForm.value as never);
   } else {
-    snackbarStore.showErrorMessage(i18n.global.t('common.validateFailed'));
+    toast.error(i18n.global.t('common.validateFailed'));
   }
 };
 
