@@ -1,7 +1,3 @@
-import BaseController from '@components/base.controller';
-import { IUser } from '@components/user/_iac/user.interface';
-import { UserService } from '@components/user/user.service';
-import { CreateUserValidation } from '@components/user/user.validation';
 import { AuthorizedRequest } from '@nodite-light/admin-auth/lib/interfaces/authorizedRequest';
 import { Permissions } from '@nodite-light/admin-auth/lib/middlewares/authorized.middleware';
 import { IResponse } from '@nodite-light/admin-core/lib/interfaces/httpResponse';
@@ -21,6 +17,11 @@ import {
   Route,
   Tags,
 } from 'tsoa';
+
+import BaseController from '@/components/base.controller';
+import { IUser } from '@/components/user/user.interface';
+import { UserService } from '@/components/user/user.service';
+import { CreateUserValidation } from '@/components/user/user.validation';
 
 /**
  * Class UserController.
@@ -61,11 +62,11 @@ export class UserController extends BaseController {
   /**
    * @summary Get user by id
    */
-  @Get('{userId}')
+  @Get('{id}')
   @OperationId('admin:user:get')
   @Permissions('admin:user:get')
-  public async get(@Path() userId: number): Promise<IResponse<IUser>> {
-    const user = await this.userService.get(userId);
+  public async get(@Path() id: number): Promise<IResponse<IUser>> {
+    const user = await this.userService.get(id);
     this.setStatus(httpStatus.OK);
     return this.response(user);
   }
@@ -86,11 +87,11 @@ export class UserController extends BaseController {
   /**
    * @summary Update user
    */
-  @Put('{userId}')
+  @Put('{id}')
   @OperationId('admin:user:edit')
   @Permissions('admin:user:edit')
-  public async update(@Path() userId: number, @Body() body: IUser): Promise<IResponse<IUser>> {
-    const user = await this.userService.update(userId, body);
+  public async update(@Path() id: number, @Body() body: IUser): Promise<IResponse<IUser>> {
+    const user = await this.userService.update(id, body);
     this.setStatus(httpStatus.ACCEPTED);
     return this.response(user);
   }
@@ -98,11 +99,11 @@ export class UserController extends BaseController {
   /**
    * @summary Delete user
    */
-  @Delete('{userId}')
+  @Delete('{id}')
   @OperationId('admin:user:delete')
   @Permissions('admin:user:delete')
-  public async delete(@Path() userId: number): Promise<IResponse<void>> {
-    await this.userService.delete(userId);
+  public async delete(@Path() id: number): Promise<IResponse<void>> {
+    await this.userService.delete(id);
     this.setStatus(httpStatus.NO_CONTENT);
     return this.response();
   }

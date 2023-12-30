@@ -1,6 +1,7 @@
-import { MenuType } from '@components/menu/_iac/menu.interface';
 import { ValidationSchema } from '@nodite-light/admin-core/lib/interfaces/validationSchema';
 import Joi from 'joi';
+
+import { MenuType } from '@/components/menu/menu.interface';
 
 /**
  * SaveValidation.

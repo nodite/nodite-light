@@ -1,5 +1,6 @@
-import { BaseModel } from '@components/base.model';
 import { DataTypes, ModelAttributeColumnOptions } from 'sequelize';
+
+import { BaseModel } from '@/components/base.model';
 
 /**
  * TableSchema.

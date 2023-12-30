@@ -1,9 +1,10 @@
-import { IUser } from '@components/user/_iac/user.interface';
-import { UserModel } from '@components/user/user.model';
 import AppError from '@nodite-light/admin-core/lib/utils/appError';
 import httpStatus from 'http-status';
 import lodash from 'lodash';
 import { Op } from 'sequelize';
+
+import { IUser } from '@/components/user/user.interface';
+import { UserModel } from '@/components/user/user.model';
 
 export class UserService {
   /**

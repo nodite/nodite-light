@@ -1,7 +1,8 @@
 export default {
   system: {
     overline: 'System',
-    directory: 'System Mgmt',
-    menu: 'Menu Mgmt',
+    sys_mgmt: 'System Mgmt',
+    menu_mgmt: 'Menu Mgmt',
+    user_mgmt: 'User Mgmt',
   },
 };

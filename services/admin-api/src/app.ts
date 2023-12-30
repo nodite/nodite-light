@@ -1,6 +1,3 @@
-import http404 from '@components/404/404.router';
-import healthCheck from '@components/healthcheck/healthCheck.router';
-import swaggerApiDocs from '@components/swagger-ui/swagger.router';
 import protectedByApiKey from '@nodite-light/admin-auth/lib/middlewares/apiKey.middleware';
 import authorized from '@nodite-light/admin-auth/lib/middlewares/authorized.middleware';
 import consts from '@nodite-light/admin-core/lib/config/consts';
@@ -13,6 +10,10 @@ import express, { Application } from 'express';
 import httpContext from 'express-http-context';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
+
+import http404 from '@/components/404/404.router';
+import healthCheck from '@/components/healthcheck/healthCheck.router';
+import swaggerApiDocs from '@/components/swagger-ui/swagger.router';
 
 const app: Application = express();
 

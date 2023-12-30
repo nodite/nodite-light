@@ -26,10 +26,8 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@app": ["./app.ts"],
-      "@components/*": ["components/*"],
-      "@middlewares/*": ["middlewares/*"],
-      "@dotsoa/*": ["./_tsoa/*"]
+      "@/*": ["./*"],
+      "@app": ["./app.ts"]
     }
   }
 }
