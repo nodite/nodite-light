@@ -1,0 +1,7 @@
+- [ ] GET /user/list
+- [ ] GET /user/curr
+- [ ] GET /user/{id}
+- [ ] POST /user
+- [ ] PUT /user/{id}
+- [ ] PUT /user/{id}/password
+- [ ] DEL /user/{id}

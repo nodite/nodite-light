@@ -12,7 +12,14 @@
 import type { RequestParams } from "@/types/request";
 import { ContentType } from "@/types/request";
 import { request } from "@/utils/request/index";
-import type { IResponseIUser, IResponseIUserArray, IResponseVoid, IUser } from "./data-contracts";
+import type {
+  IPasswordReset,
+  IResponseIUser,
+  IResponseIUserArray,
+  IResponseVoid,
+  IUser,
+  OmitIUserUsernameOrPassword,
+} from "./data-contracts";
 
 /**
  * No description
@@ -183,19 +190,19 @@ export const adminUserCreateSkipErrorHandler = (data: IUser, params: RequestPara
  * @tags User
  * @name adminUserGet
  * @summary Get user by id
- * @request GET:/user/{userId}
+ * @request GET:/user/{id}
  */
-export const adminUserGet = (userId: number, params: RequestParams = {}) =>
+export const adminUserGet = (id: number, params: RequestParams = {}) =>
   request<IResponseIUser>({
-    path: `/user/${userId}`,
+    path: `/user/${id}`,
     method: "GET",
     format: "json",
     skipErrorHandler: false,
     ...params,
   });
-export const adminUserGetSkipErrorHandler = (userId: number, params: RequestParams = {}) =>
+export const adminUserGetSkipErrorHandler = (id: number, params: RequestParams = {}) =>
   request<IResponseIUser>({
-    path: `/user/${userId}`,
+    path: `/user/${id}`,
     method: "GET",
     format: "json",
     skipErrorHandler: true,
@@ -208,11 +215,11 @@ export const adminUserGetSkipErrorHandler = (userId: number, params: RequestPara
  * @tags User
  * @name adminUserEdit
  * @summary Update user
- * @request PUT:/user/{userId}
+ * @request PUT:/user/{id}
  */
-export const adminUserEdit = (userId: number, data: IUser, params: RequestParams = {}) =>
+export const adminUserEdit = (id: number, data: OmitIUserUsernameOrPassword, params: RequestParams = {}) =>
   request<IResponseIUser>({
-    path: `/user/${userId}`,
+    path: `/user/${id}`,
     method: "PUT",
     body: data,
     type: ContentType.Json,
@@ -220,9 +227,13 @@ export const adminUserEdit = (userId: number, data: IUser, params: RequestParams
     skipErrorHandler: false,
     ...params,
   });
-export const adminUserEditSkipErrorHandler = (userId: number, data: IUser, params: RequestParams = {}) =>
+export const adminUserEditSkipErrorHandler = (
+  id: number,
+  data: OmitIUserUsernameOrPassword,
+  params: RequestParams = {},
+) =>
   request<IResponseIUser>({
-    path: `/user/${userId}`,
+    path: `/user/${id}`,
     method: "PUT",
     body: data,
     type: ContentType.Json,
@@ -237,20 +248,49 @@ export const adminUserEditSkipErrorHandler = (userId: number, data: IUser, param
  * @tags User
  * @name adminUserDelete
  * @summary Delete user
- * @request DELETE:/user/{userId}
+ * @request DELETE:/user/{id}
  */
-export const adminUserDelete = (userId: number, params: RequestParams = {}) =>
+export const adminUserDelete = (id: number, params: RequestParams = {}) =>
   request<IResponseVoid>({
-    path: `/user/${userId}`,
+    path: `/user/${id}`,
     method: "DELETE",
     format: "json",
     skipErrorHandler: false,
     ...params,
   });
-export const adminUserDeleteSkipErrorHandler = (userId: number, params: RequestParams = {}) =>
+export const adminUserDeleteSkipErrorHandler = (id: number, params: RequestParams = {}) =>
   request<IResponseVoid>({
-    path: `/user/${userId}`,
+    path: `/user/${id}`,
     method: "DELETE",
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags User
+ * @name adminUserResetPassword
+ * @summary Reset password
+ * @request PUT:/user/{id}/password
+ */
+export const adminUserResetPassword = (id: number, data: IPasswordReset, params: RequestParams = {}) =>
+  request<IResponseIUser>({
+    path: `/user/${id}/password`,
+    method: "PUT",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminUserResetPasswordSkipErrorHandler = (id: number, data: IPasswordReset, params: RequestParams = {}) =>
+  request<IResponseIUser>({
+    path: `/user/${id}/password`,
+    method: "PUT",
+    body: data,
+    type: ContentType.Json,
     format: "json",
     skipErrorHandler: true,
     ...params,

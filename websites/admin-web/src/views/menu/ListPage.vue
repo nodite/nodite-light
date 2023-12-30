@@ -26,7 +26,7 @@ const navStore = useNavStore();
 
 const talbeProps = {
   itemValue: 'menuId',
-  selectDtrategy: 'all',
+  selectStrategy: 'all',
   itemsPerPage: -1,
   itemsPerPageOptions: [-1],
   showExpand: true,
@@ -85,8 +85,8 @@ watchEffect(() => {
     },
   ];
   menuStore.getMenuTree().then((res) => {
-    data.value.loading = false;
     data.value.items = res;
+    data.value.loading = false;
   });
 });
 
@@ -96,7 +96,6 @@ const methods = {
     menuFormData.value.item = undefined;
   },
   async cleanMenuStore() {
-    await menuStore.$reset();
     await navStore.$reset();
   },
   openMenuForm(menu: IMenu) {
@@ -105,7 +104,7 @@ const methods = {
   },
   async deleteMenu(menu: IMenu) {
     // data.value.deleting = true;
-    await menuStore.deleteMenu(menu);
+    await menuStore.deleteMenu(menu.menuId);
     await methods.cleanMenuStore();
     // data.value.deleting = false;
   },

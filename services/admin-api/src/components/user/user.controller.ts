@@ -19,9 +19,13 @@ import {
 } from 'tsoa';
 
 import BaseController from '@/components/base.controller';
-import { IUser } from '@/components/user/user.interface';
+import { IPasswordReset, IUser } from '@/components/user/user.interface';
 import { UserService } from '@/components/user/user.service';
-import { CreateUserValidation } from '@/components/user/user.validation';
+import {
+  CreateUserValidation,
+  ResetPasswordValidation,
+  UpdateUserValidation,
+} from '@/components/user/user.validation';
 
 /**
  * Class UserController.
@@ -88,10 +92,30 @@ export class UserController extends BaseController {
    * @summary Update user
    */
   @Put('{id}')
+  @Middlewares([validation(UpdateUserValidation)])
   @OperationId('admin:user:edit')
   @Permissions('admin:user:edit')
-  public async update(@Path() id: number, @Body() body: IUser): Promise<IResponse<IUser>> {
-    const user = await this.userService.update(id, body);
+  public async update(
+    @Path() id: number,
+    @Body() body: Omit<IUser, 'username' | 'password'>,
+  ): Promise<IResponse<IUser>> {
+    const user = await this.userService.update(id, body as IUser);
+    this.setStatus(httpStatus.ACCEPTED);
+    return this.response(user);
+  }
+
+  /**
+   * @summary Reset password
+   */
+  @Put('{id}/password')
+  @Middlewares([validation(ResetPasswordValidation)])
+  @OperationId('admin:user:resetPassword')
+  @Permissions('admin:user:resetPassword')
+  public async resetPassword(
+    @Path() id: number,
+    @Body() body: IPasswordReset,
+  ): Promise<IResponse<IUser>> {
+    const user = await this.userService.resetPassword(id, body);
     this.setStatus(httpStatus.ACCEPTED);
     return this.response(user);
   }

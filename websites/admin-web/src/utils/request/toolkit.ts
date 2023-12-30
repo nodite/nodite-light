@@ -82,6 +82,8 @@ export class RequestCanceler {
 
 // toolkit: redirectToLogin
 export const redirectToLogin = (msg?: string) => {
+  if (window.location.pathname.includes('/auth/signin')) return;
+
   const searchParams: Record<string, string> = {
     redirect:
       '/' +

@@ -59,14 +59,17 @@ export const useMenuStore = defineStore('menu', {
 
     async createMenu(menu: IMenu): Promise<void> {
       await MenuApi.adminMenuCreate(menu);
+      await this.$reset();
     },
 
     async updateMenu(menu: IMenu): Promise<void> {
       await MenuApi.adminMenuEdit(menu.menuId, menu);
+      await this.$reset();
     },
 
-    async deleteMenu(menu: IMenu): Promise<void> {
-      await MenuApi.adminMenuDelete(menu.menuId);
+    async deleteMenu(id: number): Promise<void> {
+      await MenuApi.adminMenuDelete(id);
+      await this.$reset();
     },
   },
 });

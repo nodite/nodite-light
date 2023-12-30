@@ -18,6 +18,57 @@
         "deleted": 9,
         "children": [
           {
+            "menuName": "用户管理",
+            "icon": "mdi-account-multiple-outline",
+            "iKey": "sidebar.system.user_mgmt",
+            "iType": "menu",
+            "path": "user",
+            "component": "user/ListPage",
+            "layout": "ui",
+            "perms": "admin:user:list",
+            "createBy": "system",
+            "updateBy": "system",
+            "deleted": 9,
+            "children": [
+              {
+                "menuName": "用户查询",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:user:query",
+                "createBy": "system",
+                "updateBy": "system",
+                "deleted": 9
+              },
+              {
+                "menuName": "用户新增",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:user:create",
+                "createBy": "system",
+                "updateBy": "system",
+                "deleted": 9
+              },
+              {
+                "menuName": "用户编辑",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:user:edit",
+                "createBy": "system",
+                "updateBy": "system",
+                "deleted": 9
+              },
+              {
+                "menuName": "用户删除",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:user:delete",
+                "createBy": "system",
+                "updateBy": "system",
+                "deleted": 9
+              }
+            ]
+          },
+          {
             "menuName": "菜单管理",
             "icon": "mdi-format-list-bulleted",
             "iKey": "sidebar.system.menu_mgmt",

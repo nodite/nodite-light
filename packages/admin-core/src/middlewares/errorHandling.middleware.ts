@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import lodash from 'lodash';
+import { ValidationError as SequelizeValidationError } from 'sequelize';
 import { ValidateError } from 'tsoa';
 
 import { IResponse } from '@/interfaces/httpResponse';
@@ -23,6 +24,8 @@ const errorHandling = (
       httpStatus.BAD_REQUEST,
       lodash.values(lodash.mapValues(error.fields, (f) => f.message)).toString(),
     );
+  } else if (error instanceof SequelizeValidationError) {
+    wrappedError = new AppError(httpStatus.BAD_REQUEST, error.message);
   }
 
   errorHandler.handleError(wrappedError);

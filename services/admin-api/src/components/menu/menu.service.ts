@@ -59,20 +59,6 @@ export class MenuService {
   }
 
   /**
-   * Delete menu.
-   * @param id
-   */
-  public async delete(id: number): Promise<number> {
-    const storedMenu = await MenuModel.findOne({ where: { menuId: id } });
-
-    if (storedMenu.getDataValue('deleted') === 9) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Menu is not allow delete!');
-    }
-
-    return MenuModel.destroy({ where: { menuId: id } });
-  }
-
-  /**
    * Update menu.
    * @param id
    * @param menu
@@ -88,6 +74,20 @@ export class MenuService {
     const updatedUser = await storedMenu.update(menu);
 
     return updatedUser.toJSON<IMenu>();
+  }
+
+  /**
+   * Delete menu.
+   * @param id
+   */
+  public async delete(id: number): Promise<void> {
+    const storedMenu = await MenuModel.findOne({ where: { menuId: id } });
+
+    if (storedMenu.getDataValue('deleted') === 9) {
+      throw new AppError(httpStatus.BAD_REQUEST, 'Menu is not allow delete!');
+    }
+
+    return storedMenu.destroy();
   }
 
   /**

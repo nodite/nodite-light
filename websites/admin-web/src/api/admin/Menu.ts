@@ -129,6 +129,7 @@ export const adminMenuDeleteSkipErrorHandler = (id: number, params: RequestParam
  *
  * @tags menu
  * @name adminMenuEdit
+ * @summary Update menu
  * @request PUT:/menu/{id}
  */
 export const adminMenuEdit = (id: number, data: IMenu, params: RequestParams = {}) =>

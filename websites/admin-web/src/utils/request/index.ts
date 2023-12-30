@@ -128,12 +128,7 @@ export async function request({
     requestCanceler.cleanPendingRequest();
     toolkit.token.remove();
     toolkit.redirectToLogin(axiosResponse.data?.message || i18n.global.t('common.authExpired'));
-    return;
   }
-
-  toast.error(axiosResponse.data?.message || i18n.global.t('common.networkError'));
-
-  console.error('request error', axiosResponse);
 
   throw axiosResponse;
 }
