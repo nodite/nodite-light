@@ -1,10 +1,11 @@
-import swaggerDocument from '@_tsoa/swagger.json';
 import consts from '@nodite-light/admin-core/lib/config/consts';
 import AppError from '@nodite-light/admin-core/lib/utils/appError';
 import logger from '@nodite-light/admin-core/lib/utils/logger';
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import swaggerUi from 'swagger-ui-express';
+
+import swaggerDocument from '@/_tsoa/swagger.json';
 
 swaggerDocument.servers[0].url = consts.API_ROOT_PATH;
 

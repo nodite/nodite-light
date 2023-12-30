@@ -1,11 +1,12 @@
-import { IMenu, MenuTree } from '@components/menu/_iac/menu.interface';
-import { MenuModel } from '@components/menu/menu.model';
-import { UserService } from '@components/user/user.service';
 import AppError from '@nodite-light/admin-core/lib/utils/appError';
 import httpStatus from 'http-status';
 import lodash from 'lodash';
 import { arrayToTree } from 'performant-array-to-tree';
 import { Attributes, FindOptions } from 'sequelize';
+
+import { IMenu, MenuTree } from '@/components/menu/menu.interface';
+import { MenuModel } from '@/components/menu/menu.model';
+import { UserService } from '@/components/user/user.service';
 
 /**
  * Class MenuService.

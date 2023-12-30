@@ -20,10 +20,8 @@
     "baseUrl": "src",
     "outDir": "./dist",
     "paths": {
-      "@app": ["./app.ts"],
-      "@components/*": ["components/*"],
-      "@middlewares/*": ["middlewares/*"],
-      "@_tsoa/*": ["./_tsoa/*"]
+      "@/*": ["./*"],
+      "@app": ["./app.ts"]
     },
     "plugins": [{ "transform": "ts-optchain/transform" }]
   },

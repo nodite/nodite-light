@@ -11,7 +11,7 @@
       {
         "menuName": "系统管理",
         "icon": "mdi-cog-outline",
-        "iKey": "sidebar.system.directory",
+        "iKey": "sidebar.system.sys_mgmt",
         "iType": "directory",
         "createBy": "system",
         "updateBy": "system",
@@ -20,7 +20,7 @@
           {
             "menuName": "菜单管理",
             "icon": "mdi-format-list-bulleted",
-            "iKey": "sidebar.system.menu",
+            "iKey": "sidebar.system.menu_mgmt",
             "iType": "menu",
             "path": "menu",
             "component": "menu/ListPage",

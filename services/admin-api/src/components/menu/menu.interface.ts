@@ -1,4 +1,4 @@
-import { IBase } from '@components/base.interface';
+import { IBase } from '@/components/base.interface';
 
 export const MenuType = ['overline', 'directory', 'menu', 'action'];
 

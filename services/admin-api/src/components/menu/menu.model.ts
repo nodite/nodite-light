@@ -1,10 +1,11 @@
-import { BaseModel } from '@components/base.model';
-import type { MenuTree } from '@components/menu/_iac/menu.interface';
-import { TableSchema } from '@components/menu/_iac/menu.schema';
-import MenuSeeds from '@components/menu/_iac/menu.seeds.json';
 import { Database } from '@nodite-light/admin-database/lib/nodite-sequelize';
 import lodash from 'lodash';
 import { Attributes, FindOptions, Model, ModelStatic } from 'sequelize';
+
+import { BaseModel } from '@/components/base.model';
+import type { MenuTree } from '@/components/menu/menu.interface';
+import { TableSchema } from '@/components/menu/menu.schema';
+import MenuSeeds from '@/seeds/menu.seeds.json';
 
 async function initialSeeds(model: typeof MenuModel, seeds: MenuTree[] = [], parentId = 0) {
   seeds.forEach(async (seed, idx) => {
@@ -32,19 +33,21 @@ export class MenuModel extends BaseModel {
    * @returns
    */
   @Database.register(MenuModel.TABLE_NAME)
-  private static async register(sequelize) {
-    const model = MenuModel.init(TableSchema, {
+  private static async register(sequelize): Promise<typeof MenuModel> {
+    return MenuModel.init(TableSchema, {
       ...MenuModel.BaseInitOptions,
       sequelize,
       tableName: MenuModel.TABLE_NAME,
     });
+  }
 
-    if (!(await model.exists())) {
-      await model.sync();
-      await initialSeeds(model, MenuSeeds as unknown as MenuTree[]);
-    }
-
-    return MenuModel;
+  /**
+   * Initial seeds.
+   * @param model
+   */
+  @Database.seeds(MenuModel.TABLE_NAME)
+  private static async seeds(model: typeof MenuModel): Promise<void> {
+    await initialSeeds(model, MenuSeeds as unknown as MenuTree[]);
   }
 
   /**

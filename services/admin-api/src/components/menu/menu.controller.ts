@@ -1,7 +1,3 @@
-import BaseController from '@components/base.controller';
-import { IMenu, MenuTree } from '@components/menu/_iac/menu.interface';
-import { MenuService } from '@components/menu/menu.service';
-import SaveValidation from '@components/menu/menu.validation';
 import { AuthorizedRequest } from '@nodite-light/admin-auth/lib/interfaces/authorizedRequest';
 import { Permissions } from '@nodite-light/admin-auth/lib/middlewares/authorized.middleware';
 import { IResponse } from '@nodite-light/admin-core/lib/interfaces/httpResponse';
@@ -20,6 +16,11 @@ import {
   Route,
   Tags,
 } from 'tsoa';
+
+import BaseController from '@/components/base.controller';
+import { IMenu, MenuTree } from '@/components/menu/menu.interface';
+import { MenuService } from '@/components/menu/menu.service';
+import SaveValidation from '@/components/menu/menu.validation';
 
 /**
  * Class MenuController.
@@ -51,7 +52,6 @@ export class MenuController extends BaseController {
    */
   @Get('/tree')
   @OperationId('admin:menu:tree')
-  @Permissions('admin:menu:list')
   public async listTree(@Request() req: AuthorizedRequest): Promise<IResponse<MenuTree[]>> {
     const menuTree = await this.menuService.selectMenuTree(req.user?.userId);
     this.setStatus(httpStatus.OK);

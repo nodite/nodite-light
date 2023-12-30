@@ -1,12 +1,13 @@
-import { LoginBody, LoginResponse, RegisterBody } from '@components/auth/auth.interface';
-import { IUser } from '@components/user/_iac/user.interface';
-import { UserService } from '@components/user/user.service';
 import { AuthorizedRequest } from '@nodite-light/admin-auth/lib/interfaces/authorizedRequest';
 import jwtAsync, { JwtDestroyType } from '@nodite-light/admin-auth/lib/utils/jwt';
 import config from '@nodite-light/admin-core/lib/config/config';
 import AppError from '@nodite-light/admin-core/lib/utils/appError';
 import httpStatus from 'http-status';
 import lodash from 'lodash';
+
+import { LoginBody, LoginResponse, RegisterBody } from '@/components/auth/auth.interface';
+import { IUser } from '@/components/user/user.interface';
+import { UserService } from '@/components/user/user.service';
 
 /**
  * Class AuthService.

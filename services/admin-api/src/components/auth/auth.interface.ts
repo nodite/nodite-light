@@ -1,4 +1,4 @@
-import { IUser } from '@components/user/_iac/user.interface';
+import { IUser } from '@/components/user/user.interface';
 
 /**
  * Type LoginBody.

@@ -1,7 +1,3 @@
-import { LoginBody, LoginResponse, RegisterBody } from '@components/auth/auth.interface';
-import { AuthService } from '@components/auth/auth.service';
-import { LoginBodyValidation, RegisterBodyValidation } from '@components/auth/auth.validate';
-import BaseController from '@components/base.controller';
 import { AuthorizedRequest } from '@nodite-light/admin-auth/lib/interfaces/authorizedRequest';
 import { Permissions } from '@nodite-light/admin-auth/lib/middlewares/authorized.middleware';
 import { JwtDestroyType } from '@nodite-light/admin-auth/lib/utils/jwt';
@@ -9,6 +5,11 @@ import { IResponse } from '@nodite-light/admin-core/lib/interfaces/httpResponse'
 import validate from '@nodite-light/admin-core/lib/middlewares/validate.middleware';
 import httpStatus from 'http-status';
 import { Body, Delete, Middlewares, OperationId, Post, Request, Route, Tags } from 'tsoa';
+
+import { LoginBody, LoginResponse, RegisterBody } from '@/components/auth/auth.interface';
+import { AuthService } from '@/components/auth/auth.service';
+import { LoginBodyValidation, RegisterBodyValidation } from '@/components/auth/auth.validate';
+import BaseController from '@/components/base.controller';
 
 /**
  * Class AuthController.

@@ -1,4 +1,6 @@
-import { Model, Sequelize } from 'sequelize';
+import { Sequelize } from 'sequelize';
+
+import { BaseModel as Model } from '@/nodite-sequelize/model';
 
 export interface SequelizeStoreOptions {
   host?: string;
@@ -11,12 +13,15 @@ export interface SequelizeStoreOptions {
   exitOnFail?: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface ModelInitialFunction<T extends typeof Model = any> {
+export interface ModelInitialFunction<T extends typeof Model> {
   (sequelize: Sequelize): T;
 }
 
 export interface ModelRegister {
   tableName: string;
-  fn: ModelInitialFunction;
+  fn: ModelInitialFunction<typeof Model>;
+}
+
+export interface ModelSeedFunction<T extends typeof Model> {
+  (model: T): Promise<void>;
 }

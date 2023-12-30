@@ -30,7 +30,7 @@
 //   return authorized;
 // });
 
-// jest.mock('@components/user/user.service', () => {
+// jest.mock('@/components/user/user.service', () => {
 //   class UserService {
 //     public create = createUser;
 

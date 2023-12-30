@@ -3,9 +3,10 @@
 /* eslint-disable @typescript-eslint/default-param-last */
 import '@nodite-light/admin-database/lib/connect';
 
-import { RegisterRoutes } from '@_tsoa/routes';
 import { Router } from 'express';
 import { ValidationService } from 'tsoa';
+
+import { RegisterRoutes } from '@/_tsoa/routes';
 
 // disable tsoa validation.
 // @see https://github.com/lukeautry/tsoa/issues/181#issuecomment-1487811378

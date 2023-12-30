@@ -1,18 +1,22 @@
 import { exit } from 'node:process';
 
 import logger from '@nodite-light/admin-core/lib/utils/logger';
+import lodash from 'lodash';
 import { Sequelize } from 'sequelize';
 
 import {
   ModelInitialFunction,
-  ModelRegister,
+  ModelSeedFunction,
   SequelizeStoreOptions,
 } from '@/nodite-sequelize/interface';
+import Model, { BaseModel } from '@/nodite-sequelize/model';
 
 export class Database {
   static client: Sequelize | null;
 
-  static modelRegisters: ModelRegister[] = [];
+  static modelRegisters: Record<string, ModelInitialFunction<typeof Model>> = {};
+
+  static modelSeeds: Record<string, ModelSeedFunction<typeof Model>> = {};
 
   /**
    * Decorator for registering a model
@@ -21,11 +25,19 @@ export class Database {
    */
   static register(tableName: string) {
     return (target: unknown, propertyKey: string, descriptor: PropertyDescriptor) => {
-      const fn = descriptor.value;
-      Database.modelRegisters.push({
-        tableName,
-        fn: fn as ModelInitialFunction,
-      });
+      const fn = descriptor.value as ModelInitialFunction<typeof BaseModel>;
+      lodash.set(Database.modelRegisters, tableName, fn);
+    };
+  }
+
+  /**
+   * Decorator for registering a model seed
+   * @returns
+   */
+  static seeds(tableName: string) {
+    return (target: unknown, propertyKey: string, descriptor: PropertyDescriptor) => {
+      const fn = descriptor.value as ModelSeedFunction<typeof BaseModel>;
+      lodash.set(Database.modelSeeds, tableName, fn);
     };
   }
 
@@ -95,9 +107,15 @@ export class Database {
       logger.info('Loading models...');
 
       await Promise.all(
-        Database.modelRegisters.map(async (register) => {
-          logger.debug(`found model: ${register.tableName}`);
-          await register.fn(Database.client as Sequelize);
+        lodash.map(Database.modelRegisters, async (register, tableName) => {
+          logger.debug(`found model: ${tableName}`);
+          const model = await register(Database.client as Sequelize);
+
+          if (!(await model.exists()) && lodash.has(Database.modelSeeds, tableName)) {
+            logger.debug(`initial model seed: ${tableName}`);
+            await model.sync();
+            await lodash.get(Database.modelSeeds, tableName)(model);
+          }
         }),
       );
 
