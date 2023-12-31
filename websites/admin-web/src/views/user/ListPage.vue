@@ -12,7 +12,6 @@
 
 <script setup lang="ts">
 import { DataTableItemProps } from '@nodite-light/vuetify-tree-data-table';
-import lodash from 'lodash';
 
 import { IUser } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
@@ -33,12 +32,13 @@ const data = ref({
 
 const userFormData = ref({
   dialog: false,
-  item: undefined as IUser | undefined,
+  userId: 0,
 });
 
 const passFormData = ref({
   dialog: false,
-  item: undefined as IUser | undefined,
+  username: '',
+  userId: 0,
 });
 
 watchEffect(() => {
@@ -73,7 +73,7 @@ watchEffect(() => {
       sortable: false,
     },
   ];
-  userStore.getUsers().then((res) => {
+  userStore.list().then((res) => {
     data.value.items = res;
     data.value.loading = false;
   });
@@ -86,28 +86,30 @@ const methods = {
   async cleanUserStore(isSelf?: boolean) {
     isSelf && (await profileStore.$reset());
   },
-  openUserForm(item?: IUser) {
+  openUserForm(id: number) {
     userFormData.value.dialog = true;
-    userFormData.value.item = lodash.cloneDeep(item);
+    userFormData.value.userId = id;
   },
   closeUserForm() {
     userFormData.value.dialog = false;
-    userFormData.value.item = undefined;
+    userFormData.value.userId = 0;
   },
-  openPassForm(item?: IUser) {
+  openPassForm(username: string, id: number) {
     passFormData.value.dialog = true;
-    passFormData.value.item = lodash.cloneDeep(item);
+    passFormData.value.username = username;
+    passFormData.value.userId = id;
   },
   closePassForm() {
     passFormData.value.dialog = false;
-    passFormData.value.item = undefined;
+    passFormData.value.username = '';
+    passFormData.value.userId = 0;
   },
   async opUserStatus(id: number, status: number) {
-    await userStore.updateUser({ userId: id, status: status } as IUser);
+    await userStore.edit({ userId: id, status: status } as IUser);
   },
-  async deleteUser(item: IUser) {
+  async delete(item: IUser) {
     // data.value.deleting = true;
-    await userStore.deleteUser(item.userId);
+    await userStore.delete(item.userId);
     await methods.cleanUserStore(item.userId === profileStore.profile?.userId);
     // data.value.deleting = false;
   },
@@ -120,13 +122,14 @@ const methods = {
       <v-toolbar density="compact" color="inherit">
         <user-form
           :dialog="userFormData.dialog"
-          :item="userFormData.item"
+          :user-id="userFormData.userId"
           @close-user-form="methods.closeUserForm"
           @clean-user-form="methods.cleanUserStore"
         ></user-form>
         <pass-form
           :dialog="passFormData.dialog"
-          :item="passFormData.item"
+          :username="passFormData.username"
+          :user-id="passFormData.userId"
           @close-pass-form="methods.closePassForm"
           @clean-pass-form="methods.cleanUserStore"
         ></pass-form>
@@ -150,7 +153,7 @@ const methods = {
       <v-btn
         class="px-0"
         variant="text"
-        @click="methods.openUserForm(item)"
+        @click="methods.openUserForm(item.userId)"
         min-width="calc(var(--v-btn-height) + 0px)"
       >
         <v-icon>mdi-square-edit-outline</v-icon>
@@ -159,7 +162,7 @@ const methods = {
       <v-btn
         class="px-0"
         variant="text"
-        @click="methods.openPassForm(item)"
+        @click="methods.openPassForm(item.username, item.userId)"
         min-width="calc(var(--v-btn-height) + 0px)"
       >
         <v-icon>mdi-lock-reset</v-icon>
@@ -169,7 +172,7 @@ const methods = {
         class="px-0"
         color="red"
         variant="text"
-        @click="methods.deleteUser(item)"
+        @click="methods.delete(item)"
         min-width="calc(var(--v-btn-height) + 0px)"
         :disabled="item.deleted === 9 || methods.isSelf(item) || data.deleting"
         :loading="data.deleting"

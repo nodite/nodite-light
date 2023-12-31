@@ -12,7 +12,6 @@
 
 <script setup lang="ts">
 import lodash from 'lodash';
-import { PropType } from 'vue';
 import { toast } from 'vuetify-sonner';
 
 import { IUser } from '@/api/admin/data-contracts';
@@ -28,9 +27,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  item: {
-    type: Object as PropType<IUser>,
-    default: undefined,
+  userId: {
+    type: Number,
+    default: 0,
   },
 });
 
@@ -96,9 +95,13 @@ const formRules = ref({
 watchEffect(() => {
   localData.value.dialog = props.dialog;
 
-  formData.value = lodash.isEmpty(props.item)
-    ? staticData.value.defaultFormData
-    : lodash.cloneDeep(props.item);
+  if (props.userId > 0) {
+    userStore.query(props.userId).then((res) => {
+      formData.value = lodash.isUndefined(res) ? staticData.value.defaultFormData : res;
+    });
+  } else {
+    formData.value = staticData.value.defaultFormData;
+  }
 });
 
 // methods.
@@ -133,8 +136,8 @@ const methods = {
 
     try {
       await (formData.value.userId
-        ? userStore.updateUser(formData.value)
-        : userStore.createUser(formData.value));
+        ? userStore.edit(formData.value)
+        : userStore.create(formData.value));
     } finally {
       localData.value.isSaving = false;
     }
@@ -152,7 +155,7 @@ const methods = {
     v-model="localData.dialog"
     @click:outside="methods.closeUserForm"
     :persistent="localData.isSaving"
-    max-width="700"
+    max-width="750"
   >
     <template v-slot:activator="{ props }">
       <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
@@ -164,9 +167,9 @@ const methods = {
       <v-card-title>
         <v-label>
           {{
-            lodash.isEmpty(props.item)
-              ? $t('common.form.newHeader', [$t('views.user.form.title')])
-              : $t('common.form.editHeader', [$t('views.user.form.title'), props.item.username])
+            props.userId > 0
+              ? $t('common.form.editHeader', [$t('views.user.form.title'), formData.username])
+              : $t('common.form.newHeader', [$t('views.user.form.title')])
           }}
         </v-label>
       </v-card-title>
@@ -296,7 +299,7 @@ const methods = {
                   <v-radio :label="$t('views.user.sex.female')" :value="2"></v-radio>
                 </v-radio-group>
               </v-col>
-              <v-col>
+              <v-col cols="5">
                 <v-radio-group
                   v-model="formData.status"
                   :rules="formRules.status"

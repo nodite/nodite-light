@@ -22,9 +22,9 @@ import BaseController from '@/components/base.controller';
 import { IPasswordReset, IUser } from '@/components/user/user.interface';
 import { UserService } from '@/components/user/user.service';
 import {
-  CreateUserValidation,
+  createValidation,
+  editValidation,
   ResetPasswordValidation,
-  UpdateUserValidation,
 } from '@/components/user/user.validation';
 
 /**
@@ -47,7 +47,7 @@ export class UserController extends BaseController {
   @OperationId('admin:user:list')
   @Permissions('admin:user:list')
   public async list(@Queries() user?: IUser): Promise<IResponse<IUser[]>> {
-    const users = await this.userService.search(user);
+    const users = await this.userService.selectUserList(user);
     this.setStatus(httpStatus.OK);
     return this.response(users);
   }
@@ -58,7 +58,7 @@ export class UserController extends BaseController {
   @Get()
   @OperationId('admin:user:curr')
   public async curr(@Request() req: AuthorizedRequest): Promise<IResponse<IUser>> {
-    const user = await this.userService.get(req.user?.userId);
+    const user = await this.userService.selectUserById(req.user?.userId);
     this.setStatus(httpStatus.OK);
     return this.response(user);
   }
@@ -67,10 +67,10 @@ export class UserController extends BaseController {
    * @summary Get user by id
    */
   @Get('{id}')
-  @OperationId('admin:user:get')
-  @Permissions('admin:user:get')
-  public async get(@Path() id: number): Promise<IResponse<IUser>> {
-    const user = await this.userService.get(id);
+  @OperationId('admin:user:query')
+  @Permissions('admin:user:query')
+  public async query(@Path() id: number): Promise<IResponse<IUser>> {
+    const user = await this.userService.selectUserById(id);
     this.setStatus(httpStatus.OK);
     return this.response(user);
   }
@@ -79,7 +79,7 @@ export class UserController extends BaseController {
    * @summary Create user
    */
   @Post()
-  @Middlewares([validation(CreateUserValidation)])
+  @Middlewares([validation(createValidation)])
   @OperationId('admin:user:create')
   @Permissions('admin:user:create')
   public async create(@Body() body: IUser): Promise<IResponse<IUser>> {
@@ -92,7 +92,7 @@ export class UserController extends BaseController {
    * @summary Update user
    */
   @Put('{id}')
-  @Middlewares([validation(UpdateUserValidation)])
+  @Middlewares([validation(editValidation)])
   @OperationId('admin:user:edit')
   @Permissions('admin:user:edit')
   public async update(
