@@ -45,7 +45,7 @@ export const useNavStore = defineStore('nav', {
      */
     async getRouters(): Promise<NavigationConfig.Router[]> {
       if (lodash.isEmpty(this.routers)) {
-        this.routers = navUtil.convertMenuTreeToRouter(await useMenuStore().getMenuTree()) || [];
+        this.routers = navUtil.convertMenuTreeToRouter(await useMenuStore().listTree()) || [];
       }
       return this.routers;
     },

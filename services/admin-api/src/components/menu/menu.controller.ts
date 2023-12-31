@@ -59,6 +59,18 @@ export class MenuController extends BaseController {
   }
 
   /**
+   * @summary Get menu by id
+   */
+  @Get('{id}')
+  @OperationId('admin:menu:query')
+  @Permissions('admin:menu:query')
+  public async query(@Path() id: number): Promise<IResponse<IMenu>> {
+    const menu = await this.menuService.selectMenuById(id);
+    this.setStatus(httpStatus.OK);
+    return this.response(menu);
+  }
+
+  /**
    * @summary Create menu
    */
   @Post()
