@@ -58,6 +58,15 @@
                 "deleted": 9
               },
               {
+                "menuName": "重置密码",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:user:resetPassword",
+                "createBy": "system",
+                "updateBy": "system",
+                "deleted": 9
+              },
+              {
                 "menuName": "用户删除",
                 "iType": "action",
                 "hidden": 1,
