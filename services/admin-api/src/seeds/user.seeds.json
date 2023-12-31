@@ -2,8 +2,16 @@
   {
     "userId": 1,
     "username": "admin",
-    "email": "nodite-light@example.com",
+    "email": "admin@nodite.com",
     "password": "admin",
+    "createBy": "system",
+    "updateBy": "system"
+  },
+  {
+    "userId": 2,
+    "username": "viewer",
+    "email": "viewer@nodite.com",
+    "password": "viewer",
     "createBy": "system",
     "updateBy": "system"
   }
