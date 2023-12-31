@@ -39,5 +39,7 @@ export default {
     cancel: '取消',
     save: '保存',
     notEq: '{0}与{1}不一致',
+    search: '搜索',
+    reset: '重置',
   },
 };

@@ -39,5 +39,7 @@ export default {
     cancel: 'Cancel',
     save: 'Save',
     notEq: '{0} must be equal to {1}.',
+    search: 'Search',
+    reset: 'Reset',
   },
 };

@@ -80,7 +80,7 @@ export interface IMenu {
   /** Status */
   status?: 0 | 1;
   /** Deleted */
-  deleted?: 0 | 1 | 100;
+  deleted?: 0 | 1 | 9;
   /** Create by */
   createBy?: string;
   /**
@@ -177,7 +177,7 @@ export interface IUser {
   /** Status */
   status?: 0 | 1;
   /** Deleted */
-  deleted?: 0 | 1 | 100;
+  deleted?: 0 | 1 | 9;
   /** Create by */
   createBy?: string;
   /**
@@ -216,12 +216,34 @@ export interface IUser {
   password: string;
 }
 
-export interface IResponseIUserArray {
+export interface PaginationIUser {
+  items: IUser[];
+  /** @format double */
+  count: number;
+  /** @format double */
+  totalCount: number;
+  /** @format double */
+  totalPage: number;
+  /** @format double */
+  page: number;
+  /** @format double */
+  itemsPerPage: number;
+}
+
+export interface IResponsePaginationIUser {
   error: boolean;
   /** @format double */
   httpCode: number;
   message: string;
-  data?: IUser[];
+  data?: PaginationIUser;
+}
+
+export interface QueryParams {
+  /** @format double */
+  page?: number;
+  /** @format double */
+  itemsPerPage?: number;
+  [key: string]: any;
 }
 
 export interface IResponseIUser {
@@ -256,7 +278,7 @@ export interface PickIUserExcludeKeysUsernameOrPassword {
   /** Status */
   status?: 0 | 1;
   /** Deleted */
-  deleted?: 0 | 1 | 100;
+  deleted?: 0 | 1 | 9;
   /** Create by */
   createBy?: string;
   /**

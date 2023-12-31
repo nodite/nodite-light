@@ -2,6 +2,7 @@ import { AuthorizedRequest } from '@nodite-light/admin-auth/lib/interfaces/autho
 import { Permissions } from '@nodite-light/admin-auth/lib/middlewares/authorized.middleware';
 import { IResponse } from '@nodite-light/admin-core/lib/interfaces/httpResponse';
 import validation from '@nodite-light/admin-core/lib/middlewares/validate.middleware';
+import { Pagination } from '@nodite-light/admin-database/lib/nodite-sequelize/interface';
 import httpStatus from 'http-status';
 import {
   Body,
@@ -27,6 +28,8 @@ import {
   ResetPasswordValidation,
 } from '@/components/user/user.validation';
 
+import { QueryParams } from '../base.interface';
+
 /**
  * Class UserController.
  */
@@ -46,10 +49,10 @@ export class UserController extends BaseController {
   @Get('/list')
   @OperationId('admin:user:list')
   @Permissions('admin:user:list')
-  public async list(@Queries() user?: IUser): Promise<IResponse<IUser[]>> {
-    const users = await this.userService.selectUserList(user);
+  public async list(@Queries() params?: QueryParams): Promise<IResponse<Pagination<IUser>>> {
+    const page = await this.userService.selectUserList(params);
     this.setStatus(httpStatus.OK);
-    return this.response(users);
+    return this.response(page);
   }
 
   /**

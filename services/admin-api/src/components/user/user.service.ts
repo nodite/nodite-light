@@ -1,10 +1,12 @@
 import { AuthorizedRequest } from '@nodite-light/admin-auth/lib/interfaces/authorizedRequest';
 import AppError from '@nodite-light/admin-core/lib/utils/appError';
+import { Pagination } from '@nodite-light/admin-database/lib/nodite-sequelize/interface';
 import httpContext from 'express-http-context';
 import httpStatus from 'http-status';
 import lodash from 'lodash';
 import { Op } from 'sequelize';
 
+import { QueryParams } from '@/components/base.interface';
 import { IPasswordReset, IUser } from '@/components/user/user.interface';
 import { UserModel } from '@/components/user/user.model';
 
@@ -14,19 +16,26 @@ export class UserService {
    * @param user
    * @returns
    */
-  public async selectUserList(user?: IUser): Promise<IUser[]> {
+  public async selectUserList(params: QueryParams): Promise<Pagination<IUser>> {
     const where = {};
 
-    if (user?.email) {
-      lodash.set(where, 'email', { [Op.like]: `%${user?.email}%` });
-    }
-
-    const users = await UserModel.findAll({
-      attributes: ['userId', 'username', 'nickname', 'email', 'status', 'createTime'],
-      where,
+    // queries.
+    lodash.forEach(lodash.omit(params, ['itemsPerPage', 'page', 'sortBy']), (value, key) => {
+      if (value) {
+        lodash.set(where, key, { [Op.like]: `%${value}%` });
+      }
     });
 
-    return users.map((u) => u.toJSON<IUser>());
+    const page = await UserModel.paginate({
+      attributes: ['userId', 'username', 'nickname', 'email', 'status', 'createTime'],
+      where,
+      ...lodash.pick(params, ['itemsPerPage', 'page']),
+    });
+
+    return {
+      ...page,
+      items: page.items.map((i) => i.toJSON<IUser>()),
+    };
   }
 
   /**
