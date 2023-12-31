@@ -1,12 +1,13 @@
-import { ValidationSchema } from '@nodite-light/admin-core/lib/interfaces/validationSchema';
+import { ValidationSchema } from '@nodite-light/admin-core';
 import Joi from 'joi';
 
 /**
- * createValidation.
+ * CreateValidation.
  */
-export const createValidation: ValidationSchema = {
+export const CreateValidation: ValidationSchema = {
   body: Joi.object()
     .keys({
+      userId: Joi.forbidden(),
       username: Joi.string().required(),
       email: Joi.string().email(),
       password: Joi.string().required(),
@@ -15,11 +16,12 @@ export const createValidation: ValidationSchema = {
 };
 
 /**
- * editValidation.
+ * EditValidation.
  */
-export const editValidation: ValidationSchema = {
+export const EditValidation: ValidationSchema = {
   body: Joi.object()
     .keys({
+      userId: Joi.forbidden(),
       username: Joi.forbidden(),
       email: Joi.string().email().optional().allow(null, ''),
       password: Joi.forbidden(),

@@ -1,0 +1,22 @@
+{
+  "name": "@nodite-light/vuetify-data-table-pagination",
+  "version": "0.0.1",
+  "private": true,
+  "description": "@nodite-light/vuetify-data-table-pagination",
+  "author": "Oscaner Miao <oscaner1997@gmail.com>",
+  "main": "src/index.ts",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --check \"{*.js,!(node*)**/*.ts}\"",
+    "prettier:fix": "prettier --write \"{*.js,!(node*)**/*.ts}\""
+  },
+  "dependencies": {
+    "vue": "^3.3.13",
+    "vue-i18n": "^9.8.0",
+    "vuetify": "^3.4.8"
+  }
+}

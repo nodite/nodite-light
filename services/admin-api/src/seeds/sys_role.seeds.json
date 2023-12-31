@@ -1,0 +1,12 @@
+[
+  {
+    "roleId": 1,
+    "roleName": "Admin",
+    "roleKey": "admin",
+    "orderNum": 0,
+    "iKey": "views.role.admin",
+    "createBy": "system",
+    "updateBy": "system",
+    "deleted": 9
+  }
+]

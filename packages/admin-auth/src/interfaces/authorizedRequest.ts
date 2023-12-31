@@ -6,6 +6,5 @@ export interface AuthorizedRequest extends Request {
     username: string;
     email: string;
     jti?: string;
-    roles?: string[];
   };
 }

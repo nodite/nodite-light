@@ -1,8 +1,6 @@
-import { AuthorizedRequest } from '@nodite-light/admin-auth/lib/interfaces/authorizedRequest';
-import { Permissions } from '@nodite-light/admin-auth/lib/middlewares/authorized.middleware';
-import { IResponse } from '@nodite-light/admin-core/lib/interfaces/httpResponse';
-import validation from '@nodite-light/admin-core/lib/middlewares/validate.middleware';
-import { Pagination } from '@nodite-light/admin-database/lib/nodite-sequelize/interface';
+import { AuthorizedRequest, Permissions } from '@nodite-light/admin-auth';
+import { IResponse, validate } from '@nodite-light/admin-core';
+import { SequelizePagination } from '@nodite-light/admin-database';
 import httpStatus from 'http-status';
 import {
   Body,
@@ -20,15 +18,14 @@ import {
 } from 'tsoa';
 
 import BaseController from '@/components/base.controller';
+import { QueryParams } from '@/components/base.interface';
 import { IPasswordReset, IUser } from '@/components/user/user.interface';
-import { UserService } from '@/components/user/user.service';
+import UserService from '@/components/user/user.service';
 import {
-  createValidation,
-  editValidation,
+  CreateValidation,
+  EditValidation,
   ResetPasswordValidation,
 } from '@/components/user/user.validation';
-
-import { QueryParams } from '../base.interface';
 
 /**
  * Class UserController.
@@ -49,7 +46,9 @@ export class UserController extends BaseController {
   @Get('/list')
   @OperationId('admin:user:list')
   @Permissions('admin:user:list')
-  public async list(@Queries() params?: QueryParams): Promise<IResponse<Pagination<IUser>>> {
+  public async list(
+    @Queries() params?: QueryParams,
+  ): Promise<IResponse<SequelizePagination<IUser>>> {
     const page = await this.userService.selectUserList(params);
     this.setStatus(httpStatus.OK);
     return this.response(page);
@@ -82,11 +81,11 @@ export class UserController extends BaseController {
    * @summary Create user
    */
   @Post()
-  @Middlewares([validation(createValidation)])
+  @Middlewares([validate(CreateValidation)])
   @OperationId('admin:user:create')
   @Permissions('admin:user:create')
-  public async create(@Body() body: IUser): Promise<IResponse<IUser>> {
-    const user = await this.userService.create(body);
+  public async create(@Body() body: Omit<IUser, 'userId'>): Promise<IResponse<IUser>> {
+    const user = await this.userService.create(body as IUser);
     this.setStatus(httpStatus.CREATED);
     return this.response(user);
   }
@@ -95,12 +94,12 @@ export class UserController extends BaseController {
    * @summary Update user
    */
   @Put('{id}')
-  @Middlewares([validation(editValidation)])
+  @Middlewares([validate(EditValidation)])
   @OperationId('admin:user:edit')
   @Permissions('admin:user:edit')
   public async update(
     @Path() id: number,
-    @Body() body: Omit<IUser, 'username' | 'password'>,
+    @Body() body: Omit<IUser, 'userId' | 'username' | 'password'>,
   ): Promise<IResponse<IUser>> {
     const user = await this.userService.update(id, body as IUser);
     this.setStatus(httpStatus.ACCEPTED);
@@ -111,7 +110,7 @@ export class UserController extends BaseController {
    * @summary Reset password
    */
   @Put('{id}/password')
-  @Middlewares([validation(ResetPasswordValidation)])
+  @Middlewares([validate(ResetPasswordValidation)])
   @OperationId('admin:user:resetPassword')
   @Permissions('admin:user:resetPassword')
   public async resetPassword(

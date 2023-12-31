@@ -1,17 +1,17 @@
-import AppError from '@nodite-light/admin-core/lib/utils/appError';
-import { Database } from '@nodite-light/admin-database/lib/nodite-sequelize';
+import { AppError } from '@nodite-light/admin-core';
+import { SequelizeDatabase } from '@nodite-light/admin-database';
 import bcrypt from 'bcrypt';
 import httpStatus from 'http-status';
 import { Sequelize } from 'sequelize';
 
-import { BaseModel } from '@/components/base.model';
-import { TableSchema } from '@/components/user/user.schema';
-import UserSeeds from '@/seeds/user.seeds.json';
+import BaseModel from '@/components/base.model';
+import TableSchema from '@/components/user/user.schema';
+import UserSeeds from '@/seeds/sys_user.seeds.json';
 
 /**
  * Class UserModel.
  */
-export class UserModel extends BaseModel {
+export default class UserModel extends BaseModel {
   static readonly TABLE_NAME = 'sys_user';
 
   public skipBcryptPassword = false;
@@ -20,7 +20,7 @@ export class UserModel extends BaseModel {
    * register.
    * @param sequelize
    */
-  @Database.register(UserModel.TABLE_NAME)
+  @SequelizeDatabase.register(UserModel.TABLE_NAME)
   private static async register(sequelize: Sequelize): Promise<typeof UserModel> {
     return UserModel.init(TableSchema, {
       ...UserModel.BaseInitOptions,
@@ -46,7 +46,7 @@ export class UserModel extends BaseModel {
    * Initial seeds.
    * @param model
    */
-  @Database.seeds(UserModel.TABLE_NAME)
+  @SequelizeDatabase.seeds(UserModel.TABLE_NAME)
   private static async seeds(model: typeof UserModel): Promise<void> {
     await model.bulkCreate(UserSeeds);
   }
@@ -76,5 +76,3 @@ export class UserModel extends BaseModel {
     return true;
   }
 }
-
-export default {};

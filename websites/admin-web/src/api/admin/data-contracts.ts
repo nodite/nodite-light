@@ -164,6 +164,61 @@ export interface IResponseIMenu {
   data?: IMenu;
 }
 
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickIMenuExcludeKeysMenuId {
+  /** Menu name */
+  menuName: string;
+  /**
+   * Parent menu ID
+   * @format double
+   */
+  parentId: number;
+  /**
+   * Order number
+   * @format double
+   */
+  orderNum: number;
+  /** Menu icon */
+  icon: string;
+  /** Menu name i18n key */
+  iKey: string;
+  /** Menu type */
+  iType: string;
+  /** Menu path */
+  path: string;
+  /** Menu redirect */
+  redirect: string;
+  /** Menu component */
+  component: string;
+  /** Menu hidden */
+  hidden: 0 | 1;
+  /** Menu layout */
+  layout: string;
+  /** Menu perms */
+  perms: string;
+  /** Status */
+  status?: 0 | 1;
+  /** Deleted */
+  deleted?: 0 | 1 | 9;
+  /** Create by */
+  createBy?: string;
+  /**
+   * Create time
+   * @format date-time
+   */
+  createTime?: string;
+  /** Update by */
+  updateBy?: string;
+  /**
+   * Update time
+   * @format date-time
+   */
+  updateTime?: string;
+}
+
+/** Construct a type with the properties of T except for those in type K. */
+export type OmitIMenuMenuId = PickIMenuExcludeKeysMenuId;
+
 export interface IResponseVoid {
   error: boolean;
   /** @format double */
@@ -171,6 +226,151 @@ export interface IResponseVoid {
   message: string;
   data?: any;
 }
+
+export interface IRole {
+  /** Status */
+  status?: 0 | 1;
+  /** Deleted */
+  deleted?: 0 | 1 | 9;
+  /** Create by */
+  createBy?: string;
+  /**
+   * Create time
+   * @format date-time
+   */
+  createTime?: string;
+  /** Update by */
+  updateBy?: string;
+  /**
+   * Update time
+   * @format date-time
+   */
+  updateTime?: string;
+  /**
+   * Role ID
+   * @format double
+   */
+  roleId: number;
+  /** Role name */
+  roleName: string;
+  /** Role key */
+  roleKey: string;
+  /**
+   * Order number
+   * @format double
+   */
+  orderNum: number;
+  /** i18n key */
+  iKey: string;
+}
+
+export interface SequelizePaginationIRole {
+  items: IRole[];
+  /** @format double */
+  count: number;
+  /** @format double */
+  totalCount: number;
+  /** @format double */
+  totalPage: number;
+  /** @format double */
+  page: number;
+  /** @format double */
+  itemsPerPage: number;
+}
+
+export interface IResponseSequelizePaginationIRole {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: SequelizePaginationIRole;
+}
+
+export interface QueryParams {
+  /** @format double */
+  page?: number;
+  /** @format double */
+  itemsPerPage?: number;
+  [key: string]: any;
+}
+
+export interface IResponseIRole {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: IRole;
+}
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickIRoleExcludeKeysRoleId {
+  /**
+   * Order number
+   * @format double
+   */
+  orderNum: number;
+  /** i18n key */
+  iKey: string;
+  /** Status */
+  status?: 0 | 1;
+  /** Deleted */
+  deleted?: 0 | 1 | 9;
+  /** Create by */
+  createBy?: string;
+  /**
+   * Create time
+   * @format date-time
+   */
+  createTime?: string;
+  /** Update by */
+  updateBy?: string;
+  /**
+   * Update time
+   * @format date-time
+   */
+  updateTime?: string;
+  /** Role name */
+  roleName: string;
+  /** Role key */
+  roleKey: string;
+}
+
+/** Construct a type with the properties of T except for those in type K. */
+export type OmitIRoleRoleId = PickIRoleExcludeKeysRoleId;
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickIRoleExcludeKeysRoleIdOrRoleKey {
+  /**
+   * Order number
+   * @format double
+   */
+  orderNum: number;
+  /** i18n key */
+  iKey: string;
+  /** Status */
+  status?: 0 | 1;
+  /** Deleted */
+  deleted?: 0 | 1 | 9;
+  /** Create by */
+  createBy?: string;
+  /**
+   * Create time
+   * @format date-time
+   */
+  createTime?: string;
+  /** Update by */
+  updateBy?: string;
+  /**
+   * Update time
+   * @format date-time
+   */
+  updateTime?: string;
+  /** Role name */
+  roleName: string;
+}
+
+/** Construct a type with the properties of T except for those in type K. */
+export type OmitIRoleRoleIdOrRoleKey = PickIRoleExcludeKeysRoleIdOrRoleKey;
 
 /** Interface IUser. */
 export interface IUser {
@@ -216,7 +416,7 @@ export interface IUser {
   password: string;
 }
 
-export interface PaginationIUser {
+export interface SequelizePaginationIUser {
   items: IUser[];
   /** @format double */
   count: number;
@@ -230,20 +430,12 @@ export interface PaginationIUser {
   itemsPerPage: number;
 }
 
-export interface IResponsePaginationIUser {
+export interface IResponseSequelizePaginationIUser {
   error: boolean;
   /** @format double */
   httpCode: number;
   message: string;
-  data?: PaginationIUser;
-}
-
-export interface QueryParams {
-  /** @format double */
-  page?: number;
-  /** @format double */
-  itemsPerPage?: number;
-  [key: string]: any;
+  data?: SequelizePaginationIUser;
 }
 
 export interface IResponseIUser {
@@ -256,25 +448,16 @@ export interface IResponseIUser {
 }
 
 /** From T, pick a set of properties whose keys are in the union K */
-export interface PickIUserExcludeKeysUsernameOrPassword {
+export interface PickIUserExcludeKeysUserId {
+  /** Username */
+  username: string;
   /**
    * Email
    * @format email
    */
   email: string;
-  /**
-   * User ID
-   * @format double
-   */
-  userId: number;
-  /** Nickname */
-  nickname: string;
-  /** Phone */
-  phone: string;
-  /** Sex */
-  sex: 0 | 1;
-  /** Avatar */
-  avatar: string;
+  /** Password */
+  password: string;
   /** Status */
   status?: 0 | 1;
   /** Deleted */
@@ -293,10 +476,56 @@ export interface PickIUserExcludeKeysUsernameOrPassword {
    * @format date-time
    */
   updateTime?: string;
+  /** Nickname */
+  nickname: string;
+  /** Phone */
+  phone: string;
+  /** Sex */
+  sex: 0 | 1;
+  /** Avatar */
+  avatar: string;
 }
 
 /** Construct a type with the properties of T except for those in type K. */
-export type OmitIUserUsernameOrPassword = PickIUserExcludeKeysUsernameOrPassword;
+export type OmitIUserUserId = PickIUserExcludeKeysUserId;
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickIUserExcludeKeysUserIdOrUsernameOrPassword {
+  /**
+   * Email
+   * @format email
+   */
+  email: string;
+  /** Status */
+  status?: 0 | 1;
+  /** Deleted */
+  deleted?: 0 | 1 | 9;
+  /** Create by */
+  createBy?: string;
+  /**
+   * Create time
+   * @format date-time
+   */
+  createTime?: string;
+  /** Update by */
+  updateBy?: string;
+  /**
+   * Update time
+   * @format date-time
+   */
+  updateTime?: string;
+  /** Nickname */
+  nickname: string;
+  /** Phone */
+  phone: string;
+  /** Sex */
+  sex: 0 | 1;
+  /** Avatar */
+  avatar: string;
+}
+
+/** Construct a type with the properties of T except for those in type K. */
+export type OmitIUserUserIdOrUsernameOrPassword = PickIUserExcludeKeysUserIdOrUsernameOrPassword;
 
 export interface IPasswordReset {
   /** password */

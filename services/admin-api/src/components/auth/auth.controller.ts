@@ -1,8 +1,5 @@
-import { AuthorizedRequest } from '@nodite-light/admin-auth/lib/interfaces/authorizedRequest';
-import { Permissions } from '@nodite-light/admin-auth/lib/middlewares/authorized.middleware';
-import { JwtDestroyType } from '@nodite-light/admin-auth/lib/utils/jwt';
-import { IResponse } from '@nodite-light/admin-core/lib/interfaces/httpResponse';
-import validate from '@nodite-light/admin-core/lib/middlewares/validate.middleware';
+import { AuthorizedRequest, JwtDestroyType, Permissions } from '@nodite-light/admin-auth';
+import { IResponse, validate } from '@nodite-light/admin-core';
 import httpStatus from 'http-status';
 import { Body, Delete, Middlewares, OperationId, Post, Request, Route, Tags } from 'tsoa';
 

@@ -1,17 +1,17 @@
-import AppError from '@nodite-light/admin-core/lib/utils/appError';
+import { AppError } from '@nodite-light/admin-core';
 import httpStatus from 'http-status';
 import lodash from 'lodash';
 import { arrayToTree } from 'performant-array-to-tree';
 import { Attributes, FindOptions } from 'sequelize';
 
 import { IMenu, MenuTree } from '@/components/menu/menu.interface';
-import { MenuModel } from '@/components/menu/menu.model';
-import { UserService } from '@/components/user/user.service';
+import MenuModel from '@/components/menu/menu.model';
+import UserService from '@/components/user/user.service';
 
 /**
  * Class MenuService.
  */
-export class MenuService {
+export default class MenuService {
   userService: UserService;
 
   constructor() {
@@ -147,5 +147,3 @@ export class MenuService {
     return menus;
   }
 }
-
-export default {};

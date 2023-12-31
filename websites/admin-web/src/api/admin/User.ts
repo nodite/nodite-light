@@ -15,10 +15,10 @@ import { request } from "@/utils/request/index";
 import type {
   IPasswordReset,
   IResponseIUser,
-  IResponsePaginationIUser,
+  IResponseSequelizePaginationIUser,
   IResponseVoid,
-  IUser,
-  OmitIUserUsernameOrPassword,
+  OmitIUserUserId,
+  OmitIUserUserIdOrUsernameOrPassword,
 } from "./data-contracts";
 
 /**
@@ -38,7 +38,7 @@ export const adminUserList = (
   },
   params: RequestParams = {},
 ) =>
-  request<IResponsePaginationIUser>({
+  request<IResponseSequelizePaginationIUser>({
     path: `/user/list`,
     method: "GET",
     query: query,
@@ -55,7 +55,7 @@ export const adminUserListSkipErrorHandler = (
   },
   params: RequestParams = {},
 ) =>
-  request<IResponsePaginationIUser>({
+  request<IResponseSequelizePaginationIUser>({
     path: `/user/list`,
     method: "GET",
     query: query,
@@ -97,7 +97,7 @@ export const adminUserCurrSkipErrorHandler = (params: RequestParams = {}) =>
  * @summary Create user
  * @request POST:/user
  */
-export const adminUserCreate = (data: IUser, params: RequestParams = {}) =>
+export const adminUserCreate = (data: OmitIUserUserId, params: RequestParams = {}) =>
   request<IResponseIUser>({
     path: `/user`,
     method: "POST",
@@ -107,7 +107,7 @@ export const adminUserCreate = (data: IUser, params: RequestParams = {}) =>
     skipErrorHandler: false,
     ...params,
   });
-export const adminUserCreateSkipErrorHandler = (data: IUser, params: RequestParams = {}) =>
+export const adminUserCreateSkipErrorHandler = (data: OmitIUserUserId, params: RequestParams = {}) =>
   request<IResponseIUser>({
     path: `/user`,
     method: "POST",
@@ -151,7 +151,7 @@ export const adminUserQuerySkipErrorHandler = (id: number, params: RequestParams
  * @summary Update user
  * @request PUT:/user/{id}
  */
-export const adminUserEdit = (id: number, data: OmitIUserUsernameOrPassword, params: RequestParams = {}) =>
+export const adminUserEdit = (id: number, data: OmitIUserUserIdOrUsernameOrPassword, params: RequestParams = {}) =>
   request<IResponseIUser>({
     path: `/user/${id}`,
     method: "PUT",
@@ -163,7 +163,7 @@ export const adminUserEdit = (id: number, data: OmitIUserUsernameOrPassword, par
   });
 export const adminUserEditSkipErrorHandler = (
   id: number,
-  data: OmitIUserUsernameOrPassword,
+  data: OmitIUserUserIdOrUsernameOrPassword,
   params: RequestParams = {},
 ) =>
   request<IResponseIUser>({

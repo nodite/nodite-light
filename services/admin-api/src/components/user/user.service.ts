@@ -1,6 +1,6 @@
-import { AuthorizedRequest } from '@nodite-light/admin-auth/lib/interfaces/authorizedRequest';
-import AppError from '@nodite-light/admin-core/lib/utils/appError';
-import { Pagination } from '@nodite-light/admin-database/lib/nodite-sequelize/interface';
+import { AuthorizedRequest } from '@nodite-light/admin-auth';
+import { AppError } from '@nodite-light/admin-core';
+import { SequelizePagination } from '@nodite-light/admin-database';
 import httpContext from 'express-http-context';
 import httpStatus from 'http-status';
 import lodash from 'lodash';
@@ -8,15 +8,15 @@ import { Op } from 'sequelize';
 
 import { QueryParams } from '@/components/base.interface';
 import { IPasswordReset, IUser } from '@/components/user/user.interface';
-import { UserModel } from '@/components/user/user.model';
+import UserModel from '@/components/user/user.model';
 
-export class UserService {
+export default class UserService {
   /**
    * Search users.
    * @param user
    * @returns
    */
-  public async selectUserList(params: QueryParams): Promise<Pagination<IUser>> {
+  public async selectUserList(params?: QueryParams): Promise<SequelizePagination<IUser>> {
     const where = {};
 
     // queries.
@@ -90,11 +90,9 @@ export class UserService {
    */
   public async create(user: IUser): Promise<IUser> {
     const createdUser = await UserModel.create({ ...user });
-
     if (lodash.isEmpty(createdUser)) {
       throw new AppError(httpStatus.BAD_GATEWAY, 'User was not created!');
     }
-
     return createdUser.toJSON<IUser>();
   }
 
@@ -183,5 +181,3 @@ export class UserService {
     return UserModel.validPassword(rawPassword, encodedPassword);
   }
 }
-
-export default {};

@@ -1,14 +1,14 @@
-import { AuthorizedRequest } from '@nodite-light/admin-auth/lib/interfaces/authorizedRequest';
-import { BaseModel as Model } from '@nodite-light/admin-database/lib/nodite-sequelize/model';
+import { AuthorizedRequest } from '@nodite-light/admin-auth';
+import { SequelizeModel } from '@nodite-light/admin-database';
 import httpContext from 'express-http-context';
 import lodash from 'lodash';
 import type { BuildOptions, CreationAttributes, ModelStatic } from 'sequelize/types/model';
 
-export abstract class BaseModel extends Model {
+export default abstract class BaseModel extends SequelizeModel {
   /**
    * Override build method.
    */
-  public static build<M extends Model>(
+  public static build<M extends SequelizeModel>(
     this: ModelStatic<M>,
     record?: CreationAttributes<M>,
     options?: BuildOptions,
@@ -36,5 +36,3 @@ export abstract class BaseModel extends Model {
     return super.build<M>(record, options);
   }
 }
-
-export default {};

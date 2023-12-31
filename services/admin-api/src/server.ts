@@ -1,7 +1,5 @@
 import app from '@app';
-import config from '@nodite-light/admin-core/lib/config/config';
-import errorHandler from '@nodite-light/admin-core/lib/utils/errorHandler';
-import logger from '@nodite-light/admin-core/lib/utils/logger';
+import { config, errorHandler, logger } from '@nodite-light/admin-core';
 import { Server } from 'http';
 
 const { port } = config;

@@ -1,6 +1,4 @@
-import consts from '@nodite-light/admin-core/lib/config/consts';
-import AppError from '@nodite-light/admin-core/lib/utils/appError';
-import logger from '@nodite-light/admin-core/lib/utils/logger';
+import { AppError, consts, logger } from '@nodite-light/admin-core';
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import swaggerUi from 'swagger-ui-express';

@@ -19,7 +19,7 @@ import { useUserStore } from '@/stores/modules/userStore';
 
 const userStore = useUserStore();
 
-const emit = defineEmits(['close-pass-form', 'clean-pass-form']);
+const emit = defineEmits(['close-pass-form', 'saved']);
 
 const props = defineProps({
   dialog: {
@@ -116,7 +116,7 @@ const methods = {
     toast.success(i18n.global.t('common.form.success'));
 
     methods.closePassForm();
-    emit('clean-pass-form');
+    emit('saved');
   },
 };
 </script>

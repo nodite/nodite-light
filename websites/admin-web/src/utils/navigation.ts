@@ -36,20 +36,21 @@ export const loadComponent = (component: string) => {
  * @param menu
  * @returns
  */
-export const convertMenuToRouter = (menu: IMenu): NavigationConfig.Router => {
+export const convertMenuToRouter = (menu: MenuTree): NavigationConfig.Router => {
   return {
     path: menu.path,
     redirect: menu.redirect || undefined,
     component: loadComponent(menu.component),
     meta: {
-      icon: menu.icon || undefined,
-      iKey: menu.iKey || undefined,
+      icon: menu.icon || '',
+      iKey: menu.iKey || '',
       iType: menu.iType as NavigationConfig.MenuType,
-      parentId: menu.parentId || undefined,
-      disabled: Number(menu.status) === 0,
+      parentId: menu.parentId || 0,
+      disabled: lodash.toInteger(menu.status) === 0,
       hidden: Boolean(menu.hidden),
       layout: menu.layout || 'ui',
       title: menu.menuName,
+      level: menu.level || 0,
     },
   } as NavigationConfig.Router;
 };

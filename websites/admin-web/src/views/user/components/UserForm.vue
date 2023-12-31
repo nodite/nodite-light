@@ -20,7 +20,7 @@ import { useUserStore } from '@/stores/modules/userStore';
 
 const userStore = useUserStore();
 
-const emit = defineEmits(['close-user-form', 'clean-user-form']);
+const emit = defineEmits(['close-user-form', 'saved']);
 
 const props = defineProps({
   dialog: {
@@ -35,15 +35,7 @@ const props = defineProps({
 
 // static data.
 const staticData = ref({
-  defaultFormData: {
-    sex: 0,
-    status: 1,
-  } as IUser,
-  sex: [
-    { value: 0, title: i18n.global.t('views.user.sex.secret') },
-    { value: 1, title: i18n.global.t('views.user.sec.male') },
-    { value: 2, title: i18n.global.t('views.user.sex.female') },
-  ],
+  sex: [] as { title: string; value: number }[],
 });
 
 // local data.
@@ -80,7 +72,7 @@ const formRules = ref({
     (v: string) => !v || /.+@.+\..+/.test(v) || i18n.global.t('common.form.email'),
   ],
   phone: [],
-  sex: [],
+  sex: [(v: number) => [0, 1, 2].includes(v) || i18n.global.t('common.form.invalid')],
   password: [
     (v: string) =>
       !!v || i18n.global.t('common.form.required', [i18n.global.t('views.user.form.password')]),
@@ -92,25 +84,20 @@ const formRules = ref({
   status: [(v: number) => [0, 1].includes(v) || i18n.global.t('common.form.invalid')],
 });
 
-watchEffect(() => {
-  localData.value.dialog = props.dialog;
-
-  if (props.userId > 0) {
-    userStore.query(props.userId).then((res) => {
-      formData.value = lodash.isUndefined(res) ? staticData.value.defaultFormData : res;
-    });
-  } else {
-    formData.value = staticData.value.defaultFormData;
-  }
-});
-
 // methods.
 const methods = {
+  async fillFormData() {
+    let user = undefined;
+    if (props.userId > 0) {
+      user = await userStore.query(props.userId);
+    }
+    formData.value = lodash.isUndefined(user) ? ({} as IUser) : user;
+  },
   clearLocalData() {
     localData.value.dialog = false;
     localData.value.isSaving = false;
     localData.value.isFormValid = true;
-    formData.value = staticData.value.defaultFormData;
+    formData.value = {} as IUser;
   },
   closeUserForm() {
     if (localData.value.isSaving) {
@@ -135,7 +122,7 @@ const methods = {
     }
 
     try {
-      await (formData.value.userId
+      await (formData.value.userId > 0
         ? userStore.edit(formData.value)
         : userStore.create(formData.value));
     } finally {
@@ -145,9 +132,22 @@ const methods = {
     toast.success(i18n.global.t('common.form.success'));
 
     methods.closeUserForm();
-    emit('clean-user-form');
+    emit('saved');
   },
 };
+
+watchEffect(() => {
+  // watch i18n.
+  staticData.value.sex = [
+    { value: 0, title: i18n.global.t('views.user.sex.secret') },
+    { value: 1, title: i18n.global.t('views.user.sec.male') },
+    { value: 2, title: i18n.global.t('views.user.sex.female') },
+  ];
+
+  localData.value.dialog = props.dialog;
+
+  methods.fillFormData();
+});
 </script>
 
 <template>
@@ -183,8 +183,8 @@ const methods = {
         >
           <v-container class="px-10 pb-0">
             <v-row dense>
+              <!-- username & nickname -->
               <v-col>
-                <!-- username & nickname -->
                 <v-text-field
                   density="compact"
                   v-model="formData.username"

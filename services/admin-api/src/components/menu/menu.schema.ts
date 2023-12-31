@@ -1,8 +1,8 @@
 import { DataTypes, ModelAttributeColumnOptions } from 'sequelize';
 
-import { BaseModel } from '@/components/base.model';
+import BaseModel from '@/components/base.model';
 
-export const TableSchema = {
+export default {
   menuId: {
     field: 'menu_id',
     type: DataTypes.BIGINT({ length: 20 }),
@@ -69,5 +69,3 @@ export const TableSchema = {
   },
   ...BaseModel.BaseSchema,
 } as Record<string, ModelAttributeColumnOptions>;
-
-export default {};

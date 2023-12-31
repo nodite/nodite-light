@@ -13,10 +13,10 @@
 
 import lodash from 'lodash';
 
-import { IUser, PaginationIUser, QueryParams } from '@/api/admin/data-contracts';
+import { IUser, QueryParams, SequelizePaginationIUser } from '@/api/admin/data-contracts';
 import * as UserApi from '@/api/admin/User';
 
-export type UserState = {
+type UserState = {
   users: IUser[];
 };
 
@@ -33,7 +33,7 @@ export const useUserStore = defineStore('user', {
      * @param query
      * @returns
      */
-    async list(params?: QueryParams): Promise<PaginationIUser | undefined> {
+    async list(params?: QueryParams): Promise<SequelizePaginationIUser | undefined> {
       return await UserApi.adminUserList(params);
     },
 
@@ -47,20 +47,23 @@ export const useUserStore = defineStore('user', {
     },
 
     /**
-     * Create user.
+     * Create.
      * @param user
      */
     async create(user: IUser): Promise<void> {
-      await UserApi.adminUserCreate(user);
+      await UserApi.adminUserCreate(lodash.omit(user, ['userId']));
       await this.$reset();
     },
 
     /**
-     * Update user.
+     * Edit.
      * @param user
      */
     async edit(user: IUser): Promise<void> {
-      await UserApi.adminUserEdit(user.userId, lodash.omit(user, ['username', 'password']));
+      await UserApi.adminUserEdit(
+        user.userId,
+        lodash.omit(user, ['userId', 'username', 'password']),
+      );
       await this.$reset();
     },
 

@@ -16,7 +16,7 @@ import { DataTableItemProps, Item } from '../types/VDataTable';
 import VTreeDataTableRows from './VTreeDataTableRows.vue';
 
 defineProps({
-  tree: {
+  tableProps: {
     type: Object as PropType<DataTableItemProps>,
     required: true,
   },
@@ -39,7 +39,7 @@ const cellProps = ({ item, column }: { item: Item; column: { key: string } }) =>
 </script>
 
 <template>
-  <v-data-table v-bind="$props.tree" :cell-props="cellProps">
+  <v-data-table v-bind="$props.tableProps" :cell-props="cellProps">
     <template v-for="(_, name) in $slots" v-slot:[name]="data">
       <!-- slots -->
       <slot :name="name" v-bind="data"></slot>
@@ -50,7 +50,7 @@ const cellProps = ({ item, column }: { item: Item; column: { key: string } }) =>
         :level="1"
         :items="item.children || []"
         :columns="columns"
-        :item-value="$props.tree.itemValue"
+        :item-value="$props.tableProps.itemValue"
         :offset-columns="$props.offsetColumns"
         :cell-props="cellProps"
       >

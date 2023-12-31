@@ -1,9 +1,10 @@
-import protectedByApiKey from '@nodite-light/admin-auth/lib/middlewares/apiKey.middleware';
-import authorized from '@nodite-light/admin-auth/lib/middlewares/authorized.middleware';
-import consts from '@nodite-light/admin-core/lib/config/consts';
-import errorHandling from '@nodite-light/admin-core/lib/middlewares/errorHandling.middleware';
-import uniqueReqId from '@nodite-light/admin-core/lib/middlewares/uniqueReqId.middleware';
-import httpLogger from '@nodite-light/admin-core/lib/utils/httpLogger';
+import { ApiKeyMiddleware, AuthorizedMiddleware } from '@nodite-light/admin-auth';
+import {
+  consts,
+  ErrorHandlingMiddleware,
+  httpLogger,
+  UniqueReqIdMiddleware,
+} from '@nodite-light/admin-core';
 import api from 'api';
 import cors from 'cors';
 import express, { Application } from 'express';
@@ -34,18 +35,18 @@ app.use(apiLimiter);
 app.use(httpContext.middleware);
 app.use(httpLogger.successHandler);
 app.use(httpLogger.errorHandler);
-app.use(uniqueReqId);
+app.use(UniqueReqIdMiddleware);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   consts.API_ROOT_PATH,
-  [protectedByApiKey, authorized.unless({ path: consts.AUTH_WHITELIST })],
+  [ApiKeyMiddleware, AuthorizedMiddleware.unless({ path: consts.AUTH_WHITELIST })],
   api,
 );
 app.use(swaggerApiDocs);
 app.use(healthCheck);
 app.use(http404);
 
-app.use(errorHandling);
+app.use(ErrorHandlingMiddleware);
 
 export default app;

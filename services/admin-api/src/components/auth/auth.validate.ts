@@ -1,4 +1,4 @@
-import { ValidationSchema } from '@nodite-light/admin-core/lib/interfaces/validationSchema';
+import { ValidationSchema } from '@nodite-light/admin-core';
 import Joi from 'joi';
 
 /**

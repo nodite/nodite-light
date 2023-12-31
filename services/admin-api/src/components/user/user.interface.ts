@@ -57,5 +57,3 @@ export interface IPasswordReset {
    */
   confirmPassword: string;
 }
-
-export default {};

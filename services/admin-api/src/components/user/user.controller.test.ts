@@ -1,5 +1,5 @@
 // import app from '@app';
-// import AppError from '@nodite-light/admin-core/lib/utils/appError';
+// import { AppError } from '@nodite-light/admin-core';
 // import httpStatus from 'http-status';
 // import { agent as request } from 'supertest';
 
