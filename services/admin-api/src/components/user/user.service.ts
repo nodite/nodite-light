@@ -14,24 +14,27 @@ export class UserService {
    * @param user
    * @returns
    */
-  public async search(user?: IUser): Promise<IUser[]> {
+  public async selectUserList(user?: IUser): Promise<IUser[]> {
     const where = {};
 
     if (user?.email) {
       lodash.set(where, 'email', { [Op.like]: `%${user?.email}%` });
     }
 
-    const users = await UserModel.findAll({ where });
+    const users = await UserModel.findAll({
+      attributes: ['userId', 'username', 'nickname', 'email', 'status', 'createTime'],
+      where,
+    });
 
     return users.map((u) => u.toJSON<IUser>());
   }
 
   /**
-   * Get by id.
+   * Select user by id
    * @param id
    * @returns
    */
-  public async get(id?: number): Promise<IUser> {
+  public async selectUserById(id?: number): Promise<IUser> {
     const user = await UserModel.findOne({ where: { userId: id } });
 
     if (lodash.isEmpty(user)) {
@@ -106,7 +109,7 @@ export class UserService {
       throw new AppError(httpStatus.BAD_REQUEST, 'User was not created!');
     }
 
-    if (storedUser.getDataValue('password') === user.password) {
+    if (!user.password || storedUser.getDataValue('password') === user.password) {
       storedUser.skipBcryptPassword = true;
     } else {
       storedUser.skipBcryptPassword = false;

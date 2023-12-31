@@ -28,24 +28,60 @@ export const useUserStore = defineStore('user', {
   persist: [{ storage: sessionStorage }],
 
   actions: {
-    async getUsers(query?: IUser): Promise<IUser[]> {
+    /**
+     * List.
+     * @param query
+     * @returns
+     */
+    async list(query?: IUser): Promise<IUser[]> {
       if (lodash.isEmpty(this.users)) {
         this.users = (await UserApi.adminUserList(query || ({} as IUser))) || [];
       }
       return this.users;
     },
-    async createUser(user: IUser): Promise<void> {
+
+    /**
+     * Query.
+     * @param id
+     * @returns
+     */
+    async query(id: number): Promise<IUser | undefined> {
+      return await UserApi.adminUserQuery(id);
+    },
+
+    /**
+     * Create user.
+     * @param user
+     */
+    async create(user: IUser): Promise<void> {
       await UserApi.adminUserCreate(user);
       await this.$reset();
     },
-    async updateUser(user: IUser): Promise<void> {
+
+    /**
+     * Update user.
+     * @param user
+     */
+    async edit(user: IUser): Promise<void> {
       await UserApi.adminUserEdit(user.userId, lodash.omit(user, ['username', 'password']));
       await this.$reset();
     },
+
+    /**
+     * Reset password.
+     * @param id
+     * @param password
+     * @param confirmPassword
+     */
     async resetPassword(id: number, password: string, confirmPassword: string): Promise<void> {
       await UserApi.adminUserResetPassword(id, { password, confirmPassword });
     },
-    async deleteUser(id: number): Promise<void> {
+
+    /**
+     * Delete user.
+     * @param id
+     */
+    async delete(id: number): Promise<void> {
       await UserApi.adminUserDelete(id);
       await this.$reset();
     },

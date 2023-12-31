@@ -9,6 +9,7 @@ export default {
     avatar: '头像',
     password: '密码',
     confirmPassword: '确认密码',
+    resetPassword: '重置密码 - {0}',
   },
 
   headers: {

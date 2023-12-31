@@ -13,7 +13,7 @@
 <script setup lang="ts">
 import { toast } from 'vuetify-sonner';
 
-import { IPasswordReset, IUser } from '@/api/admin/data-contracts';
+import { IPasswordReset } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
 import { useUserStore } from '@/stores/modules/userStore';
 
@@ -26,9 +26,11 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  item: {
-    type: Object as PropType<IUser>,
-    default: undefined,
+  username: {
+    type: String,
+  },
+  userId: {
+    type: Number,
   },
 });
 
@@ -103,7 +105,7 @@ const methods = {
 
     try {
       await userStore.resetPassword(
-        props.item?.userId as number,
+        props.userId as number,
         formData.value.password,
         formData.value.confirmPassword,
       );
@@ -128,7 +130,7 @@ const methods = {
   >
     <v-card>
       <v-card-title>
-        <v-label>{{ props.item?.username }}</v-label>
+        <v-label>{{ $t('views.user.form.resetPassword', [props.username]) }}</v-label>
       </v-card-title>
 
       <v-card-text>

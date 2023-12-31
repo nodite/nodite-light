@@ -3,9 +3,9 @@
 // import httpStatus from 'http-status';
 // import { agent as request } from 'supertest';
 
-// const createUser = jest.fn();
-// const updateUser = jest.fn();
-// const deleteUser = jest.fn();
+// const create = jest.fn();
+// const edit = jest.fn();
+// const delete = jest.fn();
 
 // const userMock = {
 //   username: 'John',
@@ -32,11 +32,11 @@
 
 // jest.mock('@/components/user/user.service', () => {
 //   class UserService {
-//     public create = createUser;
+//     public create = create;
 
-//     public update = updateUser;
+//     public update = edit;
 
-//     public delete = deleteUser;
+//     public delete = delete;
 //   }
 //   return { UserService };
 // });
@@ -60,7 +60,7 @@ describe('User API', () => {
 
     test('should return 400 status with error message if something went wrong with creating user', async () => {
       // const ERROR_MESSAGE = 'User was not created!';
-      // createUser.mockImplementation(() => {
+      // create.mockImplementation(() => {
       //   throw new AppError(httpStatus.BAD_REQUEST, ERROR_MESSAGE);
       // });
       // const res = await request(app)

@@ -9,6 +9,7 @@ export default {
     avatar: 'Avatar',
     password: 'Password',
     confirmPassword: 'Confirm Password',
+    resetPassword: 'Reset Password - {0}',
   },
 
   headers: {

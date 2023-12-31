@@ -173,7 +173,7 @@ const methods = {
     v-model="localData.dialog"
     @click:outside="methods.closeMenuForm"
     :persistent="localData.isSaving"
-    max-width="700"
+    max-width="750"
   >
     <template v-slot:activator="{ props }">
       <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
@@ -185,9 +185,9 @@ const methods = {
       <v-card-title class="pt-4">
         <v-label>
           {{
-            props.menuId === 0
-              ? $t('common.form.newHeader', [$t('views.menu.form.title')])
-              : $t('common.form.editHeader', [$t('views.menu.form.title'), formData.menuName])
+            props.menuId > 0
+              ? $t('common.form.editHeader', [$t('views.menu.form.title'), formData.menuName])
+              : $t('common.form.newHeader', [$t('views.menu.form.title')])
           }}
         </v-label>
         <v-spacer></v-spacer>

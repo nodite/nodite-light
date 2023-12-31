@@ -188,11 +188,11 @@ export const adminUserCreateSkipErrorHandler = (data: IUser, params: RequestPara
  * No description
  *
  * @tags User
- * @name adminUserGet
+ * @name adminUserQuery
  * @summary Get user by id
  * @request GET:/user/{id}
  */
-export const adminUserGet = (id: number, params: RequestParams = {}) =>
+export const adminUserQuery = (id: number, params: RequestParams = {}) =>
   request<IResponseIUser>({
     path: `/user/${id}`,
     method: "GET",
@@ -200,7 +200,7 @@ export const adminUserGet = (id: number, params: RequestParams = {}) =>
     skipErrorHandler: false,
     ...params,
   });
-export const adminUserGetSkipErrorHandler = (id: number, params: RequestParams = {}) =>
+export const adminUserQuerySkipErrorHandler = (id: number, params: RequestParams = {}) =>
   request<IResponseIUser>({
     path: `/user/${id}`,
     method: "GET",

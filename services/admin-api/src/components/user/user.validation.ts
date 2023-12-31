@@ -2,9 +2,9 @@ import { ValidationSchema } from '@nodite-light/admin-core/lib/interfaces/valida
 import Joi from 'joi';
 
 /**
- * CreateUserValidation.
+ * createValidation.
  */
-export const CreateUserValidation: ValidationSchema = {
+export const createValidation: ValidationSchema = {
   body: Joi.object()
     .keys({
       username: Joi.string().required(),
@@ -15,9 +15,9 @@ export const CreateUserValidation: ValidationSchema = {
 };
 
 /**
- * UpdateUserValidation.
+ * editValidation.
  */
-export const UpdateUserValidation: ValidationSchema = {
+export const editValidation: ValidationSchema = {
   body: Joi.object()
     .keys({
       username: Joi.forbidden(),
