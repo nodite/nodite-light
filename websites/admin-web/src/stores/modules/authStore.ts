@@ -63,7 +63,7 @@ export const useAuthStore = defineStore('auth', {
       await useMenuStore().$reset();
       await useNavStore().$reset();
       toast.success(i18n.global.t('login.success'));
-      router.push('/');
+      window.location.href = `${import.meta.env.VITE_APP_BASE_PATH || ''}/`;
     },
 
     /**

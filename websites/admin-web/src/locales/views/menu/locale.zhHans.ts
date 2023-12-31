@@ -1,13 +1,7 @@
 export default {
   form: {
+    title: '菜单',
     parentRoot: '根目录',
-    save: '保存',
-    create: '新建',
-    edit: '编辑',
-    delete: '删除',
-    cancel: '取消',
-    newHeader: '新建菜单',
-    editHeader: '编辑菜单 - {0}',
     parent: '上级菜单',
     menuName: '菜单名称',
     orderNum: '显示排序',
@@ -23,7 +17,6 @@ export default {
     layoutHint: '用于视图显示的布局',
     perms: '权限标识',
     hidden: '是否隐藏',
-    status: '菜单状态',
   },
   headers: {
     menuName: '菜单名称',

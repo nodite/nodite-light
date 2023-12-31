@@ -35,7 +35,7 @@ const props = defineProps({
   },
 });
 
-// Static Data.
+// static Data.
 const staticData = ref({
   menus: [] as IMenu[],
   layouts: [
@@ -52,7 +52,7 @@ const staticData = ref({
   } as IMenu,
 });
 
-// Local Data.
+// local Data.
 const localData = ref({
   dialog: props.dialog,
   openIconPicker: false,
@@ -114,7 +114,7 @@ watchEffect(() => {
   });
 });
 
-// Methods.
+// methods.
 const methods = {
   clearLocalData() {
     localData.value.dialog = false;
@@ -174,7 +174,7 @@ const methods = {
   >
     <template v-slot:activator="{ props }">
       <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
-        {{ $t('views.menu.form.create') }}
+        {{ $t('common.form.create', [$t('views.menu.form.title')]) }}
       </v-btn>
     </template>
 
@@ -183,8 +183,8 @@ const methods = {
         <v-label>
           {{
             lodash.isEmpty(props.item)
-              ? $t('views.menu.form.newHeader')
-              : $t('views.menu.form.editHeader', [props.item.menuName])
+              ? $t('common.form.newHeader', [$t('views.menu.form.title')])
+              : $t('common.form.editHeader', [$t('views.menu.form.title'), props.item.menuName])
           }}
         </v-label>
         <v-spacer></v-spacer>
@@ -434,7 +434,9 @@ const methods = {
                   inline
                 >
                   <template v-slot:prepend>
-                    <v-label>{{ $t('views.menu.form.status') }}:</v-label>
+                    <v-label>
+                      {{ $t('common.form.status', [$t('views.menu.form.title')]) }}:
+                    </v-label>
                   </template>
                   <v-radio :label="$t('common.status.enabled')" :value="1"></v-radio>
                   <v-radio :label="$t('common.status.disabled')" :value="0"></v-radio>
@@ -449,10 +451,10 @@ const methods = {
         <!-- actions -->
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" @click="methods.closeMenuForm" :disabled="localData.isSaving">
-          {{ $t('views.menu.form.cancel') }}
+          {{ $t('common.form.cancel') }}
         </v-btn>
         <v-btn @click="methods.save" :loading="localData.isSaving" :disabled="localData.isSaving">
-          {{ $t('views.menu.form.save') }}
+          {{ $t('common.form.save') }}
         </v-btn>
       </v-card-actions>
     </v-card>

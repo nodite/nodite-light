@@ -232,3 +232,53 @@ export interface IResponseIUser {
   /** Interface IUser. */
   data?: IUser;
 }
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickIUserExcludeKeysUsernameOrPassword {
+  /**
+   * Email
+   * @format email
+   */
+  email: string;
+  /**
+   * User ID
+   * @format double
+   */
+  userId: number;
+  /** Nickname */
+  nickname: string;
+  /** Phone */
+  phone: string;
+  /** Sex */
+  sex: 0 | 1;
+  /** Avatar */
+  avatar: string;
+  /** Status */
+  status?: 0 | 1;
+  /** Deleted */
+  deleted?: 0 | 1 | 100;
+  /** Create by */
+  createBy?: string;
+  /**
+   * Create time
+   * @format date-time
+   */
+  createTime?: string;
+  /** Update by */
+  updateBy?: string;
+  /**
+   * Update time
+   * @format date-time
+   */
+  updateTime?: string;
+}
+
+/** Construct a type with the properties of T except for those in type K. */
+export type OmitIUserUsernameOrPassword = PickIUserExcludeKeysUsernameOrPassword;
+
+export interface IPasswordReset {
+  /** password */
+  password: string;
+  /** Confirm password */
+  confirmPassword: string;
+}

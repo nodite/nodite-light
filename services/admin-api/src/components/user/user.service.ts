@@ -1,9 +1,11 @@
+import { AuthorizedRequest } from '@nodite-light/admin-auth/lib/interfaces/authorizedRequest';
 import AppError from '@nodite-light/admin-core/lib/utils/appError';
+import httpContext from 'express-http-context';
 import httpStatus from 'http-status';
 import lodash from 'lodash';
 import { Op } from 'sequelize';
 
-import { IUser } from '@/components/user/user.interface';
+import { IPasswordReset, IUser } from '@/components/user/user.interface';
 import { UserModel } from '@/components/user/user.model';
 
 export class UserService {
@@ -15,7 +17,7 @@ export class UserService {
   public async search(user?: IUser): Promise<IUser[]> {
     const where = {};
 
-    if (!user?.email) {
+    if (user?.email) {
       lodash.set(where, 'email', { [Op.like]: `%${user?.email}%` });
     }
 
@@ -106,6 +108,8 @@ export class UserService {
 
     if (storedUser.getDataValue('password') === user.password) {
       storedUser.skipBcryptPassword = true;
+    } else {
+      storedUser.skipBcryptPassword = false;
     }
 
     const updatedUser = await storedUser.update(user);
@@ -114,12 +118,38 @@ export class UserService {
   }
 
   /**
+   * Reset password.
+   * @param id
+   * @param data
+   * @returns
+   */
+  public async resetPassword(id: number, data: IPasswordReset): Promise<IUser> {
+    return this.update(id, { password: data.password } as IUser);
+  }
+
+  /**
    * Delete.
    * @param id
    * @returns
    */
-  public async delete(id: number): Promise<number> {
-    return UserModel.destroy({ where: { userId: id } });
+  public async delete(id: number): Promise<void> {
+    if (this.isAdmin(id)) {
+      throw new AppError(httpStatus.BAD_REQUEST, 'Cannot delete admin user!');
+    }
+
+    const requester = httpContext.get('user') as AuthorizedRequest['user'];
+
+    if (id === requester.userId) {
+      throw new AppError(httpStatus.BAD_REQUEST, 'Cannot delete yourself!');
+    }
+
+    const storedUser = await UserModel.findOne({ where: { userId: id } });
+
+    if (storedUser.getDataValue('deleted') === 9) {
+      throw new AppError(httpStatus.BAD_REQUEST, 'User is not allow delete!');
+    }
+
+    return storedUser.destroy();
   }
 
   /**

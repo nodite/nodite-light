@@ -26,9 +26,18 @@ export default {
   },
 
   form: {
+    create: 'Create {0}',
+    newHeader: 'New {0}',
+    editHeader: 'Edit {0} - {1}',
     required: '{0} is required',
     invalid: 'Invalid data',
     saving: "It's saving, please wait a moment.",
     success: 'Saved successfully.',
+    max: '{0} must be less than {1} characters.',
+    email: 'Please enter a valid email address.',
+    status: 'Status',
+    cancel: 'Cancel',
+    save: 'Save',
+    notEq: '{0} must be equal to {1}.',
   },
 };

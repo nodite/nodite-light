@@ -1,13 +1,7 @@
 export default {
   form: {
+    title: 'Menu',
     parentRoot: 'Root',
-    save: 'Save',
-    create: 'New',
-    edit: 'Edit',
-    delete: 'Delete',
-    cancel: 'Cancel',
-    newHeader: 'New Menu',
-    editHeader: 'Edit Menu - {0}',
     parent: 'Parent Menu',
     menuName: 'Menu Name',
     orderNum: 'Order',
@@ -23,7 +17,6 @@ export default {
     layoutHint: 'The layout used for component render.',
     perms: 'Permission',
     hidden: 'Visibility',
-    status: 'Status',
   },
 
   headers: {

@@ -26,9 +26,18 @@ export default {
   },
 
   form: {
+    create: '新建{0}',
+    newHeader: '新建{0}',
+    editHeader: '编辑{0} - {1}',
     required: '{0}是必填项',
     invalid: '无效数据',
     saving: '正在保存，请稍候',
     success: '保存成功',
+    max: '{0}必须少于{1}个字符',
+    email: '请输入正确的邮箱地址',
+    status: '{0}状态',
+    cancel: '取消',
+    save: '保存',
+    notEq: '{0}与{1}不一致',
   },
 };

@@ -28,7 +28,7 @@ export abstract class BaseModel extends Model {
     deleted: {
       type: DataTypes.TINYINT({ length: 1 }),
       defaultValue: 0,
-      comment: '0: normal, 1: deleted, 9: not allow delete',
+      comment: '0: normal, 1: soft deleted, 9: not allow delete',
     },
     createBy: {
       field: 'create_by',
@@ -54,6 +54,14 @@ export abstract class BaseModel extends Model {
    */
   public static async exists(): Promise<boolean> {
     return Boolean(await this.sequelize?.getQueryInterface().tableExists(this.tableName));
+  }
+
+  /**
+   * Soft delete.
+   * @returns
+   */
+  public isSoftDeleted(): boolean {
+    return this.getDataValue('deleted') === 1;
   }
 }
 

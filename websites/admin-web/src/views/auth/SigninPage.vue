@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
-import { toast } from 'vuetify-sonner';
 
 import i18n from '@/plugins/i18n';
 import { useAuthStore } from '@/stores/modules/authStore';
@@ -31,15 +30,24 @@ const loginRules = ref({
   ],
 });
 
-const handleLogin = async () => {
-  const { valid } = await refLoginForm.value.validate();
-  if (valid && loginState.value.isFormValid) {
+const methods = {
+  async handleLogin() {
+    const { valid } = await refLoginForm.value.validate();
+
+    if (!valid || !loginState.value.isFormValid) {
+      return;
+    }
+
     loginState.value.isLoading = true;
     loginState.value.isSignInDisabled = true;
-    authStore.login(loginForm.value as never);
-  } else {
-    toast.error(i18n.global.t('common.validateFailed'));
-  }
+
+    try {
+      await authStore.login(loginForm.value as never);
+    } finally {
+      loginState.value.isLoading = false;
+      loginState.value.isSignInDisabled = false;
+    }
+  },
 };
 
 // other sign in providers
@@ -85,7 +93,7 @@ const resetErrors = () => {
           outlined
           validateOn="blur"
           placeholder=""
-          @keyup.enter="handleLogin"
+          @keyup.enter="methods.handleLogin"
           @change="resetErrors"
         ></v-text-field>
 
@@ -107,7 +115,7 @@ const resetErrors = () => {
           outlined
           validateOn="blur"
           @change="resetErrors"
-          @keyup.enter="handleLogin"
+          @keyup.enter="methods.handleLogin"
           @click:append-inner="loginState.showPassword = !loginState.showPassword"
         ></v-text-field>
 
@@ -117,7 +125,7 @@ const resetErrors = () => {
           block
           size="x-large"
           color="primary"
-          @click="handleLogin"
+          @click="methods.handleLogin"
           class="mt-2"
           >{{ $t('login.button') }}</v-btn
         >

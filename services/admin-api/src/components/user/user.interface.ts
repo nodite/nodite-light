@@ -46,4 +46,16 @@ export interface IUser extends IBase {
   password: string;
 }
 
+export interface IPasswordReset {
+  /**
+   * password
+   */
+  password: string;
+
+  /**
+   * Confirm password
+   */
+  confirmPassword: string;
+}
+
 export default {};
