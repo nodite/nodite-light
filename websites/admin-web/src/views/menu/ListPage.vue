@@ -12,7 +12,6 @@
 
 <script setup lang="ts">
 import type { DataTableItemProps } from '@nodite-light/vuetify-tree-data-table';
-import lodash from 'lodash';
 
 import { IMenu, MenuTree } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
@@ -41,7 +40,7 @@ const data = ref({
 
 const menuFormData = ref({
   dialog: false,
-  item: undefined as IMenu | undefined,
+  menuId: 0,
 });
 
 watchEffect(() => {
@@ -84,7 +83,7 @@ watchEffect(() => {
       sortable: false,
     },
   ];
-  menuStore.getMenuTree().then((res) => {
+  menuStore.listTree().then((res) => {
     data.value.items = res;
     data.value.loading = false;
   });
@@ -93,18 +92,18 @@ watchEffect(() => {
 const methods = {
   closeMenuForm() {
     menuFormData.value.dialog = false;
-    menuFormData.value.item = undefined;
+    menuFormData.value.menuId = 0;
   },
   async cleanMenuStore() {
     await navStore.$reset();
   },
-  openMenuForm(menu: IMenu) {
+  openMenuForm(id: number) {
     menuFormData.value.dialog = true;
-    menuFormData.value.item = lodash.cloneDeep(menu);
+    menuFormData.value.menuId = id;
   },
-  async deleteMenu(menu: IMenu) {
+  async delete(menu: IMenu) {
     // data.value.deleting = true;
-    await menuStore.deleteMenu(menu.menuId);
+    await menuStore.delete(menu.menuId);
     await methods.cleanMenuStore();
     // data.value.deleting = false;
   },
@@ -120,7 +119,7 @@ const methods = {
       <v-toolbar density="compact" color="inherit">
         <menu-form
           :dialog="menuFormData.dialog"
-          :item="menuFormData.item"
+          :menu-id="menuFormData.menuId"
           @close-menu-form="methods.closeMenuForm"
           @clean-menu-store="methods.cleanMenuStore"
         />
@@ -161,7 +160,7 @@ const methods = {
       <v-btn
         class="px-0"
         variant="text"
-        @click="methods.openMenuForm(item)"
+        @click="methods.openMenuForm(item.menuId)"
         min-width="calc(var(--v-btn-height) + 0px)"
       >
         <v-icon>mdi-square-edit-outline</v-icon>
@@ -171,7 +170,7 @@ const methods = {
         class="px-0"
         color="red"
         variant="text"
-        @click="methods.deleteMenu(item)"
+        @click="methods.delete(item)"
         min-width="calc(var(--v-btn-height) + 0px)"
         :disabled="item.deleted === 9 || data.deleting"
         :loading="data.deleting"

@@ -49,6 +49,21 @@ export class MenuService {
   }
 
   /**
+   * Select menu by id.
+   * @param id
+   * @returns
+   */
+  public async selectMenuById(id: number): Promise<IMenu> {
+    const menu = await MenuModel.findOne({ where: { menuId: id } });
+
+    if (lodash.isEmpty(menu)) {
+      throw new AppError(httpStatus.BAD_REQUEST, 'Menu was not found!');
+    }
+
+    return menu.toJSON<IMenu>();
+  }
+
+  /**
    * create
    * @param menu
    * @returns

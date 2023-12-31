@@ -34,7 +34,7 @@ export const useMenuStore = defineStore('menu', {
      * Get menu list.
      * @returns
      */
-    async getMenuList(): Promise<IMenu[]> {
+    async list(): Promise<IMenu[]> {
       if (lodash.isEmpty(this.menuList)) {
         this.menuList = lodash.map((await MenuApi.adminMenuList()) || [], (item) => {
           return {
@@ -50,24 +50,45 @@ export const useMenuStore = defineStore('menu', {
      * Get menu tree.
      * @returns
      */
-    async getMenuTree(): Promise<MenuTree[]> {
+    async listTree(): Promise<MenuTree[]> {
       if (lodash.isEmpty(this.menuTree)) {
         this.menuTree = (await MenuApi.adminMenuTree()) || [];
       }
       return this.menuTree;
     },
 
-    async createMenu(menu: IMenu): Promise<void> {
+    /**
+     * Query menu.
+     * @param id
+     * @returns
+     */
+    async query(id: number): Promise<IMenu | undefined> {
+      return await MenuApi.adminMenuQuery(id);
+    },
+
+    /**
+     * Create menu
+     * @param menu
+     */
+    async create(menu: IMenu): Promise<void> {
       await MenuApi.adminMenuCreate(menu);
       await this.$reset();
     },
 
-    async updateMenu(menu: IMenu): Promise<void> {
+    /**
+     * Update menu.
+     * @param menu
+     */
+    async edit(menu: IMenu): Promise<void> {
       await MenuApi.adminMenuEdit(menu.menuId, menu);
       await this.$reset();
     },
 
-    async deleteMenu(id: number): Promise<void> {
+    /**
+     * Delete menu.
+     * @param id
+     */
+    async delete(id: number): Promise<void> {
       await MenuApi.adminMenuDelete(id);
       await this.$reset();
     },

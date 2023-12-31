@@ -74,26 +74,22 @@ export const adminMenuTreeSkipErrorHandler = (params: RequestParams = {}) =>
  * No description
  *
  * @tags menu
- * @name adminMenuCreate
- * @summary Create menu
- * @request POST:/menu
+ * @name adminMenuQuery
+ * @summary Get menu by id
+ * @request GET:/menu/{id}
  */
-export const adminMenuCreate = (data: IMenu, params: RequestParams = {}) =>
+export const adminMenuQuery = (id: number, params: RequestParams = {}) =>
   request<IResponseIMenu>({
-    path: `/menu`,
-    method: "POST",
-    body: data,
-    type: ContentType.Json,
+    path: `/menu/${id}`,
+    method: "GET",
     format: "json",
     skipErrorHandler: false,
     ...params,
   });
-export const adminMenuCreateSkipErrorHandler = (data: IMenu, params: RequestParams = {}) =>
+export const adminMenuQuerySkipErrorHandler = (id: number, params: RequestParams = {}) =>
   request<IResponseIMenu>({
-    path: `/menu`,
-    method: "POST",
-    body: data,
-    type: ContentType.Json,
+    path: `/menu/${id}`,
+    method: "GET",
     format: "json",
     skipErrorHandler: true,
     ...params,
@@ -146,6 +142,35 @@ export const adminMenuEditSkipErrorHandler = (id: number, data: IMenu, params: R
   request<IResponseIMenu>({
     path: `/menu/${id}`,
     method: "PUT",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags menu
+ * @name adminMenuCreate
+ * @summary Create menu
+ * @request POST:/menu
+ */
+export const adminMenuCreate = (data: IMenu, params: RequestParams = {}) =>
+  request<IResponseIMenu>({
+    path: `/menu`,
+    method: "POST",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminMenuCreateSkipErrorHandler = (data: IMenu, params: RequestParams = {}) =>
+  request<IResponseIMenu>({
+    path: `/menu`,
+    method: "POST",
     body: data,
     type: ContentType.Json,
     format: "json",

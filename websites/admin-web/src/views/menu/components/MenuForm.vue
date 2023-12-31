@@ -12,7 +12,6 @@
 
 <script setup lang="ts">
 import lodash from 'lodash';
-import { PropType } from 'vue';
 import { toast } from 'vuetify-sonner';
 
 import { IMenu } from '@/api/admin/data-contracts';
@@ -29,9 +28,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  item: {
-    type: Object as PropType<IMenu>,
-    default: undefined,
+  menuId: {
+    type: Number,
+    default: 0,
   },
 });
 
@@ -102,11 +101,15 @@ const formRules = ref({
 watchEffect(() => {
   localData.value.dialog = props.dialog;
 
-  formData.value = lodash.isEmpty(props.item)
-    ? staticData.value.defaultFormData
-    : lodash.cloneDeep(props.item);
+  if (props.menuId > 0) {
+    menuStore.query(props.menuId).then((res) => {
+      formData.value = lodash.isUndefined(res) ? staticData.value.defaultFormData : res;
+    });
+  } else {
+    formData.value = staticData.value.defaultFormData;
+  }
 
-  menuStore.getMenuList().then((res) => {
+  menuStore.list().then((res) => {
     staticData.value.menus = [
       { menuName: 'Root', iKey: 'views.menu.form.parentRoot', menuId: 0 } as IMenu,
       ...res,
@@ -152,8 +155,8 @@ const methods = {
     }
 
     await (formData.value.menuId
-      ? menuStore.updateMenu(formData.value)
-      : menuStore.createMenu(formData.value));
+      ? menuStore.edit(formData.value)
+      : menuStore.create(formData.value));
 
     localData.value.isSaving = false;
 
@@ -182,9 +185,9 @@ const methods = {
       <v-card-title class="pt-4">
         <v-label>
           {{
-            lodash.isEmpty(props.item)
+            props.menuId === 0
               ? $t('common.form.newHeader', [$t('views.menu.form.title')])
-              : $t('common.form.editHeader', [$t('views.menu.form.title'), props.item.menuName])
+              : $t('common.form.editHeader', [$t('views.menu.form.title'), formData.menuName])
           }}
         </v-label>
         <v-spacer></v-spacer>
