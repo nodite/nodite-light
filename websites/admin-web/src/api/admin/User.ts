@@ -15,7 +15,7 @@ import { request } from "@/utils/request/index";
 import type {
   IPasswordReset,
   IResponseIUser,
-  IResponseIUserArray,
+  IResponsePaginationIUser,
   IResponseVoid,
   IUser,
   OmitIUserUsernameOrPassword,
@@ -30,48 +30,15 @@ import type {
  * @request GET:/user/list
  */
 export const adminUserList = (
-  query: {
-    /** Status */
-    status?: 0 | 1;
-    /** Deleted */
-    deleted?: 0 | 1 | 100;
-    /** Create by */
-    createBy?: string;
-    /**
-     * Create time
-     * @format date-time
-     */
-    createTime?: string;
-    /** Update by */
-    updateBy?: string;
-    /**
-     * Update time
-     * @format date-time
-     */
-    updateTime?: string;
-    /**
-     * User ID
-     * @format double
-     */
-    userId: number;
-    /** Username */
-    username: string;
-    /** Nickname */
-    nickname: string;
-    /** Email */
-    email: string;
-    /** Phone */
-    phone: string;
-    /** Sex */
-    sex: 0 | 1;
-    /** Avatar */
-    avatar: string;
-    /** Password */
-    password: string;
+  query?: {
+    /** @format double */
+    page?: number;
+    /** @format double */
+    itemsPerPage?: number;
   },
   params: RequestParams = {},
 ) =>
-  request<IResponseIUserArray>({
+  request<IResponsePaginationIUser>({
     path: `/user/list`,
     method: "GET",
     query: query,
@@ -80,48 +47,15 @@ export const adminUserList = (
     ...params,
   });
 export const adminUserListSkipErrorHandler = (
-  query: {
-    /** Status */
-    status?: 0 | 1;
-    /** Deleted */
-    deleted?: 0 | 1 | 100;
-    /** Create by */
-    createBy?: string;
-    /**
-     * Create time
-     * @format date-time
-     */
-    createTime?: string;
-    /** Update by */
-    updateBy?: string;
-    /**
-     * Update time
-     * @format date-time
-     */
-    updateTime?: string;
-    /**
-     * User ID
-     * @format double
-     */
-    userId: number;
-    /** Username */
-    username: string;
-    /** Nickname */
-    nickname: string;
-    /** Email */
-    email: string;
-    /** Phone */
-    phone: string;
-    /** Sex */
-    sex: 0 | 1;
-    /** Avatar */
-    avatar: string;
-    /** Password */
-    password: string;
+  query?: {
+    /** @format double */
+    page?: number;
+    /** @format double */
+    itemsPerPage?: number;
   },
   params: RequestParams = {},
 ) =>
-  request<IResponseIUserArray>({
+  request<IResponsePaginationIUser>({
     path: `/user/list`,
     method: "GET",
     query: query,

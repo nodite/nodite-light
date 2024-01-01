@@ -1,3 +1,5 @@
+import { PaginateOptons } from '@nodite-light/admin-database/lib/nodite-sequelize/interface';
+
 export interface IBase {
   /**
    * Status
@@ -10,9 +12,9 @@ export interface IBase {
    * @example
    * 0 - normal,
    * 1 - deleted,
-   * 100 - not allow delete
+   * 9 - not allow delete
    */
-  deleted?: 0 | 1 | 100;
+  deleted?: 0 | 1 | 9;
 
   /**
    * Create by
@@ -37,4 +39,10 @@ export interface IBase {
    * @format date-time
    */
   updateTime?: Date;
+}
+
+// export type QueryParams = PaginateOptons;
+
+export interface QueryParams extends PaginateOptons {
+  [key: string]: string | string[] | number | boolean | undefined | null;
 }

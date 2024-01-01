@@ -13,7 +13,7 @@
 
 import lodash from 'lodash';
 
-import { IUser } from '@/api/admin/data-contracts';
+import { IUser, PaginationIUser, QueryParams } from '@/api/admin/data-contracts';
 import * as UserApi from '@/api/admin/User';
 
 export type UserState = {
@@ -33,11 +33,8 @@ export const useUserStore = defineStore('user', {
      * @param query
      * @returns
      */
-    async list(query?: IUser): Promise<IUser[]> {
-      if (lodash.isEmpty(this.users)) {
-        this.users = (await UserApi.adminUserList(query || ({} as IUser))) || [];
-      }
-      return this.users;
+    async list(params?: QueryParams): Promise<PaginationIUser | undefined> {
+      return await UserApi.adminUserList(params);
     },
 
     /**
