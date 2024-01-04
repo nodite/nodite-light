@@ -1,11 +1,11 @@
-import logger from '@nodite-light/admin-core/lib/utils/logger';
+import { logger } from '@nodite-light/admin-core';
 import lodash from 'lodash';
 import { DataTypes, Model } from 'sequelize';
 import type { InitOptions, ModelAttributeColumnOptions, ModelStatic } from 'sequelize/types/model';
 
 import { FindOptions, Pagination } from '@/nodite-sequelize/interface';
 
-export abstract class BaseModel extends Model {
+export default abstract class BaseModel extends Model {
   /**
    * BaseInitOptions.
    */
@@ -118,5 +118,3 @@ export abstract class BaseModel extends Model {
     };
   }
 }
-
-export default BaseModel;

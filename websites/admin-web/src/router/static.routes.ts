@@ -2,6 +2,34 @@ import { NavigationConfig } from '@/types/config';
 
 export default [
   {
+    path: '/:pathMatch(.*)*',
+    component: () => import(/* webpackChunkName: "error" */ '@/views/errors/NotFoundPage.vue'),
+    meta: {
+      inWhiteList: false,
+      hidden: true,
+    },
+  },
+  {
+    path: '',
+    redirect: '/index',
+    meta: {
+      layout: 'landing',
+      hidden: true,
+    },
+    children: [
+      {
+        path: '/index',
+        component: () => import('@/views/Index.vue'),
+        meta: {
+          title: 'Homepage',
+          hidden: true,
+        },
+      },
+    ],
+  },
+
+  // Auth Routes.
+  {
     path: '/auth',
     redirect: '/auth/signin',
     meta: {

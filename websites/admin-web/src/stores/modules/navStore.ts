@@ -13,28 +13,31 @@
 
 import lodash from 'lodash';
 
-import { staticRoutes } from '@/router';
+import staticRoutes from '@/router/static.routes';
+import { useMenuStore } from '@/stores/modules/menuStore';
 import { NavigationConfig } from '@/types/config';
 import * as navUtil from '@/utils/navigation';
 
-import { useMenuStore } from './menuStore';
-
-export type NavState = {
-  routers: NavigationConfig.Router[];
+type NavState = {
+  routesLoaded: boolean;
+  routes: NavigationConfig.Router[];
+  sidebarLoaded: boolean;
   sidebar: NavigationConfig.Menu[];
 };
 
 export const useNavStore = defineStore('nav', {
   state: (): NavState => ({
-    routers: [],
+    routesLoaded: false,
+    routes: [],
+    sidebarLoaded: false,
     sidebar: [],
   }),
 
-  persist: [{ storage: sessionStorage, paths: ['sidebar'] }],
+  persist: [{ storage: sessionStorage, paths: ['sidebarLoaded', 'sidebar'] }],
 
   getters: {
     isRouterReady(state: NavState): boolean {
-      return !lodash.isEmpty(state.routers);
+      return state.routesLoaded;
     },
   },
 
@@ -43,11 +46,12 @@ export const useNavStore = defineStore('nav', {
      * Get routers.
      * @returns
      */
-    async getRouters(): Promise<NavigationConfig.Router[]> {
-      if (lodash.isEmpty(this.routers)) {
-        this.routers = navUtil.convertMenuTreeToRouter(await useMenuStore().listTree()) || [];
+    async getRoutes(): Promise<NavigationConfig.Router[]> {
+      if (!this.routesLoaded) {
+        this.routes = navUtil.convertMenuTreeToRouter(await useMenuStore().listTree()) || [];
+        this.routesLoaded = true;
       }
-      return this.routers;
+      return this.routes;
     },
 
     /**
@@ -55,13 +59,34 @@ export const useNavStore = defineStore('nav', {
      * @returns
      */
     async getSidebar(): Promise<NavigationConfig.Menu[]> {
-      if (lodash.isEmpty(this.sidebar)) {
-        this.sidebar = [...staticRoutes, ...(await this.getRouters())].filter((route) => {
-          // remove non-root menu.
-          return route.meta?.parentId === undefined || route.meta?.parentId === 0;
-        });
+      if (!this.sidebarLoaded) {
+        this.sidebar = this._filterSideber([...staticRoutes, ...(await this.getRoutes())]).filter(
+          (route) => {
+            // remove non-root menu on sidebar root.
+            return lodash.toInteger(route.meta?.parentId) === 0;
+          },
+        );
+        this.sidebarLoaded = true;
       }
       return this.sidebar;
+    },
+
+    /**
+     * Filter sidebar.
+     * @description Remove disabled/hidden menu on sidebar, and their children.
+     * @private
+     * @param routes
+     * @returns
+     */
+    _filterSideber(routes?: NavigationConfig.Router[]): NavigationConfig.Router[] {
+      return lodash.filter(
+        lodash.map(routes || [], (route) => {
+          if (route.meta?.disabled) return null; // remove disabled menu.
+          if (route.meta?.hidden) return null; // remove hidden menu.
+          route.children = this._filterSideber(route.children);
+          return route;
+        }), // remove null.
+      ) as NavigationConfig.Router[];
     },
   },
 });

@@ -1,3 +1,4 @@
+import { localeZhHans as DeleteConfirmForm } from '@nodite-light/vuetify-delete-confirm-form';
 import { localeZhHans as IconPicker } from '@nodite-light/vuetify-icon-picker';
 
 export default {
@@ -68,4 +69,6 @@ export default {
   },
 
   icon_picker: IconPicker,
+
+  delete_confirm_form: DeleteConfirmForm,
 };

@@ -21,7 +21,7 @@ import * as menuUtil from '@/utils/menu';
 
 const menuStore = useMenuStore();
 
-const emit = defineEmits(['close-menu-form', 'clean-menu-store']);
+const emit = defineEmits(['close-menu-form', 'saved']);
 
 const props = defineProps({
   dialog: {
@@ -43,12 +43,15 @@ const staticData = ref({
     { value: 'landing', title: 'Landing' },
     { value: 'ui', title: 'UI' },
   ],
-  defaultFormData: {
-    parentId: 0,
-    iType: 'overline',
-    hidden: 0,
-    status: 1,
-  } as IMenu,
+});
+
+onMounted(() => {
+  menuStore.listTree().then((res) => {
+    staticData.value.menus = [
+      { menuName: 'Root', iKey: 'views.menu.form.parentRoot', menuId: 0 } as IMenu,
+      ...res,
+    ];
+  });
 });
 
 // local Data.
@@ -98,33 +101,21 @@ const formRules = ref({
   status: [(v: number) => [0, 1].includes(v) || i18n.global.t('common.form.invalid')],
 });
 
-watchEffect(() => {
-  localData.value.dialog = props.dialog;
-
-  if (props.menuId > 0) {
-    menuStore.query(props.menuId).then((res) => {
-      formData.value = lodash.isUndefined(res) ? staticData.value.defaultFormData : res;
-    });
-  } else {
-    formData.value = staticData.value.defaultFormData;
-  }
-
-  menuStore.list().then((res) => {
-    staticData.value.menus = [
-      { menuName: 'Root', iKey: 'views.menu.form.parentRoot', menuId: 0 } as IMenu,
-      ...res,
-    ];
-  });
-});
-
 // methods.
 const methods = {
+  async fillFormData() {
+    let menu = undefined;
+    if (props.menuId > 0) {
+      menu = await menuStore.query(props.menuId);
+    }
+    formData.value = lodash.isUndefined(menu) ? ({} as IMenu) : menu;
+  },
   clearLocalData() {
     localData.value.dialog = false;
     localData.value.openIconPicker = false;
     localData.value.isSaving = false;
     localData.value.isFormValid = true;
-    formData.value = staticData.value.defaultFormData;
+    formData.value = {} as IMenu;
   },
   closeMenuForm() {
     if (localData.value.isSaving) {
@@ -154,18 +145,25 @@ const methods = {
       return;
     }
 
-    await (formData.value.menuId
-      ? menuStore.edit(formData.value)
-      : menuStore.create(formData.value));
-
-    localData.value.isSaving = false;
+    try {
+      await (formData.value.menuId > 0
+        ? menuStore.edit(formData.value)
+        : menuStore.create(formData.value));
+    } finally {
+      localData.value.isSaving = false;
+    }
 
     toast.success(i18n.global.t('common.form.success'));
 
     methods.closeMenuForm();
-    emit('clean-menu-store');
+    emit('saved');
   },
 };
+
+watchEffect(() => {
+  localData.value.dialog = props.dialog;
+  methods.fillFormData();
+});
 </script>
 
 <template>

@@ -1,6 +1,6 @@
 import { exit } from 'node:process';
 
-import logger from '@nodite-light/admin-core/lib/utils/logger';
+import { logger } from '@nodite-light/admin-core';
 import lodash from 'lodash';
 import { Sequelize } from 'sequelize';
 
@@ -9,9 +9,9 @@ import {
   ModelSeedFunction,
   SequelizeStoreOptions,
 } from '@/nodite-sequelize/interface';
-import Model, { BaseModel } from '@/nodite-sequelize/model';
+import Model from '@/nodite-sequelize/model';
 
-export class Database {
+export default class Database {
   static client: Sequelize | null;
 
   static modelRegisters: Record<string, ModelInitialFunction<typeof Model>> = {};
@@ -25,7 +25,7 @@ export class Database {
    */
   static register(tableName: string) {
     return (target: unknown, propertyKey: string, descriptor: PropertyDescriptor) => {
-      const fn = descriptor.value as ModelInitialFunction<typeof BaseModel>;
+      const fn = descriptor.value as ModelInitialFunction<typeof Model>;
       lodash.set(Database.modelRegisters, tableName, fn);
     };
   }
@@ -36,7 +36,7 @@ export class Database {
    */
   static seeds(tableName: string) {
     return (target: unknown, propertyKey: string, descriptor: PropertyDescriptor) => {
-      const fn = descriptor.value as ModelSeedFunction<typeof BaseModel>;
+      const fn = descriptor.value as ModelSeedFunction<typeof Model>;
       lodash.set(Database.modelSeeds, tableName, fn);
     };
   }
@@ -135,5 +135,3 @@ export class Database {
     await Database.client?.close();
   }
 }
-
-export default {};

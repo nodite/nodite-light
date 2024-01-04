@@ -16,6 +16,8 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.1",
     "@mdi/font": "^7.3.67",
+    "@nodite-light/vuetify-data-table-pagination": "*",
+    "@nodite-light/vuetify-delete-confirm-form": "*",
     "@nodite-light/vuetify-icon-picker": "*",
     "@nodite-light/vuetify-tree-data-table": "*",
     "@tiptap/pm": "^2.0.2",

@@ -16,7 +16,7 @@ import lodash from 'lodash';
 import { IMenu, MenuTree } from '@/api/admin/data-contracts';
 import * as MenuApi from '@/api/admin/Menu';
 
-export type MenuState = {
+type MenuState = {
   menuList: IMenu[];
   menuTree: MenuTree[];
 };
@@ -31,7 +31,7 @@ export const useMenuStore = defineStore('menu', {
 
   actions: {
     /**
-     * Get menu list.
+     * List.
      * @returns
      */
     async list(): Promise<IMenu[]> {
@@ -47,7 +47,7 @@ export const useMenuStore = defineStore('menu', {
     },
 
     /**
-     * Get menu tree.
+     * List tree.
      * @returns
      */
     async listTree(): Promise<MenuTree[]> {
@@ -58,7 +58,7 @@ export const useMenuStore = defineStore('menu', {
     },
 
     /**
-     * Query menu.
+     * Query.
      * @param id
      * @returns
      */
@@ -67,25 +67,25 @@ export const useMenuStore = defineStore('menu', {
     },
 
     /**
-     * Create menu
+     * Create.
      * @param menu
      */
     async create(menu: IMenu): Promise<void> {
-      await MenuApi.adminMenuCreate(menu);
+      await MenuApi.adminMenuCreate(lodash.omit(menu, ['menuId']));
       await this.$reset();
     },
 
     /**
-     * Update menu.
+     * Edit.
      * @param menu
      */
     async edit(menu: IMenu): Promise<void> {
-      await MenuApi.adminMenuEdit(menu.menuId, menu);
+      await MenuApi.adminMenuEdit(menu.menuId, lodash.omit(menu, ['menuId']));
       await this.$reset();
     },
 
     /**
-     * Delete menu.
+     * Delete.
      * @param id
      */
     async delete(id: number): Promise<void> {

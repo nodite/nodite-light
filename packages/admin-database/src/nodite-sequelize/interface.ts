@@ -1,6 +1,6 @@
 import { FindOptions as CoreFindOptions, Sequelize } from 'sequelize';
 
-import { BaseModel as Model } from '@/nodite-sequelize/model';
+import Model from '@/nodite-sequelize/model';
 
 export interface SequelizeStoreOptions {
   host?: string;

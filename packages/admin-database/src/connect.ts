@@ -1,7 +1,7 @@
-import config from '@nodite-light/admin-core/lib/config/config';
+import { config } from '@nodite-light/admin-core';
 
-import { Database as Redis } from '@/nodite-redis';
-import { Database as Sequelize } from '@/nodite-sequelize';
+import Redis from '@/nodite-redis';
+import Sequelize from '@/nodite-sequelize';
 
 new Redis()
   .connect({

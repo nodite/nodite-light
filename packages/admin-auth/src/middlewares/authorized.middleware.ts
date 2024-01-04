@@ -1,6 +1,4 @@
-/* eslint-disable func-names */
-import config from '@nodite-light/admin-core/lib/config/config';
-import AppError from '@nodite-light/admin-core/lib/utils/appError';
+import { AppError, config } from '@nodite-light/admin-core';
 import { NextFunction, Response } from 'express';
 import httpContext from 'express-http-context';
 import { unless } from 'express-unless';
@@ -9,6 +7,7 @@ import { JwtPayload } from 'jsonwebtoken';
 import { TokenDestroyedError, TokenInvalidError } from 'jwt-redis';
 
 import { AuthorizedRequest } from '@/interfaces/authorizedRequest';
+import casbin from '@/nd-casbin';
 import { jwtAsync } from '@/utils/jwt';
 
 /**
@@ -17,14 +16,14 @@ import { jwtAsync } from '@/utils/jwt';
  * @returns
  */
 export function Permissions(...perms: string[]) {
-  return function (target: unknown, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function wrapperFn(target: unknown, propertyKey: string, descriptor: PropertyDescriptor) {
     // original method.
     const original = descriptor.value;
 
     const newDescriptor = { ...descriptor };
 
     // new method.
-    newDescriptor.value = function (...args: unknown[]) {
+    newDescriptor.value = async function decorator(...args: unknown[]) {
       const user = httpContext.get('user') as AuthorizedRequest['user'];
 
       // check if user is authorized.
@@ -32,15 +31,24 @@ export function Permissions(...perms: string[]) {
         throw new AppError(httpStatus.UNAUTHORIZED, 'Unauthorized');
       }
 
-      // TODO: check if user has permission.
-      perms.forEach((perm) => {
-        if (!user.roles?.includes(perm)) {
-          // throw new AppError(
-          //   httpStatus.FORBIDDEN,
-          //   'You do not have permission to perform this action',
-          // );
+      const enforcer = await casbin();
+
+      // casbin enforce.
+      const promises = perms.map(async (perm) => {
+        const [dom, obj, act] = perm.split(':');
+        const isValid = await enforcer.enforce(`sys_user:${user.userId}`, dom, obj, act);
+        if (!isValid) {
+          return Promise.reject(
+            new AppError(
+              httpStatus.FORBIDDEN,
+              `You do not have permission to perform the action ${perm}`,
+            ),
+          );
         }
+        return Promise.resolve();
       });
+
+      await Promise.all(promises);
 
       return original.apply(this, args);
     };

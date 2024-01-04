@@ -1,7 +1,5 @@
-import { AuthorizedRequest } from '@nodite-light/admin-auth/lib/interfaces/authorizedRequest';
-import { Permissions } from '@nodite-light/admin-auth/lib/middlewares/authorized.middleware';
-import { IResponse } from '@nodite-light/admin-core/lib/interfaces/httpResponse';
-import validate from '@nodite-light/admin-core/lib/middlewares/validate.middleware';
+import { AuthorizedRequest, Permissions } from '@nodite-light/admin-auth';
+import { IResponse, validate } from '@nodite-light/admin-core';
 import httpStatus from 'http-status';
 import {
   Body,
@@ -19,7 +17,7 @@ import {
 
 import BaseController from '@/components/base.controller';
 import { IMenu, MenuTree } from '@/components/menu/menu.interface';
-import { MenuService } from '@/components/menu/menu.service';
+import MenuService from '@/components/menu/menu.service';
 import SaveValidation from '@/components/menu/menu.validation';
 
 /**
@@ -77,9 +75,25 @@ export class MenuController extends BaseController {
   @Middlewares([validate(SaveValidation)])
   @OperationId('admin:menu:create')
   @Permissions('admin:menu:create')
-  public async create(@Body() body: IMenu): Promise<IResponse<IMenu>> {
-    const menu = await this.menuService.create(body);
+  public async create(@Body() body: Omit<IMenu, 'menuId'>): Promise<IResponse<IMenu>> {
+    const menu = await this.menuService.create(body as IMenu);
     this.setStatus(httpStatus.CREATED);
+    return this.response(menu);
+  }
+
+  /**
+   * @summary Update menu
+   */
+  @Put('{id}')
+  @Middlewares([validate(SaveValidation)])
+  @OperationId('admin:menu:edit')
+  @Permissions('admin:menu:edit')
+  public async update(
+    @Path() id: number,
+    @Body() body: Omit<IMenu, 'menuId'>,
+  ): Promise<IResponse<IMenu>> {
+    const menu = await this.menuService.update(id, body as IMenu);
+    this.setStatus(httpStatus.ACCEPTED);
     return this.response(menu);
   }
 
@@ -93,19 +107,6 @@ export class MenuController extends BaseController {
     await this.menuService.delete(id);
     this.setStatus(httpStatus.NO_CONTENT);
     return this.response();
-  }
-
-  /**
-   * @summary Update menu
-   */
-  @Put('{id}')
-  @Middlewares([validate(SaveValidation)])
-  @OperationId('admin:menu:edit')
-  @Permissions('admin:menu:edit')
-  public async update(@Path() id: number, @Body() body: IMenu): Promise<IResponse<IMenu>> {
-    const menu = await this.menuService.update(id, body);
-    this.setStatus(httpStatus.ACCEPTED);
-    return this.response(menu);
   }
 }
 

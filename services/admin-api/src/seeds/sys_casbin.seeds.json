@@ -1,0 +1,21 @@
+{
+  "policy": [
+    {
+      "key": "p",
+      "value": [
+        ["sys_role:1", "*", "*", "*"],
+        ["sys_user:1", "*", "*", "*"]
+      ]
+    },
+    {
+      "key": "p_role_menu",
+      "value": [["1", "*"]]
+    }
+  ],
+  "group": [
+    {
+      "key": "g",
+      "value": [["sys_user:1", "sys_role:1"]]
+    }
+  ]
+}

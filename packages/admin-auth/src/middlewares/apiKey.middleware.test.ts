@@ -1,4 +1,4 @@
-import config from '@nodite-light/admin-core/lib/config/config';
+import { config } from '@nodite-light/admin-core';
 import { NextFunction, Request, Response } from 'express';
 // eslint-disable-next-line node/no-unpublished-import
 import httpMocks from 'node-mocks-http';

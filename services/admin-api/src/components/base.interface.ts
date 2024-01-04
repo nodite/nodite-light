@@ -1,4 +1,4 @@
-import { PaginateOptons } from '@nodite-light/admin-database/lib/nodite-sequelize/interface';
+import { SequelizePaginateOptons } from '@nodite-light/admin-database';
 
 export interface IBase {
   /**
@@ -43,6 +43,6 @@ export interface IBase {
 
 // export type QueryParams = PaginateOptons;
 
-export interface QueryParams extends PaginateOptons {
+export interface QueryParams extends SequelizePaginateOptons {
   [key: string]: string | string[] | number | boolean | undefined | null;
 }

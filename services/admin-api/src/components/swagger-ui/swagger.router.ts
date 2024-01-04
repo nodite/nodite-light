@@ -1,5 +1,4 @@
-import config from '@nodite-light/admin-core/lib/config/config';
-import consts from '@nodite-light/admin-core/lib/config/consts';
+import { config, consts } from '@nodite-light/admin-core';
 import { Router } from 'express';
 import swaggerUi from 'swagger-ui-express';
 

@@ -11,9 +11,14 @@
 -->
 
 <script setup lang="ts">
+import {
+  DataTablePagination,
+  ItemsPerPageOption,
+} from '@nodite-light/vuetify-data-table-pagination';
+import { DeleteConfirmForm } from '@nodite-light/vuetify-delete-confirm-form';
 import { DataTableItemProps } from '@nodite-light/vuetify-tree-data-table';
 
-import { IUser, PaginationIUser, QueryParams } from '@/api/admin/data-contracts';
+import { IUser, QueryParams, SequelizePaginationIUser } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
 import { useProfileStore } from '@/stores/modules/profileStore';
 import { useUserStore } from '@/stores/modules/userStore';
@@ -23,24 +28,28 @@ import UserForm from '@/views/user/components/UserForm.vue';
 const userStore = useUserStore();
 const profileStore = useProfileStore();
 
+const staticData = ref({
+  itemsPerPageOptions: [] as ItemsPerPageOption[],
+  headers: [] as DataTableItemProps['headers'],
+  status: [] as { title: string; value: number }[],
+});
+
 const localData = ref({
   loading: true,
   searching: false,
   searchResetting: false,
-  headers: [] as DataTableItemProps['headers'],
-  pageResult: {} as PaginationIUser,
+  pageResult: {} as SequelizePaginationIUser,
   items: [] as IUser[],
-  deleting: false,
-  status: [] as { title: string; value: number }[],
-  queryParams: {
-    page: 1,
-    itemsPerPage: 25,
-    username: undefined,
-    nickname: undefined,
-    email: undefined,
-    status: undefined,
-  } as QueryParams,
 });
+
+const queryParams = ref({
+  page: 1,
+  itemsPerPage: 10,
+  username: undefined,
+  nickname: undefined,
+  email: undefined,
+  status: undefined,
+} as QueryParams);
 
 const userFormData = ref({
   dialog: false,
@@ -53,17 +62,30 @@ const passFormData = ref({
   userId: 0,
 });
 
+const deleteConfirmFormData = ref({
+  dialog: false,
+  item: {} as IUser,
+});
+
 const methods = {
+  async getList(showLoading: boolean = false) {
+    if (showLoading) localData.value.loading = true;
+
+    localData.value.pageResult =
+      (await userStore.list(queryParams.value)) || ({} as SequelizePaginationIUser);
+
+    localData.value.loading = false;
+  },
   isSelf(item: IUser) {
     return item.userId === profileStore.profile?.userId;
   },
-  async getList() {
-    localData.value.loading = true;
-
-    localData.value.pageResult =
-      (await userStore.list(localData.value.queryParams)) || ({} as PaginationIUser);
-
-    localData.value.loading = false;
+  setItemsPerPage(v: number) {
+    queryParams.value.itemsPerPage = v;
+    methods.getList();
+  },
+  setPage(v: number) {
+    queryParams.value.page = v;
+    methods.getList();
   },
   async searchList() {
     localData.value.searching = true;
@@ -76,13 +98,11 @@ const methods = {
   async resetSearch() {
     localData.value.searchResetting = true;
     try {
+      queryParams.value = {};
       await methods.getList();
     } finally {
       localData.value.searchResetting = false;
     }
-  },
-  async cleanUserStore(isSelf?: boolean) {
-    isSelf && (await profileStore.$reset());
   },
   openUserForm(id: number) {
     userFormData.value.dialog = true;
@@ -102,57 +122,49 @@ const methods = {
     passFormData.value.username = '';
     passFormData.value.userId = 0;
   },
+  openDeleteConfirmForm(item: IUser) {
+    deleteConfirmFormData.value.dialog = true;
+    deleteConfirmFormData.value.item = item;
+  },
+  closeDeleteConfirmForm() {
+    deleteConfirmFormData.value.dialog = false;
+    deleteConfirmFormData.value.item = {} as IUser;
+  },
   async opUserStatus(id: number, status: number) {
     await userStore.edit({ userId: id, status: status } as IUser);
   },
-  async delete(item: IUser) {
-    // data.value.deleting = true;
+  async delete(item: IUser, cb: () => void) {
     await userStore.delete(item.userId);
-    await methods.cleanUserStore(item.userId === profileStore.profile?.userId);
-    // data.value.deleting = false;
+    await methods.getList();
+    methods.closeDeleteConfirmForm();
+    cb();
   },
 };
 
 onMounted(() => {
-  methods.getList();
+  methods.getList(true);
 });
 
 watchEffect(() => {
-  localData.value.status = [
+  // watch i18n.
+  staticData.value.itemsPerPageOptions = [
+    { value: 10, title: '10' },
+    { value: 25, title: '25' },
+    { value: 50, title: '50' },
+    { value: -1, title: i18n.global.t('$vuetify.dataFooter.itemsPerPageAll') },
+  ];
+  staticData.value.headers = [
+    { title: '', align: 'start', key: 'data-table-select' },
+    { title: i18n.global.t('views.user.headers.userId'), value: 'userId' },
+    { title: i18n.global.t('views.user.headers.username'), value: 'username' },
+    { title: i18n.global.t('views.user.headers.nickname'), value: 'nickname' },
+    { title: i18n.global.t('views.user.headers.email'), value: 'email' },
+    { title: i18n.global.t('common.form.status', ['']), value: 'status' },
+    { key: 'actions', sortable: false },
+  ];
+  staticData.value.status = [
     { title: i18n.global.t('common.status.enabled'), value: 1 },
     { title: i18n.global.t('common.status.disabled'), value: 0 },
-  ];
-
-  localData.value.headers = [
-    {
-      title: '',
-      align: 'start',
-      key: 'data-table-select',
-    },
-    {
-      title: i18n.global.t('views.user.headers.userId'),
-      value: 'userId',
-    },
-    {
-      title: i18n.global.t('views.user.headers.username'),
-      value: 'username',
-    },
-    {
-      title: i18n.global.t('views.user.headers.nickname'),
-      value: 'nickname',
-    },
-    {
-      title: i18n.global.t('views.user.headers.email'),
-      value: 'email',
-    },
-    {
-      title: i18n.global.t('views.user.headers.status'),
-      value: 'status',
-    },
-    {
-      key: 'actions',
-      sortable: false,
-    },
   ];
 });
 </script>
@@ -165,7 +177,7 @@ watchEffect(() => {
           <v-text-field
             density="compact"
             :label="$t('views.user.form.username')"
-            v-model="localData.queryParams.username"
+            v-model="queryParams.username"
             variant="outlined"
             hide-details
             hide-spin-buttons
@@ -176,7 +188,7 @@ watchEffect(() => {
           <v-text-field
             density="compact"
             :label="$t('views.user.form.nickname')"
-            v-model="localData.queryParams.nickname"
+            v-model="queryParams.nickname"
             variant="outlined"
             hide-details
             clearable
@@ -186,7 +198,7 @@ watchEffect(() => {
           <v-text-field
             density="compact"
             :label="$t('views.user.form.email')"
-            v-model="localData.queryParams.email"
+            v-model="queryParams.email"
             variant="outlined"
             hide-details
             clearable
@@ -196,9 +208,9 @@ watchEffect(() => {
           <v-select
             density="compact"
             :label="$t('common.form.status')"
-            v-model="localData.queryParams.status"
+            v-model="queryParams.status"
             variant="outlined"
-            :items="localData.status"
+            :items="staticData.status"
             item-title="title"
             item-value="value"
             hide-details
@@ -236,7 +248,7 @@ watchEffect(() => {
 
   <v-data-table
     item-value="userId"
-    :headers="localData.headers"
+    :headers="staticData.headers"
     :items="localData.pageResult.items"
   >
     <template v-slot:top>
@@ -245,15 +257,21 @@ watchEffect(() => {
           :dialog="userFormData.dialog"
           :user-id="userFormData.userId"
           @close-user-form="methods.closeUserForm"
-          @clean-user-form="methods.cleanUserStore"
-        ></user-form>
+          @saved="methods.getList()"
+        />
         <pass-form
           :dialog="passFormData.dialog"
           :username="passFormData.username"
           :user-id="passFormData.userId"
           @close-pass-form="methods.closePassForm"
-          @clean-pass-form="methods.cleanUserStore"
-        ></pass-form>
+          @saved="methods.getList()"
+        />
+        <delete-confirm-form
+          :dialog="deleteConfirmFormData.dialog"
+          :item="deleteConfirmFormData.item"
+          @confirm="methods.delete"
+          @cancel="methods.closeDeleteConfirmForm"
+        />
       </v-toolbar>
     </template>
 
@@ -264,7 +282,7 @@ watchEffect(() => {
         color="success"
         :true-value="1"
         :false-value="0"
-        @click="methods.opUserStatus(item.userId, Number(!item.status))"
+        @change="methods.opUserStatus(item.userId, Number(item.status))"
         :disabled="item.userId == 1 || methods.isSelf(item)"
         hide-details
       ></v-switch>
@@ -293,24 +311,25 @@ watchEffect(() => {
         class="px-0"
         color="red"
         variant="text"
-        @click="methods.delete(item)"
+        @click="methods.openDeleteConfirmForm(item)"
         min-width="calc(var(--v-btn-height) + 0px)"
-        :disabled="item.deleted === 9 || methods.isSelf(item) || localData.deleting"
-        :loading="localData.deleting"
+        :disabled="item.deleted === 9 || methods.isSelf(item)"
       >
         <v-icon>mdi-delete</v-icon>
       </v-btn>
     </template>
 
     <template v-slot:bottom>
-      <v-pagination
-        v-model="localData.queryParams.page"
-        :length="localData.pageResult.totalPage"
-        density="comfortable"
-        rounded
-        show-first-last-page
-        variant="plain"
-      ></v-pagination>
+      <data-table-pagination
+        :items-per-page="queryParams.itemsPerPage"
+        :items-per-page-options="staticData.itemsPerPageOptions"
+        :page="queryParams.page"
+        :current-count="localData.pageResult.count"
+        :total-count="localData.pageResult.totalCount"
+        :total-page="localData.pageResult.totalPage"
+        @update-items-per-page="methods.setItemsPerPage"
+        @update-page="methods.setPage"
+      ></data-table-pagination>
     </template>
   </v-data-table>
 </template>

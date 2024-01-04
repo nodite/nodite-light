@@ -1,4 +1,4 @@
-import { Database as Redis } from '@nodite-light/admin-database/lib/nodite-redis';
+import { Redis } from '@nodite-light/admin-database';
 import Promise from 'bluebird';
 import jwt from 'jsonwebtoken';
 import JWTR from 'jwt-redis';

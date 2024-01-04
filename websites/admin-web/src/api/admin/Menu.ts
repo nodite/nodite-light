@@ -13,11 +13,11 @@ import type { RequestParams } from "@/types/request";
 import { ContentType } from "@/types/request";
 import { request } from "@/utils/request/index";
 import type {
-  IMenu,
   IResponseIMenu,
   IResponseIMenuArray,
   IResponseMenuTreeArray,
   IResponseVoid,
+  OmitIMenuMenuId,
 } from "./data-contracts";
 
 /**
@@ -99,6 +99,35 @@ export const adminMenuQuerySkipErrorHandler = (id: number, params: RequestParams
  * No description
  *
  * @tags menu
+ * @name adminMenuEdit
+ * @summary Update menu
+ * @request PUT:/menu/{id}
+ */
+export const adminMenuEdit = (id: number, data: OmitIMenuMenuId, params: RequestParams = {}) =>
+  request<IResponseIMenu>({
+    path: `/menu/${id}`,
+    method: "PUT",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminMenuEditSkipErrorHandler = (id: number, data: OmitIMenuMenuId, params: RequestParams = {}) =>
+  request<IResponseIMenu>({
+    path: `/menu/${id}`,
+    method: "PUT",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags menu
  * @name adminMenuDelete
  * @summary Delete menu
  * @request DELETE:/menu/{id}
@@ -124,40 +153,11 @@ export const adminMenuDeleteSkipErrorHandler = (id: number, params: RequestParam
  * No description
  *
  * @tags menu
- * @name adminMenuEdit
- * @summary Update menu
- * @request PUT:/menu/{id}
- */
-export const adminMenuEdit = (id: number, data: IMenu, params: RequestParams = {}) =>
-  request<IResponseIMenu>({
-    path: `/menu/${id}`,
-    method: "PUT",
-    body: data,
-    type: ContentType.Json,
-    format: "json",
-    skipErrorHandler: false,
-    ...params,
-  });
-export const adminMenuEditSkipErrorHandler = (id: number, data: IMenu, params: RequestParams = {}) =>
-  request<IResponseIMenu>({
-    path: `/menu/${id}`,
-    method: "PUT",
-    body: data,
-    type: ContentType.Json,
-    format: "json",
-    skipErrorHandler: true,
-    ...params,
-  });
-
-/**
- * No description
- *
- * @tags menu
  * @name adminMenuCreate
  * @summary Create menu
  * @request POST:/menu
  */
-export const adminMenuCreate = (data: IMenu, params: RequestParams = {}) =>
+export const adminMenuCreate = (data: OmitIMenuMenuId, params: RequestParams = {}) =>
   request<IResponseIMenu>({
     path: `/menu`,
     method: "POST",
@@ -167,7 +167,7 @@ export const adminMenuCreate = (data: IMenu, params: RequestParams = {}) =>
     skipErrorHandler: false,
     ...params,
   });
-export const adminMenuCreateSkipErrorHandler = (data: IMenu, params: RequestParams = {}) =>
+export const adminMenuCreateSkipErrorHandler = (data: OmitIMenuMenuId, params: RequestParams = {}) =>
   request<IResponseIMenu>({
     path: `/menu`,
     method: "POST",

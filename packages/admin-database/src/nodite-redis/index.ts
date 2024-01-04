@@ -1,9 +1,9 @@
-import logger from '@nodite-light/admin-core/lib/utils/logger';
+import { logger } from '@nodite-light/admin-core';
 import { createClient } from 'redis';
 
 import { RedisClient, RedisStoreOptions } from '@/nodite-redis/interface';
 
-export class Database {
+export default class Database {
   static client: RedisClient | null;
 
   /**
@@ -41,5 +41,3 @@ export class Database {
     await Database.client?.disconnect();
   }
 }
-
-export default {};

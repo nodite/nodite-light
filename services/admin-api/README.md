@@ -79,8 +79,8 @@ npm run lint:fix
 
 ## Logging
 
-```javascript
-import logger from "@nodite-light/admin-core/lib/utils/logger";
+```typescript
+import { logger } from "@nodite-light/admin-core";
 
 logger.error("message"); // level 0
 logger.warn("message"); // level 1

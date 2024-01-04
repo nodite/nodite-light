@@ -4,7 +4,8 @@
   "private": true,
   "description": "admin core",
   "author": "Oscaner Miao <oscaner1997@gmail.com>",
-  "main": "lib/index.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "files": [
     "src",
     "lib"
