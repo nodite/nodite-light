@@ -18,7 +18,6 @@ module.exports = {
         'scripts',
         'templates',
         ...readdirSync('./packages'),
-        ...readdirSync('./templates'),
         ...readdirSync('./services'),
         ...readdirSync('./websites'),
       ],

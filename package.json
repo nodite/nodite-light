@@ -83,11 +83,5 @@
     "packages/*",
     "services/*",
     "websites/*"
-  ],
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional",
-      "@commitlint/config-lerna-scopes"
-    ]
-  }
+  ]
 }
