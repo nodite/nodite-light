@@ -4,7 +4,6 @@ import Breadcrumb from '@/components/Breadcrumb.vue';
 import MainSidevar from '@/components/navigation/MainSidebar.vue';
 import PageTitle from '@/components/PageTitle.vue';
 import MainAppbar from '@/components/toolbar/MainAppbar.vue';
-import ToolBox from '@/components/Toolbox.vue';
 import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
 
 const customizeTheme = useCustomizeThemeStore();
@@ -39,7 +38,6 @@ const customizeTheme = useCustomizeThemeStore();
     <div class="flex-fill pa-3">
       <slot></slot>
     </div>
-    <ToolBox />
   </v-main>
 </template>
 
