@@ -1,2 +1,2 @@
-export { default as DataTablePagination } from './components/DataTablePagination.vue';
+export { default as VDataTablePagination } from './components/VDataTablePagination.vue';
 export type { ItemsPerPageOption } from './types';

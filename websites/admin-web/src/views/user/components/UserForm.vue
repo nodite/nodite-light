@@ -20,7 +20,7 @@ import { useUserStore } from '@/stores/modules/userStore';
 
 const userStore = useUserStore();
 
-const emit = defineEmits(['close-user-form', 'saved']);
+const emit = defineEmits(['close', 'save']);
 
 const props = defineProps({
   dialog: {
@@ -39,13 +39,15 @@ const staticData = ref({
 });
 
 // local data.
-const localData = ref({
+const defLocalData = {
   dialog: props.dialog,
   isFormValid: true,
   isSaving: false,
   error: false,
   errorMessage: '',
-});
+};
+
+const localData = ref(lodash.cloneDeep(defLocalData));
 
 // form.
 const refForm = ref();
@@ -93,19 +95,14 @@ const methods = {
     }
     formData.value = lodash.isUndefined(user) ? ({} as IUser) : user;
   },
-  clearLocalData() {
-    localData.value.dialog = false;
-    localData.value.isSaving = false;
-    localData.value.isFormValid = true;
-    formData.value = {} as IUser;
-  },
   closeUserForm() {
     if (localData.value.isSaving) {
       toast.warning(i18n.global.t('common.form.saving'));
       return;
     }
-    methods.clearLocalData();
-    emit('close-user-form');
+    localData.value = lodash.cloneDeep(defLocalData);
+    formData.value = {} as IUser;
+    emit('close');
   },
   resetErrors() {
     localData.value.error = false;
@@ -132,7 +129,7 @@ const methods = {
     toast.success(i18n.global.t('common.form.success'));
 
     methods.closeUserForm();
-    emit('saved');
+    emit('save');
   },
 };
 

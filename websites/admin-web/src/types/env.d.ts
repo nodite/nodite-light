@@ -18,3 +18,5 @@ declare module '*.vue' {
 }
 
 declare module 'vue-virtual-scroller';
+
+declare module 'vue3-treeview';

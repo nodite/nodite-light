@@ -39,10 +39,10 @@ model.addDef(
 /**
  * Role-Menu model.
  * -------------------------
- * [policy_definition]
- * p_role_menu = role, menu
- * @example pRM = 1, *
+ * [role_definition]
+ * g_role_menu = role, menu
+ * @example g_role_menu = 1, *
  */
-model.addDef('p', 'p_role_menu', 'role, menu');
+model.addDef('g', 'g_role_menu', 'role, menu');
 
 export default model;

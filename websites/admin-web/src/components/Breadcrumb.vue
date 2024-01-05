@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import lodash from 'lodash';
 
+import { $tnd } from '@/plugins/i18n';
 import { Common, NavigationConfig } from '@/types/config';
 import { BreadcrumbItem } from '@/types/vuetify/components/VBreadcrumbs';
-import * as menuUtil from '@/utils/menu';
 
 const route = useRoute() as unknown as NavigationConfig.Router;
 
@@ -14,16 +14,18 @@ watchEffect(() => {
   //   if (route.path.startsWith('/redirect/')) {
   //     return
   //   }
-  breadcrumbs.value = lodash.filter(
-    lodash.map(route.matched, (item) => {
+
+  breadcrumbs.value = lodash
+    .chain(route.matched)
+    .map((item) => {
       return {
         to: item.path ? { path: item.path } : undefined,
-        title: menuUtil.toI18Title(item.meta) as string,
+        title: $tnd(item.meta?.iKey, item.meta?.title) as string,
         disabled: false,
       };
-    }) || [],
-    (item) => !!item.title,
-  );
+    })
+    .filter((item) => !!item.title)
+    .value();
 
   lodash.last(breadcrumbs.value)!.disabled = true;
 });

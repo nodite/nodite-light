@@ -8,6 +8,7 @@ export default {
     orderNum: '排序',
     iKey: '国际化键',
     iKeyHint: '请联系前端同学添加至 locales',
+    menuPerms: '菜单权限 ({0})',
   },
 
   headers: {

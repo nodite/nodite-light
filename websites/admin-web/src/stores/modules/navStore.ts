@@ -79,14 +79,16 @@ export const useNavStore = defineStore('nav', {
      * @returns
      */
     _filterSideber(routes?: NavigationConfig.Router[]): NavigationConfig.Router[] {
-      return lodash.filter(
-        lodash.map(routes || [], (route) => {
+      return lodash
+        .chain(routes || [])
+        .map((route) => {
           if (route.meta?.disabled) return null; // remove disabled menu.
           if (route.meta?.hidden) return null; // remove hidden menu.
           route.children = this._filterSideber(route.children);
           return route;
-        }), // remove null.
-      ) as NavigationConfig.Router[];
+        })
+        .filter()
+        .value() as NavigationConfig.Router[];
     },
   },
 });

@@ -18,6 +18,7 @@ export default {
     perms: '权限标识',
     hidden: '是否隐藏',
   },
+
   headers: {
     menuName: '菜单名称',
     i18nName: '国际化名称',
@@ -27,10 +28,17 @@ export default {
     hidden: '可见性',
     perms: '权限',
   },
+
   type: {
     overline: 'Overline',
     directory: '目录',
     menu: '菜单',
     action: '操作',
+  },
+
+  treeview: {
+    expandOrCollapse: '展开/折叠',
+    selectAllOrNone: '全选/全不选',
+    linkageOrNot: '父子联动',
   },
 };

@@ -35,4 +35,10 @@ export default {
     menu: 'Menu',
     action: 'Action',
   },
+
+  treeview: {
+    expandOrCollapse: 'Expand/Collapse',
+    selectAllOrNone: 'Select All/None',
+    linkageOrNot: 'Linkage/Not',
+  },
 };

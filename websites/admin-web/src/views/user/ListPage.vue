@@ -12,10 +12,10 @@
 
 <script setup lang="ts">
 import {
-  DataTablePagination,
   ItemsPerPageOption,
+  VDataTablePagination,
 } from '@nodite-light/vuetify-data-table-pagination';
-import { DeleteConfirmForm } from '@nodite-light/vuetify-delete-confirm-form';
+import { VDeleteConfirmForm } from '@nodite-light/vuetify-delete-confirm-form';
 import { DataTableItemProps } from '@nodite-light/vuetify-tree-data-table';
 
 import { IUser, QueryParams, SequelizePaginationIUser } from '@/api/admin/data-contracts';
@@ -256,22 +256,16 @@ watchEffect(() => {
         <user-form
           :dialog="userFormData.dialog"
           :user-id="userFormData.userId"
-          @close-user-form="methods.closeUserForm"
-          @saved="methods.getList()"
-        />
+          @close="methods.closeUserForm"
+          @save="methods.getList()"
+        ></user-form>
         <pass-form
           :dialog="passFormData.dialog"
           :username="passFormData.username"
           :user-id="passFormData.userId"
-          @close-pass-form="methods.closePassForm"
-          @saved="methods.getList()"
-        />
-        <delete-confirm-form
-          :dialog="deleteConfirmFormData.dialog"
-          :item="deleteConfirmFormData.item"
-          @confirm="methods.delete"
-          @cancel="methods.closeDeleteConfirmForm"
-        />
+          @close="methods.closePassForm"
+          @save="methods.getList()"
+        ></pass-form>
       </v-toolbar>
     </template>
 
@@ -320,7 +314,7 @@ watchEffect(() => {
     </template>
 
     <template v-slot:bottom>
-      <data-table-pagination
+      <VDataTablePagination
         :items-per-page="queryParams.itemsPerPage"
         :items-per-page-options="staticData.itemsPerPageOptions"
         :page="queryParams.page"
@@ -329,9 +323,17 @@ watchEffect(() => {
         :total-page="localData.pageResult.totalPage"
         @update-items-per-page="methods.setItemsPerPage"
         @update-page="methods.setPage"
-      ></data-table-pagination>
+      ></VDataTablePagination>
     </template>
   </v-data-table>
+
+  <!-- delete confirm -->
+  <VDeleteConfirmForm
+    :dialog="deleteConfirmFormData.dialog"
+    :item="deleteConfirmFormData.item"
+    @confirm="methods.delete"
+    @cancel="methods.closeDeleteConfirmForm"
+  ></VDeleteConfirmForm>
 </template>
 
 <style scoped lang="css"></style>
