@@ -65,7 +65,7 @@
     "@iconify/vue": "^4.1.1",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20.10.4",
-    "@vitejs/plugin-vue": "^4.5.1",
+    "@vitejs/plugin-vue": "^5.0.2",
     "@vitest/ui": "^1.0.2",
     "@vue/test-utils": "^2.0.0-rc.18",
     "autoprefixer": "^10.4.14",
