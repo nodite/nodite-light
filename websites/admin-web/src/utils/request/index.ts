@@ -44,7 +44,7 @@ axiosInstance.interceptors.response.use(
     return res;
   },
   async (error) => {
-    console.error(error);
+    console.error('interceptors.response', error);
 
     if (error?.config) requestCanceler.removePendingRequest(error.config);
 
@@ -54,7 +54,7 @@ axiosInstance.interceptors.response.use(
       error?.response?.data?.message || error.message || i18n.global.t('common.networkError'),
     );
 
-    return error?.response;
+    return error?.response || Promise.reject(error);
   },
 );
 
@@ -108,8 +108,6 @@ export async function request({
     data,
     url: path,
   });
-
-  if (!axiosResponse) return;
 
   // skip error handler
   if (skipErrorHandler) {
