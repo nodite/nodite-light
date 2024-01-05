@@ -1,3 +1,5 @@
+import { CurrencyConfig } from '@/types/config';
+
 const config: CurrencyConfig.Config = {
   currency: {
     label: 'USD',
