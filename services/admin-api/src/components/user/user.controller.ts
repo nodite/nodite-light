@@ -18,14 +18,15 @@ import {
 } from 'tsoa';
 
 import BaseController from '@/components/base.controller';
-import { QueryParams } from '@/components/base.interface';
-import { IPasswordReset, IUser } from '@/components/user/user.interface';
+import { IPasswordReset } from '@/components/user/user.interface';
+import { IUser } from '@/components/user/user.model';
 import UserService from '@/components/user/user.service';
 import {
   CreateValidation,
   EditValidation,
   ResetPasswordValidation,
 } from '@/components/user/user.validation';
+import { QueryParams } from '@/interfaces';
 
 /**
  * Class UserController.

@@ -1,56 +1,113 @@
 import { logger } from '@nodite-light/admin-core';
+import httpContext from 'express-http-context';
 import lodash from 'lodash';
-import { DataTypes, Model } from 'sequelize';
-import type { InitOptions, ModelAttributeColumnOptions, ModelStatic } from 'sequelize/types/model';
+import { InitOptions, ModelStatic, ValidationError } from 'sequelize';
+import {
+  BeforeBulkCreate,
+  BeforeBulkDestroy,
+  BeforeBulkUpdate,
+  BeforeCreate,
+  BeforeDestroy,
+  BeforeUpdate,
+  Column,
+  Comment,
+  CreatedAt,
+  DataType,
+  Default,
+  Model,
+  UpdatedAt,
+} from 'sequelize-typescript';
 
 import { FindOptions, Pagination } from '@/nodite-sequelize/interface';
-
-export default abstract class BaseModel extends Model {
+/**
+ * Class BaseModel.
+ */
+export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
   /**
-   * BaseInitOptions.
+   * TableInitOptions.
    */
-  static BaseInitOptions = {
+  static readonly TableOptions = {
     omitNull: true,
     underscored: true,
-    // create time.
-    createdAt: 'createTime',
-    // update time.
-    updatedAt: 'updateTime',
-    // auto set create time and update time.
     timestamps: true,
   } as InitOptions;
 
-  /**
-   * BaseSchema.
-   */
-  static BaseSchema = {
-    status: {
-      type: DataTypes.TINYINT({ length: 1 }),
-      defaultValue: 1,
-      comment: '0: disabled, 1: enabled',
-    },
-    deleted: {
-      type: DataTypes.TINYINT({ length: 1 }),
-      defaultValue: 0,
-      comment: '0: normal, 1: soft deleted, 9: not allow delete',
-    },
-    createBy: {
-      field: 'create_by',
-      type: DataTypes.STRING(32),
-    },
-    createTime: {
-      field: 'create_time',
-      type: DataTypes.DATE,
-    },
-    updateBy: {
-      field: 'update_by',
-      type: DataTypes.STRING(32),
-    },
-    updateTime: {
-      field: 'update_time',
-      type: DataTypes.DATE,
-    },
-  } as Record<string, ModelAttributeColumnOptions>;
+  @Default(1)
+  @Comment('0: disabled, 1: enabled, 9: not allow disable')
+  @Column(DataType.TINYINT({ length: 1 }))
+  status: 0 | 1 | 9;
+
+  @Default(0)
+  @Comment('0: normal, 1: soft deleted, 9: not allow delete')
+  @Default(0)
+  @Column(DataType.TINYINT({ length: 1 }))
+  deleted: 0 | 1 | 9;
+
+  @Column({ field: 'create_by', type: DataType.STRING(32) })
+  createBy: string;
+
+  @CreatedAt
+  @Column({ field: 'create_time', type: DataType.DATE })
+  createTime: Date;
+
+  @Column({ field: 'update_by', type: DataType.STRING(32) })
+  updateBy: string;
+
+  @UpdatedAt
+  @Column({ field: 'update_time', type: DataType.DATE })
+  updateTime: Date;
+
+  @BeforeUpdate
+  static checkStatus(instance: BaseModel<never>): void {
+    if (instance.previous('status') === 9) {
+      throw new ValidationError('Not allow disable!', []);
+    }
+  }
+
+  @BeforeBulkUpdate
+  static bulkCheckStatus(instances: BaseModel<never>[]): void {
+    instances.forEach((instance) => this.checkStatus(instance));
+  }
+
+  @BeforeDestroy
+  static checkDelete(instance: BaseModel<never>): void {
+    if (instance.previous('deleted') === 9) {
+      throw new ValidationError('Not allow delete!', []);
+    }
+  }
+
+  @BeforeBulkDestroy
+  static bulkCheckDelete(instances: BaseModel<never>[]): void {
+    instances.forEach((instance) => this.checkDelete(instance));
+  }
+
+  @BeforeCreate
+  static setCreateBy(instance: BaseModel<never>): void {
+    instance.setDataValue(
+      'createBy',
+      instance.getDataValue('createBy') ||
+        (lodash.get(httpContext.get('user'), 'username', 'unknown') as never),
+    );
+  }
+
+  @BeforeBulkCreate
+  static bulkSetCreateBy(instances: BaseModel<never>[]): void {
+    instances.forEach((instance) => this.setCreateBy(instance));
+  }
+
+  @BeforeUpdate
+  static setUpdateBy(instance: BaseModel<never>): void {
+    instance.setDataValue(
+      'updateBy',
+      instance.getDataValue('updateBy') ||
+        (lodash.get(httpContext.get('user'), 'username', 'unknown') as never),
+    );
+  }
+
+  @BeforeBulkUpdate
+  static bulkSetUpdateBy(instances: BaseModel<never>[]): void {
+    instances.forEach((instance) => this.setUpdateBy(instance));
+  }
 
   /**
    * Table exists.
@@ -61,21 +118,13 @@ export default abstract class BaseModel extends Model {
   }
 
   /**
-   * Soft delete.
-   * @returns
-   */
-  public isSoftDeleted(): boolean {
-    return this.getDataValue('deleted') === 1;
-  }
-
-  /**
    * Pagination.
    * @param this
    * @param options
    * @returns
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public static async paginate<M extends Model<any, any>>(
+  public static async paginate<M extends Model>(
     this: ModelStatic<M>,
     options?: FindOptions,
   ): Promise<Pagination<M>> {

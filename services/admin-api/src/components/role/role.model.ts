@@ -1,35 +1,67 @@
-import { SequelizeDatabase } from '@nodite-light/admin-database';
+import { SequelizeModel, Subscription } from '@nodite-light/admin-database';
+import {
+  AllowNull,
+  AutoIncrement,
+  Column,
+  Comment,
+  DataType,
+  Default,
+  PrimaryKey,
+  Table,
+  Unique,
+} from 'sequelize-typescript';
 
-import BaseModel from '@/components/base.model';
-import TableSchema from '@/components/role/role.schema';
 import RoleSeeds from '@/seeds/sys_role.seeds.json';
+
+const TABLE_NAME = 'sys_role';
 
 /**
  * Class RoleModel.
  */
-export default class RoleModel extends BaseModel {
-  static readonly TABLE_NAME = 'sys_role';
+@Table({
+  ...SequelizeModel.TableOptions,
+  tableName: TABLE_NAME,
+})
+@Subscription(RoleSeeds)
+export default class RoleModel extends SequelizeModel<RoleModel> {
+  @AllowNull(false)
+  @Unique
+  @PrimaryKey
+  @AutoIncrement
+  @Column({ field: 'role_id', type: DataType.BIGINT({ length: 20 }) })
+  roleId: number;
 
-  /**
-   * Register.
-   * @param sequelize
-   * @returns
-   */
-  @SequelizeDatabase.register(RoleModel.TABLE_NAME)
-  private static async register(sequelize): Promise<typeof RoleModel> {
-    return RoleModel.init(TableSchema, {
-      ...RoleModel.BaseInitOptions,
-      sequelize,
-      tableName: RoleModel.TABLE_NAME,
-    });
-  }
+  @AllowNull(false)
+  @Comment('role name')
+  @Column({ field: 'role_name', type: DataType.STRING(50) })
+  roleName: string;
 
-  /**
-   * Initial seeds.
-   * @param model
-   */
-  @SequelizeDatabase.seeds(RoleModel.TABLE_NAME)
-  private static async seeds(model: typeof RoleModel): Promise<void> {
-    await model.bulkCreate(RoleSeeds);
-  }
+  @AllowNull(false)
+  @Unique
+  @Comment('role key')
+  @Column({ field: 'role_key', type: DataType.STRING(100) })
+  roleKey: string;
+
+  @Default(0)
+  @Column({ field: 'order_num', type: DataType.INTEGER({ length: 4 }) })
+  orderNum: number;
+
+  @Comment('i18n key')
+  @Column({ field: 'i_key', type: DataType.STRING(100) })
+  iKey: string;
 }
+
+export type IRole = Pick<
+  typeof RoleModel.prototype,
+  | 'roleId'
+  | 'roleName'
+  | 'roleKey'
+  | 'orderNum'
+  | 'iKey'
+  | 'status'
+  | 'deleted'
+  | 'createBy'
+  | 'createTime'
+  | 'updateBy'
+  | 'updateTime'
+>;

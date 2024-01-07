@@ -61,7 +61,7 @@ const formRules = ref({
   ],
   orderNum: [],
   iKey: [],
-  status: [(v: number) => [0, 1].includes(v) || i18n.global.t('common.form.invalid')],
+  status: [],
 });
 
 // methods.
@@ -225,6 +225,7 @@ watchEffect(() => {
                   :rules="formRules.status"
                   validate-on="blur"
                   :error="localData.error"
+                  :disabled="formData.roleId === 1"
                   inline
                 >
                   <template v-slot:prepend>

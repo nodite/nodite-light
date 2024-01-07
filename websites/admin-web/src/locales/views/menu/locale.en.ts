@@ -16,6 +16,7 @@ export default {
     layout: 'Layout',
     layoutHint: 'The layout used for component render.',
     perms: 'Permission',
+    permsHint: 'Format: [dom]:[obj]:[act], e.g. admin:menu:create',
     hidden: 'Visibility',
   },
 

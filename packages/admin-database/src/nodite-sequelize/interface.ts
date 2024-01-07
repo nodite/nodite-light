@@ -1,4 +1,4 @@
-import { FindOptions as CoreFindOptions, Sequelize } from 'sequelize';
+import { FindOptions as CoreFindOptions } from 'sequelize';
 
 import Model from '@/nodite-sequelize/model';
 
@@ -11,15 +11,6 @@ export interface SequelizeStoreOptions {
   engine?: string;
   storagePath?: string;
   exitOnFail?: boolean;
-}
-
-export interface ModelInitialFunction<T extends typeof Model> {
-  (sequelize: Sequelize): T;
-}
-
-export interface ModelRegister {
-  tableName: string;
-  fn: ModelInitialFunction<typeof Model>;
 }
 
 export interface ModelSeedFunction<T extends typeof Model> {

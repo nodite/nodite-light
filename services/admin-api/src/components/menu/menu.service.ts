@@ -4,8 +4,8 @@ import lodash from 'lodash';
 import { arrayToTree } from 'performant-array-to-tree';
 import { Attributes, FindOptions } from 'sequelize';
 
-import { IMenu, MenuTree } from '@/components/menu/menu.interface';
-import MenuModel from '@/components/menu/menu.model';
+import { MenuTree } from '@/components/menu/menu.interface';
+import MenuModel, { IMenu } from '@/components/menu/menu.model';
 import UserService from '@/components/user/user.service';
 
 /**
@@ -35,7 +35,7 @@ export default class MenuService {
       ? MenuModel.findAll(options)
       : MenuModel.findAllByUserId(userId, options));
 
-    return menus.map((m) => m.toJSON<IMenu>());
+    return menus.map((m) => m.toJSON<MenuModel>());
   }
 
   /**
@@ -60,7 +60,7 @@ export default class MenuService {
       throw new AppError(httpStatus.BAD_REQUEST, 'Menu was not found!');
     }
 
-    return menu.toJSON<IMenu>();
+    return menu.toJSON<MenuModel>();
   }
 
   /**
@@ -70,7 +70,7 @@ export default class MenuService {
    */
   public async create(menu: IMenu): Promise<IMenu> {
     const createdMenu = await MenuModel.create({ ...menu });
-    return createdMenu.toJSON<IMenu>();
+    return createdMenu.toJSON<MenuModel>();
   }
 
   /**
@@ -88,7 +88,7 @@ export default class MenuService {
 
     const updatedUser = await storedMenu.update(menu);
 
-    return updatedUser.toJSON<IMenu>();
+    return updatedUser.toJSON<MenuModel>();
   }
 
   /**

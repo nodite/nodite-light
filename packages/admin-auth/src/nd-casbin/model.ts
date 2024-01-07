@@ -43,6 +43,6 @@ model.addDef(
  * g_role_menu = role, menu
  * @example g_role_menu = 1, *
  */
-model.addDef('g', 'g_role_menu', 'role, menu');
+model.addDef('g', 'g_role_menu', '_, _');
 
 export default model;

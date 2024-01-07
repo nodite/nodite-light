@@ -2,44 +2,16 @@ import { exit } from 'node:process';
 
 import { logger } from '@nodite-light/admin-core';
 import lodash from 'lodash';
-import { Sequelize } from 'sequelize';
+import { ModelCtor, Sequelize } from 'sequelize-typescript';
 
-import {
-  ModelInitialFunction,
-  ModelSeedFunction,
-  SequelizeStoreOptions,
-} from '@/nodite-sequelize/interface';
-import Model from '@/nodite-sequelize/model';
+import { SequelizeStoreOptions } from '@/nodite-sequelize/interface';
+
+type SeedsHandler = (model: ModelCtor, seeds: Array<object>) => void;
 
 export default class Database {
   static client: Sequelize | null;
 
-  static modelRegisters: Record<string, ModelInitialFunction<typeof Model>> = {};
-
-  static modelSeeds: Record<string, ModelSeedFunction<typeof Model>> = {};
-
-  /**
-   * Decorator for registering a model
-   * @param tableName
-   * @returns
-   */
-  static register(tableName: string) {
-    return (target: unknown, propertyKey: string, descriptor: PropertyDescriptor) => {
-      const fn = descriptor.value as ModelInitialFunction<typeof Model>;
-      lodash.set(Database.modelRegisters, tableName, fn);
-    };
-  }
-
-  /**
-   * Decorator for registering a model seed
-   * @returns
-   */
-  static seeds(tableName: string) {
-    return (target: unknown, propertyKey: string, descriptor: PropertyDescriptor) => {
-      const fn = descriptor.value as ModelSeedFunction<typeof Model>;
-      lodash.set(Database.modelSeeds, tableName, fn);
-    };
-  }
+  static models: Array<{ model: ModelCtor; seeds: Array<object>; seedsHandler: SeedsHandler }> = [];
 
   /**
    * Connect to the database
@@ -104,17 +76,23 @@ export default class Database {
 
       logger.info(`Successfully connected to "${engine}" database server`);
 
-      logger.info('Loading models...');
+      Database.client.addModels(lodash.chain(Database.models).map('model').value());
+      await Database.client.sync();
+
+      logger.info('Successfully synced models');
 
       await Promise.all(
-        lodash.map(Database.modelRegisters, async (register, tableName) => {
-          logger.debug(`found model: ${tableName}`);
-          const model = await register(Database.client as Sequelize);
+        lodash.map(Database.models, async (meta) => {
+          if (!meta.seeds) return;
 
-          if (!(await model.exists()) && lodash.has(Database.modelSeeds, tableName)) {
-            logger.debug(`initial model seed: ${tableName}`);
-            await model.sync();
-            await lodash.get(Database.modelSeeds, tableName)(model);
+          logger.debug(`found model seed: ${meta.model.getTableName()}`);
+
+          if (await meta.model.findOne()) return;
+
+          if (!meta.seedsHandler) {
+            await meta.model.bulkCreate(meta.seeds as never[]);
+          } else {
+            await meta.seedsHandler(meta.model, meta.seeds);
           }
         }),
       );
@@ -134,4 +112,14 @@ export default class Database {
   async disconnect() {
     await Database.client?.close();
   }
+}
+
+export function Subscription(seeds?: Array<object>, seedsHandler?: SeedsHandler) {
+  return (target: unknown) => {
+    Database.models.push({
+      model: target as ModelCtor,
+      seeds,
+      seedsHandler,
+    });
+  };
 }
