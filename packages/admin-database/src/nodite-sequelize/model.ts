@@ -1,7 +1,7 @@
 import { logger } from '@nodite-light/admin-core';
 import httpContext from 'express-http-context';
 import lodash from 'lodash';
-import { InitOptions, ModelStatic, ValidationError } from 'sequelize';
+import { InitOptions, ModelStatic, Op, ValidationError } from 'sequelize';
 import {
   BeforeBulkCreate,
   BeforeBulkDestroy,
@@ -33,9 +33,9 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
   } as InitOptions;
 
   @Default(1)
-  @Comment('0: disabled, 1: enabled, 9: not allow disable')
+  @Comment('0: disabled, 1: enabled')
   @Column(DataType.TINYINT({ length: 1 }))
-  status: 0 | 1 | 9;
+  status: 0 | 1;
 
   @Default(0)
   @Comment('0: normal, 1: soft deleted, 9: not allow delete')
@@ -57,30 +57,31 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
   @Column({ field: 'update_time', type: DataType.DATE })
   updateTime: Date;
 
-  @BeforeUpdate
-  static checkStatus(instance: BaseModel<never>): void {
-    if (instance.previous('status') === 9) {
-      throw new ValidationError('Not allow disable!', []);
-    }
-  }
-
-  @BeforeBulkUpdate
-  static bulkCheckStatus(instances: BaseModel<never>[]): void {
-    instances.forEach((instance) => this.checkStatus(instance));
-  }
-
+  /**
+   * Not allow delete.
+   * @param instance
+   */
   @BeforeDestroy
-  static checkDelete(instance: BaseModel<never>): void {
+  static notAllowDeleteNine(instance: BaseModel<never>): void {
     if (instance.previous('deleted') === 9) {
       throw new ValidationError('Not allow delete!', []);
     }
   }
 
+  /**
+   * Deleted not equal 9.
+   * @param options
+   */
   @BeforeBulkDestroy
-  static bulkCheckDelete(instances: BaseModel<never>[]): void {
-    instances.forEach((instance) => this.checkDelete(instance));
+  static deletedNotEqualNine(options: FindOptions): void {
+    const deleted = lodash.get(options, 'where.deleted', {});
+    lodash.set(options, 'where.deleted', { ...deleted, [Op.ne]: 9 });
   }
 
+  /**
+   * Set create by.
+   * @param instance
+   */
   @BeforeCreate
   static setCreateBy(instance: BaseModel<never>): void {
     instance.setDataValue(
@@ -90,23 +91,41 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
     );
   }
 
+  /**
+   * Bulk set create by.
+   * @param instances
+   */
   @BeforeBulkCreate
   static bulkSetCreateBy(instances: BaseModel<never>[]): void {
     instances.forEach((instance) => this.setCreateBy(instance));
   }
 
+  /**
+   * Set update by.
+   * @param instance
+   */
   @BeforeUpdate
   static setUpdateBy(instance: BaseModel<never>): void {
     instance.setDataValue(
       'updateBy',
-      instance.getDataValue('updateBy') ||
-        (lodash.get(httpContext.get('user'), 'username', 'unknown') as never),
+      instance.getDataValue('updateBy') || this.getDefaultUpdateBy(),
     );
   }
 
+  /**
+   * Bulk set update by.
+   * @param options
+   * @returns
+   */
   @BeforeBulkUpdate
-  static bulkSetUpdateBy(instances: BaseModel<never>[]): void {
-    instances.forEach((instance) => this.setUpdateBy(instance));
+  static bulkSetUpdateBy(options: FindOptions): void {
+    const { attributes } = options;
+    if (!attributes) return;
+    lodash.set(
+      options,
+      'attributes.updateBy',
+      lodash.get(attributes, 'updateBy', this.getDefaultUpdateBy()),
+    );
   }
 
   /**
@@ -165,5 +184,13 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
       page: Number(options.page),
       itemsPerPage: Number(itemsPerPage),
     };
+  }
+
+  /**
+   * Get default update by.
+   * @returns
+   */
+  private static getDefaultUpdateBy(): string {
+    return lodash.get(httpContext.get('user'), 'username', 'unknown');
   }
 }

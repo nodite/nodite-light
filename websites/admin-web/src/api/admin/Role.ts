@@ -14,6 +14,7 @@ import { ContentType } from "@/types/request";
 import { request } from "@/utils/request/index";
 import type {
   IResponseIRole,
+  IResponsePickIMenuMenuIdOrPermsArray,
   IResponseSequelizePaginationIRole,
   IResponseVoid,
   OmitIRoleRoleId,
@@ -164,6 +165,58 @@ export const adminRoleCreateSkipErrorHandler = (data: OmitIRoleRoleId, params: R
   request<IResponseIRole>({
     path: `/role`,
     method: "POST",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags Role
+ * @name adminRolePermsList
+ * @request GET:/role/{id}/perms
+ */
+export const adminRolePermsList = (id: number, params: RequestParams = {}) =>
+  request<IResponsePickIMenuMenuIdOrPermsArray>({
+    path: `/role/${id}/perms`,
+    method: "GET",
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminRolePermsListSkipErrorHandler = (id: number, params: RequestParams = {}) =>
+  request<IResponsePickIMenuMenuIdOrPermsArray>({
+    path: `/role/${id}/perms`,
+    method: "GET",
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags Role
+ * @name adminRolePermsUpdate
+ * @request PUT:/role/{id}/perms
+ */
+export const adminRolePermsUpdate = (id: number, data: number[], params: RequestParams = {}) =>
+  request<IResponseVoid>({
+    path: `/role/${id}/perms`,
+    method: "PUT",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminRolePermsUpdateSkipErrorHandler = (id: number, data: number[], params: RequestParams = {}) =>
+  request<IResponseVoid>({
+    path: `/role/${id}/perms`,
+    method: "PUT",
     body: data,
     type: ContentType.Json,
     format: "json",

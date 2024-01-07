@@ -4,7 +4,7 @@
     "username": "admin",
     "email": "admin@nodite.com",
     "password": "admin",
-    "createBy": "system",
+    "createBy": "admin",
     "updateBy": "system"
   },
   {
@@ -12,7 +12,7 @@
     "username": "viewer",
     "email": "viewer@nodite.com",
     "password": "viewer",
-    "createBy": "system",
+    "createBy": "admin",
     "updateBy": "system"
   }
 ]

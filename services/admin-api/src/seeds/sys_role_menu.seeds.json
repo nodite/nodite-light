@@ -1,0 +1,9 @@
+[
+  { "roleId": 1, "menuId": 0, "createBy": "admin", "updateBy": "system" },
+  { "roleId": 2, "menuId": 3, "createBy": "admin", "updateBy": "system" },
+  { "roleId": 2, "menuId": 4, "createBy": "admin", "updateBy": "system" },
+  { "roleId": 2, "menuId": 8, "createBy": "admin", "updateBy": "system" },
+  { "roleId": 2, "menuId": 9, "createBy": "admin", "updateBy": "system" },
+  { "roleId": 2, "menuId": 14, "createBy": "admin", "updateBy": "system" },
+  { "roleId": 2, "menuId": 15, "createBy": "admin", "updateBy": "system" }
+]
