@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { kebabCase } from 'change-case';
+import lodash from 'lodash';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -7,7 +8,7 @@ import * as Icons from '../assets/icons';
 
 const { t: $t } = useI18n();
 
-const emit = defineEmits(['close-icon-picker', 'input']);
+const emit = defineEmits(['close', 'input']);
 
 const props = defineProps({
   dialog: {
@@ -28,7 +29,7 @@ const props = defineProps({
   },
 });
 
-const localData = ref({
+const defLocalData = {
   dialog: props.dialog,
   tab: null,
   tabs: [
@@ -39,7 +40,9 @@ const localData = ref({
     { key: 'shape', icon: 'mdi-shape' },
     { key: 'common', icon: '' },
   ] as { key: string; icon: string }[],
-});
+};
+
+const localData = ref(lodash.cloneDeep(defLocalData));
 
 watchEffect(() => {
   localData.value.dialog = props.dialog;
@@ -57,13 +60,9 @@ const iconDict = computed((): Record<string, string[]> => {
 });
 
 const methods = {
-  clearLocalData() {
-    localData.value.dialog = false;
-    localData.value.tab = null;
-  },
   closeIconPicker() {
-    methods.clearLocalData();
-    emit('close-icon-picker');
+    localData.value = lodash.cloneDeep(defLocalData);
+    emit('close');
   },
   input(icon: string) {
     emit('input', icon);

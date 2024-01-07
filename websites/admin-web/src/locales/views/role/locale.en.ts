@@ -8,6 +8,7 @@ export default {
     orderNum: 'Order',
     iKey: 'i18n Key',
     iKeyHint: 'Please contact the frontend engineer to add to locales.',
+    menuPerms: 'Menu Perms ({0})',
   },
 
   headers: {

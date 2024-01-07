@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import lodash from 'lodash';
 
+import { $tnd } from '@/plugins/i18n';
 import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
 import { NavigationConfig } from '@/types/config';
-import * as menuUtil from '@/utils/menu';
 
 const customizeTheme = useCustomizeThemeStore();
 
@@ -23,7 +23,7 @@ const validator = {
     return props.menuItem.meta?.iType || 'menu';
   },
   hasTitle: () => {
-    return Boolean(menuUtil.toI18Title(props.menuItem.meta));
+    return Boolean($tnd(props.menuItem.meta?.iKey, props.menuItem.meta?.title));
   },
   hasChildren: () => {
     return !lodash.isEmpty(props.menuItem.children);
@@ -55,7 +55,7 @@ const validator = {
         v-if="!customizeTheme.miniSidebar && validator.hasTitle()"
         class="pa-1 mt-2 text-overline"
       >
-        {{ menuUtil.toI18Title(props.menuItem.meta) }}
+        {{ $tnd(props.menuItem.meta?.iKey, props.menuItem.meta?.title) }}
       </div>
       <template v-if="validator.hasChildren()">
         <!-- subMenu -->
@@ -74,7 +74,7 @@ const validator = {
       <v-list-group :value="menuItem.children">
         <!-- activator -->
         <template v-slot:activator="{ props }">
-          <v-list-item v-bind="props" :title="menuUtil.toI18Title(menuItem.meta)">
+          <v-list-item v-bind="props" :title="$tnd(menuItem.meta?.iKey, menuItem.meta?.title)">
             <template v-slot:prepend>
               <v-icon size="small">{{ menuItem.meta?.icon || 'mdi-circle-medium' }}</v-icon>
             </template>
@@ -106,7 +106,7 @@ const validator = {
           <v-icon size="small">{{ menuItem.meta?.icon || 'mdi-circle-medium' }}</v-icon>
         </template>
         <v-list-item-title v-bind="props">
-          {{ menuUtil.toI18Title(menuItem.meta) }}
+          {{ $tnd(menuItem.meta?.iKey, menuItem.meta?.title) }}
         </v-list-item-title>
       </v-list-item>
     </template>

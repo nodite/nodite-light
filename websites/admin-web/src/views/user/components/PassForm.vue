@@ -11,6 +11,7 @@
 -->
 
 <script setup lang="ts">
+import lodash from 'lodash';
 import { toast } from 'vuetify-sonner';
 
 import { IPasswordReset } from '@/api/admin/data-contracts';
@@ -19,7 +20,7 @@ import { useUserStore } from '@/stores/modules/userStore';
 
 const userStore = useUserStore();
 
-const emit = defineEmits(['close-pass-form', 'saved']);
+const emit = defineEmits(['close', 'save']);
 
 const props = defineProps({
   dialog: {
@@ -35,15 +36,17 @@ const props = defineProps({
 });
 
 // local data.
-const localData = ref({
+const defLocalData = {
   dialog: props.dialog,
-  isFormValid: true,
+  isFormValid: false,
   isSaving: false,
   showPassword: false,
   showConfirmPassword: false,
   error: false,
   errorMessage: '',
-});
+};
+
+const localData = ref(lodash.cloneDeep(defLocalData));
 
 // form.
 const refForm = ref();
@@ -75,19 +78,14 @@ watchEffect(() => {
 
 // methods.
 const methods = {
-  clearLocalData() {
-    localData.value.dialog = false;
-    localData.value.isSaving = false;
-    localData.value.isFormValid = true;
-    formData.value = {} as IPasswordReset;
-  },
   closePassForm() {
     if (localData.value.isSaving) {
       toast.warning(i18n.global.t('common.form.saving'));
       return;
     }
-    methods.clearLocalData();
-    emit('close-pass-form');
+    localData.value = lodash.cloneDeep(defLocalData);
+    formData.value = {} as IPasswordReset;
+    emit('close');
   },
   resetErrors() {
     localData.value.error = false;
@@ -116,7 +114,7 @@ const methods = {
     toast.success(i18n.global.t('common.form.success'));
 
     methods.closePassForm();
-    emit('saved');
+    emit('save');
   },
 };
 </script>

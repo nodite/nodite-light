@@ -22,7 +22,11 @@ const errorHandling = (
   if (error instanceof ValidateError) {
     wrappedError = new AppError(
       httpStatus.BAD_REQUEST,
-      lodash.values(lodash.mapValues(error.fields, (f) => f.message)).toString(),
+      lodash
+        .chain(error.fields)
+        .mapValues((f) => f.message)
+        .values()
+        .toString(),
     );
   } else if (error instanceof SequelizeValidationError) {
     wrappedError = new AppError(httpStatus.BAD_REQUEST, error.message);

@@ -11,17 +11,17 @@
 -->
 
 <script setup lang="ts">
+import { VIconPicker } from '@nodite-light/vuetify-icon-picker';
 import lodash from 'lodash';
 import { toast } from 'vuetify-sonner';
 
-import { IMenu } from '@/api/admin/data-contracts';
-import i18n from '@/plugins/i18n';
+import { IMenu, MenuTree } from '@/api/admin/data-contracts';
+import i18n, { $tnd } from '@/plugins/i18n';
 import { useMenuStore } from '@/stores/modules/menuStore';
-import * as menuUtil from '@/utils/menu';
 
 const menuStore = useMenuStore();
 
-const emit = defineEmits(['close-menu-form', 'saved']);
+const emit = defineEmits(['close', 'save']);
 
 const props = defineProps({
   dialog: {
@@ -36,7 +36,7 @@ const props = defineProps({
 
 // static Data.
 const staticData = ref({
-  menus: [] as IMenu[],
+  menus: [] as MenuTree[],
   layouts: [
     { value: 'default', title: 'Default' },
     { value: 'auth', title: 'Auth' },
@@ -45,24 +45,17 @@ const staticData = ref({
   ],
 });
 
-onMounted(() => {
-  menuStore.listTree().then((res) => {
-    staticData.value.menus = [
-      { menuName: 'Root', iKey: 'views.menu.form.parentRoot', menuId: 0 } as IMenu,
-      ...res,
-    ];
-  });
-});
-
 // local Data.
-const localData = ref({
+const defLocalData = {
   dialog: props.dialog,
   openIconPicker: false,
   isFormValid: true,
   isSaving: false,
   error: false,
   errorMessages: '',
-});
+};
+
+const localData = ref(lodash.cloneDeep(defLocalData));
 
 // Form.
 const refForm = ref();
@@ -110,20 +103,14 @@ const methods = {
     }
     formData.value = lodash.isUndefined(menu) ? ({} as IMenu) : menu;
   },
-  clearLocalData() {
-    localData.value.dialog = false;
-    localData.value.openIconPicker = false;
-    localData.value.isSaving = false;
-    localData.value.isFormValid = true;
-    formData.value = {} as IMenu;
-  },
   closeMenuForm() {
     if (localData.value.isSaving) {
       toast.warning(i18n.global.t('common.form.saving'));
       return;
     }
-    methods.clearLocalData();
-    emit('close-menu-form');
+    localData.value = lodash.cloneDeep(defLocalData);
+    formData.value = {} as IMenu;
+    emit('close');
   },
   closeIconPicker() {
     localData.value.openIconPicker = false;
@@ -156,9 +143,18 @@ const methods = {
     toast.success(i18n.global.t('common.form.success'));
 
     methods.closeMenuForm();
-    emit('saved');
+    emit('save');
   },
 };
+
+onMounted(() => {
+  menuStore.listTree().then((res) => {
+    staticData.value.menus = [
+      { menuName: 'Root', iKey: 'views.menu.form.parentRoot', menuId: 0 } as IMenu,
+      ...res,
+    ];
+  });
+});
 
 watchEffect(() => {
   localData.value.dialog = props.dialog;
@@ -223,12 +219,12 @@ watchEffect(() => {
                     <v-label>{{ $t('views.menu.form.parent') }}:</v-label>
                   </template>
                   <template v-slot:chip="{ item }">
-                    <v-chip>{{ menuUtil.toI18TitleWithMenu(item.raw) }}</v-chip>
+                    <v-chip>{{ $tnd(item.raw.iKey, item.raw.menuName) }}</v-chip>
                   </template>
                   <template v-slot:item="{ props, item }">
                     <v-list-item
                       v-bind="props"
-                      :title="menuUtil.toI18TitleWithMenu(item.raw)"
+                      :title="$tnd(item.raw.iKey, item.raw.menuName)"
                     ></v-list-item>
                   </template>
                 </v-select>
@@ -316,11 +312,11 @@ watchEffect(() => {
                   :error="localData.error"
                 >
                   <template v-slot:append-inner>
-                    <icon-picker
+                    <VIconPicker
                       :dialog="localData.openIconPicker"
-                      @close-icon-picker="methods.closeIconPicker"
+                      @close="methods.closeIconPicker"
                       @input="methods.inputIconPicker"
-                    ></icon-picker>
+                    ></VIconPicker>
                   </template>
                 </v-text-field>
               </v-col>

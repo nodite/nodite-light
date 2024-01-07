@@ -12,14 +12,15 @@
 
 <script setup lang="ts">
 import {
-  DataTablePagination,
   ItemsPerPageOption,
+  VDataTablePagination,
 } from '@nodite-light/vuetify-data-table-pagination';
-import { DeleteConfirmForm } from '@nodite-light/vuetify-delete-confirm-form';
+import { VDeleteConfirmForm } from '@nodite-light/vuetify-delete-confirm-form';
 import { DataTableItemProps } from '@nodite-light/vuetify-tree-data-table';
 
 import { IRole, QueryParams, SequelizePaginationIRole } from '@/api/admin/data-contracts';
-import i18n from '@/plugins/i18n';
+import MenuTreeView from '@/components/treeview/MenuTreeView.vue';
+import i18n, { $tnd } from '@/plugins/i18n';
 import { useRoleStore } from '@/stores/modules/roleStore';
 import RoleForm from '@/views/role/components/RoleForm.vue';
 
@@ -53,6 +54,11 @@ const roleFormData = ref({
 
 const deleteConfirmFormData = ref({
   dialog: false,
+  item: {} as IRole,
+});
+
+const menuTreeView = ref({
+  drawer: false,
   item: {} as IRole,
 });
 
@@ -103,6 +109,23 @@ const methods = {
   closeDeleteConfirmForm() {
     deleteConfirmFormData.value.dialog = false;
     deleteConfirmFormData.value.item = {} as IRole;
+  },
+  openMenuTreeView(item: IRole) {
+    menuTreeView.value.drawer = true;
+    menuTreeView.value.item = item;
+  },
+  closeMenuTreeView() {
+    menuTreeView.value.drawer = false;
+    menuTreeView.value.item = {} as IRole;
+  },
+  async saveMenuTreeView(ids: string[], cb: (close: boolean) => void) {
+    try {
+      // roleStore.saveMenuPerms(menuTreeView.value.item.roleId, ids);
+      cb(true);
+      methods.closeMenuTreeView();
+    } catch (e) {
+      cb(false);
+    }
   },
   async opRoleStatus(id: number, status: number) {
     await roleStore.edit({ roleId: id, status: status } as IRole);
@@ -211,14 +234,8 @@ watchEffect(() => {
         <role-form
           :dialog="roleFormData.dialog"
           :role-id="roleFormData.roleId"
-          @close-role-form="methods.closeRoleForm"
-          @saved="methods.getList()"
-        />
-        <delete-confirm-form
-          :dialog="deleteConfirmFormData.dialog"
-          :item="deleteConfirmFormData.item"
-          @confirm="methods.delete"
-          @cancel="methods.closeDeleteConfirmForm"
+          @close="methods.closeRoleForm"
+          @save="methods.getList()"
         />
       </v-toolbar>
     </template>
@@ -252,6 +269,15 @@ watchEffect(() => {
 
       <v-btn
         class="px-0"
+        variant="text"
+        @click="methods.openMenuTreeView(item)"
+        min-width="calc(var(--v-btn-height) + 0px)"
+      >
+        <v-icon>mdi-menu-open</v-icon>
+      </v-btn>
+
+      <v-btn
+        class="px-0"
         color="red"
         variant="text"
         @click="methods.openDeleteConfirmForm(item)"
@@ -263,7 +289,7 @@ watchEffect(() => {
     </template>
 
     <template v-slot:bottom>
-      <data-table-pagination
+      <VDataTablePagination
         :items-per-page="queryParams.itemsPerPage"
         :items-per-page-options="staticData.itemsPerPageOptions"
         :page="queryParams.page"
@@ -272,7 +298,26 @@ watchEffect(() => {
         :total-page="localData.pageResult.totalPage"
         @update-items-per-page="methods.setItemsPerPage"
         @update-page="methods.setPage"
-      ></data-table-pagination>
+      ></VDataTablePagination>
     </template>
   </v-data-table>
+
+  <!-- delete confirm -->
+  <VDeleteConfirmForm
+    :dialog="deleteConfirmFormData.dialog"
+    :item="deleteConfirmFormData.item"
+    @confirm="methods.delete"
+    @cancel="methods.closeDeleteConfirmForm"
+  ></VDeleteConfirmForm>
+
+  <!-- menu perms -->
+  <MenuTreeView
+    :label="
+      $t('views.role.form.menuPerms', [$tnd(menuTreeView.item.iKey, menuTreeView.item.roleName)])
+    "
+    :drawer="menuTreeView.drawer"
+    @close="methods.closeMenuTreeView"
+    @save="methods.saveMenuTreeView"
+    checkboxes
+  ></MenuTreeView>
 </template>

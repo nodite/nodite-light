@@ -11,4 +11,7 @@ const i18n = createI18n({
   messages: messages,
 });
 
+export const $tnd = (iKey?: string, fbName?: string): string =>
+  iKey && i18n.global.te(iKey) ? i18n.global.t(iKey) : fbName || '';
+
 export default i18n;

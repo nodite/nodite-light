@@ -11,8 +11,8 @@
 -->
 
 <script setup lang="ts">
-import { DeleteConfirmForm } from '@nodite-light/vuetify-delete-confirm-form';
-import type { DataTableItemProps } from '@nodite-light/vuetify-tree-data-table';
+import { VDeleteConfirmForm } from '@nodite-light/vuetify-delete-confirm-form';
+import { type DataTableItemProps, VTreeDataTable } from '@nodite-light/vuetify-tree-data-table';
 
 import { IMenu, MenuTree } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
@@ -95,7 +95,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <v-tree-data-table
+  <VTreeDataTable
     :tableProps="{
       itemValue: 'menuId',
       selectStrategy: 'all',
@@ -113,15 +113,9 @@ watchEffect(() => {
         <menu-form
           :dialog="menuFormData.dialog"
           :menu-id="menuFormData.menuId"
-          @close-menu-form="methods.closeMenuForm"
-          @saved="methods.getMenuTree()"
-        />
-        <delete-confirm-form
-          :dialog="deleteConfirmFormData.dialog"
-          :item="deleteConfirmFormData.item"
-          @confirm="methods.delete"
-          @cancel="methods.closeDeleteConfirmForm"
-        />
+          @close="methods.closeMenuForm"
+          @save="methods.getMenuTree()"
+        ></menu-form>
       </v-toolbar>
     </template>
 
@@ -190,7 +184,15 @@ watchEffect(() => {
     </template>
 
     <template v-slot:bottom></template>
-  </v-tree-data-table>
+  </VTreeDataTable>
+
+  <!-- delete confirm -->
+  <VDeleteConfirmForm
+    :dialog="deleteConfirmFormData.dialog"
+    :item="deleteConfirmFormData.item"
+    @confirm="methods.delete"
+    @cancel="methods.closeDeleteConfirmForm"
+  ></VDeleteConfirmForm>
 </template>
 
 <style scoped lang="scss">

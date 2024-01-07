@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import { $tnd } from '@/plugins/i18n';
 import { NavigationConfig } from '@/types/config';
-import * as menuUtil from '@/utils/menu';
 
 const route = useRoute() as unknown as NavigationConfig.Router;
 const title = ref('');
 
 watchEffect(() => {
-  title.value = menuUtil.toI18Title(route.meta) as string;
+  title.value = $tnd(route.meta?.iKey, route.meta?.title) as string;
 });
 </script>
 
