@@ -1,55 +1,85 @@
 import { AppError } from '@nodite-light/admin-core';
-import { SequelizeDatabase } from '@nodite-light/admin-database';
+import { SequelizeModel, Subscription } from '@nodite-light/admin-database';
 import bcrypt from 'bcrypt';
 import httpStatus from 'http-status';
-import { Sequelize } from 'sequelize';
+import {
+  AllowNull,
+  AutoIncrement,
+  BeforeBulkCreate,
+  BeforeCreate,
+  BeforeUpdate,
+  Column,
+  Comment,
+  DataType,
+  Default,
+  PrimaryKey,
+  Table,
+  Unique,
+  Validate,
+} from 'sequelize-typescript';
 
-import BaseModel from '@/components/base.model';
-import TableSchema from '@/components/user/user.schema';
 import UserSeeds from '@/seeds/sys_user.seeds.json';
+
+const TABLE_NAME = 'sys_user';
 
 /**
  * Class UserModel.
  */
-export default class UserModel extends BaseModel {
-  static readonly TABLE_NAME = 'sys_user';
+@Table({
+  ...SequelizeModel.TableOptions,
+  tableName: TABLE_NAME,
+})
+@Subscription(UserSeeds)
+export default class UserModel extends SequelizeModel<UserModel> {
+  @AllowNull(false)
+  @Unique
+  @PrimaryKey
+  @AutoIncrement
+  @Column({ field: 'user_id', type: DataType.BIGINT })
+  userId: number;
 
-  public skipBcryptPassword = false;
+  @AllowNull(false)
+  @Unique
+  @Column(DataType.STRING(32))
+  username: string;
 
-  /**
-   * register.
-   * @param sequelize
-   */
-  @SequelizeDatabase.register(UserModel.TABLE_NAME)
-  private static async register(sequelize: Sequelize): Promise<typeof UserModel> {
-    return UserModel.init(TableSchema, {
-      ...UserModel.BaseInitOptions,
-      sequelize,
-      tableName: UserModel.TABLE_NAME,
-      hooks: {
-        beforeBulkCreate(instances) {
-          instances.forEach((instance) => {
-            instance.bcryptPassword();
-          });
-        },
-        beforeCreate: (instance) => {
-          instance.bcryptPassword();
-        },
-        beforeUpdate: (instance) => {
-          instance.bcryptPassword();
-        },
-      },
+  @Column(DataType.STRING(32))
+  nickname: string;
+
+  @Unique
+  @Validate({ isEmail: true })
+  @Column(DataType.STRING(128))
+  email: string;
+
+  @Column(DataType.STRING(32))
+  phone: string;
+
+  @Default(0)
+  @Comment('0 - secret, 1 - male, 2 - female.')
+  @Column(DataType.TINYINT({ length: 1 }))
+  sex: 0 | 1;
+
+  @Column(DataType.STRING(255))
+  avatar: string;
+
+  @AllowNull(false)
+  @Column(DataType.STRING(255))
+  password: string;
+
+  @BeforeBulkCreate
+  static bulkBcryptPassword(users: UserModel[]): void {
+    users.forEach((user) => {
+      user.bcryptPassword();
     });
   }
 
-  /**
-   * Initial seeds.
-   * @param model
-   */
-  @SequelizeDatabase.seeds(UserModel.TABLE_NAME)
-  private static async seeds(model: typeof UserModel): Promise<void> {
-    await model.bulkCreate(UserSeeds);
+  @BeforeCreate
+  @BeforeUpdate
+  static singleBcryptPassword(user: UserModel): void {
+    user.bcryptPassword();
   }
+
+  public skipBcryptPassword = false;
 
   /**
    * bcryptPassword.
@@ -76,3 +106,21 @@ export default class UserModel extends BaseModel {
     return true;
   }
 }
+
+export type IUser = Pick<
+  typeof UserModel.prototype,
+  | 'userId'
+  | 'username'
+  | 'nickname'
+  | 'email'
+  | 'phone'
+  | 'sex'
+  | 'avatar'
+  | 'password'
+  | 'status'
+  | 'deleted'
+  | 'createBy'
+  | 'createTime'
+  | 'updateBy'
+  | 'updateTime'
+>;

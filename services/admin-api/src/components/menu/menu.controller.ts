@@ -16,7 +16,8 @@ import {
 } from 'tsoa';
 
 import BaseController from '@/components/base.controller';
-import { IMenu, MenuTree } from '@/components/menu/menu.interface';
+import { MenuTree } from '@/components/menu/menu.interface';
+import { IMenu } from '@/components/menu/menu.model';
 import MenuService from '@/components/menu/menu.service';
 import SaveValidation from '@/components/menu/menu.validation';
 

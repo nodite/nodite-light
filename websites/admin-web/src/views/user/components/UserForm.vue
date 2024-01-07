@@ -16,8 +16,10 @@ import { toast } from 'vuetify-sonner';
 
 import { IUser } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
+import { useProfileStore } from '@/stores/modules/profileStore';
 import { useUserStore } from '@/stores/modules/userStore';
 
+const profileStore = useProfileStore();
 const userStore = useUserStore();
 
 const emit = defineEmits(['close', 'save']);
@@ -83,11 +85,14 @@ const formRules = ref({
       (v && v.length <= 25) ||
       i18n.global.t('common.form.max', [i18n.global.t('views.user.form.password'), 25]),
   ],
-  status: [(v: number) => [0, 1].includes(v) || i18n.global.t('common.form.invalid')],
+  status: [],
 });
 
 // methods.
 const methods = {
+  isSelf(item: IUser) {
+    return item.userId === profileStore.profile?.userId;
+  },
   async fillFormData() {
     let user = undefined;
     if (props.userId > 0) {
@@ -137,7 +142,7 @@ watchEffect(() => {
   // watch i18n.
   staticData.value.sex = [
     { value: 0, title: i18n.global.t('views.user.sex.secret') },
-    { value: 1, title: i18n.global.t('views.user.sec.male') },
+    { value: 1, title: i18n.global.t('views.user.sex.male') },
     { value: 2, title: i18n.global.t('views.user.sex.female') },
   ];
 
@@ -302,6 +307,7 @@ watchEffect(() => {
                   :rules="formRules.status"
                   validate-on="blur"
                   :error="localData.error"
+                  :disabled="formData.userId === 1 || methods.isSelf(formData)"
                   inline
                 >
                   <template v-slot:prepend>

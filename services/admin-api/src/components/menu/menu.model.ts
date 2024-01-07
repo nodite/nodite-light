@@ -1,54 +1,85 @@
-import { SequelizeDatabase } from '@nodite-light/admin-database';
-import lodash from 'lodash';
-import { Attributes, FindOptions, Model, ModelStatic } from 'sequelize';
+import { SequelizeModel, Subscription } from '@nodite-light/admin-database';
+import { Attributes, FindOptions, ModelStatic } from 'sequelize';
+import {
+  AllowNull,
+  AutoIncrement,
+  Column,
+  Comment,
+  DataType,
+  Default,
+  Model,
+  PrimaryKey,
+  Table,
+  Unique,
+} from 'sequelize-typescript';
 
-import BaseModel from '@/components/base.model';
-import type { MenuTree } from '@/components/menu/menu.interface';
-import TableSchema from '@/components/menu/menu.schema';
 import MenuSeeds from '@/seeds/sys_menu.seeds.json';
 
-async function initialSeeds(model: typeof MenuModel, seeds: MenuTree[] = [], parentId = 0) {
-  seeds.forEach(async (seed, idx) => {
-    const menuInstance = await model.create({
-      ...seed,
-      parentId,
-      orderNum: idx,
-    });
+const TABLE_NAME = 'sys_menu';
 
-    if (lodash.isEmpty(seed.children)) return;
+@Table({
+  ...SequelizeModel.TableOptions,
+  tableName: TABLE_NAME,
+})
+@Subscription(MenuSeeds)
+export default class MenuModel extends SequelizeModel<MenuModel> {
+  @AllowNull(false)
+  @Unique
+  @PrimaryKey
+  @AutoIncrement
+  @Column({ field: 'menu_id', type: DataType.BIGINT({ length: 20 }) })
+  menuId: number;
 
-    await initialSeeds(model, seed.children, menuInstance.getDataValue('menuId'));
-  });
-}
+  @AllowNull(false)
+  @Comment('menu title')
+  @Column({ field: 'menu_name', type: DataType.STRING(50) })
+  menuName: string;
 
-/**
- * Class MenuModel.
- */
-export default class MenuModel extends BaseModel {
-  static readonly TABLE_NAME = 'sys_menu';
+  @Default(0)
+  @Column({ field: 'parent_id', type: DataType.BIGINT({ length: 20 }) })
+  parentId: number;
 
-  /**
-   * register.
-   * @param sequelize
-   * @returns
-   */
-  @SequelizeDatabase.register(MenuModel.TABLE_NAME)
-  private static async register(sequelize): Promise<typeof MenuModel> {
-    return MenuModel.init(TableSchema, {
-      ...MenuModel.BaseInitOptions,
-      sequelize,
-      tableName: MenuModel.TABLE_NAME,
-    });
-  }
+  @Default(0)
+  @Column({ field: 'order_num', type: DataType.INTEGER({ length: 4 }) })
+  orderNum: number;
 
-  /**
-   * Initial seeds.
-   * @param model
-   */
-  @SequelizeDatabase.seeds(MenuModel.TABLE_NAME)
-  private static async seeds(model: typeof MenuModel): Promise<void> {
-    await initialSeeds(model, MenuSeeds as unknown as MenuTree[]);
-  }
+  @Default('')
+  @Column(DataType.STRING(100))
+  icon: string;
+
+  @Comment('i18n key')
+  @Column({ field: 'i_key', type: DataType.STRING(100) })
+  iKey: string;
+
+  @Default('')
+  @Comment('menu type: overline, directory, menu, action')
+  @Column({ field: 'i_type', type: DataType.STRING(32) })
+  iType: string;
+
+  @Default('')
+  @Column(DataType.STRING(200))
+  path: string;
+
+  @Default('')
+  @Column(DataType.STRING(200))
+  redirect: string;
+
+  @Default('')
+  @Column(DataType.STRING(255))
+  component: string;
+
+  @Default(0)
+  @Comment('0: show, 1: hidden')
+  @Column(DataType.TINYINT({ length: 1 }))
+  hidden: 0 | 1;
+
+  @Default('')
+  @Column(DataType.STRING(32))
+  layout: string;
+
+  @Default('')
+  @Column(DataType.STRING(100))
+  perms: string;
 
   /**
    * findAllByUserId.
@@ -65,3 +96,26 @@ export default class MenuModel extends BaseModel {
     return this.findAll<M>(options);
   }
 }
+
+export type IMenu = Pick<
+  typeof MenuModel.prototype,
+  | 'menuId'
+  | 'menuName'
+  | 'parentId'
+  | 'orderNum'
+  | 'icon'
+  | 'iKey'
+  | 'iType'
+  | 'path'
+  | 'redirect'
+  | 'component'
+  | 'hidden'
+  | 'layout'
+  | 'perms'
+  | 'status'
+  | 'deleted'
+  | 'createBy'
+  | 'createTime'
+  | 'updateBy'
+  | 'updateTime'
+>;

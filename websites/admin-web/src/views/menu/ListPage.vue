@@ -88,7 +88,6 @@ watchEffect(() => {
     { title: i18n.global.t('views.menu.headers.iType'), value: 'iType' },
     { title: i18n.global.t('views.menu.headers.hidden'), value: 'hidden' },
     { title: i18n.global.t('views.menu.headers.perms'), value: 'perms' },
-    { title: i18n.global.t('common.form.status', ['']), value: 'status' },
     { key: 'actions', sortable: false },
   ];
 });
@@ -147,18 +146,6 @@ watchEffect(() => {
 
     <template v-slot:item.perms="{ value }">
       {{ value || '-' }}
-    </template>
-
-    <template v-slot:item.status="{ item }">
-      <!-- status -->
-      <v-switch
-        v-model="item.status"
-        color="success"
-        :true-value="1"
-        :false-value="0"
-        @change="methods.opMenuStatus(item.menuId, item.status)"
-        hide-details
-      />
     </template>
 
     <template v-slot:item.actions="{ item }">

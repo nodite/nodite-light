@@ -6,10 +6,13 @@ import httpStatus from 'http-status';
 import lodash from 'lodash';
 import { Op } from 'sequelize';
 
-import { QueryParams } from '@/components/base.interface';
-import { IPasswordReset, IUser } from '@/components/user/user.interface';
-import UserModel from '@/components/user/user.model';
+import { IPasswordReset } from '@/components/user/user.interface';
+import UserModel, { IUser } from '@/components/user/user.model';
+import { QueryParams } from '@/interfaces';
 
+/**
+ * Class UserService.
+ */
 export default class UserService {
   /**
    * Search users.
@@ -34,7 +37,7 @@ export default class UserService {
 
     return {
       ...page,
-      items: page.items.map((i) => i.toJSON<IUser>()),
+      items: page.items.map((i) => i.toJSON<UserModel>()),
     };
   }
 
@@ -50,7 +53,7 @@ export default class UserService {
       throw new AppError(httpStatus.NOT_FOUND, 'User not found');
     }
 
-    return user.toJSON<IUser>();
+    return user.toJSON<UserModel>();
   }
 
   /**
@@ -65,7 +68,7 @@ export default class UserService {
       throw new AppError(httpStatus.NOT_FOUND, 'User not found');
     }
 
-    return user.toJSON<IUser>();
+    return user.toJSON<UserModel>();
   }
 
   /**
@@ -80,7 +83,7 @@ export default class UserService {
       throw new AppError(httpStatus.NOT_FOUND, 'User not found');
     }
 
-    return user.toJSON<IUser>();
+    return user.toJSON<UserModel>();
   }
 
   /**
@@ -93,7 +96,7 @@ export default class UserService {
     if (lodash.isEmpty(createdUser)) {
       throw new AppError(httpStatus.BAD_GATEWAY, 'User was not created!');
     }
-    return createdUser.toJSON<IUser>();
+    return createdUser.toJSON<UserModel>();
   }
 
   /**
@@ -124,7 +127,7 @@ export default class UserService {
 
     const updatedUser = await storedUser.update(user);
 
-    return updatedUser.toJSON<IUser>();
+    return updatedUser.toJSON<UserModel>();
   }
 
   /**

@@ -16,6 +16,7 @@ export default {
     layout: '布局',
     layoutHint: '用于视图显示的布局',
     perms: '权限标识',
+    permsHint: '格式: [dom]:[obj]:[act], 例如: admin:menu:create',
     hidden: '是否隐藏',
   },
 

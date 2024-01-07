@@ -1,21 +1,6 @@
-{
-  "policy": [
-    {
-      "key": "p",
-      "value": [
-        ["sys_role:1", "*", "*", "*"],
-        ["sys_user:1", "*", "*", "*"]
-      ]
-    }
-  ],
-  "group": [
-    {
-      "key": "g",
-      "value": [["sys_user:1", "sys_role:1"]]
-    },
-    {
-      "key": "g_role_menu",
-      "value": [["1", "*"]]
-    }
-  ]
-}
+[
+  { "id": 1, "ptype": "p", "v0": "sys_role:1", "v1": "*", "v2": "*", "v3": "*" },
+  { "id": 2, "ptype": "p", "v0": "sys_user:1", "v1": "*", "v2": "*", "v3": "*" },
+  { "id": 3, "ptype": "g", "v0": "sys_user:1", "v1": "sys_role:1" },
+  { "id": 4, "ptype": "g_role_menu", "v0": "1", "v1": "*" }
+]

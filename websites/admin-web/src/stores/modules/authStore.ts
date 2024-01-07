@@ -81,18 +81,15 @@ export const useAuthStore = defineStore('auth', {
      * @param redirect
      */
     async logout(redirect: boolean = false) {
-      try {
-        await AuthApi.adminAuthLogout();
-      } finally {
-        // remove token.
-        toolkit.token.remove();
-        // remove logged in status.
-        this.$patch({ isLoggedIn: false });
-        // clear profile store.
-        await useProfileStore().clearCache();
-        // redirect to login page if needed.
-        if (redirect) toolkit.redirectToLogin();
-      }
+      await AuthApi.adminAuthLogout();
+      // remove token.
+      toolkit.token.remove();
+      // remove logged in status.
+      this.$patch({ isLoggedIn: false });
+      // clear profile store.
+      await useProfileStore().clearCache();
+      // redirect to login page if needed.
+      if (redirect) toolkit.redirectToLogin();
     },
   },
 });

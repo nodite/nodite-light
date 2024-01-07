@@ -13,7 +13,7 @@
 
 import lodash from 'lodash';
 
-import { IMenu, MenuTree } from '@/api/admin/data-contracts';
+import { MenuTree } from '@/api/admin/data-contracts';
 import { NavigationConfig } from '@/types/config';
 
 // load all views.
@@ -46,7 +46,7 @@ export const convertMenuToRouter = (menu: MenuTree): NavigationConfig.Router => 
       iKey: menu.iKey || '',
       iType: menu.iType as NavigationConfig.MenuType,
       parentId: menu.parentId || 0,
-      disabled: lodash.toInteger(menu.status) === 0,
+      disabled: false, // lodash.toInteger(menu.status) === 0, // not need to disable menu.
       hidden: Boolean(menu.hidden),
       layout: menu.layout || 'ui',
       title: menu.menuName,

@@ -91,7 +91,6 @@ const formRules = ref({
   ],
   perms: [],
   hidden: [(v: number) => [0, 1].includes(v) || i18n.global.t('common.form.invalid')],
-  status: [(v: number) => [0, 1].includes(v) || i18n.global.t('common.form.invalid')],
 });
 
 // methods.
@@ -392,6 +391,7 @@ watchEffect(() => {
               <v-col>
                 <v-text-field
                   v-model="formData.perms"
+                  :hint="$t('views.menu.form.permsHint')"
                   :rules="formRules.perms"
                   validate-on="blur"
                   :error="localData.error"
@@ -406,7 +406,7 @@ watchEffect(() => {
             </v-row>
 
             <v-row dense>
-              <!-- visibility & status -->
+              <!-- visibility -->
               <v-col>
                 <v-radio-group
                   v-model="formData.hidden"
@@ -420,23 +420,6 @@ watchEffect(() => {
                   </template>
                   <v-radio :label="$t('common.visibility.show')" :value="0"></v-radio>
                   <v-radio :label="$t('common.visibility.hidden')" :value="1"></v-radio>
-                </v-radio-group>
-              </v-col>
-              <v-col>
-                <v-radio-group
-                  v-model="formData.status"
-                  :rules="formRules.status"
-                  validate-on="blur"
-                  :error="localData.error"
-                  inline
-                >
-                  <template v-slot:prepend>
-                    <v-label>
-                      {{ $t('common.form.status', [$t('views.menu.form.title')]) }}:
-                    </v-label>
-                  </template>
-                  <v-radio :label="$t('common.status.enabled')" :value="1"></v-radio>
-                  <v-radio :label="$t('common.status.disabled')" :value="0"></v-radio>
                 </v-radio-group>
               </v-col>
             </v-row>

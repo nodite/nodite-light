@@ -8,6 +8,7 @@ import { TokenDestroyedError, TokenInvalidError } from 'jwt-redis';
 
 import { AuthorizedRequest } from '@/interfaces/authorizedRequest';
 import casbin from '@/nd-casbin';
+import * as utils from '@/utils';
 import { jwtAsync } from '@/utils/jwt';
 
 /**
@@ -35,7 +36,8 @@ export function Permissions(...perms: string[]) {
 
       // casbin enforce.
       const promises = perms.map(async (perm) => {
-        const [dom, obj, act] = perm.split(':');
+        const [dom, obj, act] = utils.permToCasbinPolicy(perm);
+
         const isValid = await enforcer.enforce(`sys_user:${user.userId}`, dom, obj, act);
         if (!isValid) {
           return Promise.reject(

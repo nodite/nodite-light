@@ -17,10 +17,10 @@ import {
 } from 'tsoa';
 
 import BaseController from '@/components/base.controller';
-import { QueryParams } from '@/components/base.interface';
-import { IRole } from '@/components/role/role.interface';
+import { IRole } from '@/components/role/role.model';
 import RoleService from '@/components/role/role.service';
 import { CreateValidation, EditValidation } from '@/components/role/role.validation';
+import { QueryParams } from '@/interfaces';
 
 /**
  * Class RoleController.

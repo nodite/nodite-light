@@ -4,9 +4,9 @@ import httpStatus from 'http-status';
 import lodash from 'lodash';
 import { Op } from 'sequelize';
 
-import { QueryParams } from '../base.interface';
-import { IRole } from './role.interface';
-import RoleModel from './role.model';
+import CasbinModel from '@/components/casbin/casbin.model';
+import RoleModel, { IRole } from '@/components/role/role.model';
+import { QueryParams } from '@/interfaces';
 
 export default class RoleService {
   /**
@@ -32,7 +32,7 @@ export default class RoleService {
 
     return {
       ...page,
-      items: page.items.map((i) => i.toJSON<IRole>()),
+      items: page.items.map((i) => i.toJSON<RoleModel>()),
     };
   }
 
@@ -48,7 +48,7 @@ export default class RoleService {
       throw new AppError(httpStatus.NOT_FOUND, 'Role not found');
     }
 
-    return role.toJSON<IRole>();
+    return role.toJSON<RoleModel>();
   }
 
   /**
@@ -61,7 +61,7 @@ export default class RoleService {
     if (lodash.isEmpty(roleInstance)) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Create role failed!');
     }
-    return roleInstance.toJSON<IRole>();
+    return roleInstance.toJSON<RoleModel>();
   }
 
   /**
@@ -78,7 +78,7 @@ export default class RoleService {
 
     const updatedRole = await storedRole.update(role);
 
-    return updatedRole.toJSON<IRole>();
+    return updatedRole.toJSON<RoleModel>();
   }
 
   /**
@@ -100,5 +100,18 @@ export default class RoleService {
     }
 
     return storedRole.destroy();
+  }
+
+  /**
+   * Select menu list.
+   * @param roleId
+   * @returns
+   */
+  public async selectMenuList(roleId: number): Promise<string[]> {
+    const menus = await CasbinModel.findAll({
+      attributes: ['v1'],
+      where: { ptype: 'p_role_menu', v0: roleId.toString() },
+    });
+    return menus.map((i) => i.getDataValue('v1'));
   }
 }

@@ -29,7 +29,7 @@ const errorHandling = (
         .toString(),
     );
   } else if (error instanceof SequelizeValidationError) {
-    wrappedError = new AppError(httpStatus.BAD_REQUEST, error.message);
+    wrappedError = new AppError(httpStatus.UNPROCESSABLE_ENTITY, error.message);
   }
 
   errorHandler.handleError(wrappedError);
