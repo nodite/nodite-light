@@ -17,6 +17,7 @@ import {
 } from '@nodite-light/vuetify-data-table-pagination';
 import { VDeleteConfirmForm } from '@nodite-light/vuetify-delete-confirm-form';
 import { DataTableItemProps } from '@nodite-light/vuetify-tree-data-table';
+import lodash from 'lodash';
 
 import { IRole, QueryParams, SequelizePaginationIRole } from '@/api/admin/data-contracts';
 import MenuTreeView from '@/components/treeview/MenuTreeView.vue';
@@ -57,9 +58,10 @@ const deleteConfirmFormData = ref({
   item: {} as IRole,
 });
 
-const menuTreeView = ref({
+const menuPermsView = ref({
   drawer: false,
   item: {} as IRole,
+  menuIds: [] as number[],
 });
 
 const methods = {
@@ -110,13 +112,18 @@ const methods = {
     deleteConfirmFormData.value.dialog = false;
     deleteConfirmFormData.value.item = {} as IRole;
   },
-  openMenuTreeView(item: IRole) {
-    menuTreeView.value.drawer = true;
-    menuTreeView.value.item = item;
+  async initialMenuPermsView(item: IRole) {
+    return lodash.map(await roleStore.listMenuPerms(item.roleId), 'menuId');
+  },
+  async openMenuPermsView(item: IRole) {
+    menuPermsView.value.drawer = true;
+    menuPermsView.value.item = item;
+    menuPermsView.value.menuIds = lodash.map(await roleStore.listMenuPerms(item.roleId), 'menuId');
   },
   closeMenuTreeView() {
-    menuTreeView.value.drawer = false;
-    menuTreeView.value.item = {} as IRole;
+    menuPermsView.value.drawer = false;
+    menuPermsView.value.item = {} as IRole;
+    menuPermsView.value.menuIds = [];
   },
   async saveMenuTreeView(ids: string[], cb: (close: boolean) => void) {
     try {
@@ -270,7 +277,7 @@ watchEffect(() => {
       <v-btn
         class="px-0"
         variant="text"
-        @click="methods.openMenuTreeView(item)"
+        @click="methods.openMenuPermsView(item)"
         min-width="calc(var(--v-btn-height) + 0px)"
       >
         <v-icon>mdi-menu-open</v-icon>
@@ -313,9 +320,11 @@ watchEffect(() => {
   <!-- menu perms -->
   <MenuTreeView
     :label="
-      $t('views.role.form.menuPerms', [$tnd(menuTreeView.item.iKey, menuTreeView.item.roleName)])
+      $t('views.role.form.menuPerms', [$tnd(menuPermsView.item.iKey, menuPermsView.item.roleName)])
     "
-    :drawer="menuTreeView.drawer"
+    :drawer="menuPermsView.drawer"
+    :init-method="methods.initialMenuPermsView"
+    :init-method-param="menuPermsView.item"
     @close="methods.closeMenuTreeView"
     @save="methods.saveMenuTreeView"
     checkboxes

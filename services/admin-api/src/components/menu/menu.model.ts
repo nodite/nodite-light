@@ -3,6 +3,7 @@ import { Attributes, FindOptions, ModelStatic } from 'sequelize';
 import {
   AllowNull,
   AutoIncrement,
+  BelongsToMany,
   Column,
   Comment,
   DataType,
@@ -13,6 +14,8 @@ import {
   Unique,
 } from 'sequelize-typescript';
 
+import RoleModel from '@/components/role/role.model';
+import RoleMenuModel from '@/components/role_menu/role_menu.model';
 import MenuSeeds from '@/seeds/sys_menu.seeds.json';
 
 const TABLE_NAME = 'sys_menu';
@@ -80,6 +83,13 @@ export default class MenuModel extends SequelizeModel<MenuModel> {
   @Default('')
   @Column(DataType.STRING(100))
   perms: string;
+
+  @BelongsToMany(() => RoleModel, {
+    through: () => RoleMenuModel,
+    foreignKey: { allowNull: false },
+    constraints: false,
+  })
+  roles: RoleModel[];
 
   /**
    * findAllByUserId.

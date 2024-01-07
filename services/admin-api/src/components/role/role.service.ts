@@ -4,10 +4,15 @@ import httpStatus from 'http-status';
 import lodash from 'lodash';
 import { Op } from 'sequelize';
 
-import CasbinModel from '@/components/casbin/casbin.model';
+import MenuModel, { IMenu } from '@/components/menu/menu.model';
 import RoleModel, { IRole } from '@/components/role/role.model';
 import { QueryParams } from '@/interfaces';
 
+import RoleMenuModel from '../role_menu/role_menu.model';
+
+/**
+ * Class RoleService.
+ */
 export default class RoleService {
   /**
    * Search roles.
@@ -107,11 +112,23 @@ export default class RoleService {
    * @param roleId
    * @returns
    */
-  public async selectMenuList(roleId: number): Promise<string[]> {
-    const menus = await CasbinModel.findAll({
-      attributes: ['v1'],
-      where: { ptype: 'p_role_menu', v0: roleId.toString() },
+  public async selectMenuPerms(roleId: number): Promise<Pick<IMenu, 'menuId' | 'perms'>[]> {
+    if (await RoleMenuModel.hasFullPerms(roleId)) {
+      return [{ menuId: 0, perms: '*' }];
+    }
+
+    const role = await RoleModel.findOne({
+      attributes: [],
+      where: { roleId },
+      include: [
+        {
+          model: MenuModel,
+          attributes: ['menuId', 'perms'],
+          through: { attributes: [] },
+        },
+      ],
     });
-    return menus.map((i) => i.getDataValue('v1'));
+
+    return role.menus;
   }
 }

@@ -106,7 +106,6 @@ export interface IResponseIMenuArray {
   data?: IMenu[];
 }
 
-/** Type MenuTree. */
 export type MenuTree = IMenu & {
   children?: MenuTree[];
   /** @format double */
@@ -264,6 +263,21 @@ export interface PickIRoleExcludeKeysRoleIdOrRoleKey {
 
 /** Construct a type with the properties of T except for those in type K. */
 export type OmitIRoleRoleIdOrRoleKey = PickIRoleExcludeKeysRoleIdOrRoleKey;
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickIMenuMenuIdOrPerms {
+  /** @format double */
+  menuId: number;
+  perms: string;
+}
+
+export interface IResponsePickIMenuMenuIdOrPermsArray {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: PickIMenuMenuIdOrPerms[];
+}
 
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickTypeofUserModelPrototypeOrUserIdOrUsernameOrNicknameOrEmailOrPhoneOrSexOrAvatarOrPasswordOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
