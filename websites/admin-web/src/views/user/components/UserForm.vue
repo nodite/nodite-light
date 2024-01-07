@@ -16,10 +16,8 @@ import { toast } from 'vuetify-sonner';
 
 import { IUser } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
-import { useProfileStore } from '@/stores/modules/profileStore';
 import { useUserStore } from '@/stores/modules/userStore';
 
-const profileStore = useProfileStore();
 const userStore = useUserStore();
 
 const emit = defineEmits(['close', 'save']);
@@ -90,9 +88,6 @@ const formRules = ref({
 
 // methods.
 const methods = {
-  isSelf(item: IUser) {
-    return item.userId === profileStore.profile?.userId;
-  },
   async fillFormData() {
     let user = undefined;
     if (props.userId > 0) {
@@ -307,7 +302,7 @@ watchEffect(() => {
                   :rules="formRules.status"
                   validate-on="blur"
                   :error="localData.error"
-                  :disabled="formData.userId === 1 || methods.isSelf(formData)"
+                  :disabled="formData.userId === 1"
                   inline
                 >
                   <template v-slot:prepend>
