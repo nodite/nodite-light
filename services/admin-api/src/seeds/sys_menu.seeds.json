@@ -7,8 +7,8 @@
     "icon": "",
     "iKey": "sidebar.system.overline",
     "iType": "overline",
-    "createBy": "system",
-    "updateBy": "system",
+    "createBy": "admin",
+    "updateBy": "admin",
     "deleted": 9
   },
 
@@ -20,8 +20,8 @@
     "icon": "mdi-cog-outline",
     "iKey": "sidebar.system.sys_mgmt",
     "iType": "directory",
-    "createBy": "system",
-    "updateBy": "system",
+    "createBy": "admin",
+    "updateBy": "admin",
     "deleted": 9
   },
 
@@ -37,9 +37,8 @@
     "component": "menu/ListPage",
     "layout": "ui",
     "perms": "admin:menu:list",
-    "createBy": "system",
-    "updateBy": "system",
-    "status": 9,
+    "createBy": "admin",
+    "updateBy": "admin",
     "deleted": 9
   },
   {
@@ -50,8 +49,8 @@
     "iType": "action",
     "hidden": 1,
     "perms": "admin:menu:query",
-    "createBy": "system",
-    "updateBy": "system",
+    "createBy": "admin",
+    "updateBy": "admin",
     "deleted": 9
   },
   {
@@ -62,8 +61,8 @@
     "iType": "action",
     "hidden": 1,
     "perms": "admin:menu:create",
-    "createBy": "system",
-    "updateBy": "system",
+    "createBy": "admin",
+    "updateBy": "admin",
     "deleted": 9
   },
   {
@@ -74,9 +73,8 @@
     "iType": "action",
     "hidden": 1,
     "perms": "admin:menu:edit",
-    "createBy": "system",
-    "updateBy": "system",
-    "status": 9,
+    "createBy": "admin",
+    "updateBy": "admin",
     "deleted": 9
   },
   {
@@ -87,8 +85,8 @@
     "iType": "action",
     "hidden": 1,
     "perms": "admin:menu:delete",
-    "createBy": "system",
-    "updateBy": "system",
+    "createBy": "admin",
+    "updateBy": "admin",
     "deleted": 9
   },
 
@@ -104,8 +102,8 @@
     "component": "user/ListPage",
     "layout": "ui",
     "perms": "admin:user:list",
-    "createBy": "system",
-    "updateBy": "system",
+    "createBy": "admin",
+    "updateBy": "admin",
     "deleted": 9
   },
   {
@@ -116,8 +114,8 @@
     "iType": "action",
     "hidden": 1,
     "perms": "admin:user:query",
-    "createBy": "system",
-    "updateBy": "system",
+    "createBy": "admin",
+    "updateBy": "admin",
     "deleted": 9
   },
   {
@@ -128,8 +126,8 @@
     "iType": "action",
     "hidden": 1,
     "perms": "admin:user:create",
-    "createBy": "system",
-    "updateBy": "system",
+    "createBy": "admin",
+    "updateBy": "admin",
     "deleted": 9
   },
   {
@@ -140,8 +138,8 @@
     "iType": "action",
     "hidden": 1,
     "perms": "admin:user:edit",
-    "createBy": "system",
-    "updateBy": "system",
+    "createBy": "admin",
+    "updateBy": "admin",
     "deleted": 9
   },
   {
@@ -152,8 +150,8 @@
     "iType": "action",
     "hidden": 1,
     "perms": "admin:user:resetPassword",
-    "createBy": "system",
-    "updateBy": "system",
+    "createBy": "admin",
+    "updateBy": "admin",
     "deleted": 9
   },
   {
@@ -164,8 +162,8 @@
     "iType": "action",
     "hidden": 1,
     "perms": "admin:user:delete",
-    "createBy": "system",
-    "updateBy": "system",
+    "createBy": "admin",
+    "updateBy": "admin",
     "deleted": 9
   },
 
@@ -181,8 +179,8 @@
     "component": "role/ListPage",
     "layout": "ui",
     "perms": "admin:role:list",
-    "createBy": "system",
-    "updateBy": "system",
+    "createBy": "admin",
+    "updateBy": "admin",
     "deleted": 9
   },
   {
@@ -193,8 +191,8 @@
     "iType": "action",
     "hidden": 1,
     "perms": "admin:role:query",
-    "createBy": "system",
-    "updateBy": "system",
+    "createBy": "admin",
+    "updateBy": "admin",
     "deleted": 9
   },
   {
@@ -205,8 +203,8 @@
     "iType": "action",
     "hidden": 1,
     "perms": "admin:role:create",
-    "createBy": "system",
-    "updateBy": "system",
+    "createBy": "admin",
+    "updateBy": "admin",
     "deleted": 9
   },
   {
@@ -217,8 +215,8 @@
     "iType": "action",
     "hidden": 1,
     "perms": "admin:role:edit",
-    "createBy": "system",
-    "updateBy": "system",
+    "createBy": "admin",
+    "updateBy": "admin",
     "deleted": 9
   },
   {
@@ -229,8 +227,8 @@
     "iType": "action",
     "hidden": 1,
     "perms": "admin:role:delete",
-    "createBy": "system",
-    "updateBy": "system",
+    "createBy": "admin",
+    "updateBy": "admin",
     "deleted": 9
   }
 ]

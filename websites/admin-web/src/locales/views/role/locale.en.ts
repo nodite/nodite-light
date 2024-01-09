@@ -1,5 +1,6 @@
 export default {
   admin: 'Super Admin',
+  viewer: 'Viewer',
 
   form: {
     title: 'Role',

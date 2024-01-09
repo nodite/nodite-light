@@ -5,9 +5,14 @@ import lodash from 'lodash';
 import { Op } from 'sequelize';
 
 import CasbinModel from '@/components/casbin/casbin.model';
+import MenuModel, { IMenu } from '@/components/menu/menu.model';
 import RoleModel, { IRole } from '@/components/role/role.model';
+import RoleMenuModel from '@/components/role_menu/role_menu.model';
 import { QueryParams } from '@/interfaces';
 
+/**
+ * Class RoleService.
+ */
 export default class RoleService {
   /**
    * Search roles.
@@ -59,7 +64,7 @@ export default class RoleService {
   public async create(role: IRole): Promise<IRole> {
     const roleInstance = await RoleModel.create({ ...role });
     if (lodash.isEmpty(roleInstance)) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Create role failed!');
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Create role failed!');
     }
     return roleInstance.toJSON<RoleModel>();
   }
@@ -72,8 +77,8 @@ export default class RoleService {
   public async update(id: number, role: IRole): Promise<IRole> {
     const storedRole = await RoleModel.findOne({ where: { roleId: id } });
 
-    if (lodash.isEmpty(storedRole)) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Role was not found!');
+    if (id === 1 && !!role.roleKey && role.roleKey !== storedRole.roleKey) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'roleKey is not allow update for admin!');
     }
 
     const updatedRole = await storedRole.update(role);
@@ -87,16 +92,20 @@ export default class RoleService {
    * @returns
    */
   public async delete(id: number): Promise<void> {
+    if (id === 1) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Role is not allow delete!');
+    }
+
     // todo: check role is using, if using, not allow delete.
 
     const storedRole = await RoleModel.findOne({ where: { roleId: id } });
 
     if (lodash.isEmpty(storedRole)) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Role was not found!');
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Role was not found!');
     }
 
     if (storedRole.getDataValue('deleted') === 9) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Role is not allow delete!');
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Role is not allow delete!');
     }
 
     return storedRole.destroy();
@@ -107,11 +116,69 @@ export default class RoleService {
    * @param roleId
    * @returns
    */
-  public async selectMenuList(roleId: number): Promise<string[]> {
-    const menus = await CasbinModel.findAll({
-      attributes: ['v1'],
-      where: { ptype: 'p_role_menu', v0: roleId.toString() },
+  public async selectMenuPerms(roleId: number): Promise<Pick<IMenu, 'menuId' | 'perms'>[]> {
+    if (await RoleMenuModel.hasFullPerms(roleId)) {
+      return [{ menuId: 0, perms: '*:*:*' }];
+    }
+
+    const role = await RoleModel.findOne({
+      attributes: [],
+      where: { roleId },
+      include: [
+        {
+          model: MenuModel,
+          attributes: ['menuId', 'perms'],
+          through: { attributes: [] },
+        },
+      ],
     });
-    return menus.map((i) => i.getDataValue('v1'));
+
+    return role.menus;
+  }
+
+  /**
+   * Save menu perms.
+   * @param roleId
+   * @param menuIds
+   */
+  public async updateMenuPerms(roleId: number, menuIds: number[]): Promise<void> {
+    if (roleId === 1) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Role is not allow update!');
+    }
+
+    // transaction starting.
+    const transaction = await RoleMenuModel.sequelize.transaction();
+
+    // role menu associate.
+    await RoleMenuModel.destroy({ where: { roleId }, transaction });
+
+    await RoleMenuModel.bulkCreate(
+      menuIds.map((menuId) => ({ roleId, menuId })),
+      { transaction },
+    );
+
+    // casbin.
+    await CasbinModel.removeRolePolicies(roleId, transaction);
+
+    if (!lodash.isEmpty(menuIds)) {
+      const menuPerms = menuIds.includes(0)
+        ? ['*:*:*']
+        : lodash
+            .chain(
+              await MenuModel.findAll({
+                attributes: ['perms'],
+                where: { menuId: menuIds },
+                transaction,
+              }),
+            )
+            .map('perms')
+            .filter()
+            .value();
+
+      await CasbinModel.addRolePolicies(roleId, menuPerms, transaction);
+    }
+
+    // transaction commit.
+    await transaction.commit();
   }
 }

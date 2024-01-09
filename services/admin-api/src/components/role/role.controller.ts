@@ -17,6 +17,7 @@ import {
 } from 'tsoa';
 
 import BaseController from '@/components/base.controller';
+import { IMenu } from '@/components/menu/menu.model';
 import { IRole } from '@/components/role/role.model';
 import RoleService from '@/components/role/role.service';
 import { CreateValidation, EditValidation } from '@/components/role/role.validation';
@@ -98,6 +99,29 @@ export class RoleController extends BaseController {
   @Permissions('admin:role:delete')
   public async delete(@Path() id: number): Promise<IResponse<void>> {
     await this.roleService.delete(id);
+    this.setStatus(httpStatus.NO_CONTENT);
+    return this.response();
+  }
+
+  @Get('{id}/perms')
+  @OperationId('admin:role:perms:list')
+  @Permissions('admin:role:perms:list')
+  public async listMenuPerms(
+    @Path() id: number,
+  ): Promise<IResponse<Pick<IMenu, 'menuId' | 'perms'>[]>> {
+    const menuPerms = await this.roleService.selectMenuPerms(id);
+    this.setStatus(httpStatus.OK);
+    return this.response(menuPerms);
+  }
+
+  @Put('{id}/perms')
+  @OperationId('admin:role:perms:update')
+  @Permissions('admin:role:perms:update')
+  public async updateMenuPerms(
+    @Path() id: number,
+    @Body() menuPerms: number[],
+  ): Promise<IResponse<void>> {
+    await this.roleService.updateMenuPerms(id, menuPerms);
     this.setStatus(httpStatus.NO_CONTENT);
     return this.response();
   }

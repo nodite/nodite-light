@@ -1,5 +1,6 @@
 export default {
   admin: '超级管理员',
+  viewer: '访客',
 
   form: {
     title: '角色',

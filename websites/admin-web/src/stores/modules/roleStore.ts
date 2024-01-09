@@ -13,7 +13,12 @@
 
 import lodash from 'lodash';
 
-import { IRole, QueryParams, SequelizePaginationIRole } from '@/api/admin/data-contracts';
+import {
+  IRole,
+  PickIMenuMenuIdOrPerms,
+  QueryParams,
+  SequelizePaginationIRole,
+} from '@/api/admin/data-contracts';
 import * as RoleApi from '@/api/admin/Role';
 
 type RoleState = {
@@ -67,6 +72,22 @@ export const useRoleStore = defineStore('role', {
     async delete(id: number): Promise<void> {
       await RoleApi.adminRoleDelete(id);
       await this.$reset();
+    },
+    /**
+     * List menu perms.
+     * @param roleId
+     * @returns
+     */
+    async listMenuPerms(roleId: number): Promise<PickIMenuMenuIdOrPerms[] | undefined> {
+      return await RoleApi.adminRolePermsList(roleId);
+    },
+    /**
+     * Update menu perms.
+     * @param roleId
+     * @param menuIds
+     */
+    async updateMenuPerms(roleId: number, menuIds: number[]): Promise<void> {
+      await RoleApi.adminRolePermsUpdate(roleId, menuIds);
     },
   },
 });

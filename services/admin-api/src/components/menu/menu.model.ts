@@ -1,18 +1,20 @@
 import { SequelizeModel, Subscription } from '@nodite-light/admin-database';
-import { Attributes, FindOptions, ModelStatic } from 'sequelize';
+import { Attributes, FindOptions } from 'sequelize';
 import {
   AllowNull,
   AutoIncrement,
+  BelongsToMany,
   Column,
   Comment,
   DataType,
   Default,
-  Model,
   PrimaryKey,
   Table,
   Unique,
 } from 'sequelize-typescript';
 
+import RoleModel from '@/components/role/role.model';
+import RoleMenuModel from '@/components/role_menu/role_menu.model';
 import MenuSeeds from '@/seeds/sys_menu.seeds.json';
 
 const TABLE_NAME = 'sys_menu';
@@ -81,19 +83,25 @@ export default class MenuModel extends SequelizeModel<MenuModel> {
   @Column(DataType.STRING(100))
   perms: string;
 
+  @BelongsToMany(() => RoleModel, {
+    through: () => RoleMenuModel,
+    foreignKey: { allowNull: false },
+    constraints: false,
+  })
+  roles: RoleModel[];
+
   /**
    * findAllByUserId.
    * @param userId
    * @returns
    */
-  public static findAllByUserId<M extends Model>(
-    this: ModelStatic<M>,
+  public static findAllByUserId(
     userId?: number,
-    options?: FindOptions<Attributes<M>>,
-  ): Promise<M[]> {
+    options?: FindOptions<Attributes<MenuModel>>,
+  ): Promise<MenuModel[]> {
     if (!userId) return Promise.resolve([]);
     // TODO: user permission
-    return this.findAll<M>(options);
+    return this.findAll<MenuModel>(options);
   }
 }
 

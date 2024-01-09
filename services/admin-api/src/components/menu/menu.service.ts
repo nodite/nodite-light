@@ -55,11 +55,6 @@ export default class MenuService {
    */
   public async selectMenuById(id: number): Promise<IMenu> {
     const menu = await MenuModel.findOne({ where: { menuId: id } });
-
-    if (lodash.isEmpty(menu)) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Menu was not found!');
-    }
-
     return menu.toJSON<MenuModel>();
   }
 
@@ -81,13 +76,7 @@ export default class MenuService {
    */
   public async update(id: number, menu: IMenu): Promise<IMenu> {
     const storedMenu = await MenuModel.findOne({ where: { menuId: id } });
-
-    if (lodash.isEmpty(storedMenu)) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Menu was not found!');
-    }
-
     const updatedUser = await storedMenu.update(menu);
-
     return updatedUser.toJSON<MenuModel>();
   }
 
@@ -99,7 +88,7 @@ export default class MenuService {
     const storedMenu = await MenuModel.findOne({ where: { menuId: id } });
 
     if (storedMenu.getDataValue('deleted') === 9) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Menu is not allow delete!');
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Menu is not allow delete!');
     }
 
     return storedMenu.destroy();

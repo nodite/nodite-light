@@ -37,9 +37,13 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  selectedIds: {
-    type: Array<string | number>,
-    default: () => [],
+  initMethod: {
+    type: Function,
+    required: true,
+  },
+  initMethodParam: {
+    type: Object,
+    default: () => ({}),
   },
   checkboxes: {
     type: Boolean,
@@ -49,12 +53,13 @@ const props = defineProps({
 
 const defLocalData = {
   drawer: props.drawer,
-  expand: false,
-  selectAll: props.selectedIds.includes('*'),
-  linkage: true,
   treeConfig: {
     checkboxes: props.checkboxes,
   },
+  selectedIds: [] as number[],
+  expand: false,
+  selectAll: false,
+  linkage: false,
   treeNodes: {} as Record<string, TreeNode>,
   isSaving: false,
 };
@@ -62,6 +67,9 @@ const defLocalData = {
 const localData = ref(lodash.cloneDeep(defLocalData));
 
 const methods = {
+  /**
+   * getNodes
+   */
   async getNodes() {
     const menus = await menuStore.list();
 
@@ -74,7 +82,7 @@ const methods = {
           item: menu,
           state: {
             opened: localData.value.expand,
-            checked: localData.value.selectAll || props.selectedIds.includes(menu.menuId),
+            checked: localData.value.selectAll || localData.value.selectedIds.includes(menu.menuId),
             disabled: localData.value.selectAll,
           },
           children: lodash
@@ -98,63 +106,52 @@ const methods = {
     );
 
     lodash.forEach(localData.value.treeNodes, (node) => {
-      methods._parentState(node);
+      methods._updateNodeState(node);
     });
   },
-  expandOrCollapse(expand: boolean) {
+  /**
+   * expandOrCollapse
+   * @param expand
+   */
+  async expandOrCollapse(expand: boolean) {
     lodash.forEach(localData.value.treeNodes, (node) => {
       node.state.opened = expand;
     });
   },
-  selectAllOrNone(all: boolean) {
+  /**
+   * selectAllOrNone
+   * @param all
+   */
+  async selectAllOrNone(check: boolean) {
     lodash.forEach(localData.value.treeNodes, (node) => {
-      node.state.checked = all;
-      node.state.disabled = all;
+      node.state.disabled = check;
+      node.state.indeterminate = false;
+      node.state.checked = check;
     });
   },
+  /**
+   * checkOrUncheck
+   * @param node
+   */
   checkOrUncheck(node: TreeNode) {
-    if (localData.value.linkage) methods._linkageCheck(node, node.state.checked);
-    methods._parentState(node);
-  },
-  _linkageCheck(node: TreeNode, checked?: boolean) {
-    node.state.checked = checked;
-    lodash.forEach(node.children, (id) => {
-      methods._linkageCheck(localData.value.treeNodes[id], checked);
-    });
-  },
-  _parentState(node: TreeNode) {
-    const parent = localData.value.treeNodes[node.item.parentId];
-
-    if (!parent) return;
-
-    // checked if all children checked
-    parent.state.checked = lodash.every(parent.children, (id) => {
-      return localData.value.treeNodes[id].state.checked;
-    });
-
-    // current is indeterminate, the parent must indeterminate.
-    if (node.state.indeterminate) {
-      parent.state.indeterminate = true;
-    }
-    // indeterminate if some children checked, but not all.
-    else if (!parent.state.checked) {
-      parent.state.indeterminate = lodash.some(parent.children, (id) => {
-        return (
-          localData.value.treeNodes[id].state.indeterminate ||
-          localData.value.treeNodes[id].state.checked
-        );
+    const _linkage = (node: TreeNode, checked?: boolean) => {
+      node.state.indeterminate = false;
+      node.state.checked = checked;
+      lodash.forEach(node.children, (id) => {
+        _linkage(localData.value.treeNodes[id], checked);
       });
-    } else {
-      parent.state.indeterminate = false;
+    };
+
+    if (localData.value.linkage) {
+      _linkage(node, node.state.checked);
     }
 
-    // opened if checked or indeterminate
-    if (!parent.state.opened) {
-      parent.state.opened = parent.state.checked || parent.state.indeterminate;
-    }
-
-    methods._parentState(parent);
+    methods._updateNodeState(node);
   },
+  /**
+   * closeTreeView
+   * @param drawer
+   */
   closeTreeView(drawer: boolean = false) {
     if (drawer) return;
 
@@ -164,34 +161,86 @@ const methods = {
     }
 
     localData.value = lodash.cloneDeep(defLocalData);
+
     emit('close');
   },
+  /**
+   * save
+   */
   save() {
     localData.value.isSaving = true;
 
-    const ids = lodash
-      .chain(localData.value.treeNodes)
-      .filter((node) => Boolean(node.state.checked))
-      .map('id')
-      .value();
+    const ids = localData.value.selectAll
+      ? [0]
+      : lodash
+          .chain(localData.value.treeNodes)
+          .filter((node) => Boolean(node.state.checked))
+          .map((m) => Number(m.id))
+          .value();
 
     emit('save', ids, (close: boolean = true) => {
       localData.value.isSaving = false;
       if (close) methods.closeTreeView(false);
     });
   },
+  /**
+   * _parentState
+   * @param node
+   */
+  _updateNodeState(node: TreeNode) {
+    // the current checked, the current not indeterminate.
+    if (node.state.checked) node.state.indeterminate = false;
+
+    // the current indeterminate, the current not checked.
+    if (node.state.indeterminate) node.state.checked = false;
+
+    // some children indeterminate/checked, the current must indeterminate.
+    if (!node.state.checked && !node.state.indeterminate) {
+      node.state.indeterminate = lodash.some(node.children, (id) => {
+        return (
+          localData.value.treeNodes[id].state.indeterminate ||
+          localData.value.treeNodes[id].state.checked
+        );
+      });
+    }
+
+    // to parent.
+    const parent = localData.value.treeNodes[node.item.parentId];
+
+    if (!parent) return;
+
+    // the current indeterminate, the parent must indeterminate.
+    if (node.state.indeterminate) {
+      parent.state.indeterminate = true;
+    }
+
+    // some parent's children indeterminate/checked, the parent must indeterminate.
+    if (parent.state.indeterminate) {
+      parent.state.indeterminate = lodash.some(parent.children, (id) => {
+        return (
+          localData.value.treeNodes[id].state.indeterminate ||
+          localData.value.treeNodes[id].state.checked
+        );
+      });
+    }
+
+    // the parent is opened if current is checked/opened.
+    if (node.state.checked || node.state.opened) {
+      parent.state.opened = true;
+    }
+
+    methods._updateNodeState(parent);
+  },
 };
 
-onMounted(() => {
-  methods.getNodes();
-});
+watchEffect(async () => {
+  localData.value.drawer = props.drawer;
+  localData.value.treeConfig.checkboxes = props.checkboxes;
 
-watchEffect(() => {
-  if (localData.value.drawer !== props.drawer) {
-    localData.value.drawer = props.drawer;
-    localData.value.selectAll = props.selectedIds.includes('*');
-    localData.value.treeConfig.checkboxes = props.checkboxes;
-    methods.getNodes();
+  if (!lodash.isEmpty(props.initMethodParam)) {
+    localData.value.selectedIds = await props.initMethod(props.initMethodParam);
+    localData.value.selectAll = localData.value.selectedIds.includes(0);
+    await methods.getNodes();
   }
 });
 </script>

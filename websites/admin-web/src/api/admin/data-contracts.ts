@@ -69,7 +69,7 @@ export interface IResponseJwtDestroyType {
 
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickTypeofMenuModelPrototypeOrMenuIdOrMenuNameOrParentIdOrOrderNumOrIconOrIKeyOrITypeOrPathOrRedirectOrComponentOrHiddenOrLayoutOrPermsOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
-  status: 0 | 1 | 9;
+  status: 0 | 1;
   deleted: 0 | 1 | 9;
   createBy: string;
   /** @format date-time */
@@ -106,7 +106,6 @@ export interface IResponseIMenuArray {
   data?: IMenu[];
 }
 
-/** Type MenuTree. */
 export type MenuTree = IMenu & {
   children?: MenuTree[];
   /** @format double */
@@ -131,7 +130,7 @@ export interface IResponseIMenu {
 
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickIMenuExcludeKeysMenuId {
-  status: 0 | 1 | 9;
+  status: 0 | 1;
   deleted: 0 | 1 | 9;
   createBy: string;
   /** @format date-time */
@@ -168,7 +167,7 @@ export interface IResponseVoid {
 
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickTypeofRoleModelPrototypeOrRoleIdOrRoleNameOrRoleKeyOrOrderNumOrIKeyOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
-  status: 0 | 1 | 9;
+  status: 0 | 1;
   deleted: 0 | 1 | 9;
   createBy: string;
   /** @format date-time */
@@ -228,7 +227,7 @@ export interface IResponseIRole {
 
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickIRoleExcludeKeysRoleId {
-  status: 0 | 1 | 9;
+  status: 0 | 1;
   deleted: 0 | 1 | 9;
   createBy: string;
   /** @format date-time */
@@ -248,7 +247,7 @@ export type OmitIRoleRoleId = PickIRoleExcludeKeysRoleId;
 
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickIRoleExcludeKeysRoleIdOrRoleKey {
-  status: 0 | 1 | 9;
+  status: 0 | 1;
   deleted: 0 | 1 | 9;
   createBy: string;
   /** @format date-time */
@@ -266,6 +265,21 @@ export interface PickIRoleExcludeKeysRoleIdOrRoleKey {
 export type OmitIRoleRoleIdOrRoleKey = PickIRoleExcludeKeysRoleIdOrRoleKey;
 
 /** From T, pick a set of properties whose keys are in the union K */
+export interface PickIMenuMenuIdOrPerms {
+  /** @format double */
+  menuId: number;
+  perms: string;
+}
+
+export interface IResponsePickIMenuMenuIdOrPermsArray {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: PickIMenuMenuIdOrPerms[];
+}
+
+/** From T, pick a set of properties whose keys are in the union K */
 export interface PickTypeofUserModelPrototypeOrUserIdOrUsernameOrNicknameOrEmailOrPhoneOrSexOrAvatarOrPasswordOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
   /** @format double */
   userId: number;
@@ -276,7 +290,7 @@ export interface PickTypeofUserModelPrototypeOrUserIdOrUsernameOrNicknameOrEmail
   sex: 0 | 1;
   avatar: string;
   password: string;
-  status: 0 | 1 | 9;
+  status: 0 | 1;
   deleted: 0 | 1 | 9;
   createBy: string;
   /** @format date-time */
@@ -328,7 +342,7 @@ export interface PickIUserExcludeKeysUserId {
   sex: 0 | 1;
   avatar: string;
   password: string;
-  status: 0 | 1 | 9;
+  status: 0 | 1;
   deleted: 0 | 1 | 9;
   createBy: string;
   /** @format date-time */
@@ -348,7 +362,7 @@ export interface PickIUserExcludeKeysUserIdOrUsernameOrPassword {
   phone: string;
   sex: 0 | 1;
   avatar: string;
-  status: 0 | 1 | 9;
+  status: 0 | 1;
   deleted: 0 | 1 | 9;
   createBy: string;
   /** @format date-time */

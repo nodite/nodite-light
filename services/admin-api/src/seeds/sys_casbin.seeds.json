@@ -2,5 +2,10 @@
   { "id": 1, "ptype": "p", "v0": "sys_role:1", "v1": "*", "v2": "*", "v3": "*" },
   { "id": 2, "ptype": "p", "v0": "sys_user:1", "v1": "*", "v2": "*", "v3": "*" },
   { "id": 3, "ptype": "g", "v0": "sys_user:1", "v1": "sys_role:1" },
-  { "id": 4, "ptype": "g_role_menu", "v0": "1", "v1": "*" }
+  { "id": 4, "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "menu", "v3": "list" },
+  { "id": 5, "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "menu", "v3": "query" },
+  { "id": 6, "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "user", "v3": "list" },
+  { "id": 7, "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "user", "v3": "query" },
+  { "id": 8, "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role", "v3": "list" },
+  { "id": 9, "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role", "v3": "query" }
 ]

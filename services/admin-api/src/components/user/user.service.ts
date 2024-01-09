@@ -115,10 +115,6 @@ export default class UserService {
 
     const storedUser = await UserModel.findOne({ where: { userId: id } });
 
-    if (lodash.isEmpty(storedUser)) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'User was not created!');
-    }
-
     if (!user.password || storedUser.getDataValue('password') === user.password) {
       storedUser.skipBcryptPassword = true;
     } else {
@@ -147,19 +143,19 @@ export default class UserService {
    */
   public async delete(id: number): Promise<void> {
     if (this.isAdmin(id)) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Cannot delete admin user!');
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Cannot delete admin user!');
     }
 
     const requester = httpContext.get('user') as AuthorizedRequest['user'];
 
     if (id === requester.userId) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Cannot delete yourself!');
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Cannot delete yourself!');
     }
 
     const storedUser = await UserModel.findOne({ where: { userId: id } });
 
     if (storedUser.getDataValue('deleted') === 9) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'User is not allow delete!');
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'User is not allow delete!');
     }
 
     return storedUser.destroy();
