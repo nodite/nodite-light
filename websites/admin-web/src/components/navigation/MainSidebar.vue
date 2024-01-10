@@ -14,12 +14,8 @@ import { NavigationConfig } from '@/types/config';
 const customizeTheme = useCustomizeThemeStore();
 const menus = ref([] as NavigationConfig.Menu[]);
 
-watchEffect(() => {
-  useNavStore()
-    .getSidebar()
-    .then((res) => {
-      menus.value = res;
-    });
+onMounted(async () => {
+  menus.value = await useNavStore().getSidebar();
 });
 
 const openGithubSite = () => {
