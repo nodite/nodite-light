@@ -9,7 +9,7 @@ export default {
     orderNum: 'Order',
     iKey: 'i18n Key',
     iKeyHint: 'Please contact the frontend engineer to add to locales.',
-    menuPerms: 'Menu Perms ({0})',
+    menuPerms: 'Menu Perms',
   },
 
   headers: {
@@ -18,5 +18,9 @@ export default {
     i18nName: 'I18n Name',
     roleKey: 'Role Key',
     orderNum: 'Order',
+  },
+
+  user_asgmt: {
+    title: 'User Asgmt',
   },
 };

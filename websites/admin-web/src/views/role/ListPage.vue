@@ -126,6 +126,9 @@ const methods = {
     menuPermsView.value.item = {} as IRole;
     menuPermsView.value.menuIds = [];
   },
+  async openUserAsgmtPage(item: IRole) {
+    toast.warning('Not implemented yet.');
+  },
   async saveMenuTreeView(ids: number[], cb: (close: boolean) => void) {
     try {
       roleStore.updateMenuPerms(menuPermsView.value.item.roleId, ids);
@@ -277,16 +280,6 @@ watchEffect(() => {
 
       <v-btn
         class="px-0"
-        variant="text"
-        @click="methods.openMenuPermsView(item)"
-        min-width="calc(var(--v-btn-height) + 0px)"
-        :disabled="item.roleId == 1"
-      >
-        <v-icon>mdi-menu-open</v-icon>
-      </v-btn>
-
-      <v-btn
-        class="px-0"
         color="red"
         variant="text"
         @click="methods.openDeleteConfirmForm(item)"
@@ -295,6 +288,45 @@ watchEffect(() => {
       >
         <v-icon>mdi-delete</v-icon>
       </v-btn>
+
+      <v-menu transition="scroll-y-transition">
+        <template v-slot:activator="{ props }">
+          <v-btn
+            v-bind="props"
+            class="px-0"
+            variant="text"
+            min-width="calc(var(--v-btn-height) + 0px)"
+          >
+            <v-icon>mdi-chevron-down</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list density="compact">
+          <v-list-item>
+            <v-btn
+              color="primary"
+              variant="tonal"
+              density="comfortable"
+              @click="methods.openMenuPermsView(item)"
+              :disabled="item.roleId == 1"
+              prepend-icon="mdi-eye"
+            >
+              <v-label>{{ $t('views.role.form.menuPerms') }}</v-label>
+            </v-btn>
+          </v-list-item>
+          <v-list-item>
+            <v-btn
+              color="primary"
+              variant="tonal"
+              density="comfortable"
+              @click="methods.openUserAsgmtPage(item)"
+              prepend-icon="mdi-checkbox-multiple-marked-outline"
+            >
+              <v-label>{{ $t('views.role.user_asgmt.title') }}</v-label>
+            </v-btn>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </template>
 
     <template v-slot:bottom>
@@ -321,9 +353,10 @@ watchEffect(() => {
 
   <!-- menu perms -->
   <MenuTreeView
-    :label="
-      $t('views.role.form.menuPerms', [$tnd(menuPermsView.item.iKey, menuPermsView.item.roleName)])
-    "
+    :label="`${$t('views.role.form.menuPerms')} (${$tnd(
+      menuPermsView.item.iKey,
+      menuPermsView.item.roleName,
+    )})`"
     :drawer="menuPermsView.drawer"
     :init-method="methods.initialMenuPermsView"
     :init-method-param="menuPermsView.item"

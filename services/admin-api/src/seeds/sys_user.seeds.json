@@ -5,7 +5,7 @@
     "email": "admin@nodite.com",
     "password": "admin",
     "createBy": "admin",
-    "updateBy": "system"
+    "updateBy": "admin"
   },
   {
     "userId": 2,
@@ -13,6 +13,6 @@
     "email": "viewer@nodite.com",
     "password": "viewer",
     "createBy": "admin",
-    "updateBy": "system"
+    "updateBy": "admin"
   }
 ]

@@ -61,6 +61,7 @@ router.beforeEach(async (to, from) => {
 
   const profileStore = useProfileStore();
   const navStore = useNavStore();
+
   try {
     if (!navStore.isRouterReady) {
       // Waiting profile ready.
@@ -80,8 +81,8 @@ router.beforeEach(async (to, from) => {
       // Get sidebar.
       await navStore.getSidebar();
 
-      lodash.unset(to, 'name');
-      return lodash.merge(to, { replace: true });
+      // @see https://router.vuejs.org/guide/advanced/dynamic-routing.html
+      return to.fullPath;
     }
   } catch (error) {
     await authStore.logout(false);

@@ -77,7 +77,9 @@ const formRules = ref({
   ],
   iKey: [],
   icon: [],
-  path: [],
+  path: [
+    (v: string) => !v || v.startsWith('/') || i18n.global.t('common.form.startswith', [v, '/']),
+  ],
   redirect: [],
   component: [],
   layout: [

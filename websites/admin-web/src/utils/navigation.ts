@@ -36,11 +36,14 @@ export const loadComponent = (component: string) => {
  * @param menu
  * @returns
  */
-export const convertMenuToRouter = (menu: MenuTree): NavigationConfig.Router => {
-  return {
+export const convertMenuToRouter = (
+  menu: MenuTree,
+  routerView: boolean = true,
+): NavigationConfig.Router => {
+  const router = {
     path: menu.path,
     redirect: menu.redirect || undefined,
-    component: loadComponent(menu.component),
+    component: routerView ? loadComponent(menu.component) : undefined,
     meta: {
       icon: menu.icon || '',
       iKey: menu.iKey || '',
@@ -53,6 +56,16 @@ export const convertMenuToRouter = (menu: MenuTree): NavigationConfig.Router => 
       level: menu.level || 0,
     },
   } as NavigationConfig.Router;
+
+  return (
+    routerView
+      ? lodash
+          .chain(lodash.cloneDeep(router))
+          .omit('redirect', 'component')
+          .set('children', [lodash.set(router, 'path', '')])
+          .value()
+      : router
+  ) as NavigationConfig.Router;
 };
 
 /**
@@ -60,22 +73,32 @@ export const convertMenuToRouter = (menu: MenuTree): NavigationConfig.Router => 
  * @param menuTree
  * @returns
  */
-export const convertMenuTreeToRouter = (
+export const convertTreeToRoute = (
   menuTree?: MenuTree[],
+  routerView: boolean = true,
 ): NavigationConfig.Router[] | undefined => {
-  return lodash.map(menuTree, (menu) => {
-    const router = convertMenuToRouter(menu);
+  return lodash
+    .chain(menuTree)
+    .map((menu) => {
+      const router = convertMenuToRouter(menu, routerView);
 
-    if (!router.component) {
-      delete router.component;
-    }
+      if (!router.component) {
+        delete router.component;
+      }
 
-    if (menu.children && menu.children.length > 0) {
-      router.children = convertMenuTreeToRouter(menu.children);
-    } else {
-      delete router.children;
-    }
+      if (!lodash.isEmpty(menu.children)) {
+        router.children = lodash.concat(
+          router.children || [],
+          convertTreeToRoute(menu.children, routerView) || [],
+        );
+      }
 
-    return router;
-  });
+      if (lodash.isEmpty(router.children)) {
+        delete router.children;
+      }
+
+      return router;
+    })
+    .filter()
+    .value() as NavigationConfig.Router[];
 };

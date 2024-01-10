@@ -9,7 +9,7 @@ try {
   if (browserLang == 'zh') locale = 'zhHans';
   if (supported.includes(browserLang)) locale = browserLang;
 } catch (e) {
-  console.log(e);
+  console.error(e);
 }
 
 export default {

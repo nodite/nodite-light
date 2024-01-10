@@ -9,7 +9,7 @@ export default {
     orderNum: '排序',
     iKey: '国际化键',
     iKeyHint: '请联系前端同学添加至 locales',
-    menuPerms: '菜单权限 ({0})',
+    menuPerms: '菜单权限',
   },
 
   headers: {
@@ -18,5 +18,9 @@ export default {
     i18nName: '国际化名称',
     roleKey: '角色标识',
     orderNum: '排序',
+  },
+
+  user_asgmt: {
+    title: '用户分配',
   },
 };

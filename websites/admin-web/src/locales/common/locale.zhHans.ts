@@ -41,5 +41,6 @@ export default {
     notEq: '{0}与{1}不一致',
     search: '搜索',
     reset: '重置',
+    startswith: '{0}必须以{1}开头',
   },
 };

@@ -17,6 +17,7 @@ watchEffect(() => {
 
   breadcrumbs.value = lodash
     .chain(route.matched)
+    .sortedUniqBy((item) => item.path + item.meta?.title)
     .map((item) => {
       return {
         to: item.path ? { path: item.path } : undefined,
