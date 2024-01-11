@@ -48,7 +48,7 @@ export const useNavStore = defineStore('nav', {
      */
     async getRoutes(): Promise<NavigationConfig.Router[]> {
       if (!this.routesLoaded) {
-        this.routes = navUtil.convertMenuTreeToRouter(await useMenuStore().listTree()) || [];
+        this.routes = navUtil.convertTreeToRoute(await useMenuStore().listTree()) || [];
         this.routesLoaded = true;
       }
       return this.routes;
@@ -60,12 +60,13 @@ export const useNavStore = defineStore('nav', {
      */
     async getSidebar(): Promise<NavigationConfig.Menu[]> {
       if (!this.sidebarLoaded) {
-        this.sidebar = this._filterSideber([...staticRoutes, ...(await this.getRoutes())]).filter(
-          (route) => {
-            // remove non-root menu on sidebar root.
-            return lodash.toInteger(route.meta?.parentId) === 0;
-          },
-        );
+        const routes = navUtil.convertTreeToRoute(await useMenuStore().listTree(), false) || [];
+
+        this.sidebar = this._filterSideber([...staticRoutes, ...routes]).filter((route) => {
+          // remove non-root menu on sidebar root.
+          return lodash.toInteger(route.meta?.parentId) === 0;
+        });
+
         this.sidebarLoaded = true;
       }
       return this.sidebar;
