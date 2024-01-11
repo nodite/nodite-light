@@ -88,7 +88,7 @@ const formRules = ref({
 
 // methods.
 const methods = {
-  async fillFormData() {
+  async loadFormData() {
     let user = undefined;
     if (props.userId > 0) {
       user = await userStore.query(props.userId);
@@ -143,7 +143,7 @@ watchEffect(() => {
 
   localData.value.dialog = props.dialog;
 
-  methods.fillFormData();
+  methods.loadFormData();
 });
 </script>
 

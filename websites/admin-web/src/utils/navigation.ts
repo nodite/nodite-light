@@ -32,15 +32,15 @@ export const loadComponent = (component: string) => {
 };
 
 /**
- * Convert menu to router.
+ * Convert menu to route.
  * @param menu
  * @returns
  */
-export const convertMenuToRouter = (
+export const convertMenuItemToRoute = (
   menu: MenuTree,
   routerView: boolean = true,
 ): NavigationConfig.Router => {
-  const router = {
+  const route = {
     path: menu.path,
     redirect: menu.redirect || undefined,
     component: routerView ? loadComponent(menu.component) : undefined,
@@ -60,44 +60,44 @@ export const convertMenuToRouter = (
   return (
     routerView
       ? lodash
-          .chain(lodash.cloneDeep(router))
+          .chain(lodash.cloneDeep(route))
           .omit('redirect', 'component')
-          .set('children', [lodash.set(router, 'path', '')])
+          .set('children', [lodash.set(route, 'path', '')])
           .value()
-      : router
+      : route
   ) as NavigationConfig.Router;
 };
 
 /**
- * Convert menu tree to routers.
+ * Convert menu tree to routes.
  * @param menuTree
  * @returns
  */
-export const convertTreeToRoute = (
+export const convertMenuTreeToRoutes = (
   menuTree?: MenuTree[],
   routerView: boolean = true,
 ): NavigationConfig.Router[] | undefined => {
   return lodash
     .chain(menuTree)
     .map((menu) => {
-      const router = convertMenuToRouter(menu, routerView);
+      const route = convertMenuItemToRoute(menu, routerView);
 
-      if (!router.component) {
-        delete router.component;
+      if (!route.component) {
+        delete route.component;
       }
 
       if (!lodash.isEmpty(menu.children)) {
-        router.children = lodash.concat(
-          router.children || [],
-          convertTreeToRoute(menu.children, routerView) || [],
+        route.children = lodash.concat(
+          route.children || [],
+          convertMenuTreeToRoutes(menu.children, routerView) || [],
         );
       }
 
-      if (lodash.isEmpty(router.children)) {
-        delete router.children;
+      if (lodash.isEmpty(route.children)) {
+        delete route.children;
       }
 
-      return router;
+      return route;
     })
     .filter()
     .value() as NavigationConfig.Router[];

@@ -29,7 +29,10 @@ export default class CasbinModel extends CasbinRule {
    * @param roleId
    * @returns
    */
-  public static removeRolePolicies(roleId: number, transaction?: Transaction): Promise<number> {
+  public static async removeRolePolicies(
+    roleId: number,
+    transaction?: Transaction,
+  ): Promise<number> {
     return this.destroy({ where: { ptype: 'p', v0: `sys_role:${roleId}` }, transaction });
   }
 
@@ -40,7 +43,7 @@ export default class CasbinModel extends CasbinRule {
    * @param transaction
    * @returns
    */
-  public static addRolePolicies(
+  public static async addRolePolicies(
     roleId: number,
     menuPerms: string[],
     transaction?: Transaction,
@@ -58,6 +61,43 @@ export default class CasbinModel extends CasbinRule {
       }),
       { transaction },
     );
+  }
+
+  /**
+   * Assign user to roles.
+   * @param roleIds
+   * @param userId
+   * @param transaction
+   * @returns
+   */
+  public static async assignRolesToUser(
+    roleIds: number[],
+    userId: number,
+    transaction?: Transaction,
+  ): Promise<CasbinModel[]> {
+    return this.bulkCreate(
+      roleIds.map((roleId) => ({ ptype: 'g', v0: `sys_user:${userId}`, v1: `sys_role:${roleId}` })),
+      { transaction },
+    );
+  }
+
+  /**
+   * Unassign user's roles.
+   * @param roleIds
+   * @param userId
+   * @param transaction
+   * @returns
+   */
+  public static async unassignRolesOfUser(
+    roleIds: number[],
+    userId: number,
+    transaction?: Transaction,
+  ): Promise<number> {
+    const v1s = roleIds.map((roleId) => `sys_role:${roleId}`);
+    return this.destroy({
+      where: { ptype: 'g', v0: `sys_user:${userId}`, v1: v1s },
+      transaction,
+    });
   }
 }
 

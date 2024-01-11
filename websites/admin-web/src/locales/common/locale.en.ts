@@ -42,5 +42,6 @@ export default {
     search: 'Search',
     reset: 'Reset',
     startswith: '{0} must start with {1}.',
+    createTime: 'Create Time',
   },
 };

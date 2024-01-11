@@ -1,0 +1,5 @@
+[
+  { "roleId": 1, "userId": 1, "createBy": "admin", "updateBy": "admin", "deleted": 9 },
+  { "roleId": 2, "userId": 1, "createBy": "admin", "updateBy": "admin" },
+  { "roleId": 2, "userId": 2, "createBy": "admin", "updateBy": "admin" }
+]

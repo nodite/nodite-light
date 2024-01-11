@@ -48,7 +48,7 @@ export const useNavStore = defineStore('nav', {
      */
     async getRoutes(): Promise<NavigationConfig.Router[]> {
       if (!this.routesLoaded) {
-        this.routes = navUtil.convertTreeToRoute(await useMenuStore().listTree()) || [];
+        this.routes = navUtil.convertMenuTreeToRoutes(await useMenuStore().listTree(), true) || [];
         this.routesLoaded = true;
       }
       return this.routes;
@@ -60,7 +60,8 @@ export const useNavStore = defineStore('nav', {
      */
     async getSidebar(): Promise<NavigationConfig.Menu[]> {
       if (!this.sidebarLoaded) {
-        const routes = navUtil.convertTreeToRoute(await useMenuStore().listTree(), false) || [];
+        const routes =
+          navUtil.convertMenuTreeToRoutes(await useMenuStore().listTree(), false) || [];
 
         this.sidebar = this._filterSideber([...staticRoutes, ...routes]).filter((route) => {
           // remove non-root menu on sidebar root.

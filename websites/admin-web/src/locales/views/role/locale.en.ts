@@ -22,5 +22,11 @@ export default {
 
   user_asgmt: {
     title: 'User Asgmt',
+    status: 'User Status',
+    assignStatus: 'Assign Status',
+    assigned: 'Assigned',
+    unassigned: 'Unassigned',
+    assign: 'Assign',
+    unassign: 'Un-Assign',
   },
 };

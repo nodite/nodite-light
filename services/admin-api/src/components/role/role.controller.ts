@@ -21,6 +21,7 @@ import { IMenu } from '@/components/menu/menu.model';
 import { IRole } from '@/components/role/role.model';
 import RoleService from '@/components/role/role.service';
 import { CreateValidation, EditValidation } from '@/components/role/role.validation';
+import { IUserWithRoles } from '@/components/role_user/role_user.model';
 import { QueryParams } from '@/interfaces';
 
 /**
@@ -119,9 +120,42 @@ export class RoleController extends BaseController {
   @Permissions('admin:role:perms:update')
   public async updateMenuPerms(
     @Path() id: number,
-    @Body() menuPerms: number[],
+    @Body() menuIds: number[],
   ): Promise<IResponse<void>> {
-    await this.roleService.updateMenuPerms(id, menuPerms);
+    await this.roleService.updateMenuPerms(id, menuIds);
+    this.setStatus(httpStatus.NO_CONTENT);
+    return this.response();
+  }
+
+  @Get('{id}/users')
+  @OperationId('admin:role:users:list')
+  @Permissions('admin:role:users:list')
+  public async listRoleUsers(@Path() id: number): Promise<IResponse<IUserWithRoles[]>> {
+    const users = await this.roleService.selectUsersWithRole(id);
+    this.setStatus(httpStatus.OK);
+    return this.response(users);
+  }
+
+  @Put('{id}/users')
+  @OperationId('admin:role:users:assign')
+  @Permissions('admin:role:users:assign')
+  public async assignRoleToUsers(
+    @Path() id: number,
+    @Body() userIds: number[],
+  ): Promise<IResponse<void>> {
+    await this.roleService.assignRoleToUsers(id, userIds);
+    this.setStatus(httpStatus.NO_CONTENT);
+    return this.response();
+  }
+
+  @Delete('{id}/users')
+  @OperationId('admin:role:users:unassign')
+  @Permissions('admin:role:users:unassign')
+  public async unassignRoleOfUsers(
+    @Path() id: number,
+    @Body() userIds: number[],
+  ): Promise<IResponse<void>> {
+    await this.roleService.unassignRoleOfUsers(id, userIds);
     this.setStatus(httpStatus.NO_CONTENT);
     return this.response();
   }

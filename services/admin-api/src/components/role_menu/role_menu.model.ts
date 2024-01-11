@@ -1,8 +1,8 @@
 import { SequelizeModel, Subscription } from '@nodite-light/admin-database';
 import { AllowNull, Column, DataType, ForeignKey, PrimaryKey, Table } from 'sequelize-typescript';
 
-import MenuModel from '@/components/menu/menu.model';
-import RoleModel from '@/components/role/role.model';
+import MenuModel, { IMenu } from '@/components/menu/menu.model';
+import RoleModel, { IRole } from '@/components/role/role.model';
 import RoleMenuSeeds from '@/seeds/sys_role_menu.seeds.json';
 
 @Table({
@@ -33,3 +33,7 @@ export default class RoleMenuModel extends SequelizeModel<RoleMenuModel> {
     return count > 0;
   }
 }
+
+export type IRoleWithMenus = IRole & { menus: IMenu[] };
+
+export type IMenuWithRoles = IMenu & { roles: IRole[] };

@@ -14,6 +14,7 @@ import { ContentType } from "@/types/request";
 import { request } from "@/utils/request/index";
 import type {
   IResponseIRole,
+  IResponseIUserWithRolesArray,
   IResponsePickIMenuMenuIdOrPermsArray,
   IResponseSequelizePaginationIRole,
   IResponseVoid,
@@ -217,6 +218,86 @@ export const adminRolePermsUpdateSkipErrorHandler = (id: number, data: number[],
   request<IResponseVoid>({
     path: `/role/${id}/perms`,
     method: "PUT",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags Role
+ * @name adminRoleUsersList
+ * @request GET:/role/{id}/users
+ */
+export const adminRoleUsersList = (id: number, params: RequestParams = {}) =>
+  request<IResponseIUserWithRolesArray>({
+    path: `/role/${id}/users`,
+    method: "GET",
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminRoleUsersListSkipErrorHandler = (id: number, params: RequestParams = {}) =>
+  request<IResponseIUserWithRolesArray>({
+    path: `/role/${id}/users`,
+    method: "GET",
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags Role
+ * @name adminRoleUsersAssign
+ * @request PUT:/role/{id}/users
+ */
+export const adminRoleUsersAssign = (id: number, data: number[], params: RequestParams = {}) =>
+  request<IResponseVoid>({
+    path: `/role/${id}/users`,
+    method: "PUT",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminRoleUsersAssignSkipErrorHandler = (id: number, data: number[], params: RequestParams = {}) =>
+  request<IResponseVoid>({
+    path: `/role/${id}/users`,
+    method: "PUT",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags Role
+ * @name adminRoleUsersUnassign
+ * @request DELETE:/role/{id}/users
+ */
+export const adminRoleUsersUnassign = (id: number, data: number[], params: RequestParams = {}) =>
+  request<IResponseVoid>({
+    path: `/role/${id}/users`,
+    method: "DELETE",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminRoleUsersUnassignSkipErrorHandler = (id: number, data: number[], params: RequestParams = {}) =>
+  request<IResponseVoid>({
+    path: `/role/${id}/users`,
+    method: "DELETE",
     body: data,
     type: ContentType.Json,
     format: "json",

@@ -17,6 +17,7 @@ import {
 } from '@nodite-light/vuetify-data-table-pagination';
 import { VDeleteConfirmForm } from '@nodite-light/vuetify-delete-confirm-form';
 import { DataTableItemProps } from '@nodite-light/vuetify-tree-data-table';
+import moment from 'moment';
 
 import { IUser, QueryParams, SequelizePaginationIUser } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
@@ -68,7 +69,7 @@ const deleteConfirmFormData = ref({
 });
 
 const methods = {
-  async getList(showLoading: boolean = false) {
+  async loadList(showLoading: boolean = false) {
     if (showLoading) localData.value.loading = true;
 
     localData.value.pageResult =
@@ -81,16 +82,16 @@ const methods = {
   },
   setItemsPerPage(v: number) {
     queryParams.value.itemsPerPage = v;
-    methods.getList();
+    methods.loadList();
   },
   setPage(v: number) {
     queryParams.value.page = v;
-    methods.getList();
+    methods.loadList();
   },
   async searchList() {
     localData.value.searching = true;
     try {
-      await methods.getList();
+      await methods.loadList();
     } finally {
       localData.value.searching = false;
     }
@@ -99,7 +100,7 @@ const methods = {
     localData.value.searchResetting = true;
     try {
       queryParams.value = {};
-      await methods.getList();
+      await methods.loadList();
     } finally {
       localData.value.searchResetting = false;
     }
@@ -135,14 +136,14 @@ const methods = {
   },
   async delete(item: IUser, cb: () => void) {
     await userStore.delete(item.userId);
-    await methods.getList();
+    await methods.loadList();
     methods.closeDeleteConfirmForm();
     cb();
   },
 };
 
 onMounted(() => {
-  methods.getList(true);
+  methods.loadList(true);
 });
 
 watchEffect(() => {
@@ -160,6 +161,7 @@ watchEffect(() => {
     { title: i18n.global.t('views.user.headers.nickname'), value: 'nickname' },
     { title: i18n.global.t('views.user.headers.email'), value: 'email' },
     { title: i18n.global.t('common.form.status', ['']), value: 'status' },
+    { title: i18n.global.t('common.form.createTime'), value: 'createTime' },
     { key: 'actions', sortable: false },
   ];
   staticData.value.status = [
@@ -257,14 +259,14 @@ watchEffect(() => {
           :dialog="userFormData.dialog"
           :user-id="userFormData.userId"
           @close="methods.closeUserForm"
-          @save="methods.getList()"
+          @save="methods.loadList()"
         ></user-form>
         <pass-form
           :dialog="passFormData.dialog"
           :username="passFormData.username"
           :user-id="passFormData.userId"
           @close="methods.closePassForm"
-          @save="methods.getList()"
+          @save="methods.loadList()"
         ></pass-form>
       </v-toolbar>
     </template>
@@ -280,6 +282,10 @@ watchEffect(() => {
         :disabled="item.userId == 1 || methods.isSelf(item)"
         hide-details
       ></v-switch>
+    </template>
+
+    <template v-slot:item.createTime="{ value }">
+      <v-label>{{ moment(value).format('YYYY-MM-DD HH:mm:ss') }}</v-label>
     </template>
 
     <template v-slot:item.actions="{ item }">
