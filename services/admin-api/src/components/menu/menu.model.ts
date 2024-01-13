@@ -106,7 +106,7 @@ export default class MenuModel extends SequelizeModel<MenuModel> {
 }
 
 export type IMenu = Pick<
-  typeof MenuModel.prototype,
+  InstanceType<typeof MenuModel>,
   | 'menuId'
   | 'menuName'
   | 'parentId'

@@ -108,7 +108,7 @@ export default class UserModel extends SequelizeModel<UserModel> {
 }
 
 export type IUser = Pick<
-  typeof UserModel.prototype,
+  InstanceType<typeof UserModel>,
   | 'userId'
   | 'username'
   | 'nickname'
