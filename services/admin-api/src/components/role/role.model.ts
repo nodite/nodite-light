@@ -62,7 +62,7 @@ export default class RoleModel extends SequelizeModel<RoleModel> {
 }
 
 export type IRole = Pick<
-  typeof RoleModel.prototype,
+  InstanceType<typeof RoleModel>,
   | 'roleId'
   | 'roleName'
   | 'roleKey'
