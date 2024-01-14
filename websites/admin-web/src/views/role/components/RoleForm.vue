@@ -66,7 +66,7 @@ const formRules = ref({
 
 // methods.
 const methods = {
-  async fillFormData() {
+  async loadFormData() {
     let role = undefined;
     if (props.roleId > 0) {
       role = await roleStore.query(props.roleId);
@@ -113,7 +113,7 @@ const methods = {
 
 watchEffect(() => {
   localData.value.dialog = props.dialog;
-  methods.fillFormData();
+  methods.loadFormData();
 });
 </script>
 

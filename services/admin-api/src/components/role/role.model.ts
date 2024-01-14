@@ -14,6 +14,8 @@ import {
 
 import MenuModel from '@/components/menu/menu.model';
 import RoleMenuModel from '@/components/role_menu/role_menu.model';
+import RoleUserModel from '@/components/role_user/role_user.model';
+import UserModel from '@/components/user/user.model';
 import RoleSeeds from '@/seeds/sys_role.seeds.json';
 
 const TABLE_NAME = 'sys_role';
@@ -59,6 +61,13 @@ export default class RoleModel extends SequelizeModel<RoleModel> {
     constraints: false,
   })
   menus: MenuModel[];
+
+  @BelongsToMany(() => UserModel, {
+    through: () => RoleUserModel,
+    foreignKey: { allowNull: false },
+    constraints: false,
+  })
+  users: UserModel[];
 }
 
 export type IRole = Pick<

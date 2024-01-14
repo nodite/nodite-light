@@ -8,6 +8,7 @@ import {
   BeforeBulkCreate,
   BeforeCreate,
   BeforeUpdate,
+  BelongsToMany,
   Column,
   Comment,
   DataType,
@@ -18,6 +19,8 @@ import {
   Validate,
 } from 'sequelize-typescript';
 
+import RoleModel from '@/components/role/role.model';
+import RoleUserModel from '@/components/role_user/role_user.model';
 import UserSeeds from '@/seeds/sys_user.seeds.json';
 
 const TABLE_NAME = 'sys_user';
@@ -65,6 +68,13 @@ export default class UserModel extends SequelizeModel<UserModel> {
   @AllowNull(false)
   @Column(DataType.STRING(255))
   password: string;
+
+  @BelongsToMany(() => RoleModel, {
+    through: () => RoleUserModel,
+    foreignKey: { allowNull: false },
+    constraints: false,
+  })
+  roles: RoleModel[];
 
   @BeforeBulkCreate
   static bulkBcryptPassword(users: UserModel[]): void {

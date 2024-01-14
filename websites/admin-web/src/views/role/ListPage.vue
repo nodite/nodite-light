@@ -27,6 +27,7 @@ import { useRoleStore } from '@/stores/modules/roleStore';
 import RoleForm from '@/views/role/components/RoleForm.vue';
 
 const roleStore = useRoleStore();
+const router = useRouter();
 
 const staticData = ref({
   itemsPerPageOptions: [] as ItemsPerPageOption[],
@@ -66,7 +67,7 @@ const menuPermsView = ref({
 });
 
 const methods = {
-  async getList(showLoading: boolean = true) {
+  async loadList(showLoading: boolean = true) {
     if (showLoading) localData.value.loading = true;
     localData.value.pageResult =
       (await roleStore.list(queryParams.value)) || ({} as SequelizePaginationIRole);
@@ -74,16 +75,16 @@ const methods = {
   },
   setItemsPerPage(v: number) {
     queryParams.value.itemsPerPage = v;
-    methods.getList();
+    methods.loadList();
   },
   setPage(v: number) {
     queryParams.value.page = v;
-    methods.getList();
+    methods.loadList();
   },
   async searchList() {
     localData.value.searching = true;
     try {
-      await methods.getList();
+      await methods.loadList();
     } finally {
       localData.value.searching = false;
     }
@@ -92,7 +93,7 @@ const methods = {
     localData.value.searchResetting = true;
     try {
       queryParams.value = {};
-      await methods.getList();
+      await methods.loadList();
     } finally {
       localData.value.searchResetting = false;
     }
@@ -127,7 +128,7 @@ const methods = {
     menuPermsView.value.menuIds = [];
   },
   async openUserAsgmtPage(item: IRole) {
-    toast.warning('Not implemented yet.');
+    router.push(`/role/${item.roleId}/users`);
   },
   async saveMenuTreeView(ids: number[], cb: (close: boolean) => void) {
     try {
@@ -143,14 +144,14 @@ const methods = {
   },
   async delete(item: IRole, cb: () => void) {
     await roleStore.delete(item.roleId);
-    await methods.getList();
+    await methods.loadList();
     methods.closeDeleteConfirmForm();
     cb();
   },
 };
 
 onMounted(() => {
-  methods.getList(true);
+  methods.loadList(true);
 });
 
 watchEffect(() => {
@@ -246,7 +247,7 @@ watchEffect(() => {
           :dialog="roleFormData.dialog"
           :role-id="roleFormData.roleId"
           @close="methods.closeRoleForm"
-          @save="methods.getList()"
+          @save="methods.loadList()"
         />
       </v-toolbar>
     </template>

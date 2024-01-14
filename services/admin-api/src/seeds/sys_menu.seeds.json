@@ -231,11 +231,13 @@
     "updateBy": "admin",
     "deleted": 9
   },
+
   {
     "menuId": 19,
     "parentId": 14,
     "orderNum": 4,
-    "menuName": "角色授权列表",
+    "menuName": "菜单权限",
+    "iKey": "views.role.form.menuPerms",
     "iType": "action",
     "hidden": 1,
     "perms": "admin:role:perms:list",
@@ -245,9 +247,9 @@
   },
   {
     "menuId": 20,
-    "parentId": 14,
+    "parentId": 19,
     "orderNum": 5,
-    "menuName": "角色授权",
+    "menuName": "更新授权",
     "iType": "action",
     "hidden": 1,
     "perms": "admin:role:perms:update",
@@ -255,6 +257,7 @@
     "updateBy": "admin",
     "deleted": 9
   },
+
   {
     "menuId": 21,
     "parentId": 14,
@@ -268,6 +271,31 @@
     "layout": "ui",
     "perms": "admin:role:users:list",
     "hidden": 1,
+    "createBy": "admin",
+    "updateBy": "admin",
+    "deleted": 9
+  },
+  {
+    "menuId": 22,
+    "parentId": 21,
+    "orderNum": 0,
+    "menuName": "添加授权",
+    "iKey": "views.role.user_asgmt.assign",
+    "iType": "action",
+    "hidden": 1,
+    "perms": "admin:role:users:assign",
+    "createBy": "admin",
+    "updateBy": "admin",
+    "deleted": 9
+  },
+  {
+    "menuId": 23,
+    "parentId": 21,
+    "menuName": "取消授权",
+    "iKey": "views.role.user_asgmt.unassign",
+    "iType": "action",
+    "hidden": 1,
+    "perms": "admin:role:users:unassign",
     "createBy": "admin",
     "updateBy": "admin",
     "deleted": 9

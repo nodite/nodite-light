@@ -5,7 +5,8 @@
     "email": "admin@nodite.com",
     "password": "admin",
     "createBy": "admin",
-    "updateBy": "admin"
+    "updateBy": "admin",
+    "deleted": 9
   },
   {
     "userId": 2,

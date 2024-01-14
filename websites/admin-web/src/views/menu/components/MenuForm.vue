@@ -97,7 +97,7 @@ const formRules = ref({
 
 // methods.
 const methods = {
-  async fillFormData() {
+  async loadFormData() {
     let menu = undefined;
     if (props.menuId > 0) {
       menu = await menuStore.query(props.menuId);
@@ -159,7 +159,7 @@ onMounted(() => {
 
 watchEffect(() => {
   localData.value.dialog = props.dialog;
-  methods.fillFormData();
+  methods.loadFormData();
 });
 </script>
 

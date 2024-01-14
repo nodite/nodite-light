@@ -42,5 +42,6 @@ export default {
     search: '搜索',
     reset: '重置',
     startswith: '{0}必须以{1}开头',
+    createTime: '创建时间',
   },
 };

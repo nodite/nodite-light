@@ -41,7 +41,7 @@ const deleteConfirmFormData = ref({
 });
 
 const methods = {
-  async getMenuTree(showLoading: boolean = false) {
+  async loadMenuTree(showLoading: boolean = false) {
     if (showLoading) localData.value.loading = true;
     localData.value.items = await menuStore.listTree();
     localData.value.loading = false;
@@ -67,14 +67,14 @@ const methods = {
   },
   async delete(menu: IMenu, cb: () => void) {
     await menuStore.delete(menu.menuId);
-    await methods.getMenuTree();
+    await methods.loadMenuTree();
     methods.closeDeleteConfirmForm();
     cb();
   },
 };
 
 onMounted(() => {
-  methods.getMenuTree();
+  methods.loadMenuTree();
 });
 
 watchEffect(() => {
@@ -113,7 +113,7 @@ watchEffect(() => {
           :dialog="menuFormData.dialog"
           :menu-id="menuFormData.menuId"
           @close="methods.closeMenuForm"
-          @save="methods.getMenuTree()"
+          @save="methods.loadMenuTree()"
         ></menu-form>
       </v-toolbar>
     </template>

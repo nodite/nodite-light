@@ -8,6 +8,8 @@ import CasbinModel from '@/components/casbin/casbin.model';
 import MenuModel, { IMenu } from '@/components/menu/menu.model';
 import RoleModel, { IRole } from '@/components/role/role.model';
 import RoleMenuModel from '@/components/role_menu/role_menu.model';
+import RoleUserModel, { IUserWithRoles } from '@/components/role_user/role_user.model';
+import UserModel from '@/components/user/user.model';
 import { QueryParams } from '@/interfaces';
 
 /**
@@ -177,6 +179,79 @@ export default class RoleService {
 
       await CasbinModel.addRolePolicies(roleId, menuPerms, transaction);
     }
+
+    // transaction commit.
+    await transaction.commit();
+  }
+
+  /**
+   * Select role users.
+   * @param roleId
+   * @returns
+   */
+  public async selectUsersWithRole(roleId: number): Promise<IUserWithRoles[]> {
+    const userAttrs = ['userId', 'username', 'nickname', 'email', 'status', 'createTime'];
+    const roleAttrs = ['roleId'];
+
+    const users = await UserModel.findAll({
+      attributes: userAttrs,
+      include: [
+        {
+          model: RoleModel,
+          attributes: roleAttrs,
+          where: { roleId },
+          required: false,
+        },
+      ],
+    });
+
+    return users;
+  }
+
+  /**
+   * Assign role to users.
+   * @param roleId
+   * @param userIds
+   */
+  public async assignRoleToUsers(roleId: number, userIds: number[]): Promise<void> {
+    if (lodash.isEmpty(userIds)) return;
+
+    // transaction starting.
+    const transaction = await RoleUserModel.sequelize.transaction();
+
+    // role user associate.
+    await RoleUserModel.bulkCreate(
+      userIds.map((userId) => ({ roleId, userId })),
+      { transaction },
+    );
+
+    // casbin.
+    await Promise.all(
+      userIds.map((userId) => CasbinModel.assignRolesToUser([roleId], userId, transaction)),
+    );
+
+    // transaction commit.
+    await transaction.commit();
+  }
+
+  /**
+   * Unassign role of users.
+   * @param roleId
+   * @param userIds
+   */
+  public async unassignRoleOfUsers(roleId: number, userIds: number[]): Promise<void> {
+    if (lodash.isEmpty(userIds)) return;
+
+    // transaction starting.
+    const transaction = await RoleUserModel.sequelize.transaction();
+
+    // role user associate.
+    await RoleUserModel.destroy({ where: { roleId, userId: userIds }, transaction });
+
+    // casbin.
+    await Promise.all(
+      userIds.map((userId) => CasbinModel.unassignRolesOfUser([roleId], userId, transaction)),
+    );
 
     // transaction commit.
     await transaction.commit();

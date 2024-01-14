@@ -31,7 +31,7 @@ const cellProps = ({ item, column }: { item: Item; column: { key: string } }) =>
     return { class: 'd-none-children' };
   } else if (['data-table-expand', 'data-table-select'].includes(column.key)) {
     return {
-      class: `pl-${5 * (Number(item.level) + 1)}`,
+      class: `pl-${1 * (Number(item.level) + 1)}`,
     };
   }
   return {};

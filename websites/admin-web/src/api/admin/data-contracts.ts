@@ -234,6 +234,18 @@ export interface IResponsePickIMenuMenuIdOrPermsArray {
   data?: PickIMenuMenuIdOrPerms[];
 }
 
+export type IUserWithRoles = IUser & {
+  roles: IRole[];
+};
+
+export interface IResponseIUserWithRolesArray {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: IUserWithRoles[];
+}
+
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickInstanceTypeTypeofMenuModelMenuIdOrMenuNameOrParentIdOrOrderNumOrIconOrIKeyOrITypeOrPathOrRedirectOrComponentOrHiddenOrLayoutOrPermsOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
   status: 0 | 1;

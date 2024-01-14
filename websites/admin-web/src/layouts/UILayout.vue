@@ -50,5 +50,6 @@ const customizeTheme = useCustomizeThemeStore();
   height: 100%;
   display: flex;
   flex-direction: column;
+  --v-layout-bottom: 20% !important;
 }
 </style>

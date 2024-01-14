@@ -22,5 +22,11 @@ export default {
 
   user_asgmt: {
     title: '用户分配',
+    status: '用户状态',
+    assignStatus: '分配状态',
+    assigned: '已分配',
+    unassigned: '未分配',
+    assign: '添加授权',
+    unassign: '取消授权',
   },
 };

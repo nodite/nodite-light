@@ -17,13 +17,13 @@ axios.defaults.headers['Content-Type'] = ContentType.Json;
 const axiosInstance = setupCache(
   axios.create({
     baseURL: import.meta.env.VITE_APP_BASE_API || '/api',
-    timeout: 8 * 1000,
+    timeout: 15 * 1000,
     paramsSerializer: {
       indexes: null,
     },
   }),
   {
-    ttl: 1000 * 1, // 1s to avoid duplicate get
+    ttl: 1000 * 0.1, // 0.1s to avoid duplicate get
     methods: ['get', 'head'],
   },
 );

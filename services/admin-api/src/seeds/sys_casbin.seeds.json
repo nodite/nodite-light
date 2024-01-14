@@ -1,13 +1,16 @@
 [
-  { "id": 1, "ptype": "p", "v0": "sys_role:1", "v1": "*", "v2": "*", "v3": "*" },
-  { "id": 2, "ptype": "p", "v0": "sys_user:1", "v1": "*", "v2": "*", "v3": "*" },
-  { "id": 3, "ptype": "g", "v0": "sys_user:1", "v1": "sys_role:1" },
-  { "id": 4, "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "menu", "v3": "list" },
-  { "id": 5, "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "menu", "v3": "query" },
-  { "id": 6, "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "user", "v3": "list" },
-  { "id": 7, "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "user", "v3": "query" },
-  { "id": 8, "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role", "v3": "list" },
-  { "id": 9, "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role", "v3": "query" },
-  { "id": 10, "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role:perms", "v3": "list" },
-  { "id": 11, "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role:users", "v3": "list" }
+  { "ptype": "g", "v0": "sys_user:1", "v1": "sys_role:1" },
+  { "ptype": "g", "v0": "sys_user:1", "v1": "sys_role:2" },
+  { "ptype": "g", "v0": "sys_user:2", "v1": "sys_role:2" },
+
+  { "ptype": "p", "v0": "sys_role:1", "v1": "*", "v2": "*", "v3": "*" },
+  { "ptype": "p", "v0": "sys_user:1", "v1": "*", "v2": "*", "v3": "*" },
+  { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "menu", "v3": "list" },
+  { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "menu", "v3": "query" },
+  { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "user", "v3": "list" },
+  { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "user", "v3": "query" },
+  { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role", "v3": "list" },
+  { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role", "v3": "query" },
+  { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role:perms", "v3": "list" },
+  { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role:users", "v3": "list" }
 ]

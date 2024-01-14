@@ -15,6 +15,7 @@ import lodash from 'lodash';
 
 import {
   IRole,
+  IUserWithRoles,
   PickIMenuMenuIdOrPerms,
   QueryParams,
   SequelizePaginationIRole,
@@ -88,6 +89,32 @@ export const useRoleStore = defineStore('role', {
      */
     async updateMenuPerms(roleId: number, menuIds: number[]): Promise<void> {
       await RoleApi.adminRolePermsUpdate(roleId, menuIds);
+    },
+    /**
+     * List role users.
+     * @param roleId
+     * @returns
+     */
+    async listRoleUsers(roleId: number): Promise<IUserWithRoles[] | undefined> {
+      return await RoleApi.adminRoleUsersList(roleId);
+    },
+    /**
+     * Assign role to users.
+     * @param roleId
+     * @param userIds
+     * @returns
+     */
+    async assignRoleToUsers(roleId: number, userIds: number[]): Promise<void> {
+      return await RoleApi.adminRoleUsersAssign(roleId, userIds);
+    },
+    /**
+     * Unassign role of users.
+     * @param roleId
+     * @param userIds
+     * @returns
+     */
+    async unassignRoleOfUsers(roleId: number, userIds: number[]): Promise<void> {
+      return await RoleApi.adminRoleUsersUnassign(roleId, userIds);
     },
   },
 });
