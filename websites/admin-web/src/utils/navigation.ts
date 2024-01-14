@@ -16,16 +16,13 @@ import lodash from 'lodash';
 import { MenuTree } from '@/api/admin/data-contracts';
 import { NavigationConfig } from '@/types/config';
 
-// load all views.
-const views = import.meta.glob('@/views/**/*.vue');
-
 /**
  * Load component.
  * @param component
  * @returns
  */
 export const loadComponent = (component: string) => {
-  const importView = lodash.find(views, (value, key) => {
+  const importView = lodash.find(import.meta.glob('@/views/**/*.vue'), (value, key) => {
     return key.endsWith(`views/${component}.vue`);
   });
   return importView ? () => importView() : undefined;
