@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "18.4.4",
-    "@commitlint/config-conventional": "18.4.3",
+    "@commitlint/config-conventional": "18.4.4",
     "@rushstack/eslint-patch": "^1.6.0",
     "@testing-library/jest-dom": "^6.1.5",
     "@types/jest": "^29.5.10",
