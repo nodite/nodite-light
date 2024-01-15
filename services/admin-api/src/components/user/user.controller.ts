@@ -18,7 +18,7 @@ import {
 } from 'tsoa';
 
 import BaseController from '@/components/base.controller';
-import { IPasswordReset } from '@/components/user/user.interface';
+import { IPasswordReset, IUserCreate, IUserUpdate } from '@/components/user/user.interface';
 import { IUser } from '@/components/user/user.model';
 import UserService from '@/components/user/user.service';
 import {
@@ -27,6 +27,8 @@ import {
   ResetPasswordValidation,
 } from '@/components/user/user.validation';
 import { QueryParams } from '@/interfaces';
+
+import { IRoleWithUsers } from '../role_user/role_user.model';
 
 /**
  * Class UserController.
@@ -85,8 +87,8 @@ export class UserController extends BaseController {
   @Middlewares([validate(CreateValidation)])
   @OperationId('admin:user:create')
   @Permissions('admin:user:create')
-  public async create(@Body() body: Omit<IUser, 'userId'>): Promise<IResponse<IUser>> {
-    const user = await this.userService.create(body as IUser);
+  public async create(@Body() body: IUserCreate): Promise<IResponse<IUser>> {
+    const user = await this.userService.create(body);
     this.setStatus(httpStatus.CREATED);
     return this.response(user);
   }
@@ -98,11 +100,8 @@ export class UserController extends BaseController {
   @Middlewares([validate(EditValidation)])
   @OperationId('admin:user:edit')
   @Permissions('admin:user:edit')
-  public async update(
-    @Path() id: number,
-    @Body() body: Omit<IUser, 'userId' | 'username' | 'password'>,
-  ): Promise<IResponse<IUser>> {
-    const user = await this.userService.update(id, body as IUser);
+  public async update(@Path() id: number, @Body() body: IUserUpdate): Promise<IResponse<IUser>> {
+    const user = await this.userService.update(id, body);
     this.setStatus(httpStatus.ACCEPTED);
     return this.response(user);
   }
@@ -131,6 +130,39 @@ export class UserController extends BaseController {
   @Permissions('admin:user:delete')
   public async delete(@Path() id: number): Promise<IResponse<void>> {
     await this.userService.delete(id);
+    this.setStatus(httpStatus.NO_CONTENT);
+    return this.response();
+  }
+
+  @Get('{id}/roles')
+  @OperationId('admin:user:roles:list')
+  @Permissions('admin:user:roles:list')
+  public async listUserRoles(@Path() id: number): Promise<IResponse<IRoleWithUsers[]>> {
+    const roles = await this.userService.selectRolesWithUser(id);
+    this.setStatus(httpStatus.OK);
+    return this.response(roles);
+  }
+
+  @Put('{id}/roles')
+  @OperationId('admin:user:roles:assign')
+  @Permissions('admin:user:roles:assign')
+  public async assignRolesToUser(
+    @Path() id: number,
+    @Body() roleIds: number[],
+  ): Promise<IResponse<void>> {
+    await this.userService.assignRolesToUser(roleIds, id);
+    this.setStatus(httpStatus.NO_CONTENT);
+    return this.response();
+  }
+
+  @Delete('{id}/roles')
+  @OperationId('admin:user:roles:unassign')
+  @Permissions('admin:user:roles:unassign')
+  public async unassignRolesOfUser(
+    @Path() id: number,
+    @Body() roleIds: number[],
+  ): Promise<IResponse<void>> {
+    await this.userService.unassignRolesOfUser(roleIds, id);
     this.setStatus(httpStatus.NO_CONTENT);
     return this.response();
   }

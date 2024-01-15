@@ -106,10 +106,7 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
    */
   @BeforeUpdate
   static setUpdateBy(instance: BaseModel<never>): void {
-    instance.setDataValue(
-      'updateBy',
-      instance.getDataValue('updateBy') || this.getDefaultUpdateBy(),
-    );
+    instance.setDataValue('updateBy', this.getUpdateBy() as never);
   }
 
   /**
@@ -121,11 +118,7 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
   static bulkSetUpdateBy(options: FindOptions): void {
     const { attributes } = options;
     if (!attributes) return;
-    lodash.set(
-      options,
-      'attributes.updateBy',
-      lodash.get(attributes, 'updateBy', this.getDefaultUpdateBy()),
-    );
+    lodash.set(options, 'attributes.updateBy', this.getUpdateBy());
   }
 
   /**
@@ -190,7 +183,7 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
    * Get default update by.
    * @returns
    */
-  private static getDefaultUpdateBy(): string {
+  private static getUpdateBy(): string {
     return lodash.get(httpContext.get('user'), 'username', 'unknown');
   }
 }

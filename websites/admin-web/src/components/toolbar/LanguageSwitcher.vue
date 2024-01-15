@@ -7,20 +7,23 @@
 import { Icon } from '@iconify/vue';
 import { useLocale } from 'vuetify';
 
-import config from '@/configs';
+import locales from '@/configs/locales';
 import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
+import type { LocaleConfig } from '@/types/config';
+
 const { current } = useLocale();
-const { availableLocales } = config.locales;
 const customizeTheme = useCustomizeThemeStore();
 
-onMounted(() => {
-  setLocale(customizeTheme.localCode);
-});
-
-const setLocale = (locale: string) => {
-  current.value = locale;
-  customizeTheme.setLocalCode(locale);
+const methods = {
+  setLocale(locale: Omit<LocaleConfig.Locale, 'messages'>) {
+    if (locale.code) current.value = locale.code;
+    customizeTheme.setLocale(locale);
+  },
 };
+
+onMounted(() => {
+  methods.setLocale(customizeTheme.locale);
+});
 </script>
 <template>
   <v-menu>
@@ -31,9 +34,9 @@ const setLocale = (locale: string) => {
     </template>
     <v-list nav>
       <v-list-item
-        v-for="locale in availableLocales"
+        v-for="locale in locales.availableLocales"
         :key="locale.code"
-        @click="setLocale(locale.code)"
+        @click="methods.setLocale(locale)"
         density="compact"
         :active="locale.code === current"
       >

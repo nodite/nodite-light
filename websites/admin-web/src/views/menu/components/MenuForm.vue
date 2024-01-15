@@ -172,7 +172,7 @@ watchEffect(() => {
   >
     <template v-slot:activator="{ props }">
       <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
-        {{ $t('common.form.create', [$t('views.menu.form.title')]) }}
+        {{ $t('common.form.create', [$t('views.menu.title')]) }}
       </v-btn>
     </template>
 
@@ -181,8 +181,8 @@ watchEffect(() => {
         <v-label>
           {{
             props.menuId > 0
-              ? $t('common.form.editHeader', [$t('views.menu.form.title'), formData.menuName])
-              : $t('common.form.newHeader', [$t('views.menu.form.title')])
+              ? $t('common.form.editHeader', [$t('views.menu.title'), formData.menuName])
+              : $t('common.form.newHeader', [$t('views.menu.title')])
           }}
         </v-label>
         <v-spacer></v-spacer>

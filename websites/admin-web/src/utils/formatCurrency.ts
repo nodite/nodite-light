@@ -1,4 +1,6 @@
-import configs from '@/configs';
+import currencyConfig from '@/configs/currencies';
+import type { CurrencyConfig } from '@/types/config';
+
 /**
  * Format a number to currency format
  * @param value
@@ -8,8 +10,6 @@ export const formatCurrency = (
   value: number,
   currency?: CurrencyConfig.Currency,
 ): number | string => {
-  const { currency: currencyConfig } = configs;
-
   const c: CurrencyConfig.Currency = currency || currencyConfig.currency;
 
   return formatPrice(value, c);

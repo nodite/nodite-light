@@ -12,6 +12,6 @@ const i18n = createI18n({
 });
 
 export const $tnd = (iKey?: string, fbName?: string): string =>
-  iKey && i18n.global.te(iKey) ? i18n.global.t(iKey) : fbName || '';
+  iKey && i18n.global.te(iKey) ? i18n.global.t(iKey) : fbName || iKey || '';
 
 export default i18n;

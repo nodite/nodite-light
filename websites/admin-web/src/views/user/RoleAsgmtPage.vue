@@ -3,19 +3,19 @@ import { DataTableItemProps } from '@nodite-light/vuetify-tree-data-table';
 import lodash from 'lodash';
 import moment from 'moment';
 
-import { IRole, IUserWithRoles } from '@/api/admin/data-contracts';
-import i18n, { $tnd } from '@/plugins/i18n';
-import { useRoleStore } from '@/stores/modules/roleStore';
+import { IRoleWithUsers, IUser } from '@/api/admin/data-contracts';
+import i18n from '@/plugins/i18n';
+import { useUserStore } from '@/stores/modules/userStore';
 
-const roleStore = useRoleStore();
+const userStore = useUserStore();
 const route = useRoute();
 
-type IUser = IUserWithRoles & {
-  assignStatus: IUserWithRoles['status'];
+type IRole = IRoleWithUsers & {
+  assignStatus: IRoleWithUsers['status'];
 };
 
 const staticData = ref({
-  roleId: lodash.toInteger(route.params.id),
+  userId: lodash.toInteger(route.params.id),
   headers: [] as DataTableItemProps['headers'],
   overList: [] as { title: string; key: string; value: unknown }[],
   status: [] as { title: string; value: number }[],
@@ -23,9 +23,8 @@ const staticData = ref({
 });
 
 const queryParams = ref({
-  username: undefined,
-  nickname: undefined,
-  email: undefined,
+  roleName: undefined,
+  roleKey: undefined,
   status: undefined,
   assignStatus: undefined,
 });
@@ -33,114 +32,116 @@ const queryParams = ref({
 const localData = ref({
   loading: false,
   operating: false,
-  role: {} as IRole,
-  users: [] as IUser[],
-  filteredUsers: [] as IUser[],
+  user: {} as IUser,
+  roles: [] as IRole[],
+  filterRoles: [] as IRole[],
 });
 
 const methods = {
-  isAdminRole() {
-    return staticData.value.roleId === 1;
+  isAdminUser() {
+    return staticData.value.userId === 1;
   },
-  async lodaRole() {
-    if (route.params.id) {
-      localData.value.role = (await roleStore.query(staticData.value.roleId)) as IRole;
-    }
+  async loadUser() {
+    if (!route.params.id) return;
+    localData.value.user = (await userStore.query(staticData.value.userId)) as IUser;
   },
-  async loadRoleUsers() {
+  async loadUserRoles() {
     if (route.params.id) {
       localData.value.loading = true;
-      localData.value.users = lodash
-        .chain((await roleStore.listRoleUsers(staticData.value.roleId)) || [])
-        .map((user) => {
-          lodash.set(user, 'assignStatus', lodash.toInteger(!lodash.isEmpty(user.roles)));
-          if (methods.isAdminRole() && user.userId === 1) {
-            lodash.set(user, 'selectable', false);
+      localData.value.roles = lodash
+        .chain((await userStore.listUserRoles(staticData.value.userId)) || [])
+        .map((role) => {
+          lodash.set(role, 'assignStatus', lodash.toInteger(!lodash.isEmpty(role.users)));
+          if (methods.isAdminUser() && role.roleId === 1) {
+            lodash.set(role, 'selectable', false);
           }
-          return user as IUser;
+          return role as IRole;
         })
         .value();
-      localData.value.filteredUsers = localData.value.users;
+      localData.value.filterRoles = localData.value.roles;
     }
     localData.value.loading = false;
   },
   search() {
-    localData.value.filteredUsers = lodash.filter(localData.value.users, (user) => {
+    localData.value.filterRoles = lodash.filter(localData.value.roles, (role) => {
       let result = true;
       lodash.forEach(queryParams.value, (value, key) => {
         if (lodash.isUndefined(value) || lodash.isNull(value)) return;
         if (lodash.isString(value)) {
-          result = result && lodash.get(user, key, '')?.includes(value);
+          result = result && lodash.get(role, key, '')?.includes(value);
         } else {
-          result = result && lodash.get(user, key, '') === value;
+          result = result && lodash.get(role, key, '') === value;
         }
       });
       return result;
     });
   },
-  async assign(items: IUser[]) {
+  async assign(items: IRole[]) {
     localData.value.operating = true;
-    await roleStore.assignRoleToUsers(staticData.value.roleId, lodash.map(items, 'userId'));
-    await methods.loadRoleUsers();
+    await userStore.assignRolesToUser(staticData.value.userId, lodash.map(items, 'roleId'));
+    await methods.loadUserRoles();
     localData.value.operating = false;
   },
-  async unassign(items: IUser[]) {
+  async unassign(items: IRole[]) {
     localData.value.operating = true;
-    await roleStore.unassignRoleOfUsers(staticData.value.roleId, lodash.map(items, 'userId'));
-    await methods.loadRoleUsers();
+    await userStore.unassignRolesOfUser(staticData.value.userId, lodash.map(items, 'roleId'));
+    await methods.loadUserRoles();
     localData.value.operating = false;
   },
 };
 
 onMounted(() => {
-  methods.lodaRole();
-  methods.loadRoleUsers();
+  methods.loadUser();
+  methods.loadUserRoles();
 });
 
 watchEffect(() => {
   // watch i18n
   staticData.value.headers = [
     { title: '', align: 'start', key: 'data-table-select' },
-    { title: i18n.global.t('views.user.headers.userId'), value: 'userId' },
-    { title: i18n.global.t('views.user.headers.username'), value: 'username' },
-    { title: i18n.global.t('views.user.headers.nickname'), value: 'nickname' },
-    { title: i18n.global.t('views.user.headers.email'), value: 'email' },
+    { title: i18n.global.t('views.role.headers.roleId'), value: 'roleId' },
+    { title: i18n.global.t('views.role.headers.roleName'), value: 'roleName' },
+    { title: i18n.global.t('views.role.headers.i18nName'), value: 'iKey' },
+    { title: i18n.global.t('views.role.headers.roleKey'), value: 'roleKey' },
+    { title: i18n.global.t('views.role.headers.orderNum'), value: 'orderNum' },
     { title: i18n.global.t('common.form.status', ['']), value: 'status' },
     { title: i18n.global.t('common.form.createTime'), value: 'createTime' },
     { key: 'actions', sortable: false },
   ];
   staticData.value.overList = [
     {
-      title: i18n.global.t('views.role.headers.roleId'),
-      key: 'roleId',
-      value: localData.value.role.roleId,
+      title: i18n.global.t('views.user.headers.userId'),
+      key: 'userId',
+      value: localData.value.user.userId,
     },
     {
-      title: i18n.global.t('views.role.headers.roleName'),
-      key: 'roleName',
-      value: localData.value.role.roleName,
+      title: i18n.global.t('views.user.headers.username'),
+      key: 'username',
+      value: localData.value.user.username,
     },
     {
-      title: i18n.global.t('views.role.headers.i18nName'),
-      key: 'iKey',
-      value: $tnd(localData.value.role.iKey),
+      title: i18n.global.t('views.user.headers.nickname'),
+      key: 'nickname',
+      value: localData.value.user.nickname,
     },
     {
-      title: i18n.global.t('views.role.headers.roleKey'),
-      key: 'roleKey',
-      value: localData.value.role.roleKey,
+      title: i18n.global.t('views.user.headers.email'),
+      key: 'email',
+      value: localData.value.user.email,
     },
     {
       title: i18n.global.t('common.form.status'),
       key: 'status',
-      value: localData.value.role.status
+      value: localData.value.user.status
         ? i18n.global.t('common.status.enabled')
         : i18n.global.t('common.status.diabled'),
     },
     {
       title: i18n.global.t('common.form.createTime'),
       key: 'createTime',
-      value: moment(localData.value.role.createTime).format('YYYY-MM-DD HH:mm:ss'),
+      value: localData.value.user.createTime
+        ? moment(localData.value.user.createTime).format('YYYY-MM-DD HH:mm:ss')
+        : '',
     },
   ];
   staticData.value.status = [
@@ -155,16 +156,15 @@ watchEffect(() => {
 </script>
 
 <template>
-  <!-- search-->
+  <!-- search -->
   <v-card density="compact" class="mb-2 search">
     <v-card-text>
       <v-row dense>
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-text-field
             density="compact"
-            :label="$t('views.user.form.username')"
-            v-model="queryParams.username"
-            @update:model-value="methods.search"
+            :label="$t('views.role.form.roleName')"
+            v-model="queryParams.roleName"
             variant="outlined"
             hide-details
             hide-spin-buttons
@@ -174,29 +174,18 @@ watchEffect(() => {
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-text-field
             density="compact"
-            :label="$t('views.user.form.nickname')"
-            v-model="queryParams.nickname"
-            @update:model-value="methods.search"
+            :label="$t('views.role.form.roleKey')"
+            v-model="queryParams.roleKey"
             variant="outlined"
             hide-details
-            clearable
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" lg="2" md="3" sm="6">
-          <v-text-field
-            density="compact"
-            :label="$t('views.user.form.email')"
-            v-model="queryParams.email"
-            @update:model-value="methods.search"
-            variant="outlined"
-            hide-details
+            hide-spin-buttons
             clearable
           ></v-text-field>
         </v-col>
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-select
             density="compact"
-            :label="$t('views.role.user_asgmt.status')"
+            :label="$t('views.user.role_asgmt.status')"
             v-model="queryParams.status"
             @update:model-value="methods.search"
             variant="outlined"
@@ -231,7 +220,7 @@ watchEffect(() => {
       <v-col cols="12" lg="3" md="3" sm="3">
         <v-card density="compact">
           <v-card-title>
-            <v-label>{{ $t('common.overview', [$t('views.role.title')]) }}</v-label>
+            <v-label>{{ $t('common.overview', [$t('views.user.title')]) }}</v-label>
           </v-card-title>
           <v-card-text>
             <v-list density="compact">
@@ -251,10 +240,10 @@ watchEffect(() => {
       <!-- data table -->
       <v-col cols="12" lg="9" md="9" sm="9">
         <v-data-table
-          item-value="userId"
+          item-value="roleId"
           :loading="localData.loading"
           :headers="staticData.headers"
-          :items="localData.filteredUsers"
+          :items="localData.filterRoles"
           item-selectable="selectable"
         >
           <template v-slot:item.status="{ value }">
@@ -271,7 +260,7 @@ watchEffect(() => {
 
           <template v-slot:item.actions="{ item }">
             <v-btn
-              v-if="lodash.isEmpty(item.roles)"
+              v-if="lodash.isEmpty(item.users)"
               color="green"
               density="comfortable"
               @click="methods.assign([item])"
@@ -282,13 +271,13 @@ watchEffect(() => {
               <v-label>{{ $t('common.assignment.assign') }}</v-label>
             </v-btn>
             <v-btn
-              v-if="!lodash.isEmpty(item.roles)"
+              v-if="!lodash.isEmpty(item.users)"
               color="red"
               density="comfortable"
               @click="methods.unassign([item])"
               prepend-icon="mdi-delete"
               :loading="localData.operating"
-              :disabled="(methods.isAdminRole() && item.userId == 1) || localData.operating"
+              :disabled="(methods.isAdminUser() && item.roleId == 1) || localData.operating"
             >
               <v-label>{{ $t('common.assignment.unassign') }}</v-label>
             </v-btn>

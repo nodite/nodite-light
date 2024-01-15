@@ -91,7 +91,7 @@ export const useRoleStore = defineStore('role', {
       await RoleApi.adminRolePermsUpdate(roleId, menuIds);
     },
     /**
-     * List role users.
+     * List role's users.
      * @param roleId
      * @returns
      */

@@ -1,6 +1,7 @@
 export default {
+  title: '用户',
+
   form: {
-    title: '用户',
     username: '用户名',
     nickname: '昵称',
     email: '邮箱',
@@ -24,5 +25,10 @@ export default {
     secret: '保密',
     male: '男',
     female: '女',
+  },
+
+  role_asgmt: {
+    title: '角色分配',
+    status: '角色状态',
   },
 };

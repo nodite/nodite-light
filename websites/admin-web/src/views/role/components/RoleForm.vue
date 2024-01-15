@@ -126,7 +126,7 @@ watchEffect(() => {
   >
     <template v-slot:activator="{ props }">
       <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
-        {{ $t('common.form.create', [$t('views.role.form.title')]) }}
+        {{ $t('common.form.create', [$t('views.role.title')]) }}
       </v-btn>
     </template>
 
@@ -135,8 +135,8 @@ watchEffect(() => {
         <v-label>
           {{
             props.roleId > 0
-              ? $t('common.form.editHeader', [$t('views.role.form.title'), formData.roleName])
-              : $t('common.form.newHeader', [$t('views.role.form.title')])
+              ? $t('common.form.editHeader', [$t('views.role.title'), formData.roleName])
+              : $t('common.form.newHeader', [$t('views.role.title')])
           }}
         </v-label>
       </v-card-title>
@@ -229,9 +229,7 @@ watchEffect(() => {
                   inline
                 >
                   <template v-slot:prepend>
-                    <v-label>
-                      {{ $t('common.form.status', [$t('views.role.form.title')]) }}:
-                    </v-label>
+                    <v-label> {{ $t('common.form.status', [$t('views.role.title')]) }}: </v-label>
                   </template>
 
                   <v-radio :label="$t('common.status.enabled')" :value="1"></v-radio>

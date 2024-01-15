@@ -1,4 +1,5 @@
 import { SequelizeModel, Subscription } from '@nodite-light/admin-database';
+import lodash from 'lodash';
 import { Attributes, FindOptions } from 'sequelize';
 import {
   AllowNull,
@@ -13,17 +14,38 @@ import {
   Unique,
 } from 'sequelize-typescript';
 
+import { MenuTree } from '@/components/menu/menu.interface';
 import RoleModel from '@/components/role/role.model';
 import RoleMenuModel from '@/components/role_menu/role_menu.model';
 import MenuSeeds from '@/seeds/sys_menu.seeds.json';
 
 const TABLE_NAME = 'sys_menu';
 
+/**
+ * Seeds handler.
+ * @param model
+ * @param seeds
+ * @param parentId
+ */
+async function initialSeeds(model: typeof MenuModel, seeds: MenuTree[] = [], parentId = 0) {
+  lodash.forEach(seeds, async (seed, idx) => {
+    const menu = await model.create({
+      ...seed,
+      parentId,
+      orderNum: idx,
+    });
+
+    if (lodash.isEmpty(seed.children)) return;
+
+    await initialSeeds(model, seed.children, menu.getDataValue('menuId'));
+  });
+}
+
 @Table({
   ...SequelizeModel.TableOptions,
   tableName: TABLE_NAME,
 })
-@Subscription(MenuSeeds)
+@Subscription(MenuSeeds, initialSeeds)
 export default class MenuModel extends SequelizeModel<MenuModel> {
   @AllowNull(false)
   @Unique

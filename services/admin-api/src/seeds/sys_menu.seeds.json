@@ -1,303 +1,305 @@
 [
   {
     "menuId": 1,
-    "parentId": 0,
-    "orderNum": 0,
     "menuName": "系统",
     "icon": "",
     "iKey": "sidebar.system.overline",
     "iType": "overline",
     "createBy": "admin",
     "updateBy": "admin",
-    "deleted": 9
-  },
-
-  {
-    "menuId": 2,
-    "parentId": 1,
-    "orderNum": 0,
-    "menuName": "系统管理",
-    "icon": "mdi-cog-outline",
-    "iKey": "sidebar.system.sys_mgmt",
-    "iType": "directory",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-
-  {
-    "menuId": 3,
-    "parentId": 2,
-    "orderNum": 0,
-    "menuName": "菜单管理",
-    "icon": "mdi-format-list-bulleted",
-    "iKey": "sidebar.system.menu_mgmt",
-    "iType": "menu",
-    "path": "/menu",
-    "component": "menu/ListPage",
-    "layout": "ui",
-    "perms": "admin:menu:list",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-  {
-    "menuId": 4,
-    "parentId": 3,
-    "orderNum": 0,
-    "menuName": "菜单查询",
-    "iType": "action",
-    "hidden": 1,
-    "perms": "admin:menu:query",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-  {
-    "menuId": 5,
-    "parentId": 3,
-    "orderNum": 1,
-    "menuName": "菜单新增",
-    "iType": "action",
-    "hidden": 1,
-    "perms": "admin:menu:create",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-  {
-    "menuId": 6,
-    "parentId": 3,
-    "orderNum": 2,
-    "menuName": "菜单编辑",
-    "iType": "action",
-    "hidden": 1,
-    "perms": "admin:menu:edit",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-  {
-    "menuId": 7,
-    "parentId": 3,
-    "orderNum": 3,
-    "menuName": "菜单删除",
-    "iType": "action",
-    "hidden": 1,
-    "perms": "admin:menu:delete",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-
-  {
-    "menuId": 8,
-    "parentId": 2,
-    "orderNum": 1,
-    "menuName": "用户管理",
-    "icon": "mdi-account-multiple-outline",
-    "iKey": "sidebar.system.user_mgmt",
-    "iType": "menu",
-    "path": "/user",
-    "component": "user/ListPage",
-    "layout": "ui",
-    "perms": "admin:user:list",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-  {
-    "menuId": 9,
-    "parentId": 8,
-    "orderNum": 0,
-    "menuName": "用户查询",
-    "iType": "action",
-    "hidden": 1,
-    "perms": "admin:user:query",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-  {
-    "menuId": 10,
-    "parentId": 8,
-    "orderNum": 1,
-    "menuName": "用户新增",
-    "iType": "action",
-    "hidden": 1,
-    "perms": "admin:user:create",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-  {
-    "menuId": 11,
-    "parentId": 8,
-    "orderNum": 2,
-    "menuName": "用户编辑",
-    "iType": "action",
-    "hidden": 1,
-    "perms": "admin:user:edit",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-  {
-    "menuId": 12,
-    "parentId": 8,
-    "orderNum": 3,
-    "menuName": "重置密码",
-    "iType": "action",
-    "hidden": 1,
-    "perms": "admin:user:resetPassword",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-  {
-    "menuId": 13,
-    "parentId": 8,
-    "orderNum": 4,
-    "menuName": "用户删除",
-    "iType": "action",
-    "hidden": 1,
-    "perms": "admin:user:delete",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-
-  {
-    "menuId": 14,
-    "parentId": 2,
-    "orderNum": 2,
-    "menuName": "角色管理",
-    "icon": "mdi-account-group-outline",
-    "iKey": "sidebar.system.role_mgmt",
-    "iType": "menu",
-    "path": "/role",
-    "component": "role/ListPage",
-    "layout": "ui",
-    "perms": "admin:role:list",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-  {
-    "menuId": 15,
-    "parentId": 14,
-    "orderNum": 0,
-    "menuName": "角色查询",
-    "iType": "action",
-    "hidden": 1,
-    "perms": "admin:role:query",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-  {
-    "menuId": 16,
-    "parentId": 14,
-    "orderNum": 1,
-    "menuName": "角色新增",
-    "iType": "action",
-    "hidden": 1,
-    "perms": "admin:role:create",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-  {
-    "menuId": 17,
-    "parentId": 14,
-    "orderNum": 2,
-    "menuName": "角色编辑",
-    "iType": "action",
-    "hidden": 1,
-    "perms": "admin:role:edit",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-  {
-    "menuId": 18,
-    "parentId": 14,
-    "orderNum": 3,
-    "menuName": "角色删除",
-    "iType": "action",
-    "hidden": 1,
-    "perms": "admin:role:delete",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-
-  {
-    "menuId": 19,
-    "parentId": 14,
-    "orderNum": 4,
-    "menuName": "菜单权限",
-    "iKey": "views.role.form.menuPerms",
-    "iType": "action",
-    "hidden": 1,
-    "perms": "admin:role:perms:list",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-  {
-    "menuId": 20,
-    "parentId": 19,
-    "orderNum": 5,
-    "menuName": "更新授权",
-    "iType": "action",
-    "hidden": 1,
-    "perms": "admin:role:perms:update",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-
-  {
-    "menuId": 21,
-    "parentId": 14,
-    "orderNum": 6,
-    "menuName": "用户分配",
-    "icon": "mdi-checkbox-multiple-marked-outline",
-    "iKey": "views.role.user_asgmt.title",
-    "iType": "menu",
-    "path": "/role/:id/users",
-    "component": "role/UserAsgmtPage",
-    "layout": "ui",
-    "perms": "admin:role:users:list",
-    "hidden": 1,
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-  {
-    "menuId": 22,
-    "parentId": 21,
-    "orderNum": 0,
-    "menuName": "添加授权",
-    "iKey": "views.role.user_asgmt.assign",
-    "iType": "action",
-    "hidden": 1,
-    "perms": "admin:role:users:assign",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
-  },
-  {
-    "menuId": 23,
-    "parentId": 21,
-    "menuName": "取消授权",
-    "iKey": "views.role.user_asgmt.unassign",
-    "iType": "action",
-    "hidden": 1,
-    "perms": "admin:role:users:unassign",
-    "createBy": "admin",
-    "updateBy": "admin",
-    "deleted": 9
+    "deleted": 9,
+    "children": [
+      {
+        "menuId": 2,
+        "menuName": "系统管理",
+        "icon": "mdi-cog-outline",
+        "iKey": "sidebar.system.sys_mgmt",
+        "iType": "directory",
+        "createBy": "admin",
+        "updateBy": "admin",
+        "deleted": 9,
+        "children": [
+          {
+            "menuId": 3,
+            "menuName": "菜单管理",
+            "icon": "mdi-format-list-bulleted",
+            "iKey": "sidebar.system.menu_mgmt",
+            "iType": "menu",
+            "path": "/menu",
+            "component": "menu/ListPage",
+            "layout": "ui",
+            "perms": "admin:menu:list",
+            "createBy": "admin",
+            "updateBy": "admin",
+            "deleted": 9,
+            "children": [
+              {
+                "menuId": 4,
+                "menuName": "菜单查询",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:menu:query",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": 5,
+                "menuName": "菜单新增",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:menu:create",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": 6,
+                "menuName": "菜单编辑",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:menu:edit",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": 7,
+                "menuName": "菜单删除",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:menu:delete",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              }
+            ]
+          },
+          {
+            "menuId": 8,
+            "menuName": "用户管理",
+            "icon": "mdi-account-multiple-outline",
+            "iKey": "sidebar.system.user_mgmt",
+            "iType": "menu",
+            "path": "/user",
+            "component": "user/ListPage",
+            "layout": "ui",
+            "perms": "admin:user:list",
+            "createBy": "admin",
+            "updateBy": "admin",
+            "deleted": 9,
+            "children": [
+              {
+                "menuId": 9,
+                "menuName": "角色分配",
+                "icon": "mdi-checkbox-multiple-marked-outline",
+                "iKey": "views.user.role_asgmt.title",
+                "iType": "menu",
+                "path": "/user/:id/roles",
+                "component": "user/RoleAsgmtPage",
+                "layout": "ui",
+                "perms": "admin:user:roles:list",
+                "hidden": 1,
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9,
+                "children": [
+                  {
+                    "menuId": 10,
+                    "menuName": "添加授权",
+                    "iKey": "views.user.role_asgmt.assign",
+                    "iType": "action",
+                    "hidden": 1,
+                    "perms": "admin:user:roles:assign",
+                    "createBy": "admin",
+                    "updateBy": "admin",
+                    "deleted": 9
+                  },
+                  {
+                    "menuId": 11,
+                    "menuName": "取消授权",
+                    "iKey": "views.user.role_asgmt.unassign",
+                    "iType": "action",
+                    "hidden": 1,
+                    "perms": "admin:user:roles:unassign",
+                    "createBy": "admin",
+                    "updateBy": "admin",
+                    "deleted": 9
+                  }
+                ]
+              },
+              {
+                "menuId": 12,
+                "menuName": "用户查询",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:user:query",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": 13,
+                "menuName": "用户新增",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:user:create",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": 14,
+                "menuName": "用户编辑",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:user:edit",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": 15,
+                "menuName": "重置密码",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:user:resetPassword",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": 16,
+                "menuName": "用户删除",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:user:delete",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              }
+            ]
+          },
+          {
+            "menuId": 17,
+            "menuName": "角色管理",
+            "icon": "mdi-account-group-outline",
+            "iKey": "sidebar.system.role_mgmt",
+            "iType": "menu",
+            "path": "/role",
+            "component": "role/ListPage",
+            "layout": "ui",
+            "perms": "admin:role:list",
+            "createBy": "admin",
+            "updateBy": "admin",
+            "deleted": 9,
+            "children": [
+              {
+                "menuId": 18,
+                "menuName": "菜单权限",
+                "iKey": "views.role.form.menuPerms",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:role:perms:list",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9,
+                "children": [
+                  {
+                    "menuId": 19,
+                    "menuName": "更新授权",
+                    "iType": "action",
+                    "hidden": 1,
+                    "perms": "admin:role:perms:update",
+                    "createBy": "admin",
+                    "updateBy": "admin",
+                    "deleted": 9
+                  }
+                ]
+              },
+              {
+                "menuId": 20,
+                "menuName": "用户分配",
+                "icon": "mdi-checkbox-multiple-marked-outline",
+                "iKey": "views.role.user_asgmt.title",
+                "iType": "menu",
+                "path": "/role/:id/users",
+                "component": "role/UserAsgmtPage",
+                "layout": "ui",
+                "perms": "admin:role:users:list",
+                "hidden": 1,
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9,
+                "children": [
+                  {
+                    "menuId": 21,
+                    "menuName": "添加授权",
+                    "iKey": "views.role.user_asgmt.assign",
+                    "iType": "action",
+                    "hidden": 1,
+                    "perms": "admin:role:users:assign",
+                    "createBy": "admin",
+                    "updateBy": "admin",
+                    "deleted": 9
+                  },
+                  {
+                    "menuId": 22,
+                    "menuName": "取消授权",
+                    "iKey": "views.role.user_asgmt.unassign",
+                    "iType": "action",
+                    "hidden": 1,
+                    "perms": "admin:role:users:unassign",
+                    "createBy": "admin",
+                    "updateBy": "admin",
+                    "deleted": 9
+                  }
+                ]
+              },
+              {
+                "menuId": 23,
+                "menuName": "角色查询",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:role:query",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": 24,
+                "menuName": "角色新增",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:role:create",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": 25,
+                "menuName": "角色编辑",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:role:edit",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": 26,
+                "menuName": "角色删除",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:role:delete",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]

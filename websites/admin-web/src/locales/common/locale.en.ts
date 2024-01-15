@@ -14,6 +14,7 @@ export default {
   authExpired: 'Authentication expired, please signin again.',
   validateFailed: 'Validate failed, please check your input.',
   maintenance: 'System Maintenance',
+  overview: '{0} Overview',
 
   visibility: {
     show: 'Show',
@@ -23,6 +24,14 @@ export default {
   status: {
     enabled: 'Enabled',
     disabled: 'Disabled',
+  },
+
+  assignment: {
+    assignStatus: 'Assign Status',
+    assigned: 'Assigned',
+    unassigned: 'Unassigned',
+    assign: 'Assign',
+    unassign: 'Un-Assign',
   },
 
   form: {

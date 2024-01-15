@@ -1,6 +1,7 @@
 export default {
+  title: 'Menu',
+
   form: {
-    title: 'Menu',
     parentRoot: 'Root',
     parent: 'Parent Menu',
     menuName: 'Menu Name',

@@ -1,13 +1,12 @@
 import messages from '@/locales';
-
-const supported = Object.keys(messages);
+import { LocaleConfig } from '@/types/config';
 
 let locale = 'en';
 
 try {
   const { 0: browserLang } = navigator.language.split('-');
   if (browserLang == 'zh') locale = 'zhHans';
-  if (supported.includes(browserLang)) locale = browserLang;
+  if (Object.keys(messages).includes(browserLang)) locale = browserLang;
 } catch (e) {
   console.error(e);
 }
@@ -23,6 +22,7 @@ export default {
   availableLocales: [
     {
       code: 'en',
+      momentCode: 'en',
       flag: 'us',
       name: 'united-states',
       label: 'English',
@@ -30,6 +30,7 @@ export default {
     },
     {
       code: 'zhHans',
+      momentCode: 'zh-cn',
       flag: 'cn',
       name: 'china',
       label: '中文',
@@ -37,12 +38,13 @@ export default {
     },
     // {
     //   code: 'ja',
+    //   momentCode: 'ja',
     //   flag: 'jp',
     //   name: 'japan',
     //   label: '日本語',
     //   messages: messages.ja,
     // },
-  ],
+  ] as LocaleConfig.Locale[],
 
   messages: messages,
 };

@@ -13,7 +13,12 @@
 
 import lodash from 'lodash';
 
-import { IUser, QueryParams, SequelizePaginationIUser } from '@/api/admin/data-contracts';
+import {
+  IRoleWithUsers,
+  IUser,
+  QueryParams,
+  SequelizePaginationIUser,
+} from '@/api/admin/data-contracts';
 import * as UserApi from '@/api/admin/User';
 
 type UserState = {
@@ -36,7 +41,6 @@ export const useUserStore = defineStore('user', {
     async list(params?: QueryParams): Promise<SequelizePaginationIUser | undefined> {
       return await UserApi.adminUserList(params);
     },
-
     /**
      * Query.
      * @param id
@@ -45,7 +49,6 @@ export const useUserStore = defineStore('user', {
     async query(id: number): Promise<IUser | undefined> {
       return await UserApi.adminUserQuery(id);
     },
-
     /**
      * Create.
      * @param user
@@ -54,7 +57,6 @@ export const useUserStore = defineStore('user', {
       await UserApi.adminUserCreate(lodash.omit(user, ['userId']));
       await this.$reset();
     },
-
     /**
      * Edit.
      * @param user
@@ -66,7 +68,6 @@ export const useUserStore = defineStore('user', {
       );
       await this.$reset();
     },
-
     /**
      * Reset password.
      * @param id
@@ -76,7 +77,6 @@ export const useUserStore = defineStore('user', {
     async resetPassword(id: number, password: string, confirmPassword: string): Promise<void> {
       await UserApi.adminUserResetPassword(id, { password, confirmPassword });
     },
-
     /**
      * Delete user.
      * @param id
@@ -84,6 +84,30 @@ export const useUserStore = defineStore('user', {
     async delete(id: number): Promise<void> {
       await UserApi.adminUserDelete(id);
       await this.$reset();
+    },
+    /**
+     * List user's roles.
+     * @param userId
+     * @returns
+     */
+    async listUserRoles(userId: number): Promise<IRoleWithUsers[] | undefined> {
+      return await UserApi.adminUserRolesList(userId);
+    },
+    /**
+     * Assign roles to user.
+     * @param userId
+     * @param roleIds
+     */
+    async assignRolesToUser(userId: number, roleIds: number[]): Promise<void> {
+      await UserApi.adminUserRolesAssign(userId, roleIds);
+    },
+    /**
+     * Unassign roles of user.
+     * @param userId
+     * @param roleIds
+     */
+    async unassignRolesOfUser(userId: number, roleIds: number[]): Promise<void> {
+      await UserApi.adminUserRolesUnassign(userId, roleIds);
     },
   },
 });
