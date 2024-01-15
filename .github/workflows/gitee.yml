@@ -1,0 +1,21 @@
+name: gitee mirror
+
+on:
+  schedule:
+    - cron: "0 20 * * *"
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Yikun/hub-mirror-action@master
+        with:
+          src: github/nodite
+          dst: gitee/nodite
+          dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+          dst_token: ${{ secrets.GITEE_TOKEN }}
+          white_list: "nodite-light"
+          static_list: "nodite-light"
+          force_update: true
+          account_type: org
