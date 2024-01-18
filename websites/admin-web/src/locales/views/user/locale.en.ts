@@ -1,6 +1,7 @@
 export default {
+  title: 'User',
+
   form: {
-    title: 'User',
     username: 'Username',
     nickname: 'Nickname',
     email: 'Email',
@@ -24,5 +25,10 @@ export default {
     secret: 'Secret',
     male: 'Male',
     female: 'Female',
+  },
+
+  role_asgmt: {
+    title: 'Role Asgmt',
+    status: 'Role Status',
   },
 };

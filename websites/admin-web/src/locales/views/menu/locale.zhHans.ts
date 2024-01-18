@@ -1,6 +1,7 @@
 export default {
+  title: '菜单',
+
   form: {
-    title: '菜单',
     parentRoot: '根目录',
     parent: '上级菜单',
     menuName: '菜单名称',

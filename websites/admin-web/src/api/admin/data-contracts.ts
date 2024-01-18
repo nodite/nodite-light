@@ -93,6 +93,8 @@ export interface PickIUserExcludeKeysUserId {
 /** Construct a type with the properties of T except for those in type K. */
 export type OmitIUserUserId = PickIUserExcludeKeysUserId;
 
+export type IUserCreate = OmitIUserUserId;
+
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickIUserExcludeKeysUserIdOrUsernameOrPassword {
   nickname: string;
@@ -112,6 +114,8 @@ export interface PickIUserExcludeKeysUserIdOrUsernameOrPassword {
 
 /** Construct a type with the properties of T except for those in type K. */
 export type OmitIUserUserIdOrUsernameOrPassword = PickIUserExcludeKeysUserIdOrUsernameOrPassword;
+
+export type IUserUpdate = OmitIUserUserIdOrUsernameOrPassword;
 
 export interface IPasswordReset {
   /** password */
@@ -149,6 +153,18 @@ export interface PickInstanceTypeTypeofRoleModelRoleIdOrRoleNameOrRoleKeyOrOrder
 
 export type IRole =
   PickInstanceTypeTypeofRoleModelRoleIdOrRoleNameOrRoleKeyOrOrderNumOrIKeyOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
+
+export type IRoleWithUsers = IRole & {
+  users: IUser[];
+};
+
+export interface IResponseIRoleWithUsersArray {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: IRoleWithUsers[];
+}
 
 export interface SequelizePaginationIRole {
   items: IRole[];

@@ -2,7 +2,7 @@ import { AppError } from '@nodite-light/admin-core';
 import { SequelizePagination } from '@nodite-light/admin-database';
 import httpStatus from 'http-status';
 import lodash from 'lodash';
-import { Op } from 'sequelize';
+import { Op, Transaction } from 'sequelize';
 
 import CasbinModel from '@/components/casbin/casbin.model';
 import MenuModel, { IMenu } from '@/components/menu/menu.model';
@@ -95,10 +95,12 @@ export default class RoleService {
    */
   public async delete(id: number): Promise<void> {
     if (id === 1) {
-      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Role is not allow delete!');
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Admin role is not allow delete!');
     }
 
-    // todo: check role is using, if using, not allow delete.
+    if (await RoleUserModel.findOne({ where: { roleId: id } })) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Role is using, please unassign first!');
+    }
 
     const storedRole = await RoleModel.findOne({ where: { roleId: id } });
 
@@ -148,7 +150,7 @@ export default class RoleService {
       throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Role is not allow update!');
     }
 
-    // transaction starting.
+    // start transaction.
     const transaction = await RoleMenuModel.sequelize.transaction();
 
     // role menu associate.
@@ -159,7 +161,7 @@ export default class RoleService {
       { transaction },
     );
 
-    // casbin.
+    // update casbin.
     await CasbinModel.removeRolePolicies(roleId, transaction);
 
     if (!lodash.isEmpty(menuIds)) {
@@ -180,12 +182,12 @@ export default class RoleService {
       await CasbinModel.addRolePolicies(roleId, menuPerms, transaction);
     }
 
-    // transaction commit.
+    // commit transaction.
     await transaction.commit();
   }
 
   /**
-   * Select role users.
+   * Select role's users.
    * @param roleId
    * @returns
    */
@@ -213,25 +215,29 @@ export default class RoleService {
    * @param roleId
    * @param userIds
    */
-  public async assignRoleToUsers(roleId: number, userIds: number[]): Promise<void> {
+  public async assignRoleToUsers(
+    roleId: number,
+    userIds: number[],
+    transaction?: Transaction,
+  ): Promise<void> {
     if (lodash.isEmpty(userIds)) return;
 
-    // transaction starting.
-    const transaction = await RoleUserModel.sequelize.transaction();
+    // start transaction.
+    const tac = transaction || (await RoleUserModel.sequelize.transaction());
 
     // role user associate.
     await RoleUserModel.bulkCreate(
       userIds.map((userId) => ({ roleId, userId })),
-      { transaction },
+      { transaction: tac },
     );
 
-    // casbin.
+    // update casbin.
     await Promise.all(
-      userIds.map((userId) => CasbinModel.assignRolesToUser([roleId], userId, transaction)),
+      userIds.map((userId) => CasbinModel.assignRolesToUser([roleId], userId, tac)),
     );
 
-    // transaction commit.
-    await transaction.commit();
+    // commit transaction.
+    await tac.commit();
   }
 
   /**
@@ -239,21 +245,25 @@ export default class RoleService {
    * @param roleId
    * @param userIds
    */
-  public async unassignRoleOfUsers(roleId: number, userIds: number[]): Promise<void> {
+  public async unassignRoleOfUsers(
+    roleId: number,
+    userIds: number[],
+    transaction?: Transaction,
+  ): Promise<void> {
     if (lodash.isEmpty(userIds)) return;
 
-    // transaction starting.
-    const transaction = await RoleUserModel.sequelize.transaction();
+    // start transaction.
+    const tac = transaction || (await RoleUserModel.sequelize.transaction());
 
     // role user associate.
-    await RoleUserModel.destroy({ where: { roleId, userId: userIds }, transaction });
+    await RoleUserModel.destroy({ where: { roleId, userId: userIds }, transaction: tac });
 
-    // casbin.
+    // update casbin.
     await Promise.all(
-      userIds.map((userId) => CasbinModel.unassignRolesOfUser([roleId], userId, transaction)),
+      userIds.map((userId) => CasbinModel.unassignRolesOfUser([roleId], userId, tac)),
     );
 
-    // transaction commit.
-    await transaction.commit();
+    // commit transaction.
+    await tac.commit();
   }
 }

@@ -156,7 +156,7 @@ watchEffect(() => {
   >
     <template v-slot:activator="{ props }">
       <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
-        {{ $t('common.form.create', [$t('views.user.form.title')]) }}
+        {{ $t('common.form.create', [$t('views.user.title')]) }}
       </v-btn>
     </template>
 
@@ -165,8 +165,8 @@ watchEffect(() => {
         <v-label>
           {{
             props.userId > 0
-              ? $t('common.form.editHeader', [$t('views.user.form.title'), formData.username])
-              : $t('common.form.newHeader', [$t('views.user.form.title')])
+              ? $t('common.form.editHeader', [$t('views.user.title'), formData.username])
+              : $t('common.form.newHeader', [$t('views.user.title')])
           }}
         </v-label>
       </v-card-title>
@@ -306,9 +306,7 @@ watchEffect(() => {
                   inline
                 >
                   <template v-slot:prepend>
-                    <v-label>
-                      {{ $t('common.form.status', [$t('views.user.form.title')]) }}:
-                    </v-label>
+                    <v-label>{{ $t('common.form.status', [$t('views.user.title')]) }}:</v-label>
                   </template>
                   <v-radio :label="$t('common.status.enabled')" :value="1"></v-radio>
                   <v-radio :label="$t('common.status.disabled')" :value="0"></v-radio>

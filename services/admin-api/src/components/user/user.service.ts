@@ -4,16 +4,27 @@ import { SequelizePagination } from '@nodite-light/admin-database';
 import httpContext from 'express-http-context';
 import httpStatus from 'http-status';
 import lodash from 'lodash';
-import { Op } from 'sequelize';
+import { Op, Transaction } from 'sequelize';
 
-import { IPasswordReset } from '@/components/user/user.interface';
+import RoleService from '@/components/role/role.service';
+import RoleUserModel, { IRoleWithUsers } from '@/components/role_user/role_user.model';
+import { IPasswordReset, IUserCreate, IUserUpdate } from '@/components/user/user.interface';
 import UserModel, { IUser } from '@/components/user/user.model';
 import { QueryParams } from '@/interfaces';
+
+import CasbinModel from '../casbin/casbin.model';
+import RoleModel from '../role/role.model';
 
 /**
  * Class UserService.
  */
 export default class UserService {
+  roleService: RoleService;
+
+  constructor() {
+    this.roleService = new RoleService();
+  }
+
   /**
    * Search users.
    * @param user
@@ -91,12 +102,8 @@ export default class UserService {
    * @param user
    * @returns
    */
-  public async create(user: IUser): Promise<IUser> {
-    const createdUser = await UserModel.create({ ...user });
-    if (lodash.isEmpty(createdUser)) {
-      throw new AppError(httpStatus.BAD_GATEWAY, 'User was not created!');
-    }
-    return createdUser.toJSON<UserModel>();
+  public async create(user: IUserCreate): Promise<IUser> {
+    return UserModel.create(user);
   }
 
   /**
@@ -105,25 +112,20 @@ export default class UserService {
    * @param user
    * @returns
    */
-  public async update(id: number, user: IUser): Promise<IUser> {
-    if (user.password === '') {
-      throw new AppError(
-        httpStatus.BAD_REQUEST,
-        'Password cannot be empty string, please set null or remove it if you want to keep the old password',
-      );
-    }
+  public async update(id: number, user: IUserUpdate): Promise<IUser> {
+    const transaction = await UserModel.sequelize.transaction();
 
-    const storedUser = await UserModel.findOne({ where: { userId: id } });
+    const storedUser = await UserModel.findOne({ where: { userId: id }, transaction });
 
-    if (!user.password || storedUser.getDataValue('password') === user.password) {
-      storedUser.skipBcryptPassword = true;
-    } else {
-      storedUser.skipBcryptPassword = false;
-    }
+    storedUser.skipBcryptPassword = true;
 
-    const updatedUser = await storedUser.update(user);
+    // update user.
+    const updatedUser = await storedUser.update(user, { transaction });
 
-    return updatedUser.toJSON<UserModel>();
+    // commit transaction.
+    await transaction.commit();
+
+    return updatedUser;
   }
 
   /**
@@ -133,7 +135,22 @@ export default class UserService {
    * @returns
    */
   public async resetPassword(id: number, data: IPasswordReset): Promise<IUser> {
-    return this.update(id, { password: data.password } as IUser);
+    if (data.password === '') {
+      throw new AppError(
+        httpStatus.BAD_REQUEST,
+        'Password cannot be empty string, please set null or remove it if you want to keep the old password',
+      );
+    }
+
+    const storedUser = await UserModel.findOne({ where: { userId: id } });
+
+    if (!data.password || storedUser.getDataValue('password') === data.password) {
+      storedUser.skipBcryptPassword = true;
+    } else {
+      storedUser.skipBcryptPassword = false;
+    }
+
+    return storedUser.update({ password: data.password });
   }
 
   /**
@@ -159,6 +176,87 @@ export default class UserService {
     }
 
     return storedUser.destroy();
+  }
+
+  /**
+   * Select user's roles.
+   * @param userId
+   * @returns
+   */
+  public async selectRolesWithUser(userId: number): Promise<IRoleWithUsers[]> {
+    const roleAttrs = ['roleId', 'roleName', 'roleKey', 'orderNum', 'iKey', 'status', 'createTime'];
+    const userAttrs = ['userId'];
+
+    const roles = await RoleModel.findAll({
+      attributes: roleAttrs,
+      include: [
+        {
+          model: UserModel,
+          attributes: userAttrs,
+          where: { userId },
+          required: false,
+        },
+      ],
+    });
+
+    return roles;
+  }
+
+  /**
+   * Assign roles to user.
+   * @param roleIds
+   * @param userId
+   * @param transaction
+   * @returns
+   */
+  public async assignRolesToUser(
+    roleIds: number[],
+    userId: number,
+    transaction?: Transaction,
+  ): Promise<void> {
+    if (lodash.isEmpty(roleIds)) return;
+
+    // start transaction.
+    const tac = transaction || (await RoleUserModel.sequelize.transaction());
+
+    // role user associate.
+    await RoleUserModel.bulkCreate(
+      roleIds.map((roleId) => ({ roleId, userId })),
+      { transaction: tac },
+    );
+
+    // update casbin.
+    await CasbinModel.assignRolesToUser(roleIds, userId, tac);
+
+    // commit transaction.
+    await tac.commit();
+  }
+
+  /**
+   * Unassign roles of user.
+   * @param roleIds
+   * @param userId
+   * @param transaction
+   * @returns
+   */
+  public async unassignRolesOfUser(
+    roleIds: number[],
+    userId: number,
+    transaction?: Transaction,
+  ): Promise<void> {
+    if (lodash.isEmpty(roleIds)) return;
+
+    // start transction.
+    const tac = transaction || (await RoleUserModel.sequelize.transaction());
+
+    // role user associate.
+    await RoleUserModel.destroy({ where: { roleId: roleIds, userId }, transaction: tac });
+
+    // update casbin.
+    await CasbinModel.unassignRolesOfUser(roleIds, userId, tac);
+
+    // commit transaction.
+    await tac.commit();
   }
 
   /**

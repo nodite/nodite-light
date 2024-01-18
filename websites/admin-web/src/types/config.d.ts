@@ -96,3 +96,14 @@ declare namespace NavigationConfig {
     target?: string;
   }
 }
+
+declare namespace LocaleConfig {
+  type Locale = {
+    code: string;
+    momentCode: string;
+    flag: string;
+    name: string;
+    label: string;
+    messages: Record<string, unknown>;
+  };
+}

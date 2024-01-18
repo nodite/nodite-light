@@ -14,6 +14,7 @@ export default {
   authExpired: '身份验证已过期，请重新登录',
   validateFailed: '验证失败，请检查您的输入',
   maintenance: '系统维护中',
+  overview: '{0}概览',
 
   visibility: {
     show: '显示',
@@ -23,6 +24,14 @@ export default {
   status: {
     enabled: '启用',
     disabled: '禁用',
+  },
+
+  assignment: {
+    assignStatus: '分配状态',
+    assigned: '已分配',
+    unassigned: '未分配',
+    assign: '添加授权',
+    unassign: '取消授权',
   },
 
   form: {

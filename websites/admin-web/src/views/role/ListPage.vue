@@ -18,6 +18,7 @@ import {
 import { VDeleteConfirmForm } from '@nodite-light/vuetify-delete-confirm-form';
 import { DataTableItemProps } from '@nodite-light/vuetify-tree-data-table';
 import lodash from 'lodash';
+import moment from 'moment';
 import { toast } from 'vuetify-sonner';
 
 import { IRole, QueryParams, SequelizePaginationIRole } from '@/api/admin/data-contracts';
@@ -47,6 +48,7 @@ const queryParams = ref({
   page: 1,
   itemsPerPage: 10,
   roleName: undefined,
+  roleKey: undefined,
   status: undefined,
 } as QueryParams);
 
@@ -128,7 +130,7 @@ const methods = {
     menuPermsView.value.menuIds = [];
   },
   async openUserAsgmtPage(item: IRole) {
-    router.push(`/role/${item.roleId}/users`);
+    await router.push(`/role/${item.roleId}/users`);
   },
   async saveMenuTreeView(ids: number[], cb: (close: boolean) => void) {
     try {
@@ -170,6 +172,7 @@ watchEffect(() => {
     { title: i18n.global.t('views.role.headers.roleKey'), value: 'roleKey' },
     { title: i18n.global.t('views.role.headers.orderNum'), value: 'orderNum' },
     { title: i18n.global.t('common.form.status', ['']), value: 'status' },
+    { title: i18n.global.t('common.form.createTime'), value: 'createTime' },
     { key: 'actions', sortable: false },
   ];
   staticData.value.status = [
@@ -188,6 +191,17 @@ watchEffect(() => {
             density="compact"
             :label="$t('views.role.form.roleName')"
             v-model="queryParams.roleName"
+            variant="outlined"
+            hide-details
+            hide-spin-buttons
+            clearable
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" lg="2" md="3" sm="6">
+          <v-text-field
+            density="compact"
+            :label="$t('views.role.form.roleKey')"
+            v-model="queryParams.roleKey"
             variant="outlined"
             hide-details
             hide-spin-buttons
@@ -269,6 +283,10 @@ watchEffect(() => {
       ></v-switch>
     </template>
 
+    <template v-slot:item.createTime="{ value }">
+      <v-label>{{ moment(value).format('YYYY-MM-DD HH:mm:ss') }}</v-label>
+    </template>
+
     <template v-slot:item.actions="{ item }">
       <v-btn
         class="px-0"
@@ -290,6 +308,7 @@ watchEffect(() => {
         <v-icon>mdi-delete</v-icon>
       </v-btn>
 
+      <!-- expand actions -->
       <v-menu transition="scroll-y-transition">
         <template v-slot:activator="{ props }">
           <v-btn
@@ -298,7 +317,7 @@ watchEffect(() => {
             variant="text"
             min-width="calc(var(--v-btn-height) + 0px)"
           >
-            <v-icon>mdi-chevron-down</v-icon>
+            <v-icon>mdi-dots-vertical</v-icon>
           </v-btn>
         </template>
 

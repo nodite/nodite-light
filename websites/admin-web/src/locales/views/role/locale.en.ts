@@ -1,9 +1,9 @@
 export default {
+  title: 'Role',
   admin: 'Super Admin',
   viewer: 'Viewer',
 
   form: {
-    title: 'Role',
     roleName: 'Role Name',
     roleKey: 'Role Key',
     orderNum: 'Order',
@@ -23,10 +23,5 @@ export default {
   user_asgmt: {
     title: 'User Asgmt',
     status: 'User Status',
-    assignStatus: 'Assign Status',
-    assigned: 'Assigned',
-    unassigned: 'Unassigned',
-    assign: 'Assign',
-    unassign: 'Un-Assign',
   },
 };

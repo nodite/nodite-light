@@ -28,6 +28,7 @@ import UserForm from '@/views/user/components/UserForm.vue';
 
 const userStore = useUserStore();
 const profileStore = useProfileStore();
+const router = useRouter();
 
 const staticData = ref({
   itemsPerPageOptions: [] as ItemsPerPageOption[],
@@ -130,6 +131,9 @@ const methods = {
   closeDeleteConfirmForm() {
     deleteConfirmFormData.value.dialog = false;
     deleteConfirmFormData.value.item = {} as IUser;
+  },
+  async openRoleAsgmtPage(item: IUser) {
+    await router.push(`/user/${item.userId}/roles`);
   },
   async opUserStatus(id: number, status: number) {
     await userStore.edit({ userId: id, status: status } as IUser);
@@ -317,6 +321,34 @@ watchEffect(() => {
       >
         <v-icon>mdi-delete</v-icon>
       </v-btn>
+
+      <!-- expand actions -->
+      <v-menu transition="scroll-y-transition">
+        <template v-slot:activator="{ props }">
+          <v-btn
+            v-bind="props"
+            class="px-0"
+            variant="text"
+            min-width="calc(var(--v-btn-height) + 0px)"
+          >
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list density="compact">
+          <v-list-item>
+            <v-btn
+              color="primary"
+              variant="tonal"
+              density="comfortable"
+              @click="methods.openRoleAsgmtPage(item)"
+              prepend-icon="mdi-checkbox-multiple-marked-outline"
+            >
+              <v-label>{{ $t('views.user.role_asgmt.title') }}</v-label>
+            </v-btn>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </template>
 
     <template v-slot:bottom>

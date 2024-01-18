@@ -1,4 +1,8 @@
+import lodash from 'lodash';
+import moment from 'moment';
 import { defineStore } from 'pinia';
+
+import { LocaleConfig } from '@/types/config';
 
 interface Color {
   colorId: number;
@@ -10,8 +14,8 @@ interface State {
   miniSidebar: boolean;
   darkTheme: boolean;
   primaryColor: Color;
+  locale: Omit<LocaleConfig.Locale, 'messages'>;
   mainSidebar: boolean;
-  localCode: string;
 }
 
 export const useCustomizeThemeStore = defineStore({
@@ -24,7 +28,10 @@ export const useCustomizeThemeStore = defineStore({
       colorName: 'info',
       colorValue: '#17C1E8',
     },
-    localCode: 'en',
+    locale: {
+      code: 'en',
+      momentCode: 'en',
+    } as Omit<LocaleConfig.Locale, 'messages'>,
     mainSidebar: true,
     // mainSidebar: isMobile() ? false : true,
   }),
@@ -32,11 +39,12 @@ export const useCustomizeThemeStore = defineStore({
   persist: [
     {
       storage: localStorage,
-      paths: ['darkTheme', 'primaryColor', 'localCode', 'mainSidebar'],
+      paths: ['darkTheme', 'primaryColor', 'locale', 'mainSidebar'],
     },
   ],
 
   getters: {},
+
   actions: {
     setDarkTheme(payload: boolean) {
       this.darkTheme = payload;
@@ -47,8 +55,9 @@ export const useCustomizeThemeStore = defineStore({
     setPrimaryColor(payload: Color) {
       this.primaryColor = payload;
     },
-    setLocalCode(localCode: string) {
-      this.localCode = localCode;
+    setLocale(locale: Omit<LocaleConfig.Locale, 'messages'>) {
+      this.locale = lodash.omit(locale, 'messages');
+      if (this.locale.momentCode) moment.locale(this.locale.momentCode);
     },
   },
 });

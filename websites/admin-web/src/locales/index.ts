@@ -1,3 +1,6 @@
+import 'moment/dist/locale/zh-cn';
+import 'moment/dist/locale/ja';
+
 import lodash from 'lodash';
 import { DefaultLocaleMessageSchema } from 'vue-i18n';
 import * as vuetifyLocale from 'vuetify/locale';
@@ -28,4 +31,8 @@ lodash.forIn(messages, (value, langcode) => {
   );
 });
 
-export default messages;
+export default {
+  zhHans: messages.zhHans,
+  en: messages.en,
+  ja: messages.ja,
+};

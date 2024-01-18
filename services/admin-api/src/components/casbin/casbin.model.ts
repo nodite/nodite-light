@@ -64,7 +64,7 @@ export default class CasbinModel extends CasbinRule {
   }
 
   /**
-   * Assign user to roles.
+   * Assign roles to user.
    * @param roleIds
    * @param userId
    * @param transaction
@@ -82,7 +82,7 @@ export default class CasbinModel extends CasbinRule {
   }
 
   /**
-   * Unassign user's roles.
+   * Unassign roles of user.
    * @param roleIds
    * @param userId
    * @param transaction
