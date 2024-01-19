@@ -15,7 +15,10 @@ import {
   ItemsPerPageOption,
   VDataTablePagination,
 } from '@nodite-light/vuetify-data-table-pagination';
-import { VDeleteConfirmForm } from '@nodite-light/vuetify-delete-confirm-form';
+import {
+  type ConfirmCallback,
+  VDeleteConfirmForm,
+} from '@nodite-light/vuetify-delete-confirm-form';
 import { DataTableItemProps } from '@nodite-light/vuetify-tree-data-table';
 import lodash from 'lodash';
 import moment from 'moment';
@@ -144,11 +147,15 @@ const methods = {
   async opRoleStatus(id: number, status: number) {
     await roleStore.edit({ roleId: id, status: status } as IRole);
   },
-  async delete(item: IRole, cb: () => void) {
-    await roleStore.delete(item.roleId);
-    await methods.loadList();
-    methods.closeDeleteConfirmForm();
-    cb();
+  async delete(item: IRole, cb: ConfirmCallback) {
+    try {
+      await roleStore.delete(item.roleId);
+      await methods.loadList();
+      methods.closeDeleteConfirmForm();
+      cb(true);
+    } catch (error) {
+      cb(false);
+    }
   },
 };
 
