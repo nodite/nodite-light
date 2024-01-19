@@ -11,7 +11,10 @@
 -->
 
 <script setup lang="ts">
-import { VDeleteConfirmForm } from '@nodite-light/vuetify-delete-confirm-form';
+import {
+  type ConfirmCallback,
+  VDeleteConfirmForm,
+} from '@nodite-light/vuetify-delete-confirm-form';
 import { type DataTableItemProps, VTreeDataTable } from '@nodite-light/vuetify-tree-data-table';
 
 import { IMenu, MenuTree } from '@/api/admin/data-contracts';
@@ -65,11 +68,15 @@ const methods = {
   async opMenuStatus(id: number, status: number) {
     await menuStore.edit({ menuId: id, status: status } as IMenu);
   },
-  async delete(menu: IMenu, cb: () => void) {
-    await menuStore.delete(menu.menuId);
-    await methods.loadMenuTree();
-    methods.closeDeleteConfirmForm();
-    cb();
+  async delete(menu: IMenu, cb: ConfirmCallback) {
+    try {
+      await menuStore.delete(menu.menuId);
+      await methods.loadMenuTree();
+      methods.closeDeleteConfirmForm();
+      cb(true);
+    } catch (error) {
+      cb(false);
+    }
   },
 };
 

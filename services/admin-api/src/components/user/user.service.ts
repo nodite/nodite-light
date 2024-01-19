@@ -159,7 +159,7 @@ export default class UserService {
    * @returns
    */
   public async delete(id: number): Promise<void> {
-    if (this.isAdmin(id)) {
+    if (await this.isAdmin(id)) {
       throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Cannot delete admin user!');
     }
 
@@ -264,8 +264,10 @@ export default class UserService {
    * @param userId
    * @returns
    */
-  public isAdmin(userId?: number): boolean {
-    return userId === 1;
+  public async isAdmin(userId?: number): Promise<boolean> {
+    if (userId === 1) return true;
+    const hasAdminRole = await RoleUserModel.findOne({ where: { userId, roleId: 1 } });
+    return !!hasAdminRole;
   }
 
   /**

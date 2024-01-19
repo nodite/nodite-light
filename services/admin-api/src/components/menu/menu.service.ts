@@ -2,10 +2,11 @@ import { AppError } from '@nodite-light/admin-core';
 import httpStatus from 'http-status';
 import lodash from 'lodash';
 import { arrayToTree } from 'performant-array-to-tree';
-import { Attributes, FindOptions } from 'sequelize';
 
 import { MenuTree } from '@/components/menu/menu.interface';
 import MenuModel, { IMenu } from '@/components/menu/menu.model';
+import RoleModel from '@/components/role/role.model';
+import UserModel from '@/components/user/user.model';
 import UserService from '@/components/user/user.service';
 
 /**
@@ -24,18 +25,44 @@ export default class MenuService {
    * @returns
    */
   public async selectMenuList(userId?: number): Promise<IMenu[]> {
-    const options = {
-      order: [
-        ['orderNum', 'ASC'],
-        ['menuId', 'ASC'],
-      ],
-    } as FindOptions<Attributes<MenuModel>>;
+    let menus: MenuModel[] = [];
 
-    const menus = await (this.userService.isAdmin(userId)
-      ? MenuModel.findAll(options)
-      : MenuModel.findAllByUserId(userId, options));
+    // admin.
+    if (await this.userService.isAdmin(userId)) {
+      menus = lodash.map(await MenuModel.findAll(), (m) => m.toJSON());
+    }
+    // no-admin user.
+    else {
+      // user.
+      const user = await UserModel.findOne({
+        where: { userId },
+        include: [{ model: RoleModel, attributes: ['roleId'], required: false }],
+      });
 
-    return menus.map((m) => m.toJSON<MenuModel>());
+      // roles with menus.
+      const roles = await RoleModel.findAll({
+        where: {
+          roleId: lodash.map(user?.getDataValue('roles'), 'roleId') || [],
+        },
+        include: [
+          {
+            model: MenuModel,
+            required: false,
+          },
+        ],
+      });
+
+      menus = lodash
+        .chain(roles)
+        .map('menus')
+        .flatten()
+        .map((m) => m.toJSON())
+        .uniqBy('menuId')
+        .value();
+    }
+
+    // order
+    return lodash.orderBy(menus, ['orderNum', 'menuId'], ['asc', 'asc']);
   }
 
   /**

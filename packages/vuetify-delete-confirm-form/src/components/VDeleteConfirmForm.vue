@@ -33,9 +33,9 @@ const methods = {
   },
   confirm() {
     localData.value.deleting = true;
-    emit('confirm', props.item, () => {
+    emit('confirm', props.item, (close: boolean = true) => {
       localData.value.deleting = false;
-      methods.close();
+      if (close) methods.close();
     });
   },
   cancel() {
