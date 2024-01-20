@@ -1,5 +1,6 @@
 import { AuthorizedRequest, Permissions } from '@nodite-light/admin-auth';
 import { IResponse, validate } from '@nodite-light/admin-core';
+import { Cacheable, CacheClear } from '@nodite-light/admin-database';
 import httpStatus from 'http-status';
 import {
   Body,
@@ -40,6 +41,7 @@ export class MenuController extends BaseController {
   @Get('/list')
   @OperationId('admin:menu:list')
   @Permissions('admin:menu:list')
+  @Cacheable({ hashKey: 'menu:list', cacheKey: (args) => args[0]?.user?.userId })
   public async list(@Request() req: AuthorizedRequest): Promise<IResponse<IMenu[]>> {
     const menus = await this.menuService.selectMenuList(req.user?.userId);
     this.setStatus(httpStatus.OK);
@@ -51,6 +53,7 @@ export class MenuController extends BaseController {
    */
   @Get('/tree')
   @OperationId('admin:menu:tree')
+  @Cacheable({ hashKey: 'menu:tree', cacheKey: (args) => args[0]?.user?.userId })
   public async listTree(@Request() req: AuthorizedRequest): Promise<IResponse<MenuTree[]>> {
     const menuTree = await this.menuService.selectMenuTree(req.user?.userId);
     this.setStatus(httpStatus.OK);
@@ -63,6 +66,7 @@ export class MenuController extends BaseController {
   @Get('{id}')
   @OperationId('admin:menu:query')
   @Permissions('admin:menu:query')
+  @Cacheable({ hashKey: 'menu:query', cacheKey: (args) => args[0] })
   public async query(@Path() id: number): Promise<IResponse<IMenu>> {
     const menu = await this.menuService.selectMenuById(id);
     this.setStatus(httpStatus.OK);
@@ -76,6 +80,8 @@ export class MenuController extends BaseController {
   @Middlewares([validate(SaveValidation)])
   @OperationId('admin:menu:create')
   @Permissions('admin:menu:create')
+  @CacheClear({ hashKey: 'menu:list:*' })
+  @CacheClear({ hashKey: 'menu:tree:*' })
   public async create(@Body() body: Omit<IMenu, 'menuId'>): Promise<IResponse<IMenu>> {
     const menu = await this.menuService.create(body as IMenu);
     this.setStatus(httpStatus.CREATED);
@@ -89,6 +95,9 @@ export class MenuController extends BaseController {
   @Middlewares([validate(SaveValidation)])
   @OperationId('admin:menu:edit')
   @Permissions('admin:menu:edit')
+  @CacheClear({ hashKey: 'menu:list:*' })
+  @CacheClear({ hashKey: 'menu:tree:*' })
+  @CacheClear({ hashKey: 'menu:query', cacheKey: (args) => args[0] })
   public async update(
     @Path() id: number,
     @Body() body: Omit<IMenu, 'menuId'>,
@@ -104,6 +113,9 @@ export class MenuController extends BaseController {
   @Delete('{id}')
   @OperationId('admin:menu:delete')
   @Permissions('admin:menu:delete')
+  @CacheClear({ hashKey: 'menu:list:*' })
+  @CacheClear({ hashKey: 'menu:tree:*' })
+  @CacheClear({ hashKey: 'menu:query', cacheKey: (args) => args[0] })
   public async delete(@Path() id: number): Promise<IResponse<void>> {
     await this.menuService.delete(id);
     this.setStatus(httpStatus.NO_CONTENT);

@@ -8,8 +8,6 @@ services:
     privileged: true
     environment:
       MYSQL_DATABASE: nodite
-      # MYSQL_USER: root
-      # MYSQL_PASSWORD: nodite
       MYSQL_ROOT_PASSWORD: nodite
     ports:
       - 3306:3306
@@ -31,7 +29,7 @@ services:
       - default
 
   redis-commander:
-    image: ghcr.io/joeferner/redis-commander:latest
+    image: eburypartners/redis-commander:latest
     environment:
       - REDIS_HOSTS=local:redis:6379
     ports:
@@ -41,28 +39,28 @@ services:
     networks:
       - default
 
-  postgres:
-    build:
-      context: .
-      dockerfile: docker/postgres/Dockerfile
-    privileged: true
-    environment:
-      - PG_MAJOR
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=nodite
-      - PGDATA=/var/lib/postgresql/data/pgdata
-    ports:
-      - 5432:5432
-    volumes:
-      - ./volumes/postgres:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-    networks:
-      - default
+  # postgres:
+  #   build:
+  #     context: .
+  #     dockerfile: docker/postgres/Dockerfile
+  #   privileged: true
+  #   environment:
+  #     - PG_MAJOR
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #     - POSTGRES_DB=nodite
+  #     - PGDATA=/var/lib/postgresql/data/pgdata
+  #   ports:
+  #     - 5432:5432
+  #   volumes:
+  #     - ./volumes/postgres:/var/lib/postgresql/data
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U postgres"]
+  #     interval: 5s
+  #     timeout: 5s
+  #     retries: 5
+  #   networks:
+  #     - default
 
 networks:
   default:
