@@ -5,8 +5,9 @@ import { unless } from 'express-unless';
 import httpStatus from 'http-status';
 import { JwtPayload } from 'jsonwebtoken';
 import { TokenDestroyedError, TokenInvalidError } from 'jwt-redis';
+import lodash from 'lodash';
 
-import { AuthorizedRequest } from '@/interfaces/authorizedRequest';
+import { AuthorizedRequest, PermissionOptions } from '@/interfaces/authorization';
 import casbin from '@/nd-casbin';
 import * as utils from '@/utils';
 import { jwtAsync } from '@/utils/jwt';
@@ -16,8 +17,8 @@ import { jwtAsync } from '@/utils/jwt';
  * @param perms
  * @returns
  */
-export function Permissions(...perms: string[]) {
-  return function wrapperFn(target: unknown, propertyKey: string, descriptor: PropertyDescriptor) {
+export function Permissions(perms?: string | string[], options: PermissionOptions = {}) {
+  return function wrapperFn(target: object, propertyKey: string, descriptor: PropertyDescriptor) {
     // original method.
     const original = descriptor.value;
 
@@ -28,26 +29,36 @@ export function Permissions(...perms: string[]) {
       const user = httpContext.get('user') as AuthorizedRequest['user'];
 
       // check if user is authorized.
-      if (!user) {
-        throw new AppError(httpStatus.UNAUTHORIZED, 'Unauthorized');
+      if (!user) throw new AppError(httpStatus.UNAUTHORIZED, 'Unauthorized');
+
+      // skip perms if not provided.
+      if (lodash.isEmpty(perms)) return original.apply(this, args);
+
+      // self bypass.
+      if (
+        !!options?.selfBypass &&
+        !!options?.userIdDetector &&
+        lodash.toInteger(options.userIdDetector(args)) === user.userId
+      ) {
+        return original.apply(this, args);
       }
 
+      // casbin enforce to check permissions.
       const enforcer = await casbin();
 
-      // casbin enforce.
-      const promises = perms.map(async (perm) => {
+      const promises = (lodash.isString(perms) ? [perms] : perms).map(async (perm) => {
         const [dom, obj, act] = utils.permToCasbinPolicy(perm);
 
         const isValid = await enforcer.enforce(`sys_user:${user.userId}`, dom, obj, act);
-        if (!isValid) {
-          return Promise.reject(
-            new AppError(
-              httpStatus.FORBIDDEN,
-              `You do not have permission to perform the action ${perm}`,
-            ),
-          );
-        }
-        return Promise.resolve();
+
+        if (isValid) return Promise.resolve();
+
+        return Promise.reject(
+          new AppError(
+            httpStatus.FORBIDDEN,
+            `You do not have permission to perform the action ${perm}`,
+          ),
+        );
       });
 
       await Promise.all(promises);

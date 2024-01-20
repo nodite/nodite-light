@@ -1,8 +1,19 @@
 import { logger } from '@nodite-light/admin-core';
+import cacheManger, { CacheManagerOptions } from '@type-cacheable/core';
+import { useAdapter } from '@type-cacheable/redis-adapter';
 import { createClient } from 'redis';
 
 import { RedisClient, RedisStoreOptions } from '@/nodite-redis/interface';
 
+// global cache manager options
+cacheManger.setOptions(<CacheManagerOptions>{
+  excludeContext: false,
+  ttlSeconds: 0,
+});
+
+/**
+ * Redis database
+ */
 export default class Database {
   static client: RedisClient | null;
 
@@ -29,6 +40,12 @@ export default class Database {
     } catch (err) {
       logger.error('Redis connection error, some features are not be available', err);
       Database.client = null;
+    }
+
+    // set cache manager adapter
+    if (Database.client) {
+      cacheManger.setClient(useAdapter(Database.client as never));
+      logger.info('Redis cache manager adapter set');
     }
 
     return Database.client;
