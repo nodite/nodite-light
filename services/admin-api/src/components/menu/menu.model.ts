@@ -16,7 +16,7 @@ import {
 
 import { MenuTree } from '@/components/menu/menu.interface';
 import RoleModel from '@/components/role/role.model';
-import RoleMenuModel from '@/components/role_menu/role_menu.model';
+import RoleMenuModel from '@/components/role/role_menu.model';
 import MenuSeeds from '@/seeds/sys_menu.seeds.json';
 
 const TABLE_NAME = 'sys_menu';

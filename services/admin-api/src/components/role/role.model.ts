@@ -13,8 +13,8 @@ import {
 } from 'sequelize-typescript';
 
 import MenuModel from '@/components/menu/menu.model';
-import RoleMenuModel from '@/components/role_menu/role_menu.model';
-import RoleUserModel from '@/components/role_user/role_user.model';
+import RoleMenuModel from '@/components/role/role_menu.model';
+import RoleUserModel from '@/components/role/role_user.model';
 import UserModel from '@/components/user/user.model';
 import RoleSeeds from '@/seeds/sys_role.seeds.json';
 

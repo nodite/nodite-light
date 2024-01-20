@@ -20,7 +20,7 @@ import {
 } from 'sequelize-typescript';
 
 import RoleModel from '@/components/role/role.model';
-import RoleUserModel from '@/components/role_user/role_user.model';
+import RoleUserModel from '@/components/role/role_user.model';
 import UserSeeds from '@/seeds/sys_user.seeds.json';
 
 const TABLE_NAME = 'sys_user';

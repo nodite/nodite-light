@@ -21,7 +21,7 @@ import { IMenu } from '@/components/menu/menu.model';
 import { IRole } from '@/components/role/role.model';
 import RoleService from '@/components/role/role.service';
 import { CreateValidation, EditValidation } from '@/components/role/role.validation';
-import { IUserWithRoles } from '@/components/role_user/role_user.model';
+import { IUserWithRoles } from '@/components/role/role_user.model';
 import { QueryParams } from '@/interfaces';
 
 /**

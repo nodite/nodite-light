@@ -18,7 +18,7 @@ import {
 } from 'tsoa';
 
 import BaseController from '@/components/base.controller';
-import { IRoleWithUsers } from '@/components/role_user/role_user.model';
+import { IRoleWithUsers } from '@/components/role/role_user.model';
 import { IPasswordReset, IUserCreate, IUserUpdate } from '@/components/user/user.interface';
 import { IUser } from '@/components/user/user.model';
 import UserService from '@/components/user/user.service';

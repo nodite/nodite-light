@@ -7,8 +7,8 @@ import { Op, Transaction } from 'sequelize';
 import CasbinModel from '@/components/casbin/casbin.model';
 import MenuModel, { IMenu } from '@/components/menu/menu.model';
 import RoleModel, { IRole } from '@/components/role/role.model';
-import RoleMenuModel from '@/components/role_menu/role_menu.model';
-import RoleUserModel, { IUserWithRoles } from '@/components/role_user/role_user.model';
+import RoleMenuModel from '@/components/role/role_menu.model';
+import RoleUserModel, { IUserWithRoles } from '@/components/role/role_user.model';
 import UserModel from '@/components/user/user.model';
 import { QueryParams } from '@/interfaces';
 
