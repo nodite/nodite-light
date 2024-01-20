@@ -1,4 +1,4 @@
-import { SequelizeModel, Subscription } from '@nodite-light/admin-database';
+import { SequelizeModel, Subscribe } from '@nodite-light/admin-database';
 import { AllowNull, Column, DataType, ForeignKey, PrimaryKey, Table } from 'sequelize-typescript';
 
 import RoleModel, { IRole } from '@/components/role/role.model';
@@ -9,7 +9,7 @@ import RoleUserSeeds from '@/seeds/sys_role_user.seeds.json';
   ...SequelizeModel.TableOptions,
   tableName: 'sys_role_user',
 })
-@Subscription(RoleUserSeeds)
+@Subscribe(RoleUserSeeds)
 export default class RoleUserModel extends SequelizeModel<RoleUserModel> {
   @ForeignKey(() => RoleModel)
   @PrimaryKey

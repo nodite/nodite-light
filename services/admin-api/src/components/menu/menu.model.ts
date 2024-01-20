@@ -1,4 +1,4 @@
-import { SequelizeModel, Subscription } from '@nodite-light/admin-database';
+import { SequelizeModel, Subscribe } from '@nodite-light/admin-database';
 import lodash from 'lodash';
 import { Attributes, FindOptions } from 'sequelize';
 import {
@@ -45,7 +45,7 @@ async function initialSeeds(model: typeof MenuModel, seeds: MenuTree[] = [], par
   ...SequelizeModel.TableOptions,
   tableName: TABLE_NAME,
 })
-@Subscription(MenuSeeds, initialSeeds)
+@Subscribe(MenuSeeds, initialSeeds)
 export default class MenuModel extends SequelizeModel<MenuModel> {
   @AllowNull(false)
   @Unique

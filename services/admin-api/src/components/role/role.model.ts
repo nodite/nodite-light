@@ -1,4 +1,4 @@
-import { SequelizeModel, Subscription } from '@nodite-light/admin-database';
+import { SequelizeModel, Subscribe } from '@nodite-light/admin-database';
 import {
   AllowNull,
   AutoIncrement,
@@ -27,7 +27,7 @@ const TABLE_NAME = 'sys_role';
   ...SequelizeModel.TableOptions,
   tableName: TABLE_NAME,
 })
-@Subscription(RoleSeeds)
+@Subscribe(RoleSeeds)
 export default class RoleModel extends SequelizeModel<RoleModel> {
   @AllowNull(false)
   @Unique

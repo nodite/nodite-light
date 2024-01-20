@@ -1,4 +1,4 @@
-import { SequelizeModel, Subscription } from '@nodite-light/admin-database';
+import { SequelizeModel, Subscribe } from '@nodite-light/admin-database';
 import { AllowNull, Column, DataType, ForeignKey, PrimaryKey, Table } from 'sequelize-typescript';
 
 import MenuModel, { IMenu } from '@/components/menu/menu.model';
@@ -9,7 +9,7 @@ import RoleMenuSeeds from '@/seeds/sys_role_menu.seeds.json';
   ...SequelizeModel.TableOptions,
   tableName: 'sys_role_menu',
 })
-@Subscription(RoleMenuSeeds)
+@Subscribe(RoleMenuSeeds)
 export default class RoleMenuModel extends SequelizeModel<RoleMenuModel> {
   @ForeignKey(() => RoleModel)
   @PrimaryKey
