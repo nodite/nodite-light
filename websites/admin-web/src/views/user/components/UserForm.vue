@@ -15,7 +15,7 @@ import lodash from 'lodash';
 import { toast } from 'vuetify-sonner';
 
 import { IUser } from '@/api/admin/data-contracts';
-import i18n from '@/plugins/i18n';
+import { $ndt } from '@/plugins/i18n';
 import { useUserStore } from '@/stores/modules/userStore';
 
 const userStore = useUserStore();
@@ -54,34 +54,27 @@ const refForm = ref();
 const formData = ref({} as IUser);
 const formRules = ref({
   username: [
+    (v: string) => !!v || $ndt('common.form.required', [$ndt('views.user.form.username')]),
     (v: string) =>
-      !!v || i18n.global.t('common.form.required', [i18n.global.t('views.user.form.username')]),
-    (v: string) =>
-      (v && v.length <= 25) ||
-      i18n.global.t('common.form.max', [i18n.global.t('views.user.form.username'), 25]),
+      (v && v.length <= 25) || $ndt('common.form.max', [$ndt('views.user.form.username'), 25]),
   ],
   nickname: [
     (v: string) =>
-      !v ||
-      v.length <= 32 ||
-      i18n.global.t('common.form.max', [i18n.global.t('views.user.form.nickname'), 32]),
+      !v || v.length <= 32 || $ndt('common.form.max', [$ndt('views.user.form.nickname'), 32]),
   ],
   email: [
     (v: string) =>
-      !v ||
-      v.length <= 50 ||
-      i18n.global.t('common.form.max', [i18n.global.t('views.user.form.email'), 50]),
-    (v: string) => !v || /.+@.+\..+/.test(v) || i18n.global.t('common.form.email'),
+      !v || v.length <= 50 || $ndt('common.form.max', [$ndt('views.user.form.email'), 50]),
+    (v: string) => !v || /.+@.+\..+/.test(v) || $ndt('common.form.email'),
   ],
   phone: [],
-  sex: [(v: number) => [0, 1, 2].includes(v) || i18n.global.t('common.form.invalid')],
+  sex: [(v: number) => [0, 1, 2].includes(v) || $ndt('common.form.invalid')],
   password: [
-    (v: string) =>
-      !!v || i18n.global.t('common.form.required', [i18n.global.t('views.user.form.password')]),
+    (v: string) => !!v || $ndt('common.form.required', [$ndt('views.user.form.password')]),
     (v: string) =>
       formData.value.userId > 0 ||
       (v && v.length <= 25) ||
-      i18n.global.t('common.form.max', [i18n.global.t('views.user.form.password'), 25]),
+      $ndt('common.form.max', [$ndt('views.user.form.password'), 25]),
   ],
   status: [],
 });
@@ -97,7 +90,7 @@ const methods = {
   },
   closeUserForm() {
     if (localData.value.isSaving) {
-      toast.warning(i18n.global.t('common.form.saving'));
+      toast.warning($ndt('common.form.saving'));
       return;
     }
     localData.value = lodash.cloneDeep(defLocalData);
@@ -126,7 +119,7 @@ const methods = {
       localData.value.isSaving = false;
     }
 
-    toast.success(i18n.global.t('common.form.success'));
+    toast.success($ndt('common.form.success'));
 
     methods.closeUserForm();
     emit('save');
@@ -136,9 +129,9 @@ const methods = {
 watchEffect(() => {
   // watch i18n.
   staticData.value.sex = [
-    { value: 0, title: i18n.global.t('views.user.sex.secret') },
-    { value: 1, title: i18n.global.t('views.user.sex.male') },
-    { value: 2, title: i18n.global.t('views.user.sex.female') },
+    { value: 0, title: $ndt('views.user.sex.secret') },
+    { value: 1, title: $ndt('views.user.sex.male') },
+    { value: 2, title: $ndt('views.user.sex.female') },
   ];
 
   localData.value.dialog = props.dialog;
@@ -156,7 +149,7 @@ watchEffect(() => {
   >
     <template v-slot:activator="{ props }">
       <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
-        {{ $t('common.form.create', [$t('views.user.title')]) }}
+        {{ $ndt('common.form.create', [$ndt('views.user.title')]) }}
       </v-btn>
     </template>
 
@@ -165,8 +158,8 @@ watchEffect(() => {
         <v-label>
           {{
             props.userId > 0
-              ? $t('common.form.editHeader', [$t('views.user.title'), formData.username])
-              : $t('common.form.newHeader', [$t('views.user.title')])
+              ? $ndt('common.form.editHeader', [$ndt('views.user.title'), formData.username])
+              : $ndt('common.form.newHeader', [$ndt('views.user.title')])
           }}
         </v-label>
       </v-card-title>
@@ -192,7 +185,7 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $t('views.user.form.username') }}:</v-label>
+                    <v-label>{{ $ndt('views.user.form.username') }}:</v-label>
                   </template>
                 </v-text-field>
               </v-col>
@@ -207,7 +200,7 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $t('views.user.form.nickname') }}:</v-label>
+                    <v-label>{{ $ndt('views.user.form.nickname') }}:</v-label>
                   </template>
                 </v-text-field>
               </v-col>
@@ -225,7 +218,7 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $t('views.user.form.email') }}:</v-label>
+                    <v-label>{{ $ndt('views.user.form.email') }}:</v-label>
                   </template>
                   <template v-slot:append-inner>
                     <v-icon>mdi-email</v-icon>
@@ -246,7 +239,7 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $t('views.user.form.phone') }}:</v-label>
+                    <v-label>{{ $ndt('views.user.form.phone') }}:</v-label>
                   </template>
                   <template v-slot:append-inner>
                     <v-icon>mdi-cellphone</v-icon>
@@ -269,7 +262,7 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $t('views.user.form.password') }}:</v-label>
+                    <v-label>{{ $ndt('views.user.form.password') }}:</v-label>
                   </template>
                   <template v-slot:append-inner>
                     <v-icon>mdi-lock</v-icon>
@@ -289,11 +282,11 @@ watchEffect(() => {
                   inline
                 >
                   <template v-slot:prepend>
-                    <v-label>{{ $t('views.user.form.sex') }}:</v-label>
+                    <v-label>{{ $ndt('views.user.form.sex') }}:</v-label>
                   </template>
-                  <v-radio :label="$t('views.user.sex.secret')" :value="0"></v-radio>
-                  <v-radio :label="$t('views.user.sex.male')" :value="1"></v-radio>
-                  <v-radio :label="$t('views.user.sex.female')" :value="2"></v-radio>
+                  <v-radio :label="$ndt('views.user.sex.secret')" :value="0"></v-radio>
+                  <v-radio :label="$ndt('views.user.sex.male')" :value="1"></v-radio>
+                  <v-radio :label="$ndt('views.user.sex.female')" :value="2"></v-radio>
                 </v-radio-group>
               </v-col>
               <v-col cols="5">
@@ -306,10 +299,10 @@ watchEffect(() => {
                   inline
                 >
                   <template v-slot:prepend>
-                    <v-label>{{ $t('common.form.status', [$t('views.user.title')]) }}:</v-label>
+                    <v-label>{{ $ndt('common.form.status', [$ndt('views.user.title')]) }}:</v-label>
                   </template>
-                  <v-radio :label="$t('common.status.enabled')" :value="1"></v-radio>
-                  <v-radio :label="$t('common.status.disabled')" :value="0"></v-radio>
+                  <v-radio :label="$ndt('common.status.enabled')" :value="1"></v-radio>
+                  <v-radio :label="$ndt('common.status.disabled')" :value="0"></v-radio>
                 </v-radio-group>
               </v-col>
             </v-row>
@@ -321,10 +314,10 @@ watchEffect(() => {
         <!-- actions -->
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" @click="methods.closeUserForm" :disabled="localData.isSaving">
-          {{ $t('common.form.cancel') }}
+          {{ $ndt('common.form.cancel') }}
         </v-btn>
         <v-btn @click="methods.save" :loading="localData.isSaving" :disabled="localData.isSaving">
-          {{ $t('common.form.save') }}
+          {{ $ndt('common.form.save') }}
         </v-btn>
       </v-card-actions>
     </v-card>

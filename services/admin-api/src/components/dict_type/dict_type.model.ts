@@ -39,10 +39,6 @@ export default class DictTypeModel extends SequelizeModel<DictTypeModel> {
   @Column({ field: 'dict_name', type: DataType.STRING(50) })
   dictName: string;
 
-  @Comment('i18n key')
-  @Column({ field: 'i_key', type: DataType.STRING(100) })
-  iKey: string;
-
   @AllowNull(false)
   @Column({ field: 'dict_type', type: DataType.STRING(32) })
   dictType: 'default' | 'select';
@@ -67,7 +63,6 @@ export type IDictType = Pick<
   | 'dictId'
   | 'dictGid'
   | 'dictName'
-  | 'iKey'
   | 'dictType'
   | 'dictDesc'
   | 'orderNum'

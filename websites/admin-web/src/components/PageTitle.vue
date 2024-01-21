@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { $tnd } from '@/plugins/i18n';
+import { $ndt } from '@/plugins/i18n';
 import { NavigationConfig } from '@/types/config';
 
 const route = useRoute() as unknown as NavigationConfig.Router;
 const title = ref('');
 
 watchEffect(() => {
-  title.value = $tnd(route.meta?.iKey, route.meta?.title) as string;
+  title.value = $ndt(route.meta?.title) as string;
 });
 </script>
 

@@ -32,7 +32,7 @@ export default class RoleService {
     });
 
     const page = await RoleModel.paginate({
-      attributes: ['roleId', 'roleName', 'roleKey', 'orderNum', 'iKey', 'status', 'createTime'],
+      attributes: ['roleId', 'roleName', 'roleKey', 'orderNum', 'status', 'createTime'],
       where,
       ...lodash.pick(params, ['itemsPerPage', 'page']),
     });

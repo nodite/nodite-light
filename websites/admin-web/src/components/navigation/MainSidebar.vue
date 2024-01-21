@@ -8,14 +8,14 @@ import { Icon } from '@iconify/vue';
 
 import MainMenu from '@/components/navigation/MainMenu.vue';
 import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
-import { useNavStore } from '@/stores/modules/navStore';
 import { NavigationConfig } from '@/types/config';
+import * as navUtil from '@/utils/navigation';
 
 const customizeTheme = useCustomizeThemeStore();
 const menus = ref([] as NavigationConfig.Menu[]);
 
 onMounted(async () => {
-  menus.value = await useNavStore().getSidebar();
+  menus.value = await navUtil.getSidebar();
 });
 
 const openGithubSite = () => {

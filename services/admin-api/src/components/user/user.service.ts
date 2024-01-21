@@ -184,7 +184,7 @@ export default class UserService {
    * @returns
    */
   public async selectRolesWithUser(userId: number): Promise<IRoleWithUsers[]> {
-    const roleAttrs = ['roleId', 'roleName', 'roleKey', 'orderNum', 'iKey', 'status', 'createTime'];
+    const roleAttrs = ['roleId', 'roleName', 'roleKey', 'orderNum', 'status', 'createTime'];
     const userAttrs = ['userId'];
 
     const roles = await RoleModel.findAll({

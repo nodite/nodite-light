@@ -7,8 +7,6 @@ export default {
     roleName: '角色名称',
     roleKey: '角色标识',
     orderNum: '排序',
-    iKey: '国际化键',
-    iKeyHint: '请联系前端同学添加至 locales',
     menuPerms: '菜单权限',
   },
 

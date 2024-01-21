@@ -16,7 +16,7 @@ import { toast } from 'vuetify-sonner';
 
 import * as AuthApi from '@/api/admin/Auth';
 import { LoginBody } from '@/api/admin/data-contracts';
-import i18n from '@/plugins/i18n';
+import { $ndt } from '@/plugins/i18n';
 import { useProfileStore } from '@/stores/modules/profileStore';
 import * as toolkit from '@/utils/request/toolkit';
 
@@ -46,7 +46,7 @@ export const useAuthStore = defineStore('auth', {
 
   actions: {
     async register(userInfo: Record<string, unknown>) {
-      toast.warning(i18n.global.t('common.maintenance'));
+      toast.warning($ndt('common.maintenance'));
     },
 
     /**
@@ -58,7 +58,7 @@ export const useAuthStore = defineStore('auth', {
       const response = await AuthApi.adminAuthLogin(userInfo);
       toolkit.token.set(response?.token || '', response?.expiresIn);
       this.isLoggedIn = true;
-      toast.success(i18n.global.t('login.success'));
+      toast.success($ndt('login.success'));
       window.location.href = `${import.meta.env.VITE_APP_BASE_PATH || ''}/`;
     },
 

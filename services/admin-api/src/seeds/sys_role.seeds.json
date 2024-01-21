@@ -4,7 +4,6 @@
     "roleName": "Admin",
     "roleKey": "admin",
     "orderNum": 0,
-    "iKey": "views.role.admin",
     "createBy": "admin",
     "updateBy": "admin",
     "deleted": 9
@@ -14,7 +13,6 @@
     "roleName": "Viewer",
     "roleKey": "viewer",
     "orderNum": 1,
-    "iKey": "views.role.viewer",
     "createBy": "admin",
     "updateBy": "admin"
   }

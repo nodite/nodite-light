@@ -72,7 +72,9 @@ const items = [
   },
 ];
 
-const open = (item) => {};
+const open = (item: unknown) => {
+  console.log(item);
+};
 
 onMounted(() => {
   setTimeout(() => {
