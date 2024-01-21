@@ -1,5 +1,5 @@
 import { casbin, permToCasbinPolicy } from '@nodite-light/admin-auth';
-import { Subscription } from '@nodite-light/admin-database';
+import { Subscribe } from '@nodite-light/admin-database';
 import { Enforcer } from 'casbin';
 import { CasbinRule } from 'casbin-sequelize-adapter/lib/casbinRule';
 import { Transaction } from 'sequelize';
@@ -14,7 +14,7 @@ import CasbinSeeds from '@/seeds/sys_casbin.seeds.json';
   tableName: 'sys_casbin',
   timestamps: false,
 })
-@Subscription(CasbinSeeds)
+@Subscribe(CasbinSeeds)
 export default class CasbinModel extends CasbinRule {
   /**
    * Casbin enforcer.

@@ -15,7 +15,7 @@ import { VIconPicker } from '@nodite-light/vuetify-icon-picker';
 import lodash from 'lodash';
 import { toast } from 'vuetify-sonner';
 
-import { IMenu, MenuTree } from '@/api/admin/data-contracts';
+import { DataTreeIMenu, IMenu } from '@/api/admin/data-contracts';
 import i18n, { $tnd } from '@/plugins/i18n';
 import { useMenuStore } from '@/stores/modules/menuStore';
 
@@ -36,7 +36,7 @@ const props = defineProps({
 
 // static Data.
 const staticData = ref({
-  menus: [] as MenuTree[],
+  menus: [] as DataTreeIMenu[],
   layouts: [
     { value: 'default', title: 'Default' },
     { value: 'auth', title: 'Auth' },

@@ -25,9 +25,9 @@ import moment from 'moment';
 import { toast } from 'vuetify-sonner';
 
 import { IRole, QueryParams, SequelizePaginationIRole } from '@/api/admin/data-contracts';
-import MenuTreeView from '@/components/treeview/MenuTreeView.vue';
 import i18n, { $tnd } from '@/plugins/i18n';
 import { useRoleStore } from '@/stores/modules/roleStore';
+import MenuTreeView from '@/views/role/components/MenuTreeView.vue';
 import RoleForm from '@/views/role/components/RoleForm.vue';
 
 const roleStore = useRoleStore();

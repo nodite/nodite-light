@@ -18,7 +18,7 @@ import {
 } from 'tsoa';
 
 import BaseController from '@/components/base.controller';
-import { IRoleWithUsers } from '@/components/role_user/role_user.model';
+import { IRoleWithUsers } from '@/components/role/role_user.model';
 import { IPasswordReset, IUserCreate, IUserUpdate } from '@/components/user/user.interface';
 import { IUser } from '@/components/user/user.model';
 import UserService from '@/components/user/user.service';
@@ -33,7 +33,7 @@ import { QueryParams } from '@/interfaces';
  * Class UserController.
  */
 @Route('user')
-@Tags('User')
+@Tags('user')
 export class UserController extends BaseController {
   userService: UserService;
 
@@ -136,7 +136,7 @@ export class UserController extends BaseController {
   @OperationId('admin:user:delete')
   @Permissions('admin:user:delete')
   @CacheClear({ hashKey: 'user:query', cacheKey: (args) => args[0] })
-  @CacheClear({ hashKey: 'user:roles:list', cacheKey: (args) => args[0] })
+  @CacheClear({ hashKey: 'user:role:list', cacheKey: (args) => args[0] })
   public async delete(@Path() id: number): Promise<IResponse<void>> {
     await this.userService.delete(id);
     this.setStatus(httpStatus.NO_CONTENT);
@@ -144,9 +144,9 @@ export class UserController extends BaseController {
   }
 
   @Get('{id}/roles')
-  @OperationId('admin:user:roles:list')
-  @Permissions('admin:user:roles:list')
-  @Cacheable({ hashKey: 'user:roles:list', cacheKey: (args) => args[0] })
+  @OperationId('admin:user:role:list')
+  @Permissions('admin:user:role:list')
+  @Cacheable({ hashKey: 'user:role:list', cacheKey: (args) => args[0] })
   public async listUserRoles(@Path() id: number): Promise<IResponse<IRoleWithUsers[]>> {
     const roles = await this.userService.selectRolesWithUser(id);
     this.setStatus(httpStatus.OK);
@@ -154,9 +154,9 @@ export class UserController extends BaseController {
   }
 
   @Put('{id}/roles')
-  @OperationId('admin:user:roles:assign')
-  @Permissions('admin:user:roles:assign')
-  @CacheClear({ hashKey: 'user:roles:list', cacheKey: (args) => args[0] })
+  @OperationId('admin:user:role:assign')
+  @Permissions('admin:user:role:assign')
+  @CacheClear({ hashKey: 'user:role:list', cacheKey: (args) => args[0] })
   public async assignRolesToUser(
     @Path() id: number,
     @Body() roleIds: number[],
@@ -167,9 +167,9 @@ export class UserController extends BaseController {
   }
 
   @Delete('{id}/roles')
-  @OperationId('admin:user:roles:unassign')
-  @Permissions('admin:user:roles:unassign')
-  @CacheClear({ hashKey: 'user:roles:list', cacheKey: (args) => args[0] })
+  @OperationId('admin:user:role:unassign')
+  @Permissions('admin:user:role:unassign')
+  @CacheClear({ hashKey: 'user:role:list', cacheKey: (args) => args[0] })
   public async unassignRolesOfUser(
     @Path() id: number,
     @Body() roleIds: number[],

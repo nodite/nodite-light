@@ -25,7 +25,7 @@ import type {
 /**
  * No description
  *
- * @tags User
+ * @tags user
  * @name adminUserList
  * @summary Get all users
  * @request GET:/user/list
@@ -68,7 +68,7 @@ export const adminUserListSkipErrorHandler = (
 /**
  * No description
  *
- * @tags User
+ * @tags user
  * @name adminUserCurr
  * @summary Get current user
  * @request GET:/user
@@ -93,7 +93,7 @@ export const adminUserCurrSkipErrorHandler = (params: RequestParams = {}) =>
 /**
  * No description
  *
- * @tags User
+ * @tags user
  * @name adminUserCreate
  * @summary Create user
  * @request POST:/user
@@ -122,7 +122,7 @@ export const adminUserCreateSkipErrorHandler = (data: IUserCreate, params: Reque
 /**
  * No description
  *
- * @tags User
+ * @tags user
  * @name adminUserQuery
  * @summary Get user by id
  * @request GET:/user/{id}
@@ -147,7 +147,7 @@ export const adminUserQuerySkipErrorHandler = (id: number, params: RequestParams
 /**
  * No description
  *
- * @tags User
+ * @tags user
  * @name adminUserEdit
  * @summary Update user
  * @request PUT:/user/{id}
@@ -176,7 +176,7 @@ export const adminUserEditSkipErrorHandler = (id: number, data: IUserUpdate, par
 /**
  * No description
  *
- * @tags User
+ * @tags user
  * @name adminUserDelete
  * @summary Delete user
  * @request DELETE:/user/{id}
@@ -201,7 +201,7 @@ export const adminUserDeleteSkipErrorHandler = (id: number, params: RequestParam
 /**
  * No description
  *
- * @tags User
+ * @tags user
  * @name adminUserResetPassword
  * @summary Reset password
  * @request PUT:/user/{id}/password
@@ -230,11 +230,11 @@ export const adminUserResetPasswordSkipErrorHandler = (id: number, data: IPasswo
 /**
  * No description
  *
- * @tags User
- * @name adminUserRolesList
+ * @tags user
+ * @name adminUserRoleList
  * @request GET:/user/{id}/roles
  */
-export const adminUserRolesList = (id: number, params: RequestParams = {}) =>
+export const adminUserRoleList = (id: number, params: RequestParams = {}) =>
   request<IResponseIRoleWithUsersArray>({
     path: `/user/${id}/roles`,
     method: "GET",
@@ -242,7 +242,7 @@ export const adminUserRolesList = (id: number, params: RequestParams = {}) =>
     skipErrorHandler: false,
     ...params,
   });
-export const adminUserRolesListSkipErrorHandler = (id: number, params: RequestParams = {}) =>
+export const adminUserRoleListSkipErrorHandler = (id: number, params: RequestParams = {}) =>
   request<IResponseIRoleWithUsersArray>({
     path: `/user/${id}/roles`,
     method: "GET",
@@ -254,11 +254,11 @@ export const adminUserRolesListSkipErrorHandler = (id: number, params: RequestPa
 /**
  * No description
  *
- * @tags User
- * @name adminUserRolesAssign
+ * @tags user
+ * @name adminUserRoleAssign
  * @request PUT:/user/{id}/roles
  */
-export const adminUserRolesAssign = (id: number, data: number[], params: RequestParams = {}) =>
+export const adminUserRoleAssign = (id: number, data: number[], params: RequestParams = {}) =>
   request<IResponseVoid>({
     path: `/user/${id}/roles`,
     method: "PUT",
@@ -268,7 +268,7 @@ export const adminUserRolesAssign = (id: number, data: number[], params: Request
     skipErrorHandler: false,
     ...params,
   });
-export const adminUserRolesAssignSkipErrorHandler = (id: number, data: number[], params: RequestParams = {}) =>
+export const adminUserRoleAssignSkipErrorHandler = (id: number, data: number[], params: RequestParams = {}) =>
   request<IResponseVoid>({
     path: `/user/${id}/roles`,
     method: "PUT",
@@ -282,11 +282,11 @@ export const adminUserRolesAssignSkipErrorHandler = (id: number, data: number[],
 /**
  * No description
  *
- * @tags User
- * @name adminUserRolesUnassign
+ * @tags user
+ * @name adminUserRoleUnassign
  * @request DELETE:/user/{id}/roles
  */
-export const adminUserRolesUnassign = (id: number, data: number[], params: RequestParams = {}) =>
+export const adminUserRoleUnassign = (id: number, data: number[], params: RequestParams = {}) =>
   request<IResponseVoid>({
     path: `/user/${id}/roles`,
     method: "DELETE",
@@ -296,7 +296,7 @@ export const adminUserRolesUnassign = (id: number, data: number[], params: Reque
     skipErrorHandler: false,
     ...params,
   });
-export const adminUserRolesUnassignSkipErrorHandler = (id: number, data: number[], params: RequestParams = {}) =>
+export const adminUserRoleUnassignSkipErrorHandler = (id: number, data: number[], params: RequestParams = {}) =>
   request<IResponseVoid>({
     path: `/user/${id}/roles`,
     method: "DELETE",

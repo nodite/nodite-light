@@ -80,7 +80,7 @@ export const useRoleStore = defineStore('role', {
      * @returns
      */
     async listMenuPerms(roleId: number): Promise<PickIMenuMenuIdOrPerms[] | undefined> {
-      return await RoleApi.adminRolePermsList(roleId);
+      return await RoleApi.adminRolePermList(roleId);
     },
     /**
      * Update menu perms.
@@ -88,7 +88,7 @@ export const useRoleStore = defineStore('role', {
      * @param menuIds
      */
     async updateMenuPerms(roleId: number, menuIds: number[]): Promise<void> {
-      await RoleApi.adminRolePermsUpdate(roleId, menuIds);
+      await RoleApi.adminRolePermUpdate(roleId, menuIds);
     },
     /**
      * List role's users.
@@ -96,7 +96,7 @@ export const useRoleStore = defineStore('role', {
      * @returns
      */
     async listRoleUsers(roleId: number): Promise<IUserWithRoles[] | undefined> {
-      return await RoleApi.adminRoleUsersList(roleId);
+      return await RoleApi.adminRoleUserList(roleId);
     },
     /**
      * Assign role to users.
@@ -105,7 +105,7 @@ export const useRoleStore = defineStore('role', {
      * @returns
      */
     async assignRoleToUsers(roleId: number, userIds: number[]): Promise<void> {
-      return await RoleApi.adminRoleUsersAssign(roleId, userIds);
+      return await RoleApi.adminRoleUserAssign(roleId, userIds);
     },
     /**
      * Unassign role of users.
@@ -114,7 +114,7 @@ export const useRoleStore = defineStore('role', {
      * @returns
      */
     async unassignRoleOfUsers(roleId: number, userIds: number[]): Promise<void> {
-      return await RoleApi.adminRoleUsersUnassign(roleId, userIds);
+      return await RoleApi.adminRoleUserUnassign(roleId, userIds);
     },
   },
 });

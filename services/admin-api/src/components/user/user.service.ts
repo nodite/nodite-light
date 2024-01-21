@@ -7,7 +7,7 @@ import lodash from 'lodash';
 import { Op, Transaction } from 'sequelize';
 
 import RoleService from '@/components/role/role.service';
-import RoleUserModel, { IRoleWithUsers } from '@/components/role_user/role_user.model';
+import RoleUserModel, { IRoleWithUsers } from '@/components/role/role_user.model';
 import { IPasswordReset, IUserCreate, IUserUpdate } from '@/components/user/user.interface';
 import UserModel, { IUser } from '@/components/user/user.model';
 import { QueryParams } from '@/interfaces';

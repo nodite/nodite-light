@@ -1,5 +1,5 @@
 import { AppError } from '@nodite-light/admin-core';
-import { SequelizeModel, Subscription } from '@nodite-light/admin-database';
+import { SequelizeModel, Subscribe } from '@nodite-light/admin-database';
 import bcrypt from 'bcrypt';
 import httpStatus from 'http-status';
 import {
@@ -20,7 +20,7 @@ import {
 } from 'sequelize-typescript';
 
 import RoleModel from '@/components/role/role.model';
-import RoleUserModel from '@/components/role_user/role_user.model';
+import RoleUserModel from '@/components/role/role_user.model';
 import UserSeeds from '@/seeds/sys_user.seeds.json';
 
 const TABLE_NAME = 'sys_user';
@@ -32,7 +32,7 @@ const TABLE_NAME = 'sys_user';
   ...SequelizeModel.TableOptions,
   tableName: TABLE_NAME,
 })
-@Subscription(UserSeeds)
+@Subscribe(UserSeeds)
 export default class UserModel extends SequelizeModel<UserModel> {
   @AllowNull(false)
   @Unique

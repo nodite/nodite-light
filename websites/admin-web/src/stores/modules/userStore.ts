@@ -91,7 +91,7 @@ export const useUserStore = defineStore('user', {
      * @returns
      */
     async listUserRoles(userId: number): Promise<IRoleWithUsers[] | undefined> {
-      return await UserApi.adminUserRolesList(userId);
+      return await UserApi.adminUserRoleList(userId);
     },
     /**
      * Assign roles to user.
@@ -99,7 +99,7 @@ export const useUserStore = defineStore('user', {
      * @param roleIds
      */
     async assignRolesToUser(userId: number, roleIds: number[]): Promise<void> {
-      await UserApi.adminUserRolesAssign(userId, roleIds);
+      await UserApi.adminUserRoleAssign(userId, roleIds);
     },
     /**
      * Unassign roles of user.
@@ -107,7 +107,7 @@ export const useUserStore = defineStore('user', {
      * @param roleIds
      */
     async unassignRolesOfUser(userId: number, roleIds: number[]): Promise<void> {
-      await UserApi.adminUserRolesUnassign(userId, roleIds);
+      await UserApi.adminUserRoleUnassign(userId, roleIds);
     },
   },
 });

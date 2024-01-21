@@ -10,5 +10,6 @@
   { "roleId": 2, "menuId": 17, "createBy": "admin", "updateBy": "admin" },
   { "roleId": 2, "menuId": 18, "createBy": "admin", "updateBy": "admin" },
   { "roleId": 2, "menuId": 20, "createBy": "admin", "updateBy": "admin" },
-  { "roleId": 2, "menuId": 23, "createBy": "admin", "updateBy": "admin" }
+  { "roleId": 2, "menuId": 23, "createBy": "admin", "updateBy": "admin" },
+  { "roleId": 2, "menuId": 27, "createBy": "admin", "updateBy": "admin" }
 ]

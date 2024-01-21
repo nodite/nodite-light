@@ -1,7 +1,7 @@
 {
   "name": "@nodite-light/root",
   "version": "0.0.1",
-  "description": "A web framework with Vue & Express, use Javascript, Typescript & Nodejs for everything.",
+  "description": "A web framework with Vuetify & Express, use Typescript for everything.",
   "repository": "git@github.com:nodite/nodite-light.git",
   "author": "Oscaner Miao <oscaner1997@gmail.com>",
   "license": "Apache-2.0",

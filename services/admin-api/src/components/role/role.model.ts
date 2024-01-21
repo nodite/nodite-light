@@ -1,4 +1,4 @@
-import { SequelizeModel, Subscription } from '@nodite-light/admin-database';
+import { SequelizeModel, Subscribe } from '@nodite-light/admin-database';
 import {
   AllowNull,
   AutoIncrement,
@@ -13,8 +13,8 @@ import {
 } from 'sequelize-typescript';
 
 import MenuModel from '@/components/menu/menu.model';
-import RoleMenuModel from '@/components/role_menu/role_menu.model';
-import RoleUserModel from '@/components/role_user/role_user.model';
+import RoleMenuModel from '@/components/role/role_menu.model';
+import RoleUserModel from '@/components/role/role_user.model';
 import UserModel from '@/components/user/user.model';
 import RoleSeeds from '@/seeds/sys_role.seeds.json';
 
@@ -27,7 +27,7 @@ const TABLE_NAME = 'sys_role';
   ...SequelizeModel.TableOptions,
   tableName: TABLE_NAME,
 })
-@Subscription(RoleSeeds)
+@Subscribe(RoleSeeds)
 export default class RoleModel extends SequelizeModel<RoleModel> {
   @AllowNull(false)
   @Unique

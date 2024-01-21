@@ -17,7 +17,7 @@ import {
 } from '@nodite-light/vuetify-delete-confirm-form';
 import { type DataTableItemProps, VTreeDataTable } from '@nodite-light/vuetify-tree-data-table';
 
-import { IMenu, MenuTree } from '@/api/admin/data-contracts';
+import { DataTreeIMenu, IMenu } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
 import { useMenuStore } from '@/stores/modules/menuStore';
 import MenuForm from '@/views/menu/components/MenuForm.vue';
@@ -30,7 +30,7 @@ const staticData = ref({
 
 const localData = ref({
   loading: true,
-  items: [] as MenuTree[],
+  items: [] as DataTreeIMenu[],
 });
 
 const menuFormData = ref({

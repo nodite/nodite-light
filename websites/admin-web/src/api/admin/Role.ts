@@ -25,7 +25,7 @@ import type {
 /**
  * No description
  *
- * @tags Role
+ * @tags role
  * @name adminRoleList
  * @summary Get all roles
  * @request GET:/role/list
@@ -68,7 +68,7 @@ export const adminRoleListSkipErrorHandler = (
 /**
  * No description
  *
- * @tags Role
+ * @tags role
  * @name adminRoleQuery
  * @summary Get role by id
  * @request GET:/role/{id}
@@ -93,7 +93,7 @@ export const adminRoleQuerySkipErrorHandler = (id: number, params: RequestParams
 /**
  * No description
  *
- * @tags Role
+ * @tags role
  * @name adminRoleEdit
  * @summary Update user
  * @request PUT:/role/{id}
@@ -122,7 +122,7 @@ export const adminRoleEditSkipErrorHandler = (id: number, data: OmitIRoleRoleIdO
 /**
  * No description
  *
- * @tags Role
+ * @tags role
  * @name adminRoleDelete
  * @summary Delete role
  * @request DELETE:/role/{id}
@@ -147,7 +147,7 @@ export const adminRoleDeleteSkipErrorHandler = (id: number, params: RequestParam
 /**
  * No description
  *
- * @tags Role
+ * @tags role
  * @name adminRoleCreate
  * @summary Create role
  * @request POST:/role
@@ -176,11 +176,11 @@ export const adminRoleCreateSkipErrorHandler = (data: OmitIRoleRoleId, params: R
 /**
  * No description
  *
- * @tags Role
- * @name adminRolePermsList
+ * @tags role
+ * @name adminRolePermList
  * @request GET:/role/{id}/perms
  */
-export const adminRolePermsList = (id: number, params: RequestParams = {}) =>
+export const adminRolePermList = (id: number, params: RequestParams = {}) =>
   request<IResponsePickIMenuMenuIdOrPermsArray>({
     path: `/role/${id}/perms`,
     method: "GET",
@@ -188,7 +188,7 @@ export const adminRolePermsList = (id: number, params: RequestParams = {}) =>
     skipErrorHandler: false,
     ...params,
   });
-export const adminRolePermsListSkipErrorHandler = (id: number, params: RequestParams = {}) =>
+export const adminRolePermListSkipErrorHandler = (id: number, params: RequestParams = {}) =>
   request<IResponsePickIMenuMenuIdOrPermsArray>({
     path: `/role/${id}/perms`,
     method: "GET",
@@ -200,11 +200,11 @@ export const adminRolePermsListSkipErrorHandler = (id: number, params: RequestPa
 /**
  * No description
  *
- * @tags Role
- * @name adminRolePermsUpdate
+ * @tags role
+ * @name adminRolePermUpdate
  * @request PUT:/role/{id}/perms
  */
-export const adminRolePermsUpdate = (id: number, data: number[], params: RequestParams = {}) =>
+export const adminRolePermUpdate = (id: number, data: number[], params: RequestParams = {}) =>
   request<IResponseVoid>({
     path: `/role/${id}/perms`,
     method: "PUT",
@@ -214,7 +214,7 @@ export const adminRolePermsUpdate = (id: number, data: number[], params: Request
     skipErrorHandler: false,
     ...params,
   });
-export const adminRolePermsUpdateSkipErrorHandler = (id: number, data: number[], params: RequestParams = {}) =>
+export const adminRolePermUpdateSkipErrorHandler = (id: number, data: number[], params: RequestParams = {}) =>
   request<IResponseVoid>({
     path: `/role/${id}/perms`,
     method: "PUT",
@@ -228,11 +228,11 @@ export const adminRolePermsUpdateSkipErrorHandler = (id: number, data: number[],
 /**
  * No description
  *
- * @tags Role
- * @name adminRoleUsersList
+ * @tags role
+ * @name adminRoleUserList
  * @request GET:/role/{id}/users
  */
-export const adminRoleUsersList = (id: number, params: RequestParams = {}) =>
+export const adminRoleUserList = (id: number, params: RequestParams = {}) =>
   request<IResponseIUserWithRolesArray>({
     path: `/role/${id}/users`,
     method: "GET",
@@ -240,7 +240,7 @@ export const adminRoleUsersList = (id: number, params: RequestParams = {}) =>
     skipErrorHandler: false,
     ...params,
   });
-export const adminRoleUsersListSkipErrorHandler = (id: number, params: RequestParams = {}) =>
+export const adminRoleUserListSkipErrorHandler = (id: number, params: RequestParams = {}) =>
   request<IResponseIUserWithRolesArray>({
     path: `/role/${id}/users`,
     method: "GET",
@@ -252,11 +252,11 @@ export const adminRoleUsersListSkipErrorHandler = (id: number, params: RequestPa
 /**
  * No description
  *
- * @tags Role
- * @name adminRoleUsersAssign
+ * @tags role
+ * @name adminRoleUserAssign
  * @request PUT:/role/{id}/users
  */
-export const adminRoleUsersAssign = (id: number, data: number[], params: RequestParams = {}) =>
+export const adminRoleUserAssign = (id: number, data: number[], params: RequestParams = {}) =>
   request<IResponseVoid>({
     path: `/role/${id}/users`,
     method: "PUT",
@@ -266,7 +266,7 @@ export const adminRoleUsersAssign = (id: number, data: number[], params: Request
     skipErrorHandler: false,
     ...params,
   });
-export const adminRoleUsersAssignSkipErrorHandler = (id: number, data: number[], params: RequestParams = {}) =>
+export const adminRoleUserAssignSkipErrorHandler = (id: number, data: number[], params: RequestParams = {}) =>
   request<IResponseVoid>({
     path: `/role/${id}/users`,
     method: "PUT",
@@ -280,11 +280,11 @@ export const adminRoleUsersAssignSkipErrorHandler = (id: number, data: number[],
 /**
  * No description
  *
- * @tags Role
- * @name adminRoleUsersUnassign
+ * @tags role
+ * @name adminRoleUserUnassign
  * @request DELETE:/role/{id}/users
  */
-export const adminRoleUsersUnassign = (id: number, data: number[], params: RequestParams = {}) =>
+export const adminRoleUserUnassign = (id: number, data: number[], params: RequestParams = {}) =>
   request<IResponseVoid>({
     path: `/role/${id}/users`,
     method: "DELETE",
@@ -294,7 +294,7 @@ export const adminRoleUsersUnassign = (id: number, data: number[], params: Reque
     skipErrorHandler: false,
     ...params,
   });
-export const adminRoleUsersUnassignSkipErrorHandler = (id: number, data: number[], params: RequestParams = {}) =>
+export const adminRoleUserUnassignSkipErrorHandler = (id: number, data: number[], params: RequestParams = {}) =>
   request<IResponseVoid>({
     path: `/role/${id}/users`,
     method: "DELETE",

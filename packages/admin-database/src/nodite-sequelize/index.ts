@@ -114,7 +114,7 @@ export default class Database {
   }
 }
 
-export function Subscription(seeds?: Array<object>, seedsHandler?: SeedsHandler) {
+export function Subscribe(seeds?: Array<object>, seedsHandler?: SeedsHandler) {
   return (target: unknown) => {
     Database.models.push({
       model: target as ModelCtor,

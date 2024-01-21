@@ -1,0 +1,13 @@
+[
+  {
+    "dictGid": 1,
+    "dictName": "Langcode",
+    "iKey": "",
+    "dictDesc": "",
+    "orderNum": 0,
+    "dictType": "select",
+    "createBy": "admin",
+    "updateBy": "admin",
+    "deleted": 9
+  }
+]
