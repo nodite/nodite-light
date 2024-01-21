@@ -1,9 +1,7 @@
-import { AppError } from '@nodite-light/admin-core';
+import { AppError, type DataTree, DataTreeUtil } from '@nodite-light/admin-core';
 import httpStatus from 'http-status';
 import lodash from 'lodash';
-import { arrayToTree } from 'performant-array-to-tree';
 
-import { MenuTree } from '@/components/menu/menu.interface';
 import MenuModel, { IMenu } from '@/components/menu/menu.model';
 import RoleModel from '@/components/role/role.model';
 import UserModel from '@/components/user/user.model';
@@ -20,7 +18,7 @@ export default class MenuService {
   }
 
   /**
-   * selectMenuList
+   * Select menu list.
    * @param userId
    * @returns
    */
@@ -66,13 +64,15 @@ export default class MenuService {
   }
 
   /**
-   * selectMenuTree
+   * Select menu tree.
    * @param userId
    * @returns
    */
-  public async selectMenuTree(userId?: number): Promise<MenuTree[]> {
-    const menus = await this.selectMenuList(userId);
-    return this.buildMenuTree(menus);
+  public async selectMenuTree(userId?: number): Promise<DataTree<IMenu>[]> {
+    return DataTreeUtil.buildTree(await this.selectMenuList(userId), {
+      idKey: 'menuId',
+      pidKey: 'parentId',
+    });
   }
 
   /**
@@ -119,47 +119,5 @@ export default class MenuService {
     }
 
     return storedMenu.destroy();
-  }
-
-  /**
-   * Build menu tree.
-   * @param menus
-   * @returns
-   */
-  protected buildMenuTree(menus: IMenu[]): MenuTree[] {
-    const menuTree = arrayToTree(menus, {
-      id: 'menuId',
-      parentId: 'parentId',
-      dataField: null,
-      rootParentIds: lodash.reduce(
-        lodash.difference(lodash.map(menus, 'parentId'), lodash.map(menus, 'menuId')),
-        (result, value) => {
-          return { ...result, [value]: true };
-        },
-        {},
-      ),
-      childrenField: 'children',
-    }) as MenuTree[];
-
-    this.setMenuLevel(menuTree);
-
-    return menuTree;
-  }
-
-  /**
-   * Set menu level.
-   * @param menus
-   * @param level
-   * @returns
-   */
-  protected setMenuLevel(menus: MenuTree[], level: number = 0): MenuTree[] {
-    menus.forEach((m) => {
-      // eslint-disable-next-line no-param-reassign
-      m.level = level;
-      if (m.children) {
-        this.setMenuLevel(m.children, level + 1);
-      }
-    });
-    return menus;
   }
 }

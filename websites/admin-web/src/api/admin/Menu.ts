@@ -13,9 +13,9 @@ import type { RequestParams } from "@/types/request";
 import { ContentType } from "@/types/request";
 import { request } from "@/utils/request/index";
 import type {
+  IResponseDataTreeIMenuArray,
   IResponseIMenu,
   IResponseIMenuArray,
-  IResponseMenuTreeArray,
   IResponseVoid,
   OmitIMenuMenuId,
 } from "./data-contracts";
@@ -54,7 +54,7 @@ export const adminMenuListSkipErrorHandler = (params: RequestParams = {}) =>
  * @request GET:/menu/tree
  */
 export const adminMenuTree = (params: RequestParams = {}) =>
-  request<IResponseMenuTreeArray>({
+  request<IResponseDataTreeIMenuArray>({
     path: `/menu/tree`,
     method: "GET",
     format: "json",
@@ -62,7 +62,7 @@ export const adminMenuTree = (params: RequestParams = {}) =>
     ...params,
   });
 export const adminMenuTreeSkipErrorHandler = (params: RequestParams = {}) =>
-  request<IResponseMenuTreeArray>({
+  request<IResponseDataTreeIMenuArray>({
     path: `/menu/tree`,
     method: "GET",
     format: "json",

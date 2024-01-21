@@ -1,3 +1,4 @@
+import { type DataTree } from '@nodite-light/admin-core';
 import { SequelizeModel, Subscribe } from '@nodite-light/admin-database';
 import lodash from 'lodash';
 import { Attributes, FindOptions } from 'sequelize';
@@ -14,7 +15,6 @@ import {
   Unique,
 } from 'sequelize-typescript';
 
-import { MenuTree } from '@/components/menu/menu.interface';
 import RoleModel from '@/components/role/role.model';
 import RoleMenuModel from '@/components/role/role_menu.model';
 import MenuSeeds from '@/seeds/sys_menu.seeds.json';
@@ -27,7 +27,7 @@ const TABLE_NAME = 'sys_menu';
  * @param seeds
  * @param parentId
  */
-async function initialSeeds(model: typeof MenuModel, seeds: MenuTree[] = [], parentId = 0) {
+async function initialSeeds(model: typeof MenuModel, seeds: DataTree<IMenu>[] = [], parentId = 0) {
   lodash.forEach(seeds, async (seed, idx) => {
     const menu = await model.create({
       ...seed,
@@ -59,6 +59,10 @@ export default class MenuModel extends SequelizeModel<MenuModel> {
   @Column({ field: 'menu_name', type: DataType.STRING(50) })
   menuName: string;
 
+  @Comment('i18n key')
+  @Column({ field: 'i_key', type: DataType.STRING(100) })
+  iKey: string;
+
   @Default(0)
   @Column({ field: 'parent_id', type: DataType.BIGINT({ length: 20 }) })
   parentId: number;
@@ -70,10 +74,6 @@ export default class MenuModel extends SequelizeModel<MenuModel> {
   @Default('')
   @Column(DataType.STRING(100))
   icon: string;
-
-  @Comment('i18n key')
-  @Column({ field: 'i_key', type: DataType.STRING(100) })
-  iKey: string;
 
   @Default('')
   @Comment('menu type: overline, directory, menu, action')
@@ -131,10 +131,10 @@ export type IMenu = Pick<
   InstanceType<typeof MenuModel>,
   | 'menuId'
   | 'menuName'
+  | 'iKey'
   | 'parentId'
   | 'orderNum'
   | 'icon'
-  | 'iKey'
   | 'iType'
   | 'path'
   | 'redirect'

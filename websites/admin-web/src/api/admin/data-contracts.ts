@@ -263,7 +263,7 @@ export interface IResponseIUserWithRolesArray {
 }
 
 /** From T, pick a set of properties whose keys are in the union K */
-export interface PickInstanceTypeTypeofMenuModelMenuIdOrMenuNameOrParentIdOrOrderNumOrIconOrIKeyOrITypeOrPathOrRedirectOrComponentOrHiddenOrLayoutOrPermsOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
+export interface PickInstanceTypeTypeofMenuModelMenuIdOrMenuNameOrIKeyOrParentIdOrOrderNumOrIconOrITypeOrPathOrRedirectOrComponentOrHiddenOrLayoutOrPermsOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
   status: 0 | 1;
   deleted: 0 | 1 | 9;
   createBy: string;
@@ -291,7 +291,7 @@ export interface PickInstanceTypeTypeofMenuModelMenuIdOrMenuNameOrParentIdOrOrde
 }
 
 export type IMenu =
-  PickInstanceTypeTypeofMenuModelMenuIdOrMenuNameOrParentIdOrOrderNumOrIconOrIKeyOrITypeOrPathOrRedirectOrComponentOrHiddenOrLayoutOrPermsOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
+  PickInstanceTypeTypeofMenuModelMenuIdOrMenuNameOrIKeyOrParentIdOrOrderNumOrIconOrITypeOrPathOrRedirectOrComponentOrHiddenOrLayoutOrPermsOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
 
 export interface IResponseIMenuArray {
   error: boolean;
@@ -301,18 +301,18 @@ export interface IResponseIMenuArray {
   data?: IMenu[];
 }
 
-export type MenuTree = IMenu & {
-  children?: MenuTree[];
+export type DataTreeIMenu = IMenu & {
+  children?: IMenu[];
   /** @format double */
   level?: number;
 };
 
-export interface IResponseMenuTreeArray {
+export interface IResponseDataTreeIMenuArray {
   error: boolean;
   /** @format double */
   httpCode: number;
   message: string;
-  data?: MenuTree[];
+  data?: DataTreeIMenu[];
 }
 
 export interface IResponseIMenu {
@@ -351,6 +351,51 @@ export interface PickIMenuExcludeKeysMenuId {
 
 /** Construct a type with the properties of T except for those in type K. */
 export type OmitIMenuMenuId = PickIMenuExcludeKeysMenuId;
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrIKeyOrParentIdOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  /** @format double */
+  orderNum: number;
+  iKey: string;
+  /** @format double */
+  parentId: number;
+  /** @format double */
+  groupId: number;
+  groupName: string;
+}
+
+export type IDictGroup =
+  PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrIKeyOrParentIdOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
+
+export interface IResponseIDictGroupArray {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: IDictGroup[];
+}
+
+export type DataTreeIDictGroup = IDictGroup & {
+  children?: IDictGroup[];
+  /** @format double */
+  level?: number;
+};
+
+export interface IResponseDataTreeIDictGroupArray {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: DataTreeIDictGroup[];
+}
 
 export interface IResponseTrue {
   error: boolean;

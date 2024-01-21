@@ -13,7 +13,7 @@
 
 import lodash from 'lodash';
 
-import { MenuTree } from '@/api/admin/data-contracts';
+import { DataTreeIMenu } from '@/api/admin/data-contracts';
 import { NavigationConfig } from '@/types/config';
 
 /**
@@ -34,7 +34,7 @@ export const loadComponent = (component: string) => {
  * @returns
  */
 export const convertMenuItemToRoute = (
-  menu: MenuTree,
+  menu: DataTreeIMenu,
   routerView: boolean = true,
 ): NavigationConfig.Router => {
   const route = {
@@ -71,7 +71,7 @@ export const convertMenuItemToRoute = (
  * @returns
  */
 export const convertMenuTreeToRoutes = (
-  menuTree?: MenuTree[],
+  menuTree?: DataTreeIMenu[],
   routerView: boolean = true,
 ): NavigationConfig.Router[] | undefined => {
   return lodash

@@ -5,5 +5,6 @@ export default {
     menu_mgmt: '菜单管理',
     user_mgmt: '用户管理',
     role_mgmt: '角色管理',
+    dict_mgmt: '字典管理',
   },
 };

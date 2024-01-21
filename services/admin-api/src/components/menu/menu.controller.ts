@@ -1,5 +1,5 @@
 import { AuthorizedRequest, Permissions } from '@nodite-light/admin-auth';
-import { IResponse, validate } from '@nodite-light/admin-core';
+import { type DataTree, IResponse, validate } from '@nodite-light/admin-core';
 import { Cacheable, CacheClear } from '@nodite-light/admin-database';
 import httpStatus from 'http-status';
 import {
@@ -17,7 +17,6 @@ import {
 } from 'tsoa';
 
 import BaseController from '@/components/base.controller';
-import { MenuTree } from '@/components/menu/menu.interface';
 import { IMenu } from '@/components/menu/menu.model';
 import MenuService from '@/components/menu/menu.service';
 import SaveValidation from '@/components/menu/menu.validation';
@@ -54,10 +53,10 @@ export class MenuController extends BaseController {
   @Get('/tree')
   @OperationId('admin:menu:tree')
   @Cacheable({ hashKey: 'menu:tree', cacheKey: (args) => args[0]?.user?.userId })
-  public async listTree(@Request() req: AuthorizedRequest): Promise<IResponse<MenuTree[]>> {
-    const menuTree = await this.menuService.selectMenuTree(req.user?.userId);
+  public async listTree(@Request() req: AuthorizedRequest): Promise<IResponse<DataTree<IMenu>[]>> {
+    const tree = await this.menuService.selectMenuTree(req.user?.userId);
     this.setStatus(httpStatus.OK);
-    return this.response(menuTree);
+    return this.response(tree);
   }
 
   /**

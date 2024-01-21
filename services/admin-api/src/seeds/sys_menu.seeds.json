@@ -98,7 +98,7 @@
                 "path": "/user/:id/roles",
                 "component": "user/RoleAsgmtPage",
                 "layout": "ui",
-                "perms": "admin:user:roles:list",
+                "perms": "admin:user:role:list",
                 "hidden": 1,
                 "createBy": "admin",
                 "updateBy": "admin",
@@ -110,7 +110,7 @@
                     "iKey": "views.user.role_asgmt.assign",
                     "iType": "action",
                     "hidden": 1,
-                    "perms": "admin:user:roles:assign",
+                    "perms": "admin:user:role:assign",
                     "createBy": "admin",
                     "updateBy": "admin",
                     "deleted": 9
@@ -121,7 +121,7 @@
                     "iKey": "views.user.role_asgmt.unassign",
                     "iType": "action",
                     "hidden": 1,
-                    "perms": "admin:user:roles:unassign",
+                    "perms": "admin:user:role:unassign",
                     "createBy": "admin",
                     "updateBy": "admin",
                     "deleted": 9
@@ -200,7 +200,7 @@
                 "iKey": "views.role.form.menuPerms",
                 "iType": "action",
                 "hidden": 1,
-                "perms": "admin:role:perms:list",
+                "perms": "admin:role:perm:list",
                 "createBy": "admin",
                 "updateBy": "admin",
                 "deleted": 9,
@@ -210,7 +210,7 @@
                     "menuName": "更新授权",
                     "iType": "action",
                     "hidden": 1,
-                    "perms": "admin:role:perms:update",
+                    "perms": "admin:role:perm:update",
                     "createBy": "admin",
                     "updateBy": "admin",
                     "deleted": 9
@@ -226,7 +226,7 @@
                 "path": "/role/:id/users",
                 "component": "role/UserAsgmtPage",
                 "layout": "ui",
-                "perms": "admin:role:users:list",
+                "perms": "admin:role:user:list",
                 "hidden": 1,
                 "createBy": "admin",
                 "updateBy": "admin",
@@ -238,7 +238,7 @@
                     "iKey": "views.role.user_asgmt.assign",
                     "iType": "action",
                     "hidden": 1,
-                    "perms": "admin:role:users:assign",
+                    "perms": "admin:role:user:assign",
                     "createBy": "admin",
                     "updateBy": "admin",
                     "deleted": 9
@@ -249,7 +249,7 @@
                     "iKey": "views.role.user_asgmt.unassign",
                     "iType": "action",
                     "hidden": 1,
-                    "perms": "admin:role:users:unassign",
+                    "perms": "admin:role:user:unassign",
                     "createBy": "admin",
                     "updateBy": "admin",
                     "deleted": 9
@@ -297,6 +297,21 @@
                 "deleted": 9
               }
             ]
+          },
+          {
+            "menuId": 27,
+            "menuName": "字典管理",
+            "icon": "mdi-book-cog-outline",
+            "iKey": "sidebar.system.dict_mgmt",
+            "iType": "menu",
+            "path": "/dict",
+            "component": "dict/ListPage",
+            "layout": "ui",
+            "perms": "admin:dict:type:list",
+            "createBy": "admin",
+            "updateBy": "admin",
+            "deleted": 9,
+            "children": []
           }
         ]
       }

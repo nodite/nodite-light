@@ -9,8 +9,10 @@
   { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "menu", "v3": "query" },
   { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "user", "v3": "list" },
   { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "user", "v3": "query" },
+  { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "user:role", "v3": "list" },
   { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role", "v3": "list" },
   { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role", "v3": "query" },
-  { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role:perms", "v3": "list" },
-  { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role:users", "v3": "list" }
+  { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role:perm", "v3": "list" },
+  { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role:user", "v3": "list" },
+  { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "dict:type", "v3": "list" }
 ]

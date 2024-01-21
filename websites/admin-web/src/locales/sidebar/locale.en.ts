@@ -5,5 +5,6 @@ export default {
     menu_mgmt: 'Menu Mgmt',
     user_mgmt: 'User Mgmt',
     role_mgmt: 'Role Mgmt',
+    dict_mgmt: 'Dict Mgmt',
   },
 };

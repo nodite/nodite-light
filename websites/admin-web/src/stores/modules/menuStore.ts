@@ -13,12 +13,12 @@
 
 import lodash from 'lodash';
 
-import { IMenu, MenuTree } from '@/api/admin/data-contracts';
+import { DataTreeIMenu, IMenu } from '@/api/admin/data-contracts';
 import * as MenuApi from '@/api/admin/Menu';
 
 type MenuState = {
   menuList: IMenu[];
-  menuTree: MenuTree[];
+  menuTree: DataTreeIMenu[];
 };
 
 export const useMenuStore = defineStore('menu', {
@@ -50,7 +50,7 @@ export const useMenuStore = defineStore('menu', {
      * List tree.
      * @returns
      */
-    async listTree(): Promise<MenuTree[]> {
+    async listTree(): Promise<DataTreeIMenu[]> {
       if (lodash.isEmpty(this.menuTree)) {
         this.menuTree = (await MenuApi.adminMenuTree()) || [];
       }
