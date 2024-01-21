@@ -18,7 +18,7 @@ import {
 import { type DataTableItemProps, VTreeDataTable } from '@nodite-light/vuetify-tree-data-table';
 
 import { DataTreeIMenu, IMenu } from '@/api/admin/data-contracts';
-import i18n from '@/plugins/i18n';
+import { $ndt } from '@/plugins/i18n';
 import { useMenuStore } from '@/stores/modules/menuStore';
 import MenuForm from '@/views/menu/components/MenuForm.vue';
 
@@ -88,13 +88,12 @@ watchEffect(() => {
   // watch i18n.
   staticData.value.headers = [
     { title: '', align: 'start', key: 'data-table-expand' },
-    { title: i18n.global.t('views.menu.headers.menuName'), value: 'menuName' },
-    { title: i18n.global.t('views.menu.headers.i18nName'), value: 'iKey' },
-    { title: i18n.global.t('views.menu.headers.orderNum'), value: 'orderNum' },
-    { title: i18n.global.t('views.menu.headers.path'), value: 'path' },
-    { title: i18n.global.t('views.menu.headers.iType'), value: 'iType' },
-    { title: i18n.global.t('views.menu.headers.hidden'), value: 'hidden' },
-    { title: i18n.global.t('views.menu.headers.perms'), value: 'perms' },
+    { title: $ndt('views.menu.headers.menuName'), value: 'menuName' },
+    { title: $ndt('views.menu.headers.orderNum'), value: 'orderNum' },
+    { title: $ndt('views.menu.headers.path'), value: 'path' },
+    { title: $ndt('views.menu.headers.iType'), value: 'iType' },
+    { title: $ndt('views.menu.headers.hidden'), value: 'hidden' },
+    { title: $ndt('views.menu.headers.perms'), value: 'perms' },
     { key: 'actions', sortable: false },
   ];
 });
@@ -132,12 +131,8 @@ watchEffect(() => {
       </v-label>
     </template>
 
-    <template v-slot:item.iKey="{ value }">
-      <v-label>{{ $te(value) ? $t(value) : value }}</v-label>
-    </template>
-
     <template v-slot:item.iType="{ value }">
-      {{ $t(`views.menu.type.${value}`) }}
+      {{ $ndt(`views.menu.type.${value}`) }}
     </template>
 
     <template v-slot:item.path="{ value }">
@@ -147,7 +142,7 @@ watchEffect(() => {
 
     <template v-slot:item.hidden="{ value }">
       <v-chip size="small" :color="value ? 'red' : 'green'">
-        {{ value ? $t('common.visibility.hidden') : $t('common.visibility.show') }}
+        {{ value ? $ndt('common.visibility.hidden') : $ndt('common.visibility.show') }}
       </v-chip>
     </template>
 

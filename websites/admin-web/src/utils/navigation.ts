@@ -14,36 +14,39 @@
 import lodash from 'lodash';
 
 import { DataTreeIMenu } from '@/api/admin/data-contracts';
+import { useMenuStore } from '@/stores/modules/menuStore';
+import { useNavStore } from '@/stores/modules/navStore';
 import { NavigationConfig } from '@/types/config';
+
+const views = import.meta.glob('@/views/**/*.vue');
 
 /**
  * Load component.
  * @param component
  * @returns
  */
-export const loadComponent = (component: string) => {
-  const importView = lodash.find(import.meta.glob('@/views/**/*.vue'), (value, key) => {
+export function loadComponent(component: string) {
+  const importView = lodash.find(views, (value, key) => {
     return key.endsWith(`views/${component}.vue`);
   });
   return importView ? () => importView() : undefined;
-};
+}
 
 /**
  * Convert menu to route.
  * @param menu
  * @returns
  */
-export const convertMenuItemToRoute = (
+export function convertMenuItemToRoute(
   menu: DataTreeIMenu,
   routerView: boolean = true,
-): NavigationConfig.Router => {
+): NavigationConfig.Router {
   const route = {
     path: menu.path,
     redirect: menu.redirect || undefined,
     component: routerView ? loadComponent(menu.component) : undefined,
     meta: {
       icon: menu.icon || '',
-      iKey: menu.iKey || '',
       iType: menu.iType as NavigationConfig.MenuType,
       parentId: menu.parentId || 0,
       disabled: false, // lodash.toInteger(menu.status) === 0, // not need to disable menu.
@@ -63,17 +66,17 @@ export const convertMenuItemToRoute = (
           .value()
       : route
   ) as NavigationConfig.Router;
-};
+}
 
 /**
  * Convert menu tree to routes.
  * @param menuTree
  * @returns
  */
-export const convertMenuTreeToRoutes = (
+export function convertMenuTreeToRoutes(
   menuTree?: DataTreeIMenu[],
   routerView: boolean = true,
-): NavigationConfig.Router[] | undefined => {
+): NavigationConfig.Router[] | undefined {
   return lodash
     .chain(menuTree)
     .map((menu) => {
@@ -98,4 +101,58 @@ export const convertMenuTreeToRoutes = (
     })
     .filter()
     .value() as NavigationConfig.Router[];
-};
+}
+
+/**
+ * Filter sidebar.
+ * @param routes
+ * @returns
+ */
+export function filterSidebar(routes?: NavigationConfig.Router[]): NavigationConfig.Router[] {
+  return lodash
+    .chain(routes || [])
+    .map((route) => {
+      if (route.meta?.disabled) return null; // remove disabled menu.
+      if (route.meta?.hidden) return null; // remove hidden menu.
+      route.children = filterSidebar(route.children);
+      return route;
+    })
+    .filter()
+    .value() as NavigationConfig.Router[];
+}
+
+/**
+ * Get routes
+ * @returns
+ */
+export async function getRoutes(): Promise<NavigationConfig.Router[]> {
+  const navStore = useNavStore();
+
+  if (!navStore.routesLoaded) {
+    navStore.routes = convertMenuTreeToRoutes(await useMenuStore().listTree(), true) || [];
+    navStore.routesLoaded = true;
+  }
+
+  return navStore.routes;
+}
+
+/**
+ * Get sidebar.
+ * @returns
+ */
+export async function getSidebar(): Promise<NavigationConfig.Menu[]> {
+  const navStore = useNavStore();
+
+  if (!navStore.sidebarLoaded) {
+    const routes = convertMenuTreeToRoutes(await useMenuStore().listTree(), false) || [];
+
+    navStore.sidebar = filterSidebar([...routes]).filter((route) => {
+      // remove non-root menu on sidebar root.
+      return lodash.toInteger(route.meta?.parentId) === 0;
+    });
+
+    navStore.sidebarLoaded = true;
+  }
+
+  return navStore.sidebar;
+}

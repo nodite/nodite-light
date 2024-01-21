@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import lodash from 'lodash';
 
-import { $tnd } from '@/plugins/i18n';
+import { $ndt } from '@/plugins/i18n';
 import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
 import { NavigationConfig } from '@/types/config';
 
@@ -23,7 +23,7 @@ const validator = {
     return props.menuItem.meta?.iType || 'menu';
   },
   hasTitle: () => {
-    return Boolean($tnd(props.menuItem.meta?.iKey, props.menuItem.meta?.title));
+    return Boolean($ndt(props.menuItem.meta?.title));
   },
   hasChildren: () => {
     return !lodash.isEmpty(props.menuItem.children);
@@ -55,14 +55,14 @@ const validator = {
         v-if="!customizeTheme.miniSidebar && validator.hasTitle()"
         class="pa-1 mt-2 text-overline"
       >
-        {{ $tnd(props.menuItem.meta?.iKey, props.menuItem.meta?.title) }}
+        {{ $ndt(props.menuItem.meta?.title) }}
       </div>
       <template v-if="validator.hasChildren()">
         <!-- subMenu -->
         <main-menu-item
           v-bind="props"
-          v-for="subMenuItem in menuItem.children"
-          :key="subMenuItem.meta?.iKey"
+          v-for="(subMenuItem, idx) in menuItem.children"
+          :key="idx"
           :menu-item="subMenuItem"
           :menu-level="menuLevel + 1"
         ></main-menu-item>
@@ -74,7 +74,7 @@ const validator = {
       <v-list-group :value="menuItem.children">
         <!-- activator -->
         <template v-slot:activator="{ props }">
-          <v-list-item v-bind="props" :title="$tnd(menuItem.meta?.iKey, menuItem.meta?.title)">
+          <v-list-item v-bind="props" :title="$ndt(menuItem.meta?.title)">
             <template v-slot:prepend>
               <v-icon size="small">{{ menuItem.meta?.icon || 'mdi-circle-medium' }}</v-icon>
             </template>
@@ -84,8 +84,8 @@ const validator = {
           <!-- subMenu -->
           <main-menu-item
             v-bind="props"
-            v-for="subMenuItem in menuItem.children"
-            :key="subMenuItem.meta?.iKey"
+            v-for="(subMenuItem, idx) in menuItem.children"
+            :key="idx"
             :menu-item="subMenuItem"
             :menu-level="menuLevel + 1"
           ></main-menu-item>
@@ -97,7 +97,6 @@ const validator = {
       <!-- menu -->
       <v-list-item
         v-bind="props"
-        :key="menuItem.meta?.iKey"
         :to="menuItem.path"
         :active-class="`active-nav-${customizeTheme.primaryColor.colorName}`"
         density="compact"
@@ -106,7 +105,7 @@ const validator = {
           <v-icon size="small">{{ menuItem.meta?.icon || 'mdi-circle-medium' }}</v-icon>
         </template>
         <v-list-item-title v-bind="props">
-          {{ $tnd(menuItem.meta?.iKey, menuItem.meta?.title) }}
+          {{ $ndt(menuItem.meta?.title) }}
         </v-list-item-title>
       </v-list-item>
     </template>

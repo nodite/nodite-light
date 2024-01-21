@@ -15,7 +15,7 @@ import lodash from 'lodash';
 import { toast } from 'vuetify-sonner';
 
 import { IRole } from '@/api/admin/data-contracts';
-import i18n from '@/plugins/i18n';
+import { $ndt } from '@/plugins/i18n';
 import { useRoleStore } from '@/stores/modules/roleStore';
 
 const roleStore = useRoleStore();
@@ -49,18 +49,14 @@ const refForm = ref();
 const formData = ref({} as IRole);
 const formRules = ref({
   roleName: [
-    (v: string) =>
-      !!v || i18n.global.t('common.form.required', [i18n.global.t('views.role.form.roleName')]),
+    (v: string) => !!v || $ndt('common.form.required', [$ndt('views.role.form.roleName')]),
   ],
   roleKey: [
+    (v: string) => !!v || $ndt('common.form.required', [$ndt('views.role.form.roleKey')]),
     (v: string) =>
-      !!v || i18n.global.t('common.form.required', [i18n.global.t('views.role.form.roleKey')]),
-    (v: string) =>
-      (v && v.length <= 50) ||
-      i18n.global.t('common.form.max', [i18n.global.t('views.role.form.roleKey'), 50]),
+      (v && v.length <= 50) || $ndt('common.form.max', [$ndt('views.role.form.roleKey'), 50]),
   ],
   orderNum: [],
-  iKey: [],
   status: [],
 });
 
@@ -75,7 +71,7 @@ const methods = {
   },
   closeRoleForm() {
     if (localData.value.isSaving) {
-      toast.warning(i18n.global.t('common.form.saving'));
+      toast.warning($ndt('common.form.saving'));
       return;
     }
     localData.value = lodash.cloneDeep(defLocalData);
@@ -104,7 +100,7 @@ const methods = {
       localData.value.isSaving = false;
     }
 
-    toast.success(i18n.global.t('common.form.success'));
+    toast.success($ndt('common.form.success'));
 
     methods.closeRoleForm();
     emit('save');
@@ -126,7 +122,7 @@ watchEffect(() => {
   >
     <template v-slot:activator="{ props }">
       <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
-        {{ $t('common.form.create', [$t('views.role.title')]) }}
+        {{ $ndt('common.form.create', [$ndt('views.role.title')]) }}
       </v-btn>
     </template>
 
@@ -135,8 +131,8 @@ watchEffect(() => {
         <v-label>
           {{
             props.roleId > 0
-              ? $t('common.form.editHeader', [$t('views.role.title'), formData.roleName])
-              : $t('common.form.newHeader', [$t('views.role.title')])
+              ? $ndt('common.form.editHeader', [$ndt('views.role.title'), formData.roleName])
+              : $ndt('common.form.newHeader', [$ndt('views.role.title')])
           }}
         </v-label>
       </v-card-title>
@@ -150,7 +146,7 @@ watchEffect(() => {
         >
           <v-container class="px-10 pb-0">
             <v-row dense>
-              <!-- roleName -->
+              <!-- roleName & orderNum -->
               <v-col>
                 <v-text-field
                   density="compact"
@@ -161,9 +157,21 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $t('views.role.form.roleName') }}:</v-label>
+                    <v-label>{{ $ndt('views.role.form.roleName') }}:</v-label>
                   </template>
                 </v-text-field>
+              </v-col>
+              <v-col cols="4">
+                <v-text-field
+                  type="number"
+                  density="compact"
+                  :label="$ndt('views.role.form.orderNum')"
+                  v-model="formData.orderNum"
+                  :rules="formRules.orderNum"
+                  validate-on="blur"
+                  :error="localData.error"
+                  variant="outlined"
+                ></v-text-field>
               </v-col>
             </v-row>
 
@@ -180,40 +188,9 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $t('views.role.form.roleKey') }}:</v-label>
+                    <v-label>{{ $ndt('views.role.form.roleKey') }}:</v-label>
                   </template>
                 </v-text-field>
-              </v-col>
-            </v-row>
-
-            <v-row dense>
-              <!-- iKey & orderNum -->
-              <v-col>
-                <v-text-field
-                  density="compact"
-                  v-model="formData.iKey"
-                  variant="outlined"
-                  :hint="$t('views.role.form.iKeyHint')"
-                  :rules="formRules.iKey"
-                  validate-on="blur"
-                  :error="localData.error"
-                >
-                  <template v-slot:prepend-inner>
-                    <v-label>{{ $t('views.role.form.iKey') }}:</v-label>
-                  </template>
-                </v-text-field>
-              </v-col>
-              <v-col cols="4">
-                <v-text-field
-                  type="number"
-                  density="compact"
-                  :label="$t('views.role.form.orderNum')"
-                  v-model="formData.orderNum"
-                  :rules="formRules.orderNum"
-                  validate-on="blur"
-                  :error="localData.error"
-                  variant="outlined"
-                ></v-text-field>
               </v-col>
             </v-row>
 
@@ -229,14 +206,15 @@ watchEffect(() => {
                   inline
                 >
                   <template v-slot:prepend>
-                    <v-label> {{ $t('common.form.status', [$t('views.role.title')]) }}: </v-label>
+                    <v-label>
+                      {{ $ndt('common.form.status', [$ndt('views.role.title')]) }}:
+                    </v-label>
                   </template>
 
-                  <v-radio :label="$t('common.status.enabled')" :value="1"></v-radio>
-                  <v-radio :label="$t('common.status.disabled')" :value="0"></v-radio>
+                  <v-radio :label="$ndt('common.status.enabled')" :value="1"></v-radio>
+                  <v-radio :label="$ndt('common.status.disabled')" :value="0"></v-radio>
                 </v-radio-group>
               </v-col>
-              <v-spacer></v-spacer>
             </v-row>
           </v-container>
         </v-form>
@@ -246,10 +224,10 @@ watchEffect(() => {
         <!-- actions -->
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" @click="methods.closeRoleForm" :disabled="localData.isSaving">
-          {{ $t('common.form.cancel') }}
+          {{ $ndt('common.form.cancel') }}
         </v-btn>
         <v-btn @click="methods.save" :loading="localData.isSaving" :disabled="localData.isSaving">
-          {{ $t('common.form.save') }}
+          {{ $ndt('common.form.save') }}
         </v-btn>
       </v-card-actions>
     </v-card>

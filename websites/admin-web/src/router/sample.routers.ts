@@ -10,7 +10,6 @@ export default [
     children: [
       {
         icon: 'mdi-animation-outline',
-        iKey: 'menu.lottieAnimation',
         iType: 'menu',
         path: '/ui/lottie-animation',
         component: () =>

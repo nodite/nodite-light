@@ -69,7 +69,6 @@ declare namespace NavigationConfig {
     matched?: Omit<Router, 'matched' | 'children'>[];
     meta?: {
       icon?: string;
-      iKey?: string; // i18n key
       iType?: MenuType; // menu type
       disabled?: boolean;
       regex?: RegExp;

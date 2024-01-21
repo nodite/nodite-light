@@ -4,7 +4,7 @@ import { setupCache } from 'axios-cache-interceptor';
 import httpStatus from 'http-status';
 import { toast } from 'vuetify-sonner';
 
-import i18n from '@/plugins/i18n';
+import { $ndt } from '@/plugins/i18n';
 import { ContentType, FullRequestParams, IResponse } from '@/types/request';
 import * as toolkit from '@/utils/request/toolkit';
 
@@ -50,9 +50,7 @@ axiosInstance.interceptors.response.use(
 
     if (error?.code === 'ERR_CANCELED') return;
 
-    toast.error(
-      error?.response?.data?.message || error.message || i18n.global.t('common.networkError'),
-    );
+    toast.error(error?.response?.data?.message || error.message || $ndt('common.networkError'));
 
     return error?.response || Promise.reject(error);
   },
@@ -80,7 +78,7 @@ export async function request({
   ...params
 }: FullRequestParams) {
   if (secure && !toolkit.token.get()) {
-    toolkit.redirectToLogin(i18n.global.t('common.noSignIn'));
+    toolkit.redirectToLogin($ndt('common.noSignIn'));
     return;
   }
 
@@ -125,7 +123,7 @@ export async function request({
   if (code === httpStatus.UNAUTHORIZED) {
     requestCanceler.cleanPendingRequest();
     toolkit.token.remove();
-    toolkit.redirectToLogin(axiosResponse.data?.message || i18n.global.t('common.authExpired'));
+    toolkit.redirectToLogin(axiosResponse.data?.message || $ndt('common.authExpired'));
   }
 
   throw axiosResponse;

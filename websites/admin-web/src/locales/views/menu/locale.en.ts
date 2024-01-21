@@ -8,8 +8,6 @@ export default {
     orderNum: 'Order',
     iType: 'Menu Type',
     icon: 'Icon',
-    iKey: 'i18n Key',
-    iKeyHint: 'Please contact the frontend engineer to add to locales.',
     path: 'Path',
     redirect: 'redirect to',
     component: 'Component',

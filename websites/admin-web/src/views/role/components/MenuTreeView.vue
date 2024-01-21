@@ -2,16 +2,14 @@
 import 'vue3-treeview/dist/style.css';
 
 import lodash from 'lodash';
-import { useI18n } from 'vue-i18n';
 import VueTreeView from 'vue3-treeview';
 import { toast } from 'vuetify-sonner';
 
 import { IMenu } from '@/api/admin/data-contracts';
-import { $tnd } from '@/plugins/i18n';
+import { $ndt } from '@/plugins/i18n';
 import { useMenuStore } from '@/stores/modules/menuStore';
 
 const menuStore = useMenuStore();
-const { t: $t } = useI18n();
 
 const emit = defineEmits(['close', 'save']);
 
@@ -156,7 +154,7 @@ const methods = {
     if (drawer) return;
 
     if (localData.value.isSaving) {
-      toast.warning($t('common.form.saving'));
+      toast.warning($ndt('common.form.saving'));
       return;
     }
 
@@ -268,7 +266,7 @@ watchEffect(async () => {
         <v-checkbox
           v-model="localData.expand"
           @update:model-value="methods.expandOrCollapse"
-          :label="$t('views.menu.treeview.expandOrCollapse')"
+          :label="$ndt('views.menu.treeview.expandOrCollapse')"
           :disabled="localData.isSaving"
           hide-details
         ></v-checkbox>
@@ -276,14 +274,14 @@ watchEffect(async () => {
         <v-checkbox
           v-model="localData.selectAll"
           @update:model-value="methods.selectAllOrNone"
-          :label="$t('views.menu.treeview.selectAllOrNone')"
+          :label="$ndt('views.menu.treeview.selectAllOrNone')"
           :disabled="localData.isSaving"
           hide-details
         ></v-checkbox>
 
         <v-checkbox
           v-model="localData.linkage"
-          :label="$t('views.menu.treeview.linkageOrNot')"
+          :label="$ndt('views.menu.treeview.linkageOrNot')"
           :disabled="localData.isSaving"
           hide-details
         ></v-checkbox>
@@ -302,7 +300,7 @@ watchEffect(async () => {
       >
         <template v-slot:after-input="{ node }">
           <v-label class="text-subtitle-2">
-            {{ $tnd(node.item.iKey, node.item.menuName) }}
+            {{ $ndt(node.item.menuName) }}
             {{ node.item.perms ? `[${node.item.perms}]` : '' }}
           </v-label>
         </template>
@@ -316,10 +314,10 @@ watchEffect(async () => {
           @click="methods.closeTreeView(false)"
           :disabled="localData.isSaving"
         >
-          {{ $t('common.form.cancel') }}
+          {{ $ndt('common.form.cancel') }}
         </v-btn>
         <v-btn @click="methods.save" :loading="localData.isSaving" :disabled="localData.isSaving">
-          {{ $t('common.form.save') }}
+          {{ $ndt('common.form.save') }}
         </v-btn>
       </v-card-actions>
     </v-card>

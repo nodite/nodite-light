@@ -15,7 +15,7 @@ import lodash from 'lodash';
 import { toast } from 'vuetify-sonner';
 
 import { IPasswordReset } from '@/api/admin/data-contracts';
-import i18n from '@/plugins/i18n';
+import { $ndt } from '@/plugins/i18n';
 import { useUserStore } from '@/stores/modules/userStore';
 
 const userStore = useUserStore();
@@ -53,21 +53,17 @@ const refForm = ref();
 const formData = ref({} as IPasswordReset);
 const formRules = ref({
   password: [
+    (v: string) => !!v || $ndt('common.form.required', [$ndt('views.user.form.password')]),
     (v: string) =>
-      !!v || i18n.global.t('common.form.required', [i18n.global.t('views.user.form.password')]),
-    (v: string) =>
-      (v && v.length <= 25) ||
-      i18n.global.t('common.form.max', [i18n.global.t('views.user.form.password'), 25]),
+      (v && v.length <= 25) || $ndt('common.form.max', [$ndt('views.user.form.password'), 25]),
   ],
   confirmPassword: [
-    (v: string) =>
-      !!v ||
-      i18n.global.t('common.form.required', [i18n.global.t('views.user.form.confirmPassword')]),
+    (v: string) => !!v || $ndt('common.form.required', [$ndt('views.user.form.confirmPassword')]),
     (v: string) =>
       v === formData.value.password ||
-      i18n.global.t('common.form.notEq', [
-        i18n.global.t('views.user.form.confirmPassword'),
-        i18n.global.t('views.user.form.password'),
+      $ndt('common.form.notEq', [
+        $ndt('views.user.form.confirmPassword'),
+        $ndt('views.user.form.password'),
       ]),
   ],
 });
@@ -80,7 +76,7 @@ watchEffect(() => {
 const methods = {
   closePassForm() {
     if (localData.value.isSaving) {
-      toast.warning(i18n.global.t('common.form.saving'));
+      toast.warning($ndt('common.form.saving'));
       return;
     }
     localData.value = lodash.cloneDeep(defLocalData);
@@ -111,7 +107,7 @@ const methods = {
       localData.value.isSaving = false;
     }
 
-    toast.success(i18n.global.t('common.form.success'));
+    toast.success($ndt('common.form.success'));
 
     methods.closePassForm();
     emit('save');
@@ -128,7 +124,7 @@ const methods = {
   >
     <v-card>
       <v-card-title>
-        <v-label>{{ $t('views.user.form.resetPassword', [props.username]) }}</v-label>
+        <v-label>{{ $ndt('views.user.form.resetPassword', [props.username]) }}</v-label>
       </v-card-title>
 
       <v-card-text>
@@ -155,7 +151,7 @@ const methods = {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $t('views.user.form.password') }}:</v-label>
+                    <v-label>{{ $ndt('views.user.form.password') }}:</v-label>
                   </template>
                 </v-text-field>
               </v-col>
@@ -177,7 +173,7 @@ const methods = {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $t('views.user.form.confirmPassword') }}:</v-label>
+                    <v-label>{{ $ndt('views.user.form.confirmPassword') }}:</v-label>
                   </template>
                 </v-text-field>
               </v-col>
@@ -190,10 +186,10 @@ const methods = {
         <!-- actions -->
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" @click="methods.closePassForm" :disabled="localData.isSaving">
-          {{ $t('common.form.cancel') }}
+          {{ $ndt('common.form.cancel') }}
         </v-btn>
         <v-btn @click="methods.save" :loading="localData.isSaving" :disabled="localData.isSaving">
-          {{ $t('common.form.save') }}
+          {{ $ndt('common.form.save') }}
         </v-btn>
       </v-card-actions>
     </v-card>

@@ -1,9 +1,8 @@
 [
   {
     "menuId": 1,
-    "menuName": "系统",
+    "menuName": "System",
     "icon": "",
-    "iKey": "sidebar.system.overline",
     "iType": "overline",
     "createBy": "admin",
     "updateBy": "admin",
@@ -11,9 +10,8 @@
     "children": [
       {
         "menuId": 2,
-        "menuName": "系统管理",
+        "menuName": "System Mgmt",
         "icon": "mdi-cog-outline",
-        "iKey": "sidebar.system.sys_mgmt",
         "iType": "directory",
         "createBy": "admin",
         "updateBy": "admin",
@@ -21,9 +19,8 @@
         "children": [
           {
             "menuId": 3,
-            "menuName": "菜单管理",
+            "menuName": "Menu Mgmt",
             "icon": "mdi-format-list-bulleted",
-            "iKey": "sidebar.system.menu_mgmt",
             "iType": "menu",
             "path": "/menu",
             "component": "menu/ListPage",
@@ -35,7 +32,7 @@
             "children": [
               {
                 "menuId": 4,
-                "menuName": "菜单查询",
+                "menuName": "Menu Query",
                 "iType": "action",
                 "hidden": 1,
                 "perms": "admin:menu:query",
@@ -45,7 +42,7 @@
               },
               {
                 "menuId": 5,
-                "menuName": "菜单新增",
+                "menuName": "Menu Create",
                 "iType": "action",
                 "hidden": 1,
                 "perms": "admin:menu:create",
@@ -55,7 +52,7 @@
               },
               {
                 "menuId": 6,
-                "menuName": "菜单编辑",
+                "menuName": "Menu Edit",
                 "iType": "action",
                 "hidden": 1,
                 "perms": "admin:menu:edit",
@@ -65,7 +62,7 @@
               },
               {
                 "menuId": 7,
-                "menuName": "菜单删除",
+                "menuName": "Menu Delete",
                 "iType": "action",
                 "hidden": 1,
                 "perms": "admin:menu:delete",
@@ -77,9 +74,8 @@
           },
           {
             "menuId": 8,
-            "menuName": "用户管理",
+            "menuName": "User Mgmt",
             "icon": "mdi-account-multiple-outline",
-            "iKey": "sidebar.system.user_mgmt",
             "iType": "menu",
             "path": "/user",
             "component": "user/ListPage",
@@ -91,9 +87,8 @@
             "children": [
               {
                 "menuId": 9,
-                "menuName": "角色分配",
+                "menuName": "Role Asgmt",
                 "icon": "mdi-checkbox-multiple-marked-outline",
-                "iKey": "views.user.role_asgmt.title",
                 "iType": "menu",
                 "path": "/user/:id/roles",
                 "component": "user/RoleAsgmtPage",
@@ -106,8 +101,7 @@
                 "children": [
                   {
                     "menuId": 10,
-                    "menuName": "添加授权",
-                    "iKey": "views.user.role_asgmt.assign",
+                    "menuName": "Role Assign",
                     "iType": "action",
                     "hidden": 1,
                     "perms": "admin:user:role:assign",
@@ -117,8 +111,7 @@
                   },
                   {
                     "menuId": 11,
-                    "menuName": "取消授权",
-                    "iKey": "views.user.role_asgmt.unassign",
+                    "menuName": "Role Un-Assign",
                     "iType": "action",
                     "hidden": 1,
                     "perms": "admin:user:role:unassign",
@@ -130,7 +123,7 @@
               },
               {
                 "menuId": 12,
-                "menuName": "用户查询",
+                "menuName": "User Query",
                 "iType": "action",
                 "hidden": 1,
                 "perms": "admin:user:query",
@@ -140,7 +133,7 @@
               },
               {
                 "menuId": 13,
-                "menuName": "用户新增",
+                "menuName": "User Create",
                 "iType": "action",
                 "hidden": 1,
                 "perms": "admin:user:create",
@@ -150,7 +143,7 @@
               },
               {
                 "menuId": 14,
-                "menuName": "用户编辑",
+                "menuName": "User Edit",
                 "iType": "action",
                 "hidden": 1,
                 "perms": "admin:user:edit",
@@ -160,7 +153,7 @@
               },
               {
                 "menuId": 15,
-                "menuName": "重置密码",
+                "menuName": "Password Reset",
                 "iType": "action",
                 "hidden": 1,
                 "perms": "admin:user:resetPassword",
@@ -170,7 +163,7 @@
               },
               {
                 "menuId": 16,
-                "menuName": "用户删除",
+                "menuName": "User Delete",
                 "iType": "action",
                 "hidden": 1,
                 "perms": "admin:user:delete",
@@ -182,9 +175,8 @@
           },
           {
             "menuId": 17,
-            "menuName": "角色管理",
+            "menuName": "Role Mgmt",
             "icon": "mdi-account-group-outline",
-            "iKey": "sidebar.system.role_mgmt",
             "iType": "menu",
             "path": "/role",
             "component": "role/ListPage",
@@ -196,8 +188,7 @@
             "children": [
               {
                 "menuId": 18,
-                "menuName": "菜单权限",
-                "iKey": "views.role.form.menuPerms",
+                "menuName": "Role Perms",
                 "iType": "action",
                 "hidden": 1,
                 "perms": "admin:role:perm:list",
@@ -207,7 +198,7 @@
                 "children": [
                   {
                     "menuId": 19,
-                    "menuName": "更新授权",
+                    "menuName": "Perms Update",
                     "iType": "action",
                     "hidden": 1,
                     "perms": "admin:role:perm:update",
@@ -219,9 +210,8 @@
               },
               {
                 "menuId": 20,
-                "menuName": "用户分配",
+                "menuName": "Role Users",
                 "icon": "mdi-checkbox-multiple-marked-outline",
-                "iKey": "views.role.user_asgmt.title",
                 "iType": "menu",
                 "path": "/role/:id/users",
                 "component": "role/UserAsgmtPage",
@@ -234,8 +224,7 @@
                 "children": [
                   {
                     "menuId": 21,
-                    "menuName": "添加授权",
-                    "iKey": "views.role.user_asgmt.assign",
+                    "menuName": "User Assign",
                     "iType": "action",
                     "hidden": 1,
                     "perms": "admin:role:user:assign",
@@ -245,8 +234,7 @@
                   },
                   {
                     "menuId": 22,
-                    "menuName": "取消授权",
-                    "iKey": "views.role.user_asgmt.unassign",
+                    "menuName": "User Un-Assign",
                     "iType": "action",
                     "hidden": 1,
                     "perms": "admin:role:user:unassign",
@@ -258,7 +246,7 @@
               },
               {
                 "menuId": 23,
-                "menuName": "角色查询",
+                "menuName": "Role Query",
                 "iType": "action",
                 "hidden": 1,
                 "perms": "admin:role:query",
@@ -268,7 +256,7 @@
               },
               {
                 "menuId": 24,
-                "menuName": "角色新增",
+                "menuName": "Role Create",
                 "iType": "action",
                 "hidden": 1,
                 "perms": "admin:role:create",
@@ -278,7 +266,7 @@
               },
               {
                 "menuId": 25,
-                "menuName": "角色编辑",
+                "menuName": "Role Edit",
                 "iType": "action",
                 "hidden": 1,
                 "perms": "admin:role:edit",
@@ -288,7 +276,7 @@
               },
               {
                 "menuId": 26,
-                "menuName": "角色删除",
+                "menuName": "Role Delete",
                 "iType": "action",
                 "hidden": 1,
                 "perms": "admin:role:delete",
@@ -300,9 +288,8 @@
           },
           {
             "menuId": 27,
-            "menuName": "字典管理",
+            "menuName": "Dict Mgmt",
             "icon": "mdi-book-cog-outline",
-            "iKey": "sidebar.system.dict_mgmt",
             "iType": "menu",
             "path": "/dict",
             "component": "dict/ListPage",
