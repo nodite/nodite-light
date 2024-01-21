@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import lodash from 'lodash';
 
-import { $tnd } from '@/plugins/i18n';
+import { $ndt } from '@/plugins/i18n';
 import { Common, NavigationConfig } from '@/types/config';
 import { BreadcrumbItem } from '@/types/vuetify/components/VBreadcrumbs';
 
@@ -21,7 +21,7 @@ watchEffect(() => {
     .map((item) => {
       return {
         to: item.path ? { path: item.path } : undefined,
-        title: $tnd(item.meta?.iKey, item.meta?.title) as string,
+        title: $ndt(item.meta?.title) as string,
         disabled: false,
       };
     })

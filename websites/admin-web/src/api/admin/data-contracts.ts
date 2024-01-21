@@ -133,7 +133,7 @@ export interface IResponseVoid {
 }
 
 /** From T, pick a set of properties whose keys are in the union K */
-export interface PickInstanceTypeTypeofRoleModelRoleIdOrRoleNameOrRoleKeyOrOrderNumOrIKeyOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
+export interface PickInstanceTypeTypeofRoleModelRoleIdOrRoleNameOrRoleKeyOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
   status: 0 | 1;
   deleted: 0 | 1 | 9;
   createBy: string;
@@ -148,11 +148,10 @@ export interface PickInstanceTypeTypeofRoleModelRoleIdOrRoleNameOrRoleKeyOrOrder
   roleKey: string;
   /** @format double */
   orderNum: number;
-  iKey: string;
 }
 
 export type IRole =
-  PickInstanceTypeTypeofRoleModelRoleIdOrRoleNameOrRoleKeyOrOrderNumOrIKeyOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
+  PickInstanceTypeTypeofRoleModelRoleIdOrRoleNameOrRoleKeyOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
 
 export type IRoleWithUsers = IRole & {
   users: IUser[];
@@ -210,7 +209,6 @@ export interface PickIRoleExcludeKeysRoleId {
   roleKey: string;
   /** @format double */
   orderNum: number;
-  iKey: string;
 }
 
 /** Construct a type with the properties of T except for those in type K. */
@@ -229,7 +227,6 @@ export interface PickIRoleExcludeKeysRoleIdOrRoleKey {
   roleName: string;
   /** @format double */
   orderNum: number;
-  iKey: string;
 }
 
 /** Construct a type with the properties of T except for those in type K. */
@@ -263,7 +260,7 @@ export interface IResponseIUserWithRolesArray {
 }
 
 /** From T, pick a set of properties whose keys are in the union K */
-export interface PickInstanceTypeTypeofMenuModelMenuIdOrMenuNameOrIKeyOrParentIdOrOrderNumOrIconOrITypeOrPathOrRedirectOrComponentOrHiddenOrLayoutOrPermsOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
+export interface PickInstanceTypeTypeofMenuModelMenuIdOrMenuNameOrParentIdOrOrderNumOrIconOrITypeOrPathOrRedirectOrComponentOrHiddenOrLayoutOrPermsOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
   status: 0 | 1;
   deleted: 0 | 1 | 9;
   createBy: string;
@@ -274,7 +271,6 @@ export interface PickInstanceTypeTypeofMenuModelMenuIdOrMenuNameOrIKeyOrParentId
   updateTime: string;
   /** @format double */
   orderNum: number;
-  iKey: string;
   /** @format double */
   menuId: number;
   menuName: string;
@@ -291,7 +287,7 @@ export interface PickInstanceTypeTypeofMenuModelMenuIdOrMenuNameOrIKeyOrParentId
 }
 
 export type IMenu =
-  PickInstanceTypeTypeofMenuModelMenuIdOrMenuNameOrIKeyOrParentIdOrOrderNumOrIconOrITypeOrPathOrRedirectOrComponentOrHiddenOrLayoutOrPermsOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
+  PickInstanceTypeTypeofMenuModelMenuIdOrMenuNameOrParentIdOrOrderNumOrIconOrITypeOrPathOrRedirectOrComponentOrHiddenOrLayoutOrPermsOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
 
 export interface IResponseIMenuArray {
   error: boolean;
@@ -335,7 +331,6 @@ export interface PickIMenuExcludeKeysMenuId {
   updateTime: string;
   /** @format double */
   orderNum: number;
-  iKey: string;
   menuName: string;
   /** @format double */
   parentId: number;
@@ -353,7 +348,7 @@ export interface PickIMenuExcludeKeysMenuId {
 export type OmitIMenuMenuId = PickIMenuExcludeKeysMenuId;
 
 /** From T, pick a set of properties whose keys are in the union K */
-export interface PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrIKeyOrParentIdOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
+export interface PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrParentIdOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
   status: 0 | 1;
   deleted: 0 | 1 | 9;
   createBy: string;
@@ -364,7 +359,6 @@ export interface PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrIKeyOrP
   updateTime: string;
   /** @format double */
   orderNum: number;
-  iKey: string;
   /** @format double */
   parentId: number;
   /** @format double */
@@ -373,7 +367,7 @@ export interface PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrIKeyOrP
 }
 
 export type IDictGroup =
-  PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrIKeyOrParentIdOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
+  PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrParentIdOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
 
 export interface IResponseIDictGroupArray {
   error: boolean;

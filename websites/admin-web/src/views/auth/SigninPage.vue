@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
 
-import i18n from '@/plugins/i18n';
+import { $ndt } from '@/plugins/i18n';
 import { useAuthStore } from '@/stores/modules/authStore';
 
 const authStore = useAuthStore();
@@ -23,10 +23,10 @@ const loginForm = ref({
 });
 
 const loginRules = ref({
-  username: [(v: string) => !!v || i18n.global.t('login.rules.usernameRequired')],
+  username: [(v: string) => !!v || $ndt('login.rules.usernameRequired')],
   password: [
-    (v: string) => !!v || i18n.global.t('login.rules.passwordRequired'),
-    (v: string) => (v && v.length <= 10) || i18n.global.t('login.rules.passwordMax'),
+    (v: string) => !!v || $ndt('login.rules.passwordRequired'),
+    (v: string) => (v && v.length <= 10) || $ndt('login.rules.passwordMax'),
   ],
 });
 
@@ -83,7 +83,7 @@ const resetErrors = () => {
           v-model="loginForm.username"
           required
           :error="errorHandler.error"
-          :label="$t('login.username')"
+          :label="$ndt('login.username')"
           density="default"
           variant="underlined"
           color="primary"
@@ -104,7 +104,7 @@ const resetErrors = () => {
           :type="loginState.showPassword ? 'text' : 'password'"
           :error="errorHandler.error"
           :error-messages="errorHandler.errorMessages"
-          :label="$t('login.password')"
+          :label="$ndt('login.password')"
           placeholder=""
           density="default"
           variant="underlined"
@@ -127,12 +127,12 @@ const resetErrors = () => {
           color="primary"
           @click="methods.handleLogin"
           class="mt-2"
-          >{{ $t('login.button') }}</v-btn
+          >{{ $ndt('login.button') }}</v-btn
         >
 
         <!-- orsign overtext -->
         <div class="text-grey text-center text-caption font-weight-bold text-uppercase my-5">
-          {{ $t('login.orsign') }}
+          {{ $ndt('login.orsign') }}
         </div>
 
         <!-- external providers list -->
@@ -157,16 +157,16 @@ const resetErrors = () => {
         <!-- forgot password -->
         <div class="mt-5 text-center">
           <router-link class="text-primary" to="/auth/forgot-password">
-            {{ $t('login.forgot') }}
+            {{ $ndt('login.forgot') }}
           </router-link>
         </div>
       </v-form>
     </v-card-text>
   </v-card>
   <div class="text-center mt-6">
-    {{ $t('login.noaccount') }}
+    {{ $ndt('login.noaccount') }}
     <router-link to="/auth/signup" class="text-primary font-weight-bold">
-      {{ $t('login.create') }}
+      {{ $ndt('login.create') }}
     </router-link>
   </div>
 </template>

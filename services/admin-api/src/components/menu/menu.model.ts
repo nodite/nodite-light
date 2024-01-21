@@ -59,10 +59,6 @@ export default class MenuModel extends SequelizeModel<MenuModel> {
   @Column({ field: 'menu_name', type: DataType.STRING(50) })
   menuName: string;
 
-  @Comment('i18n key')
-  @Column({ field: 'i_key', type: DataType.STRING(100) })
-  iKey: string;
-
   @Default(0)
   @Column({ field: 'parent_id', type: DataType.BIGINT({ length: 20 }) })
   parentId: number;
@@ -131,7 +127,6 @@ export type IMenu = Pick<
   InstanceType<typeof MenuModel>,
   | 'menuId'
   | 'menuName'
-  | 'iKey'
   | 'parentId'
   | 'orderNum'
   | 'icon'

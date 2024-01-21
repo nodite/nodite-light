@@ -11,7 +11,14 @@ const i18n = createI18n({
   messages: messages,
 });
 
-export const $tnd = (iKey?: string, fbName?: string): string =>
-  iKey && i18n.global.te(iKey) ? i18n.global.t(iKey) : fbName || iKey || '';
+export const $ndt = (text?: string, args: any[] = []): string => {
+  if (!text) return '';
+
+  if (!text.startsWith('$') && !i18n.global.te(text)) {
+    // TODO: create locale item.
+  }
+
+  return i18n.global.t(text, args);
+};
 
 export default i18n;

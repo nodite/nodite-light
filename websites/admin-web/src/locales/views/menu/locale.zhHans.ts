@@ -8,8 +8,6 @@ export default {
     orderNum: '显示排序',
     iType: '菜单类型',
     icon: '图标',
-    iKey: '国际化键',
-    iKeyHint: '请联系前端同学添加至 locales',
     path: '路径',
     redirect: '跳转至',
     component: '渲染组件',

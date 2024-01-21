@@ -33,10 +33,6 @@ export default class DictGroupModel extends SequelizeModel<DictGroupModel> {
   @Column({ field: 'group_name', type: DataType.STRING(50) })
   groupName: string;
 
-  @Comment('i18n key')
-  @Column({ field: 'i_key', type: DataType.STRING(100) })
-  iKey: string;
-
   @Default(0)
   @Column({ field: 'parent_id', type: DataType.BIGINT({ length: 20 }) })
   parentId: number;
@@ -56,7 +52,6 @@ export type IDictGroup = Pick<
   InstanceType<typeof DictGroupModel>,
   | 'groupId'
   | 'groupName'
-  | 'iKey'
   | 'parentId'
   | 'orderNum'
   | 'status'

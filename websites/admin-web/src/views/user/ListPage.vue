@@ -23,7 +23,7 @@ import { DataTableItemProps } from '@nodite-light/vuetify-tree-data-table';
 import moment from 'moment';
 
 import { IUser, QueryParams, SequelizePaginationIUser } from '@/api/admin/data-contracts';
-import i18n from '@/plugins/i18n';
+import { $ndt } from '@/plugins/i18n';
 import { useProfileStore } from '@/stores/modules/profileStore';
 import { useUserStore } from '@/stores/modules/userStore';
 import PassForm from '@/views/user/components/PassForm.vue';
@@ -163,21 +163,21 @@ watchEffect(() => {
     { value: 10, title: '10' },
     { value: 25, title: '25' },
     { value: 50, title: '50' },
-    { value: -1, title: i18n.global.t('$vuetify.dataFooter.itemsPerPageAll') },
+    { value: -1, title: $ndt('$vuetify.dataFooter.itemsPerPageAll') },
   ];
   staticData.value.headers = [
     { title: '', align: 'start', key: 'data-table-select' },
-    { title: i18n.global.t('views.user.headers.userId'), value: 'userId' },
-    { title: i18n.global.t('views.user.headers.username'), value: 'username' },
-    { title: i18n.global.t('views.user.headers.nickname'), value: 'nickname' },
-    { title: i18n.global.t('views.user.headers.email'), value: 'email' },
-    { title: i18n.global.t('common.form.status', ['']), value: 'status' },
-    { title: i18n.global.t('common.form.createTime'), value: 'createTime' },
+    { title: $ndt('views.user.headers.userId'), value: 'userId' },
+    { title: $ndt('views.user.headers.username'), value: 'username' },
+    { title: $ndt('views.user.headers.nickname'), value: 'nickname' },
+    { title: $ndt('views.user.headers.email'), value: 'email' },
+    { title: $ndt('common.form.status', ['']), value: 'status' },
+    { title: $ndt('common.form.createTime'), value: 'createTime' },
     { key: 'actions', sortable: false },
   ];
   staticData.value.status = [
-    { title: i18n.global.t('common.status.enabled'), value: 1 },
-    { title: i18n.global.t('common.status.disabled'), value: 0 },
+    { title: $ndt('common.status.enabled'), value: 1 },
+    { title: $ndt('common.status.disabled'), value: 0 },
   ];
 });
 </script>
@@ -189,7 +189,7 @@ watchEffect(() => {
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-text-field
             density="compact"
-            :label="$t('views.user.form.username')"
+            :label="$ndt('views.user.form.username')"
             v-model="queryParams.username"
             variant="outlined"
             hide-details
@@ -200,7 +200,7 @@ watchEffect(() => {
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-text-field
             density="compact"
-            :label="$t('views.user.form.nickname')"
+            :label="$ndt('views.user.form.nickname')"
             v-model="queryParams.nickname"
             variant="outlined"
             hide-details
@@ -210,7 +210,7 @@ watchEffect(() => {
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-text-field
             density="compact"
-            :label="$t('views.user.form.email')"
+            :label="$ndt('views.user.form.email')"
             v-model="queryParams.email"
             variant="outlined"
             hide-details
@@ -220,7 +220,7 @@ watchEffect(() => {
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-select
             density="compact"
-            :label="$t('common.form.status')"
+            :label="$ndt('common.form.status')"
             v-model="queryParams.status"
             variant="outlined"
             :items="staticData.status"
@@ -243,7 +243,7 @@ watchEffect(() => {
           :loading="localData.searching"
           @click="methods.searchList"
         >
-          {{ $t('common.form.search') }}
+          {{ $ndt('common.form.search') }}
         </v-btn>
         <v-btn
           class="align-self-center"
@@ -253,7 +253,7 @@ watchEffect(() => {
           :loading="localData.searchResetting"
           @click="methods.resetSearch"
         >
-          {{ $t('common.form.reset') }}
+          {{ $ndt('common.form.reset') }}
         </v-btn>
       </v-row>
     </v-card-text>
@@ -351,7 +351,7 @@ watchEffect(() => {
               @click="methods.openRoleAsgmtPage(item)"
               prepend-icon="mdi-checkbox-multiple-marked-outline"
             >
-              <v-label>{{ $t('views.user.role_asgmt.title') }}</v-label>
+              <v-label>{{ $ndt('views.user.role_asgmt.title') }}</v-label>
             </v-btn>
           </v-list-item>
         </v-list>

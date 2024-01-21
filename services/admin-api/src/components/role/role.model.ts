@@ -51,10 +51,6 @@ export default class RoleModel extends SequelizeModel<RoleModel> {
   @Column({ field: 'order_num', type: DataType.INTEGER({ length: 4 }) })
   orderNum: number;
 
-  @Comment('i18n key')
-  @Column({ field: 'i_key', type: DataType.STRING(100) })
-  iKey: string;
-
   @BelongsToMany(() => MenuModel, {
     through: () => RoleMenuModel,
     foreignKey: { allowNull: false },
@@ -76,7 +72,6 @@ export type IRole = Pick<
   | 'roleName'
   | 'roleKey'
   | 'orderNum'
-  | 'iKey'
   | 'status'
   | 'deleted'
   | 'createBy'

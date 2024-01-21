@@ -25,7 +25,7 @@ import moment from 'moment';
 import { toast } from 'vuetify-sonner';
 
 import { IRole, QueryParams, SequelizePaginationIRole } from '@/api/admin/data-contracts';
-import i18n, { $tnd } from '@/plugins/i18n';
+import { $ndt } from '@/plugins/i18n';
 import { useRoleStore } from '@/stores/modules/roleStore';
 import MenuTreeView from '@/views/role/components/MenuTreeView.vue';
 import RoleForm from '@/views/role/components/RoleForm.vue';
@@ -138,7 +138,7 @@ const methods = {
   async saveMenuTreeView(ids: number[], cb: (close: boolean) => void) {
     try {
       roleStore.updateMenuPerms(menuPermsView.value.item.roleId, ids);
-      toast.success(i18n.global.t('common.form.success'));
+      toast.success($ndt('common.form.success'));
       cb(true);
     } catch (e) {
       cb(false);
@@ -169,22 +169,21 @@ watchEffect(() => {
     { value: 10, title: '10' },
     { value: 25, title: '25' },
     { value: 50, title: '50' },
-    { value: -1, title: i18n.global.t('$vuetify.dataFooter.itemsPerPageAll') },
+    { value: -1, title: $ndt('$vuetify.dataFooter.itemsPerPageAll') },
   ];
   staticData.value.headers = [
     { title: '', align: 'start', key: 'data-table-select' },
-    { title: i18n.global.t('views.role.headers.roleId'), value: 'roleId' },
-    { title: i18n.global.t('views.role.headers.roleName'), value: 'roleName' },
-    { title: i18n.global.t('views.role.headers.i18nName'), value: 'iKey' },
-    { title: i18n.global.t('views.role.headers.roleKey'), value: 'roleKey' },
-    { title: i18n.global.t('views.role.headers.orderNum'), value: 'orderNum' },
-    { title: i18n.global.t('common.form.status', ['']), value: 'status' },
-    { title: i18n.global.t('common.form.createTime'), value: 'createTime' },
+    { title: $ndt('views.role.headers.roleId'), value: 'roleId' },
+    { title: $ndt('views.role.headers.roleName'), value: 'roleName' },
+    { title: $ndt('views.role.headers.roleKey'), value: 'roleKey' },
+    { title: $ndt('views.role.headers.orderNum'), value: 'orderNum' },
+    { title: $ndt('common.form.status', ['']), value: 'status' },
+    { title: $ndt('common.form.createTime'), value: 'createTime' },
     { key: 'actions', sortable: false },
   ];
   staticData.value.status = [
-    { title: i18n.global.t('common.status.enabled'), value: 1 },
-    { title: i18n.global.t('common.status.disabled'), value: 0 },
+    { title: $ndt('common.status.enabled'), value: 1 },
+    { title: $ndt('common.status.disabled'), value: 0 },
   ];
 });
 </script>
@@ -196,7 +195,7 @@ watchEffect(() => {
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-text-field
             density="compact"
-            :label="$t('views.role.form.roleName')"
+            :label="$ndt('views.role.form.roleName')"
             v-model="queryParams.roleName"
             variant="outlined"
             hide-details
@@ -207,7 +206,7 @@ watchEffect(() => {
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-text-field
             density="compact"
-            :label="$t('views.role.form.roleKey')"
+            :label="$ndt('views.role.form.roleKey')"
             v-model="queryParams.roleKey"
             variant="outlined"
             hide-details
@@ -218,7 +217,7 @@ watchEffect(() => {
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-select
             density="compact"
-            :label="$t('common.form.status')"
+            :label="$ndt('common.form.status')"
             v-model="queryParams.status"
             variant="outlined"
             :items="staticData.status"
@@ -241,7 +240,7 @@ watchEffect(() => {
           :loading="localData.searching"
           @click="methods.searchList"
         >
-          {{ $t('common.form.search') }}
+          {{ $ndt('common.form.search') }}
         </v-btn>
         <v-btn
           class="align-self-center"
@@ -251,7 +250,7 @@ watchEffect(() => {
           :loading="localData.searchResetting"
           @click="methods.resetSearch"
         >
-          {{ $t('common.form.reset') }}
+          {{ $ndt('common.form.reset') }}
         </v-btn>
       </v-row>
     </v-card-text>
@@ -271,10 +270,6 @@ watchEffect(() => {
           @save="methods.loadList()"
         />
       </v-toolbar>
-    </template>
-
-    <template v-slot:item.iKey="{ value }">
-      <v-label>{{ $te(value) ? $t(value) : value }}</v-label>
     </template>
 
     <template v-slot:item.status="{ item }">
@@ -338,7 +333,7 @@ watchEffect(() => {
               :disabled="item.roleId == 1"
               prepend-icon="mdi-eye"
             >
-              <v-label>{{ $t('views.role.form.menuPerms') }}</v-label>
+              <v-label>{{ $ndt('views.role.form.menuPerms') }}</v-label>
             </v-btn>
           </v-list-item>
           <v-list-item>
@@ -349,7 +344,7 @@ watchEffect(() => {
               @click="methods.openUserAsgmtPage(item)"
               prepend-icon="mdi-checkbox-multiple-marked-outline"
             >
-              <v-label>{{ $t('views.role.user_asgmt.title') }}</v-label>
+              <v-label>{{ $ndt('views.role.user_asgmt.title') }}</v-label>
             </v-btn>
           </v-list-item>
         </v-list>
@@ -380,10 +375,7 @@ watchEffect(() => {
 
   <!-- menu perms -->
   <MenuTreeView
-    :label="`${$t('views.role.form.menuPerms')} (${$tnd(
-      menuPermsView.item.iKey,
-      menuPermsView.item.roleName,
-    )})`"
+    :label="`${$ndt('views.role.form.menuPerms')} (${$ndt(menuPermsView.item.roleName)})`"
     :drawer="menuPermsView.drawer"
     :init-method="methods.initialMenuPermsView"
     :init-method-param="menuPermsView.item"

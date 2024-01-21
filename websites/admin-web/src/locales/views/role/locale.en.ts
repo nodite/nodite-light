@@ -7,8 +7,6 @@ export default {
     roleName: 'Role Name',
     roleKey: 'Role Key',
     orderNum: 'Order',
-    iKey: 'i18n Key',
-    iKeyHint: 'Please contact the frontend engineer to add to locales.',
     menuPerms: 'Menu Perms',
   },
 

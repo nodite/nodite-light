@@ -11,16 +11,16 @@
  * ----------	---	---------------------------------------------------------    *
  */
 
-import lodash from 'lodash';
 import { createRouter, createWebHistory } from 'vue-router';
 
-import i18n from '@/plugins/i18n';
+import { $ndt } from '@/plugins/i18n';
 import dynamicRoutes from '@/router/dynamic.routes';
 import staticRoutes from '@/router/static.routes';
 import { useAppStore } from '@/stores/modules/appStore';
 import { useAuthStore } from '@/stores/modules/authStore';
 import { useNavStore } from '@/stores/modules/navStore';
 import { useProfileStore } from '@/stores/modules/profileStore';
+import * as navUtil from '@/utils/navigation';
 import * as toolkit from '@/utils/request/toolkit';
 import * as url from '@/utils/url';
 
@@ -55,7 +55,7 @@ router.beforeEach(async (to, from) => {
   }
   // Unauthorized.
   else if (!authStore.isAuthorized) {
-    toolkit.redirectToLogin(i18n.global.t('common.noSignIn'));
+    toolkit.redirectToLogin($ndt('common.noSignIn'));
     return false;
   }
 
@@ -68,7 +68,7 @@ router.beforeEach(async (to, from) => {
       await profileStore.getProfile();
 
       // Get routers.
-      const navRouters = await navStore.getRoutes();
+      const navRouters = await navUtil.getRoutes();
 
       for (const navRouter of navRouters) {
         // external link, or disabled.
@@ -79,7 +79,7 @@ router.beforeEach(async (to, from) => {
       }
 
       // Get sidebar.
-      await navStore.getSidebar();
+      await navUtil.getSidebar();
 
       // @see https://router.vuejs.org/guide/advanced/dynamic-routing.html
       return to.fullPath;
