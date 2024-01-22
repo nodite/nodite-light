@@ -18,9 +18,10 @@ import {
 
 import BaseController from '@/components/base.controller';
 import { IMenu } from '@/components/menu/menu.model';
+import { IRoleCreate, IRoleUpdate } from '@/components/role/role.interface';
 import { IRole } from '@/components/role/role.model';
 import RoleService from '@/components/role/role.service';
-import { CreateValidation, EditValidation } from '@/components/role/role.validation';
+import { CreateValidation, UpdateValidation } from '@/components/role/role.validation';
 import { IUserWithRoles } from '@/components/role/role_user.model';
 import { QueryParams } from '@/interfaces';
 
@@ -71,8 +72,8 @@ export class RoleController extends BaseController {
   @Middlewares([validate(CreateValidation)])
   @OperationId('admin:role:create')
   @Permissions('admin:role:create')
-  public async create(@Body() body: Omit<IRole, 'roleId'>): Promise<IResponse<IRole>> {
-    const role = await this.roleService.create(body as IRole);
+  public async create(@Body() body: IRoleCreate): Promise<IResponse<IRole>> {
+    const role = await this.roleService.create(body);
     this.setStatus(httpStatus.CREATED);
     return this.response(role);
   }
@@ -81,15 +82,12 @@ export class RoleController extends BaseController {
    * @summary Update user
    */
   @Put('{id}')
-  @Middlewares([validate(EditValidation)])
+  @Middlewares([validate(UpdateValidation)])
   @OperationId('admin:role:edit')
   @Permissions('admin:role:edit')
   @CacheClear({ hashKey: 'role:query', cacheKey: (args) => args[0] })
-  public async update(
-    @Path() id: number,
-    @Body() body: Omit<IRole, 'roleId' | 'roleKey'>,
-  ): Promise<IResponse<IRole>> {
-    const role = await this.roleService.update(id, body as IRole);
+  public async update(@Path() id: number, @Body() body: IRoleUpdate): Promise<IResponse<IRole>> {
+    const role = await this.roleService.update(id, body);
     this.setStatus(httpStatus.ACCEPTED);
     return this.response(role);
   }

@@ -1,15 +1,3 @@
-<!--
-* Component: ListPage.vue
-* Project: @nodite-light/admin-web
-* Created Date: Tu Jan 2024
-* Author: Oscaner Miao
------
-* Last Modified: Tue Jan 02 2024
-* Modified By: Oscaner Miao
------
-* Copyright (c) 2024 @nodite
--->
-
 <script setup lang="ts">
 import {
   ItemsPerPageOption,
@@ -36,7 +24,6 @@ const router = useRouter();
 const staticData = ref({
   itemsPerPageOptions: [] as ItemsPerPageOption[],
   headers: [] as DataTableItemProps['headers'],
-  status: [] as { title: string; value: number }[],
 });
 
 const localData = ref({
@@ -138,13 +125,13 @@ const methods = {
   async saveMenuTreeView(menuIds: string[], cb: (close: boolean) => void) {
     try {
       roleStore.updateMenuPerms(menuPermsView.value.item.roleId, menuIds);
-      toast.success($ndt('common.form.success'));
+      toast.success($ndt('Saved successfully.'));
       cb(true);
     } catch (e) {
       cb(false);
     }
   },
-  async opRoleStatus(id: number, status: number) {
+  async changeRoleStatus(id: number, status: number) {
     await roleStore.edit({ roleId: id, status: status } as IRole);
   },
   async delete(item: IRole, cb: ConfirmCallback) {
@@ -177,13 +164,9 @@ watchEffect(() => {
     { title: $ndt('views.role.headers.roleName'), value: 'roleName' },
     { title: $ndt('views.role.headers.roleKey'), value: 'roleKey' },
     { title: $ndt('views.role.headers.orderNum'), value: 'orderNum' },
-    { title: $ndt('common.form.status', ['']), value: 'status' },
+    { title: $ndt('Status'), value: 'status' },
     { title: $ndt('common.form.createTime'), value: 'createTime' },
     { key: 'actions', sortable: false },
-  ];
-  staticData.value.status = [
-    { title: $ndt('common.status.enabled'), value: 1 },
-    { title: $ndt('common.status.disabled'), value: 0 },
   ];
 });
 </script>
@@ -217,10 +200,13 @@ watchEffect(() => {
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-select
             density="compact"
-            :label="$ndt('common.form.status')"
+            :label="$ndt('Status')"
             v-model="queryParams.status"
             variant="outlined"
-            :items="staticData.status"
+            :items="[
+              { title: $ndt('Enabled'), value: 1 },
+              { title: $ndt('Disabled'), value: 0 },
+            ]"
             item-title="title"
             item-value="value"
             hide-details
@@ -275,11 +261,12 @@ watchEffect(() => {
     <template v-slot:item.status="{ item }">
       <!-- status -->
       <v-switch
-        v-model="item.status"
         color="success"
+        density="compact"
+        v-model="item.status"
         :true-value="1"
         :false-value="0"
-        @change="methods.opRoleStatus(item.roleId, Number(item.status))"
+        @change="methods.changeRoleStatus(item.roleId, Number(item.status))"
         :disabled="item.roleId == 1"
         hide-details
       ></v-switch>

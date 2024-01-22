@@ -23,8 +23,7 @@ export class DictGroupController extends BaseController {
    */
   @Get('/list')
   @OperationId('admin:dict:group:list')
-  @Permissions('admin:dict:type:list')
-  @Cacheable({ hashKey: 'dict:group:list' })
+  @Permissions('admin:dict:list')
   public async list(): Promise<IResponse<IDictGroup[]>> {
     const groups = await this.dictGroupService.selectDictGroupList();
     this.setStatus(httpStatus.OK);
@@ -36,7 +35,7 @@ export class DictGroupController extends BaseController {
    */
   @Get('/tree')
   @OperationId('admin:dict:group:tree')
-  @Permissions('admin:dict:type:list')
+  @Permissions('admin:dict:list')
   @Cacheable({ hashKey: 'dict:group:tree' })
   public async listTree(): Promise<IResponse<DataTree<IDictGroup>[]>> {
     const tree = await this.dictGroupService.selectDictGroupTree();

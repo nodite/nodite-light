@@ -1,6 +1,13 @@
+import { Pinia } from 'pinia';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 
-const store = createPinia();
-store.use(piniaPluginPersistedstate);
+class SingletonPinia {
+  static instance: Pinia;
+}
 
-export default store;
+if (!SingletonPinia.instance) {
+  SingletonPinia.instance = createPinia();
+  SingletonPinia.instance.use(piniaPluginPersistedstate);
+}
+
+export default SingletonPinia.instance;

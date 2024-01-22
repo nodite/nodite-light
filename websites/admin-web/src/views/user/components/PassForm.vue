@@ -107,7 +107,7 @@ const methods = {
       localData.value.isSaving = false;
     }
 
-    toast.success($ndt('common.form.success'));
+    toast.success($ndt('Saved successfully.'));
 
     methods.closePassForm();
     emit('save');
@@ -186,10 +186,10 @@ const methods = {
         <!-- actions -->
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" @click="methods.closePassForm" :disabled="localData.isSaving">
-          {{ $ndt('common.form.cancel') }}
+          {{ $ndt('Cancel') }}
         </v-btn>
         <v-btn @click="methods.save" :loading="localData.isSaving" :disabled="localData.isSaving">
-          {{ $ndt('common.form.save') }}
+          {{ $ndt('Save') }}
         </v-btn>
       </v-card-actions>
     </v-card>

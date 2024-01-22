@@ -1,16 +1,3 @@
-/*
- * File: userStore.ts                                                          *
- * Project: @nodite-light/admin-web                                            *
- * Created Date: Sa Dec 2023                                                   *
- * Author: Oscaner Miao                                                        *
- * -----                                                                       *
- * Last Modified: Sat Dec 30 2023                                              *
- * Modified By: Oscaner Miao                                                   *
- * -----                                                                       *
- * Copyright (c) 2023 @nodite                                                  *
- * ----------	---	---------------------------------------------------------    *
- */
-
 import lodash from 'lodash';
 
 import {

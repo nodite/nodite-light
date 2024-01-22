@@ -14,5 +14,6 @@
   { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role", "v3": "query" },
   { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role:perm", "v3": "list" },
   { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role:user", "v3": "list" },
-  { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "dict:type", "v3": "list" }
+  { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "dict", "v3": "list" },
+  { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "locale", "v3": "list" }
 ]

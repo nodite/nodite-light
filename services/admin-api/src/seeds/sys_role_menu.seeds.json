@@ -77,5 +77,11 @@
     "menuId": "e736b0d1-b6b5-47fc-ada4-efd44a81e145",
     "createBy": "admin",
     "updateBy": "admin"
+  },
+  {
+    "roleId": 2,
+    "menuId": "91af5a64-550d-4bb7-88fe-f4185f3ce99f",
+    "createBy": "admin",
+    "updateBy": "admin"
   }
 ]

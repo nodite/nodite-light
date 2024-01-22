@@ -20,6 +20,7 @@
     "@nodite-light/vuetify-delete-confirm-form": "*",
     "@nodite-light/vuetify-icon-picker": "*",
     "@nodite-light/vuetify-tree-data-table": "*",
+    "@nodite-light/vuetify-language-selector": "*",
     "@tiptap/pm": "^2.0.2",
     "@tiptap/starter-kit": "^2.0.2",
     "@tiptap/vue-3": "^2.0.2",

@@ -1,12 +1,15 @@
 export default {
-  title: 'Icon Picker',
-  open: 'Open icon picker',
-  group: {
-    common: 'Common',
-    data: 'Data',
-    direction: 'Direction',
-    editing: 'Editing',
-    indication: 'Indication',
-    shape: 'Shape',
+  iconPicker: {
+    title: 'Icon Picker',
+    open: 'Open',
+    group: {
+      common: 'Common',
+      data: 'Data',
+      direction: 'Direction',
+      editing: 'Editing',
+      indication: 'Indication',
+      shape: 'Shape',
+      navigation: 'Navigation',
+    },
   },
 };

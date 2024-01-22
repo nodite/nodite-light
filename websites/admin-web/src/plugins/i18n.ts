@@ -1,8 +1,7 @@
 import { createI18n } from 'vue-i18n';
 
-import locales from '@/configs/locales';
-
-const messages = locales.messages;
+import messages from '@/locales';
+import localeUtil from '@/utils/locales';
 
 interface NdtOptions {
   context?: string;
@@ -10,8 +9,7 @@ interface NdtOptions {
 
 const i18n = createI18n({
   legacy: false,
-  locale: locales.locale, // 设置默认语言
-  fallbackLocale: locales.fallbackLocale, // 设置回退语言
+  locale: localeUtil.DEFAULT_LOCALE, // 设置默认语言
   messages: messages,
 });
 

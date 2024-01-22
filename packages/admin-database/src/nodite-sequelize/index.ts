@@ -76,7 +76,7 @@ export default class Database {
 
       logger.info(`Successfully connected to "${engine}" database server`);
 
-      Database.client.addModels(lodash.chain(Database.models).map('model').value());
+      Database.client.addModels(lodash.map(Database.models, 'model'));
       await Database.client.sync();
 
       logger.info('Successfully synced models');

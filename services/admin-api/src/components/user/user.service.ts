@@ -48,7 +48,7 @@ export default class UserService {
 
     return {
       ...page,
-      items: page.items.map((i) => i.toJSON<UserModel>()),
+      items: page.items.map((i) => i.toJSON()),
     };
   }
 
@@ -64,7 +64,7 @@ export default class UserService {
       throw new AppError(httpStatus.NOT_FOUND, 'User not found');
     }
 
-    return user.toJSON<UserModel>();
+    return user.toJSON();
   }
 
   /**
@@ -79,7 +79,7 @@ export default class UserService {
       throw new AppError(httpStatus.NOT_FOUND, 'User not found');
     }
 
-    return user.toJSON<UserModel>();
+    return user.toJSON();
   }
 
   /**
@@ -94,7 +94,7 @@ export default class UserService {
       throw new AppError(httpStatus.NOT_FOUND, 'User not found');
     }
 
-    return user.toJSON<UserModel>();
+    return user.toJSON();
   }
 
   /**
@@ -113,17 +113,12 @@ export default class UserService {
    * @returns
    */
   public async update(id: number, user: IUserUpdate): Promise<IUser> {
-    const transaction = await UserModel.sequelize.transaction();
-
-    const storedUser = await UserModel.findOne({ where: { userId: id }, transaction });
+    const storedUser = await UserModel.findOne({ where: { userId: id } });
 
     storedUser.skipBcryptPassword = true;
 
     // update user.
-    const updatedUser = await storedUser.update(user, { transaction });
-
-    // commit transaction.
-    await transaction.commit();
+    const updatedUser = await storedUser.update(user);
 
     return updatedUser;
   }

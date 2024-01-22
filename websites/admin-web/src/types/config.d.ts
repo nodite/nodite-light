@@ -73,8 +73,8 @@ declare namespace NavigationConfig {
   type MenuType = 'overline' | 'directory' | 'menu' | 'action';
   type LayoutType = 'default' | 'auth' | 'landing' | 'ui';
 
-  type Router = RouteRecordRaw & {
-    matched?: Omit<Router, 'matched' | 'children'>[];
+  type Route = RouteRecordRaw & {
+    matched?: Omit<Route, 'matched' | 'children'>[];
     meta?: {
       icon?: string;
       iType?: MenuType; // menu type
@@ -86,10 +86,10 @@ declare namespace NavigationConfig {
       inWhiteList?: boolean; // in white list
       [key: string]: string | number | boolean | undefined;
     };
-    children?: Router[];
+    children?: Route[];
   };
 
-  type Menu = Router;
+  type Menu = Route;
 
   interface Config {
     menu: Menu[];
@@ -101,16 +101,5 @@ declare namespace NavigationConfig {
     key: string;
     href?: string;
     target?: string;
-  }
-}
-
-declare namespace LocaleConfig {
-  interface Locale {
-    code: string;
-    momentCode: string;
-    flag: string;
-    name: string;
-    label: string;
-    messages: Record<string, unknown>;
   }
 }

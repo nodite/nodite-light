@@ -11,4 +11,4 @@ export default [
       layout: 'landing',
     },
   },
-] as NavigationConfig.Router[];
+] as NavigationConfig.Route[];

@@ -228,6 +228,8 @@ export interface PickIRoleExcludeKeysRoleId {
 /** Construct a type with the properties of T except for those in type K. */
 export type OmitIRoleRoleId = PickIRoleExcludeKeysRoleId;
 
+export type IRoleCreate = OmitIRoleRoleId;
+
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickIRoleExcludeKeysRoleIdOrRoleKey {
   status: 0 | 1;
@@ -245,6 +247,8 @@ export interface PickIRoleExcludeKeysRoleIdOrRoleKey {
 
 /** Construct a type with the properties of T except for those in type K. */
 export type OmitIRoleRoleIdOrRoleKey = PickIRoleExcludeKeysRoleIdOrRoleKey;
+
+export type IRoleUpdate = OmitIRoleRoleIdOrRoleKey;
 
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickIMenuMenuIdOrPerms {
@@ -377,6 +381,91 @@ export type OmitIMenuMenuId = PickIMenuExcludeKeysMenuId;
 export type IMenuCreate = OmitIMenuMenuId;
 
 export type IMenuUpdate = OmitIMenuMenuId;
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickInstanceTypeTypeofLocaleLangModelLocaleIdOrLabelOrLangcodeOrMomentCodeOrIconOrOrderNumOrIsDefaultOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  /** @format double */
+  orderNum: number;
+  icon: string;
+  /** @format double */
+  localeId: number;
+  label: string;
+  langcode: string;
+  momentCode: string;
+  isDefault: 0 | 1;
+}
+
+export type ILocale =
+  PickInstanceTypeTypeofLocaleLangModelLocaleIdOrLabelOrLangcodeOrMomentCodeOrIconOrOrderNumOrIsDefaultOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
+
+export interface IResponseILocaleArray {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: ILocale[];
+}
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickILocaleLangcodeOrMomentCodeOrIconOrLabelOrIsDefault {
+  icon: string;
+  label: string;
+  langcode: string;
+  momentCode: string;
+  isDefault: 0 | 1;
+}
+
+export type IAvailableLocale = PickILocaleLangcodeOrMomentCodeOrIconOrLabelOrIsDefault;
+
+export interface IResponseIAvailableLocaleArray {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: IAvailableLocale[];
+}
+
+export interface IResponseILocale {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: ILocale;
+}
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickILocaleExcludeKeysLocaleId {
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  /** @format double */
+  orderNum: number;
+  icon: string;
+  label: string;
+  langcode: string;
+  momentCode: string;
+  isDefault: 0 | 1;
+}
+
+/** Construct a type with the properties of T except for those in type K. */
+export type OmitILocaleLocaleId = PickILocaleExcludeKeysLocaleId;
+
+export type ILocaleCreate = OmitILocaleLocaleId;
+
+export type ILocaleUpdate = OmitILocaleLocaleId;
 
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrParentIdOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {

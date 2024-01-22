@@ -1,15 +1,3 @@
-<!--
-* Component: RoleForm.vue
-* Project: @nodite-light/admin-web
-* Created Date: Th Jan 2024
-* Author: Oscaner Miao
------
-* Last Modified: Thu Jan 04 2024
-* Modified By: Oscaner Miao
------
-* Copyright (c) 2024 @nodite
--->
-
 <script setup lang="ts">
 import lodash from 'lodash';
 import { toast } from 'vuetify-sonner';
@@ -100,7 +88,7 @@ const methods = {
       localData.value.isSaving = false;
     }
 
-    toast.success($ndt('common.form.success'));
+    toast.success($ndt('Saved successfully.'));
 
     methods.closeRoleForm();
     emit('save');
@@ -122,18 +110,14 @@ watchEffect(() => {
   >
     <template v-slot:activator="{ props }">
       <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
-        {{ $ndt('common.form.create', [$ndt('views.role.title')]) }}
+        {{ $ndt('Create Role') }}
       </v-btn>
     </template>
 
     <v-card density="compact" elevation="8" rounded="lg">
       <v-card-title>
         <v-label>
-          {{
-            props.roleId > 0
-              ? $ndt('common.form.editHeader', [$ndt('views.role.title'), formData.roleName])
-              : $ndt('common.form.newHeader', [$ndt('views.role.title')])
-          }}
+          {{ props.roleId > 0 ? $ndt('Edit Role - {0}', [formData.roleName]) : $ndt('New Role') }}
         </v-label>
       </v-card-title>
 
@@ -206,13 +190,11 @@ watchEffect(() => {
                   inline
                 >
                   <template v-slot:prepend>
-                    <v-label>
-                      {{ $ndt('common.form.status', [$ndt('views.role.title')]) }}:
-                    </v-label>
+                    <v-label>{{ $ndt('Status') }}:</v-label>
                   </template>
 
-                  <v-radio :label="$ndt('common.status.enabled')" :value="1"></v-radio>
-                  <v-radio :label="$ndt('common.status.disabled')" :value="0"></v-radio>
+                  <v-radio :label="$ndt('Enabled')" :value="1"></v-radio>
+                  <v-radio :label="$ndt('Disabled')" :value="0"></v-radio>
                 </v-radio-group>
               </v-col>
             </v-row>
@@ -224,10 +206,10 @@ watchEffect(() => {
         <!-- actions -->
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" @click="methods.closeRoleForm" :disabled="localData.isSaving">
-          {{ $ndt('common.form.cancel') }}
+          {{ $ndt('Cancel') }}
         </v-btn>
         <v-btn @click="methods.save" :loading="localData.isSaving" :disabled="localData.isSaving">
-          {{ $ndt('common.form.save') }}
+          {{ $ndt('Save') }}
         </v-btn>
       </v-card-actions>
     </v-card>

@@ -15,7 +15,7 @@ import { NavigationConfig } from '@/types/config';
 
 interface NavState {
   routesLoaded: boolean;
-  routes: NavigationConfig.Router[];
+  routes: NavigationConfig.Route[];
   sidebarLoaded: boolean;
   sidebar: NavigationConfig.Menu[];
 }

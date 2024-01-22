@@ -1,15 +1,3 @@
-<!--
-* Component: ListPage.vue
-* Project: @nodite-light/admin-web
-* Created Date: Su Dec 2023
-* Author: Oscaner Miao
------
-* Last Modified: Sun Dec 31 2023
-* Modified By: Oscaner Miao
------
-* Copyright (c) 2023 @nodite
--->
-
 <script setup lang="ts">
 import {
   ItemsPerPageOption,
@@ -36,7 +24,6 @@ const router = useRouter();
 const staticData = ref({
   itemsPerPageOptions: [] as ItemsPerPageOption[],
   headers: [] as DataTableItemProps['headers'],
-  status: [] as { title: string; value: number }[],
 });
 
 const localData = ref({
@@ -138,7 +125,7 @@ const methods = {
   async openRoleAsgmtPage(item: IUser) {
     await router.push(`/user/${item.userId}/roles`);
   },
-  async opUserStatus(id: number, status: number) {
+  async changeUserStatus(id: number, status: number) {
     await userStore.edit({ userId: id, status: status } as IUser);
   },
   async delete(item: IUser, cb: ConfirmCallback) {
@@ -171,13 +158,9 @@ watchEffect(() => {
     { title: $ndt('views.user.headers.username'), value: 'username' },
     { title: $ndt('views.user.headers.nickname'), value: 'nickname' },
     { title: $ndt('views.user.headers.email'), value: 'email' },
-    { title: $ndt('common.form.status', ['']), value: 'status' },
+    { title: $ndt('Status'), value: 'status' },
     { title: $ndt('common.form.createTime'), value: 'createTime' },
     { key: 'actions', sortable: false },
-  ];
-  staticData.value.status = [
-    { title: $ndt('common.status.enabled'), value: 1 },
-    { title: $ndt('common.status.disabled'), value: 0 },
   ];
 });
 </script>
@@ -220,10 +203,13 @@ watchEffect(() => {
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-select
             density="compact"
-            :label="$ndt('common.form.status')"
+            :label="$ndt('Status')"
             v-model="queryParams.status"
             variant="outlined"
-            :items="staticData.status"
+            :items="[
+              { title: $ndt('Enabled'), value: 1 },
+              { title: $ndt('Disabled'), value: 0 },
+            ]"
             item-title="title"
             item-value="value"
             hide-details
@@ -289,7 +275,7 @@ watchEffect(() => {
         color="success"
         :true-value="1"
         :false-value="0"
-        @change="methods.opUserStatus(item.userId, Number(item.status))"
+        @change="methods.changeUserStatus(item.userId, Number(item.status))"
         :disabled="item.userId == 1 || methods.isSelf(item)"
         hide-details
       ></v-switch>

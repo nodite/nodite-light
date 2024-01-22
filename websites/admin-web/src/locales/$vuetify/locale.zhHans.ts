@@ -1,5 +1,6 @@
 import { localeZhHans as DeleteConfirmForm } from '@nodite-light/vuetify-delete-confirm-form';
 import { localeZhHans as IconPicker } from '@nodite-light/vuetify-icon-picker';
+import { localeZhHans as LanguageSelector } from '@nodite-light/vuetify-language-selector';
 
 export default {
   badge: '徽章',
@@ -68,7 +69,7 @@ export default {
     },
   },
 
-  icon_picker: IconPicker,
-
-  delete_confirm_form: DeleteConfirmForm,
+  ...IconPicker,
+  ...DeleteConfirmForm,
+  ...LanguageSelector,
 };

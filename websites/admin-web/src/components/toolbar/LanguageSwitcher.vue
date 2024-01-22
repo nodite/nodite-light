@@ -7,22 +7,24 @@
 import { Icon } from '@iconify/vue';
 import { useLocale } from 'vuetify';
 
-import locales from '@/configs/locales';
-import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
-import type { LocaleConfig } from '@/types/config';
+import { IAvailableLocale } from '@/api/admin/data-contracts';
+import { useLocaleStore } from '@/stores/modules/localeStore';
 
 const { current } = useLocale();
-const customizeTheme = useCustomizeThemeStore();
+const localeStore = useLocaleStore();
+
+const availableLocales = ref([] as IAvailableLocale[]);
 
 const methods = {
-  setLocale(locale: Omit<LocaleConfig.Locale, 'messages'>) {
-    if (locale.code) current.value = locale.code;
-    customizeTheme.setLocale(locale);
+  setLocale(locale: IAvailableLocale) {
+    if (locale.langcode) current.value = locale.langcode;
+    localeStore.setCurrLocale(locale);
   },
 };
 
-onMounted(() => {
-  methods.setLocale(customizeTheme.locale);
+onMounted(async () => {
+  availableLocales.value = await localeStore.listAvailable();
+  methods.setLocale(localeStore.currLocale);
 });
 </script>
 <template>
@@ -34,14 +36,14 @@ onMounted(() => {
     </template>
     <v-list nav>
       <v-list-item
-        v-for="locale in locales.availableLocales"
-        :key="locale.code"
+        v-for="locale in availableLocales"
+        :key="locale.langcode"
         @click="methods.setLocale(locale)"
         density="compact"
-        :active="locale.code === current"
+        :active="locale.langcode === current"
       >
         <template v-slot:prepend>
-          <Icon :icon="`twemoji:flag-${locale.name}`" class="mr-2" />
+          <Icon :icon="locale.icon" class="mr-2" />
         </template>
         <v-list-item-title> {{ locale.label }}</v-list-item-title>
       </v-list-item>

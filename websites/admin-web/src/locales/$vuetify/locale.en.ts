@@ -1,5 +1,6 @@
 import { localeEn as DeleteConfirmForm } from '@nodite-light/vuetify-delete-confirm-form';
 import { localeEn as IconPicker } from '@nodite-light/vuetify-icon-picker';
+import { localeEn as LanguageSelector } from '@nodite-light/vuetify-language-selector';
 
 export default {
   badge: 'Badge',
@@ -69,7 +70,7 @@ export default {
     },
   },
 
-  icon_picker: IconPicker,
-
-  delete_confirm_form: DeleteConfirmForm,
+  ...IconPicker,
+  ...DeleteConfirmForm,
+  ...LanguageSelector,
 };

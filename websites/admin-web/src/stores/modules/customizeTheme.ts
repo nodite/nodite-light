@@ -1,13 +1,10 @@
-import lodash from 'lodash';
-import moment from 'moment';
 import { defineStore } from 'pinia';
 
-import { LocaleConfig, ThemeConfig } from '@/types/config';
+import { ThemeConfig } from '@/types/config';
 
 interface State {
   miniSidebar: boolean;
   darkTheme: boolean;
-  locale: Omit<LocaleConfig.Locale, 'messages'>;
   mainSidebar: boolean;
 }
 
@@ -16,10 +13,6 @@ export const useCustomizeThemeStore = defineStore({
   state: (): State => ({
     miniSidebar: false,
     darkTheme: false,
-    locale: {
-      code: 'en',
-      momentCode: 'en',
-    } as Omit<LocaleConfig.Locale, 'messages'>,
     mainSidebar: true,
     // mainSidebar: isMobile() ? false : true,
   }),
@@ -86,10 +79,6 @@ export const useCustomizeThemeStore = defineStore({
     },
     setMiniSideBar(payload: boolean) {
       this.miniSidebar = payload;
-    },
-    setLocale(locale: Omit<LocaleConfig.Locale, 'messages'>) {
-      this.locale = lodash.omit(locale, 'messages');
-      if (this.locale.momentCode) moment.locale(this.locale.momentCode);
     },
   },
 });

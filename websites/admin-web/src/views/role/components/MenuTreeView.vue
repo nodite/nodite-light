@@ -314,10 +314,10 @@ watchEffect(async () => {
           @click="methods.closeTreeView(false)"
           :disabled="localData.isSaving"
         >
-          {{ $ndt('common.form.cancel') }}
+          {{ $ndt('Cancel') }}
         </v-btn>
         <v-btn @click="methods.save" :loading="localData.isSaving" :disabled="localData.isSaving">
-          {{ $ndt('common.form.save') }}
+          {{ $ndt('Save') }}
         </v-btn>
       </v-card-actions>
     </v-card>

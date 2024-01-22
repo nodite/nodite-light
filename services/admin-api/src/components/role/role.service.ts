@@ -6,6 +6,7 @@ import { Op, Transaction } from 'sequelize';
 
 import CasbinModel from '@/components/casbin/casbin.model';
 import MenuModel, { IMenu } from '@/components/menu/menu.model';
+import { IRoleCreate, IRoleUpdate } from '@/components/role/role.interface';
 import RoleModel, { IRole } from '@/components/role/role.model';
 import RoleMenuModel from '@/components/role/role_menu.model';
 import RoleUserModel, { IUserWithRoles } from '@/components/role/role_user.model';
@@ -35,11 +36,15 @@ export default class RoleService {
       attributes: ['roleId', 'roleName', 'roleKey', 'orderNum', 'status', 'createTime'],
       where,
       ...lodash.pick(params, ['itemsPerPage', 'page']),
+      order: [
+        ['orderNum', 'ASC'],
+        ['roleId', 'ASC'],
+      ],
     });
 
     return {
       ...page,
-      items: page.items.map((i) => i.toJSON<RoleModel>()),
+      items: page.items.map((i) => i.toJSON()),
     };
   }
 
@@ -55,7 +60,7 @@ export default class RoleService {
       throw new AppError(httpStatus.NOT_FOUND, 'Role not found');
     }
 
-    return role.toJSON<RoleModel>();
+    return role.toJSON();
   }
 
   /**
@@ -63,12 +68,12 @@ export default class RoleService {
    * @param role
    * @returns
    */
-  public async create(role: IRole): Promise<IRole> {
+  public async create(role: IRoleCreate): Promise<IRole> {
     const roleInstance = await RoleModel.create({ ...role });
     if (lodash.isEmpty(roleInstance)) {
       throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Create role failed!');
     }
-    return roleInstance.toJSON<RoleModel>();
+    return roleInstance.toJSON();
   }
 
   /**
@@ -76,16 +81,10 @@ export default class RoleService {
    * @param role
    * @returns
    */
-  public async update(id: number, role: IRole): Promise<IRole> {
+  public async update(id: number, role: IRoleUpdate): Promise<IRole> {
     const storedRole = await RoleModel.findOne({ where: { roleId: id } });
-
-    if (id === 1 && !!role.roleKey && role.roleKey !== storedRole.roleKey) {
-      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'roleKey is not allow update for admin!');
-    }
-
     const updatedRole = await storedRole.update(role);
-
-    return updatedRole.toJSON<RoleModel>();
+    return updatedRole.toJSON();
   }
 
   /**

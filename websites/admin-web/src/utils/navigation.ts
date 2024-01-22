@@ -40,7 +40,7 @@ export function loadComponent(component: string) {
 export function convertMenuItemToRoute(
   menu: DataTreeIMenu,
   routerView: boolean = true,
-): NavigationConfig.Router {
+): NavigationConfig.Route {
   const route = {
     path: menu.path,
     redirect: menu.redirect || undefined,
@@ -55,7 +55,7 @@ export function convertMenuItemToRoute(
       title: menu.menuName,
       level: menu.level || 0,
     },
-  } as NavigationConfig.Router;
+  } as NavigationConfig.Route;
 
   return (
     routerView
@@ -65,7 +65,7 @@ export function convertMenuItemToRoute(
           .set('children', [lodash.set(route, 'path', '')])
           .value()
       : route
-  ) as NavigationConfig.Router;
+  ) as NavigationConfig.Route;
 }
 
 /**
@@ -76,7 +76,7 @@ export function convertMenuItemToRoute(
 export function convertMenuTreeToRoutes(
   menuTree?: DataTreeIMenu[],
   routerView: boolean = true,
-): NavigationConfig.Router[] | undefined {
+): NavigationConfig.Route[] | undefined {
   return lodash
     .chain(menuTree)
     .map((menu) => {
@@ -100,7 +100,7 @@ export function convertMenuTreeToRoutes(
       return route;
     })
     .filter()
-    .value() as NavigationConfig.Router[];
+    .value() as NavigationConfig.Route[];
 }
 
 /**
@@ -108,7 +108,7 @@ export function convertMenuTreeToRoutes(
  * @param routes
  * @returns
  */
-export function filterSidebar(routes?: NavigationConfig.Router[]): NavigationConfig.Router[] {
+export function filterSidebar(routes?: NavigationConfig.Route[]): NavigationConfig.Route[] {
   return lodash
     .chain(routes || [])
     .map((route) => {
@@ -118,14 +118,14 @@ export function filterSidebar(routes?: NavigationConfig.Router[]): NavigationCon
       return route;
     })
     .filter()
-    .value() as NavigationConfig.Router[];
+    .value() as NavigationConfig.Route[];
 }
 
 /**
  * Get routes
  * @returns
  */
-export async function getRoutes(): Promise<NavigationConfig.Router[]> {
+export async function getRoutes(): Promise<NavigationConfig.Route[]> {
   const navStore = useNavStore();
 
   if (!navStore.routesLoaded) {

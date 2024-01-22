@@ -20,6 +20,8 @@ import { useNavStore } from '@/stores/modules/navStore';
 import { useRoleStore } from '@/stores/modules/roleStore';
 import { useUserStore } from '@/stores/modules/userStore';
 
+import { useLocaleStore } from './localeStore';
+
 interface ProfileState {
   profile: IUser | undefined;
 }
@@ -54,6 +56,7 @@ export const useProfileStore = defineStore('profile', {
       await useNavStore().$reset();
       await useUserStore().$reset();
       await useRoleStore().$reset();
+      await useLocaleStore().$reset();
     },
   },
 });

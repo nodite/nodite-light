@@ -1,15 +1,3 @@
-<!--
-* Component: ListPage.vue
-* Project: @nodite-light/admin-web
-* Created Date: Su Dec 2023
-* Author: Oscaner Miao
------
-* Last Modified: Sun Dec 24 2023
-* Modified By: Oscaner Miao
------
-* Copyright (c) 2023 @nodite
--->
-
 <script setup lang="ts">
 import {
   type ConfirmCallback,
@@ -65,9 +53,6 @@ const methods = {
     deleteConfirmFormData.value.dialog = false;
     deleteConfirmFormData.value.item = {} as IMenu;
   },
-  async opMenuStatus(id: string, status: number) {
-    await menuStore.edit({ menuId: id, status: status } as IMenu);
-  },
   async delete(menu: IMenu, cb: ConfirmCallback) {
     try {
       await menuStore.delete(menu.menuId);
@@ -89,7 +74,7 @@ watchEffect(() => {
   staticData.value.headers = [
     { title: '', align: 'start', key: 'data-table-expand' },
     { title: $ndt('views.menu.headers.menuName'), value: 'menuName' },
-    { title: $ndt('views.menu.headers.orderNum'), value: 'orderNum' },
+    { title: $ndt('Order'), value: 'orderNum' },
     { title: $ndt('views.menu.headers.path'), value: 'path' },
     { title: $ndt('views.menu.headers.iType'), value: 'iType' },
     { title: $ndt('views.menu.headers.hidden'), value: 'hidden' },
