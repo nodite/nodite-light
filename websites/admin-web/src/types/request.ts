@@ -1,6 +1,8 @@
 import type { AxiosRequestConfig, ResponseType } from 'axios';
 
-export type QueryParamsType = Record<string | number, unknown>;
+export interface QueryParamsType {
+  [key: string | number]: unknown;
+}
 
 export enum ContentType {
   Json = 'application/json',

@@ -10,9 +10,9 @@ import { useUserStore } from '@/stores/modules/userStore';
 const userStore = useUserStore();
 const route = useRoute();
 
-type IRole = IRoleWithUsers & {
+interface IRole extends IRoleWithUsers {
   assignStatus: IRoleWithUsers['status'];
-};
+}
 
 const staticData = ref({
   userId: lodash.toInteger(route.params.id),

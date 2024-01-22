@@ -16,10 +16,10 @@ import lodash from 'lodash';
 import { DataTreeIMenu, IMenu } from '@/api/admin/data-contracts';
 import * as MenuApi from '@/api/admin/Menu';
 
-type MenuState = {
+interface MenuState {
   menuList: IMenu[];
   menuTree: DataTreeIMenu[];
-};
+}
 
 export const useMenuStore = defineStore('menu', {
   state: (): MenuState => ({

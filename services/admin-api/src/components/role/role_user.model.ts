@@ -24,6 +24,10 @@ export default class RoleUserModel extends SequelizeModel<RoleUserModel> {
   userId: number;
 }
 
-export type IRoleWithUsers = IRole & { users: IUser[] };
+export interface IRoleWithUsers extends IRole {
+  users: IUser[];
+}
 
-export type IUserWithRoles = IUser & { roles: IRole[] };
+export interface IUserWithRoles extends IUser {
+  roles: IRole[];
+}

@@ -34,6 +34,10 @@ export default class RoleMenuModel extends SequelizeModel<RoleMenuModel> {
   }
 }
 
-export type IRoleWithMenus = IRole & { menus: IMenu[] };
+export interface IRoleWithMenus extends IRole {
+  menus: IMenu[];
+}
 
-export type IMenuWithRoles = IMenu & { roles: IRole[] };
+export interface IMenuWithRoles extends IMenu {
+  roles: IRole[];
+}

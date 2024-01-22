@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from 'vue-router';
+import { RouteRecord, RouteRecordRaw } from 'vue-router';
 
 declare namespace Common {
   type ArrayElem<ArrType> = ArrType extends readonly (infer ElementType)[] ? ElementType : never;
@@ -65,7 +65,7 @@ declare namespace NavigationConfig {
   type MenuType = 'overline' | 'directory' | 'menu' | 'action';
   type LayoutType = 'default' | 'auth' | 'landing' | 'ui';
 
-  type Router = RouteRecordRaw & {
+  interface Router extends RouteRecordRaw {
     matched?: Omit<Router, 'matched' | 'children'>[];
     meta?: {
       icon?: string;
@@ -79,7 +79,7 @@ declare namespace NavigationConfig {
       [key: string]: string | number | boolean | undefined;
     };
     children?: Router[];
-  };
+  }
 
   type Menu = Router;
 
@@ -97,12 +97,12 @@ declare namespace NavigationConfig {
 }
 
 declare namespace LocaleConfig {
-  type Locale = {
+  interface Locale {
     code: string;
     momentCode: string;
     flag: string;
     name: string;
     label: string;
     messages: Record<string, unknown>;
-  };
+  }
 }

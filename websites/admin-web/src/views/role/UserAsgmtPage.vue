@@ -10,9 +10,9 @@ import { useRoleStore } from '@/stores/modules/roleStore';
 const roleStore = useRoleStore();
 const route = useRoute();
 
-type IUser = IUserWithRoles & {
+interface IUser extends IUserWithRoles {
   assignStatus: IUserWithRoles['status'];
-};
+}
 
 const staticData = ref({
   roleId: lodash.toInteger(route.params.id),

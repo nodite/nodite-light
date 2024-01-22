@@ -1,10 +1,10 @@
-export type CacheStorage = {
+export interface CacheStorage {
   set: (key: string, value?: string) => void;
   get: (key: string) => string | null;
   setJSON: (key: string, value: object) => void;
   getJSON: (key: string) => object | null;
   rm: (key: string) => void;
-};
+}
 
 const SessionStorage: CacheStorage = {
   set: (key: string, value?: string): void => {

@@ -20,10 +20,10 @@ import { $ndt } from '@/plugins/i18n';
 import { useProfileStore } from '@/stores/modules/profileStore';
 import * as toolkit from '@/utils/request/toolkit';
 
-export type AuthState = {
+export interface AuthState {
   isLoggedIn: boolean;
   user: LoginBody | undefined;
-};
+}
 
 export const useAuthStore = defineStore('auth', {
   state: (): AuthState => ({
