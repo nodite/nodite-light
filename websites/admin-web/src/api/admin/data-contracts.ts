@@ -150,12 +150,23 @@ export interface PickInstanceTypeTypeofRoleModelRoleIdOrRoleNameOrRoleKeyOrOrder
   orderNum: number;
 }
 
-export type IRole =
-  PickInstanceTypeTypeofRoleModelRoleIdOrRoleNameOrRoleKeyOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
-
-export type IRoleWithUsers = IRole & {
+export interface IRoleWithUsers {
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  /** @format double */
+  roleId: number;
+  roleName: string;
+  roleKey: string;
+  /** @format double */
+  orderNum: number;
   users: IUser[];
-};
+}
 
 export interface IResponseIRoleWithUsersArray {
   error: boolean;
@@ -164,6 +175,9 @@ export interface IResponseIRoleWithUsersArray {
   message: string;
   data?: IRoleWithUsers[];
 }
+
+export type IRole =
+  PickInstanceTypeTypeofRoleModelRoleIdOrRoleNameOrRoleKeyOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
 
 export interface SequelizePaginationIRole {
   items: IRole[];
@@ -247,9 +261,26 @@ export interface IResponsePickIMenuMenuIdOrPermsArray {
   data?: PickIMenuMenuIdOrPerms[];
 }
 
-export type IUserWithRoles = IUser & {
+export interface IUserWithRoles {
+  /** @format double */
+  userId: number;
+  username: string;
+  nickname: string;
+  email: string;
+  phone: string;
+  sex: 0 | 1;
+  avatar: string;
+  password: string;
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
   roles: IRole[];
-};
+}
 
 export interface IResponseIUserWithRolesArray {
   error: boolean;

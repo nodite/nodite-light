@@ -13,12 +13,12 @@
 
 import { NavigationConfig } from '@/types/config';
 
-type NavState = {
+interface NavState {
   routesLoaded: boolean;
   routes: NavigationConfig.Router[];
   sidebarLoaded: boolean;
   sidebar: NavigationConfig.Menu[];
-};
+}
 
 export const useNavStore = defineStore('nav', {
   state: (): NavState => ({

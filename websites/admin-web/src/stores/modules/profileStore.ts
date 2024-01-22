@@ -20,9 +20,9 @@ import { useNavStore } from '@/stores/modules/navStore';
 import { useRoleStore } from '@/stores/modules/roleStore';
 import { useUserStore } from '@/stores/modules/userStore';
 
-type ProfileState = {
+interface ProfileState {
   profile: IUser | undefined;
-};
+}
 
 export const useProfileStore = defineStore('profile', {
   state: (): ProfileState => ({

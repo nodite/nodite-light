@@ -1,1 +1,4 @@
-export type ItemsPerPageOption = { value: number; title: number | string };
+export interface ItemsPerPageOption {
+  value: number;
+  title: number | string;
+}

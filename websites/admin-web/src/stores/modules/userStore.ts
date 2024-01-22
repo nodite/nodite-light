@@ -21,9 +21,9 @@ import {
 } from '@/api/admin/data-contracts';
 import * as UserApi from '@/api/admin/User';
 
-type UserState = {
+interface UserState {
   users: IUser[];
-};
+}
 
 export const useUserStore = defineStore('user', {
   state: (): UserState => ({

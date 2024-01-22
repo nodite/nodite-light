@@ -22,9 +22,9 @@ import {
 } from '@/api/admin/data-contracts';
 import * as RoleApi from '@/api/admin/Role';
 
-type RoleState = {
+interface RoleState {
   roles: IRole[];
-};
+}
 
 export const useRoleStore = defineStore('role', {
   state: (): RoleState => ({

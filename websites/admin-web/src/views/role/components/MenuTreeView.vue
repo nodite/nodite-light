@@ -13,7 +13,7 @@ const menuStore = useMenuStore();
 
 const emit = defineEmits(['close', 'save']);
 
-type TreeNode = {
+interface TreeNode {
   id: string;
   text: string;
   item: IMenu;
@@ -24,7 +24,7 @@ type TreeNode = {
     indeterminate?: boolean;
   };
   children: string[];
-};
+}
 
 const props = defineProps({
   label: {

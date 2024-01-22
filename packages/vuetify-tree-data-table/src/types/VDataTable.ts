@@ -21,10 +21,10 @@ export type GroupBy = InstanceType<typeof VDataTable>['$props']['groupBy'];
 
 export type ItemSlot = InstanceType<typeof VDataTable>['$props'];
 
-export type Item = {
+export interface Item {
   [key: string]: unknown;
   level?: number;
   children?: Item[];
-};
+}
 
 export default DataTableItemProps;
