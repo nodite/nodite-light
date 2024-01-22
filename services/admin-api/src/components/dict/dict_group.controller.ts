@@ -5,8 +5,8 @@ import httpStatus from 'http-status';
 import { Get, OperationId, Route, Tags } from 'tsoa';
 
 import BaseController from '@/components/base.controller';
-import { IDictGroup } from '@/components/dict_group/dict_group.model';
-import DictGroupService from '@/components/dict_group/dict_group.service';
+import { IDictGroup } from '@/components/dict/dict_group.model';
+import DictGroupService from '@/components/dict/dict_group.service';
 
 @Route('dict/group')
 @Tags('dict')

@@ -1,3 +1,3 @@
-import { IDictGroup } from '@/components/dict_group/dict_group.model';
+import { IDictGroup } from '@/components/dict/dict_group.model';
 
 export type DictGroupTree = IDictGroup & { level?: number; children?: DictGroupTree[] };
