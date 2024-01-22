@@ -12,7 +12,7 @@ import {
   Unique,
 } from 'sequelize-typescript';
 
-import DictTypeModel from '@/components/dict_type/dict_type.model';
+import DictTypeModel from '@/components/dict/dict_type.model';
 import DictGroupSeeds from '@/seeds/sys_dict_group.json';
 
 @Table({

@@ -1,7 +1,7 @@
 import { type DataTree, DataTreeUtil } from '@nodite-light/admin-core';
 import lodash from 'lodash';
 
-import DictGroupModel, { IDictGroup } from '@/components/dict_group/dict_group.model';
+import DictGroupModel, { IDictGroup } from '@/components/dict/dict_group.model';
 
 /**
  * Class DictGroupService.
