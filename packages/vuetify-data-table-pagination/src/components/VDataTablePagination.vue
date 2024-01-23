@@ -72,6 +72,7 @@ const methods = {
 <template>
   <div class="v-data-table-footer">
     <div class="v-data-table-footer__items-per-page">
+      <span>{{ $t('$vuetify.dataFooter.itemsPerPageText') }}</span>
       <v-select
         v-model="localData.itemsPerPage"
         @update:model-value="methods.updateItemsPerPage"
@@ -79,11 +80,7 @@ const methods = {
         density="compact"
         variant="outlined"
         hide-details
-      >
-        <template v-slot:prepend>
-          <v-label>{{ $t('$vuetify.dataFooter.itemsPerPageText') }}</v-label>
-        </template>
-      </v-select>
+      ></v-select>
     </div>
 
     <div class="v-data-table-footer__info">
