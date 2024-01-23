@@ -3,86 +3,29 @@ import { Icon } from '@iconify/vue';
 import { useTheme } from 'vuetify';
 
 import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
-
-interface Color {
-  colorId: number;
-  colorName: string;
-  colorValue: string;
-}
+import { ThemeConfig } from '@/types/config';
 
 const customizeTheme = useCustomizeThemeStore();
-
 const theme = useTheme();
 
 const themeDrawer = ref(false);
 
-const currentColor = ref<Color>({
+const currentColor = ref<ThemeConfig.Color>({
   colorId: 2,
   colorName: 'grey',
   colorValue: '#344767',
 });
 
-// const primaryColors = ref([
-//   {
-//     colorId: 1,
-//     colorName: 'purple',
-//     colorValue: '#CB0C9F',
-//   },
-//   {
-//     colorId: 2,
-//     colorName: 'grey',
-//     colorValue: '#344767',
-//   },
-//   {
-//     colorId: 3,
-//     colorName: 'info',
-//     colorValue: '#17C1E8',
-//   },
-//   {
-//     colorId: 4,
-//     colorName: 'success',
-//     colorValue: '#82D616',
-//   },
-//   {
-//     colorId: 5,
-//     colorName: 'warning',
-//     colorValue: '#F2825A',
-//   },
-//   {
-//     colorId: 6,
-//     colorName: 'error',
-//     colorValue: '#EA0606',
-//   },
-// ]);
-
 onMounted(() => updatePrimaryColor(customizeTheme.primaryColor));
 
-watch(currentColor, (newVal) => {
-  updatePrimaryColor(newVal);
+watch(currentColor, () => {
+  updatePrimaryColor(customizeTheme.primaryColor);
 });
 
-const updatePrimaryColor = (newColor: Color) => {
-  theme.themes.value.light.colors.primary = newColor.colorValue;
-  theme.themes.value.dark.colors.primary = newColor.colorValue;
-  customizeTheme.setPrimaryColor(newColor);
-  currentColor.value = newColor;
-};
-
-const setDarkTheme = (dark: boolean) => {
-  customizeTheme.setDarkTheme(dark);
-  updatePrimaryColor(
-    dark
-      ? {
-          colorId: 3,
-          colorName: 'info',
-          colorValue: '#17C1E8',
-        }
-      : {
-          colorId: 2,
-          colorName: 'grey',
-          colorValue: '#344767',
-        },
-  );
+const updatePrimaryColor = (color: ThemeConfig.Color) => {
+  theme.themes.value.light.colors.primary = color.colorValue;
+  theme.themes.value.dark.colors.primary = color.colorValue;
+  currentColor.value = color;
 };
 </script>
 
@@ -114,7 +57,7 @@ const setDarkTheme = (dark: boolean) => {
           <b>Global Theme Mode</b>
           <div class="px-3 pt-3" v-if="customizeTheme.darkTheme">
             <v-btn
-              @click="setDarkTheme(!customizeTheme.darkTheme)"
+              @click="customizeTheme.setDarkTheme(!customizeTheme.darkTheme, updatePrimaryColor)"
               icon
               color="grey-darken-4"
               class="text-white"
@@ -125,7 +68,7 @@ const setDarkTheme = (dark: boolean) => {
           </div>
           <div class="px-3 pt-3" v-else>
             <v-btn
-              @click="setDarkTheme(!customizeTheme.darkTheme)"
+              @click="customizeTheme.setDarkTheme(!customizeTheme.darkTheme, updatePrimaryColor)"
               icon
               color="white"
               class="text-red"
