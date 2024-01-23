@@ -1,4 +1,4 @@
-import { RouteRecord, RouteRecordRaw } from 'vue-router';
+import { RouteRecordRaw } from 'vue-router';
 
 declare namespace Common {
   type ArrayElem<ArrType> = ArrType extends readonly (infer ElementType)[] ? ElementType : never;
@@ -59,6 +59,14 @@ declare namespace ThemeConfig {
     // light theme colors
     light: import('vuetify').ThemeDefinition;
   }
+
+  interface Color {
+    colorId: number;
+    colorName: string;
+    colorValue: string;
+  }
+
+  type UpdatePrimaryColor = (color: Color) => void;
 }
 
 declare namespace NavigationConfig {

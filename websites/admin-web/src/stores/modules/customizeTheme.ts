@@ -2,18 +2,11 @@ import lodash from 'lodash';
 import moment from 'moment';
 import { defineStore } from 'pinia';
 
-import { LocaleConfig } from '@/types/config';
-
-interface Color {
-  colorId: number;
-  colorName: string;
-  colorValue: string;
-}
+import { LocaleConfig, ThemeConfig } from '@/types/config';
 
 interface State {
   miniSidebar: boolean;
   darkTheme: boolean;
-  primaryColor: Color;
   locale: Omit<LocaleConfig.Locale, 'messages'>;
   mainSidebar: boolean;
 }
@@ -23,11 +16,6 @@ export const useCustomizeThemeStore = defineStore({
   state: (): State => ({
     miniSidebar: false,
     darkTheme: false,
-    primaryColor: {
-      colorId: 3,
-      colorName: 'info',
-      colorValue: '#17C1E8',
-    },
     locale: {
       code: 'en',
       momentCode: 'en',
@@ -39,21 +27,65 @@ export const useCustomizeThemeStore = defineStore({
   persist: [
     {
       storage: localStorage,
-      paths: ['darkTheme', 'primaryColor', 'locale', 'mainSidebar'],
+      paths: ['darkTheme', 'locale', 'mainSidebar'],
     },
   ],
 
-  getters: {},
+  getters: {
+    primaryColor: (state): ThemeConfig.Color => {
+      // const primaryColors = ref([
+      //   {
+      //     colorId: 1,
+      //     colorName: 'purple',
+      //     colorValue: '#CB0C9F',
+      //   },
+      //   {
+      //     colorId: 2,
+      //     colorName: 'grey',
+      //     colorValue: '#344767',
+      //   },
+      //   {
+      //     colorId: 3,
+      //     colorName: 'info',
+      //     colorValue: '#17C1E8',
+      //   },
+      //   {
+      //     colorId: 4,
+      //     colorName: 'success',
+      //     colorValue: '#82D616',
+      //   },
+      //   {
+      //     colorId: 5,
+      //     colorName: 'warning',
+      //     colorValue: '#F2825A',
+      //   },
+      //   {
+      //     colorId: 6,
+      //     colorName: 'error',
+      //     colorValue: '#EA0606',
+      //   },
+      // ]);
+      return state.darkTheme
+        ? {
+            colorId: 3,
+            colorName: 'info',
+            colorValue: '#17C1E8',
+          }
+        : {
+            colorId: 2,
+            colorName: 'grey',
+            colorValue: '#344767',
+          };
+    },
+  },
 
   actions: {
-    setDarkTheme(payload: boolean) {
+    setDarkTheme(payload: boolean, updatePrimaryColor: ThemeConfig.UpdatePrimaryColor) {
       this.darkTheme = payload;
+      updatePrimaryColor(this.primaryColor);
     },
     setMiniSideBar(payload: boolean) {
       this.miniSidebar = payload;
-    },
-    setPrimaryColor(payload: Color) {
-      this.primaryColor = payload;
     },
     setLocale(locale: Omit<LocaleConfig.Locale, 'messages'>) {
       this.locale = lodash.omit(locale, 'messages');
