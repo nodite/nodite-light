@@ -39,7 +39,7 @@ export const useMenuStore = defineStore('menu', {
         this.menuList = lodash.map((await MenuApi.adminMenuList()) || [], (item) => {
           return {
             ...item,
-            parentId: item.parentId || 0,
+            parentId: item.parentId || '',
           };
         });
       }
@@ -62,7 +62,7 @@ export const useMenuStore = defineStore('menu', {
      * @param id
      * @returns
      */
-    async query(id: number): Promise<IMenu | undefined> {
+    async query(id: string): Promise<IMenu | undefined> {
       return await MenuApi.adminMenuQuery(id);
     },
 
@@ -88,7 +88,7 @@ export const useMenuStore = defineStore('menu', {
      * Delete.
      * @param id
      */
-    async delete(id: number): Promise<void> {
+    async delete(id: string): Promise<void> {
       await MenuApi.adminMenuDelete(id);
       await this.$reset();
     },

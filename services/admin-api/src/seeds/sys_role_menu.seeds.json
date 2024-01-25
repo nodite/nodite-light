@@ -1,15 +1,81 @@
 [
-  { "roleId": 1, "menuId": 0, "createBy": "admin", "updateBy": "admin", "deleted": 9 },
-  { "roleId": 2, "menuId": 1, "createBy": "admin", "updateBy": "admin" },
-  { "roleId": 2, "menuId": 2, "createBy": "admin", "updateBy": "admin" },
-  { "roleId": 2, "menuId": 3, "createBy": "admin", "updateBy": "admin" },
-  { "roleId": 2, "menuId": 4, "createBy": "admin", "updateBy": "admin" },
-  { "roleId": 2, "menuId": 8, "createBy": "admin", "updateBy": "admin" },
-  { "roleId": 2, "menuId": 9, "createBy": "admin", "updateBy": "admin" },
-  { "roleId": 2, "menuId": 12, "createBy": "admin", "updateBy": "admin" },
-  { "roleId": 2, "menuId": 17, "createBy": "admin", "updateBy": "admin" },
-  { "roleId": 2, "menuId": 18, "createBy": "admin", "updateBy": "admin" },
-  { "roleId": 2, "menuId": 20, "createBy": "admin", "updateBy": "admin" },
-  { "roleId": 2, "menuId": 23, "createBy": "admin", "updateBy": "admin" },
-  { "roleId": 2, "menuId": 27, "createBy": "admin", "updateBy": "admin" }
+  {
+    "roleId": 1,
+    "menuId": "*",
+    "createBy": "admin",
+    "updateBy": "admin",
+    "deleted": 9
+  },
+  {
+    "roleId": 2,
+    "menuId": "b05821ec-eec7-480d-99ae-395df450fe11",
+    "createBy": "admin",
+    "updateBy": "admin"
+  },
+  {
+    "roleId": 2,
+    "menuId": "e1c9dcb6-c204-45f8-a64b-e8b49ffb9722",
+    "createBy": "admin",
+    "updateBy": "admin"
+  },
+  {
+    "roleId": 2,
+    "menuId": "d07e943b-2749-484b-849e-79703f0c6889",
+    "createBy": "admin",
+    "updateBy": "admin"
+  },
+  {
+    "roleId": 2,
+    "menuId": "f7a0a55e-f969-45b2-8c70-e226af76ab6d",
+    "createBy": "admin",
+    "updateBy": "admin"
+  },
+  {
+    "roleId": 2,
+    "menuId": "5265e89f-d3bd-4035-9ad5-d1ace8ac6096",
+    "createBy": "admin",
+    "updateBy": "admin"
+  },
+  {
+    "roleId": 2,
+    "menuId": "b1b0aa94-e2cf-4cd1-86cb-79165202a502",
+    "createBy": "admin",
+    "updateBy": "admin"
+  },
+  {
+    "roleId": 2,
+    "menuId": "c7905b4f-db05-4ebf-872c-3a537e7de3b4",
+    "createBy": "admin",
+    "updateBy": "admin"
+  },
+  {
+    "roleId": 2,
+    "menuId": "ddbaff65-b63a-4128-ab36-15073caf5845",
+    "createBy": "admin",
+    "updateBy": "admin"
+  },
+  {
+    "roleId": 2,
+    "menuId": "168553fe-b9c8-44b1-a79e-1ed0f05fd92b",
+    "createBy": "admin",
+    "updateBy": "admin"
+  },
+  {
+    "roleId": 2,
+    "menuId": "c04e8f6e-e801-42f9-83f8-56c86ff3b14e",
+    "createBy": "admin",
+    "updateBy": "admin"
+  },
+  {
+    "roleId": 2,
+    "menuId": "6b6c9f5b-9116-439e-b57d-3997471c8a0d",
+    "createBy": "admin",
+    "updateBy": "admin"
+  },
+  {
+    "roleId": 2,
+    "menuId": "e736b0d1-b6b5-47fc-ada4-efd44a81e145",
+    "createBy": "admin",
+    "updateBy": "admin"
+  }
 ]

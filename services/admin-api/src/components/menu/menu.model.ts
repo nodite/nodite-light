@@ -4,7 +4,6 @@ import lodash from 'lodash';
 import { Attributes, FindOptions } from 'sequelize';
 import {
   AllowNull,
-  AutoIncrement,
   BelongsToMany,
   Column,
   Comment,
@@ -27,7 +26,7 @@ const TABLE_NAME = 'sys_menu';
  * @param seeds
  * @param parentId
  */
-async function initialSeeds(model: typeof MenuModel, seeds: DataTree<IMenu>[] = [], parentId = 0) {
+async function initialSeeds(model: typeof MenuModel, seeds: DataTree<IMenu>[] = [], parentId = '') {
   lodash.forEach(seeds, async (seed, idx) => {
     const menu = await model.create({
       ...seed,
@@ -50,18 +49,18 @@ export default class MenuModel extends SequelizeModel<MenuModel> {
   @AllowNull(false)
   @Unique
   @PrimaryKey
-  @AutoIncrement
-  @Column({ field: 'menu_id', type: DataType.BIGINT({ length: 20 }) })
-  menuId: number;
+  @Default(DataType.UUIDV4)
+  @Column({ field: 'menu_id', type: DataType.UUID })
+  menuId: string;
 
   @AllowNull(false)
   @Comment('menu title')
   @Column({ field: 'menu_name', type: DataType.STRING(50) })
   menuName: string;
 
-  @Default(0)
-  @Column({ field: 'parent_id', type: DataType.BIGINT({ length: 20 }) })
-  parentId: number;
+  @Default('')
+  @Column({ field: 'parent_id', type: DataType.UUID })
+  parentId: string;
 
   @Default(0)
   @Column({ field: 'order_num', type: DataType.INTEGER({ length: 4 }) })

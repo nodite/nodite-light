@@ -35,7 +35,7 @@ const localData = ref({
 
 const menuFormData = ref({
   dialog: false,
-  menuId: 0,
+  menuId: '',
 });
 
 const deleteConfirmFormData = ref({
@@ -49,13 +49,13 @@ const methods = {
     localData.value.items = await menuStore.listTree();
     localData.value.loading = false;
   },
-  openMenuForm(id: number) {
+  openMenuForm(id: string) {
     menuFormData.value.dialog = true;
     menuFormData.value.menuId = id;
   },
   closeMenuForm() {
     menuFormData.value.dialog = false;
-    menuFormData.value.menuId = 0;
+    menuFormData.value.menuId = '';
   },
   openDeleteConfirmForm(item: IMenu) {
     deleteConfirmFormData.value.dialog = true;
@@ -65,7 +65,7 @@ const methods = {
     deleteConfirmFormData.value.dialog = false;
     deleteConfirmFormData.value.item = {} as IMenu;
   },
-  async opMenuStatus(id: number, status: number) {
+  async opMenuStatus(id: string, status: number) {
     await menuStore.edit({ menuId: id, status: status } as IMenu);
   },
   async delete(menu: IMenu, cb: ConfirmCallback) {

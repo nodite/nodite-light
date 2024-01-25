@@ -127,7 +127,7 @@ export class RoleController extends BaseController {
   @CacheClear({ hashKey: 'role:perm:list', cacheKey: (args) => args[0] })
   public async updateMenuPerms(
     @Path() id: number,
-    @Body() menuIds: number[],
+    @Body() menuIds: string[],
   ): Promise<IResponse<void>> {
     await this.roleService.updateMenuPerms(id, menuIds);
     this.setStatus(httpStatus.NO_CONTENT);

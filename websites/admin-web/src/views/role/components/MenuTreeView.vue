@@ -54,7 +54,7 @@ const defLocalData = {
   treeConfig: {
     checkboxes: props.checkboxes,
   },
-  selectedIds: [] as number[],
+  selectedIds: [] as string[],
   expand: false,
   selectAll: false,
   linkage: false,
@@ -75,7 +75,7 @@ const methods = {
       .chain(menus)
       .mapValues((menu) => {
         return {
-          id: String(menu.menuId),
+          id: menu.menuId,
           text: '',
           item: menu,
           state: {
@@ -98,7 +98,7 @@ const methods = {
       'roots',
       lodash
         .chain(localData.value.treeNodes)
-        .filter((node) => node.item.parentId === 0)
+        .filter((node) => !node.item.parentId)
         .map('id')
         .value(),
     );
@@ -237,7 +237,7 @@ watchEffect(async () => {
 
   if (!lodash.isEmpty(props.initMethodParam)) {
     localData.value.selectedIds = await props.initMethod(props.initMethodParam);
-    localData.value.selectAll = localData.value.selectedIds.includes(0);
+    localData.value.selectAll = localData.value.selectedIds.includes('*');
     await methods.getNodes();
   }
 });

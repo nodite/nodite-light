@@ -248,8 +248,7 @@ export type OmitIRoleRoleIdOrRoleKey = PickIRoleExcludeKeysRoleIdOrRoleKey;
 
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickIMenuMenuIdOrPerms {
-  /** @format double */
-  menuId: number;
+  menuId: string;
   perms: string;
 }
 
@@ -302,11 +301,9 @@ export interface PickInstanceTypeTypeofMenuModelMenuIdOrMenuNameOrParentIdOrOrde
   updateTime: string;
   /** @format double */
   orderNum: number;
-  /** @format double */
-  menuId: number;
+  menuId: string;
   menuName: string;
-  /** @format double */
-  parentId: number;
+  parentId: string;
   icon: string;
   iType: string;
   path: string;
@@ -363,8 +360,7 @@ export interface PickIMenuExcludeKeysMenuId {
   /** @format double */
   orderNum: number;
   menuName: string;
-  /** @format double */
-  parentId: number;
+  parentId: string;
   icon: string;
   iType: string;
   path: string;
@@ -377,6 +373,10 @@ export interface PickIMenuExcludeKeysMenuId {
 
 /** Construct a type with the properties of T except for those in type K. */
 export type OmitIMenuMenuId = PickIMenuExcludeKeysMenuId;
+
+export type IMenuCreate = OmitIMenuMenuId;
+
+export type IMenuUpdate = OmitIMenuMenuId;
 
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrParentIdOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {

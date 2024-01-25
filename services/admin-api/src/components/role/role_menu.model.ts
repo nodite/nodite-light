@@ -20,8 +20,8 @@ export default class RoleMenuModel extends SequelizeModel<RoleMenuModel> {
   @ForeignKey(() => MenuModel)
   @PrimaryKey
   @AllowNull(false)
-  @Column({ field: 'menu_id', type: DataType.BIGINT({ length: 20 }) })
-  menuId: number;
+  @Column({ field: 'menu_id', type: DataType.UUID })
+  menuId: string;
 
   /**
    * Check if the role has full permissions.
@@ -29,7 +29,7 @@ export default class RoleMenuModel extends SequelizeModel<RoleMenuModel> {
    * @returns
    */
   public static async hasFullPerms(roleId: number): Promise<boolean> {
-    const count = await this.count({ where: { roleId, menuId: 0 } });
+    const count = await this.count({ where: { roleId, menuId: '*' } });
     return count > 0;
   }
 }

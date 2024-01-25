@@ -2,6 +2,7 @@ import { AppError, type DataTree, DataTreeUtil } from '@nodite-light/admin-core'
 import httpStatus from 'http-status';
 import lodash from 'lodash';
 
+import { IMenuCreate, IMenuUpdate } from '@/components/menu/menu.interface';
 import MenuModel, { IMenu } from '@/components/menu/menu.model';
 import RoleModel from '@/components/role/role.model';
 import UserModel from '@/components/user/user.model';
@@ -80,9 +81,9 @@ export default class MenuService {
    * @param id
    * @returns
    */
-  public async selectMenuById(id: number): Promise<IMenu> {
+  public async selectMenuById(id: string): Promise<IMenu> {
     const menu = await MenuModel.findOne({ where: { menuId: id } });
-    return menu.toJSON<MenuModel>();
+    return menu.toJSON();
   }
 
   /**
@@ -90,9 +91,9 @@ export default class MenuService {
    * @param menu
    * @returns
    */
-  public async create(menu: IMenu): Promise<IMenu> {
+  public async create(menu: IMenuCreate): Promise<IMenu> {
     const createdMenu = await MenuModel.create({ ...menu });
-    return createdMenu.toJSON<MenuModel>();
+    return createdMenu.toJSON();
   }
 
   /**
@@ -101,17 +102,17 @@ export default class MenuService {
    * @param menu
    * @returns
    */
-  public async update(id: number, menu: IMenu): Promise<IMenu> {
+  public async update(id: string, menu: IMenuUpdate): Promise<IMenu> {
     const storedMenu = await MenuModel.findOne({ where: { menuId: id } });
     const updatedUser = await storedMenu.update(menu);
-    return updatedUser.toJSON<MenuModel>();
+    return updatedUser.toJSON();
   }
 
   /**
    * Delete menu.
    * @param id
    */
-  public async delete(id: number): Promise<void> {
+  public async delete(id: string): Promise<void> {
     const storedMenu = await MenuModel.findOne({ where: { menuId: id } });
 
     if (storedMenu.getDataValue('deleted') === 9) {
