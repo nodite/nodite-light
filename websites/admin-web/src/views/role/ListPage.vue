@@ -68,7 +68,7 @@ const deleteConfirmFormData = ref({
 const menuPermsView = ref({
   drawer: false,
   item: {} as IRole,
-  menuIds: [] as number[],
+  menuIds: [] as string[],
 });
 
 const methods = {
@@ -135,9 +135,9 @@ const methods = {
   async openUserAsgmtPage(item: IRole) {
     await router.push(`/role/${item.roleId}/users`);
   },
-  async saveMenuTreeView(ids: number[], cb: (close: boolean) => void) {
+  async saveMenuTreeView(menuIds: string[], cb: (close: boolean) => void) {
     try {
-      roleStore.updateMenuPerms(menuPermsView.value.item.roleId, ids);
+      roleStore.updateMenuPerms(menuPermsView.value.item.roleId, menuIds);
       toast.success($ndt('common.form.success'));
       cb(true);
     } catch (e) {

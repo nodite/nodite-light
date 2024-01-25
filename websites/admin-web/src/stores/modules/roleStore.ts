@@ -87,7 +87,7 @@ export const useRoleStore = defineStore('role', {
      * @param roleId
      * @param menuIds
      */
-    async updateMenuPerms(roleId: number, menuIds: number[]): Promise<void> {
+    async updateMenuPerms(roleId: number, menuIds: string[]): Promise<void> {
       await RoleApi.adminRolePermUpdate(roleId, menuIds);
     },
     /**

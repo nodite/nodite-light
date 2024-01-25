@@ -1,6 +1,6 @@
 [
   {
-    "menuId": 1,
+    "menuId": "b05821ec-eec7-480d-99ae-395df450fe11",
     "menuName": "System",
     "icon": "",
     "iType": "overline",
@@ -9,7 +9,7 @@
     "deleted": 9,
     "children": [
       {
-        "menuId": 2,
+        "menuId": "e1c9dcb6-c204-45f8-a64b-e8b49ffb9722",
         "menuName": "System Mgmt",
         "icon": "mdi-cog-outline",
         "iType": "directory",
@@ -18,7 +18,7 @@
         "deleted": 9,
         "children": [
           {
-            "menuId": 3,
+            "menuId": "d07e943b-2749-484b-849e-79703f0c6889",
             "menuName": "Menu Mgmt",
             "icon": "mdi-format-list-bulleted",
             "iType": "menu",
@@ -31,7 +31,7 @@
             "deleted": 9,
             "children": [
               {
-                "menuId": 4,
+                "menuId": "f7a0a55e-f969-45b2-8c70-e226af76ab6d",
                 "menuName": "Menu Query",
                 "iType": "action",
                 "hidden": 1,
@@ -41,7 +41,7 @@
                 "deleted": 9
               },
               {
-                "menuId": 5,
+                "menuId": "fc7d1dd6-ccc1-4941-96d8-4d8562f40882",
                 "menuName": "Menu Create",
                 "iType": "action",
                 "hidden": 1,
@@ -51,7 +51,7 @@
                 "deleted": 9
               },
               {
-                "menuId": 6,
+                "menuId": "0829d0a9-f7b6-439b-9591-f0a0f78a03f1",
                 "menuName": "Menu Edit",
                 "iType": "action",
                 "hidden": 1,
@@ -61,7 +61,7 @@
                 "deleted": 9
               },
               {
-                "menuId": 7,
+                "menuId": "363a0d22-9b76-460a-a14c-19557e9cabb6",
                 "menuName": "Menu Delete",
                 "iType": "action",
                 "hidden": 1,
@@ -73,7 +73,7 @@
             ]
           },
           {
-            "menuId": 8,
+            "menuId": "5265e89f-d3bd-4035-9ad5-d1ace8ac6096",
             "menuName": "User Mgmt",
             "icon": "mdi-account-multiple-outline",
             "iType": "menu",
@@ -86,7 +86,7 @@
             "deleted": 9,
             "children": [
               {
-                "menuId": 9,
+                "menuId": "b1b0aa94-e2cf-4cd1-86cb-79165202a502",
                 "menuName": "Role Asgmt",
                 "icon": "mdi-checkbox-multiple-marked-outline",
                 "iType": "menu",
@@ -100,7 +100,7 @@
                 "deleted": 9,
                 "children": [
                   {
-                    "menuId": 10,
+                    "menuId": "0a656071-d7cf-402e-9acf-e8cd021ee48d",
                     "menuName": "Role Assign",
                     "iType": "action",
                     "hidden": 1,
@@ -110,7 +110,7 @@
                     "deleted": 9
                   },
                   {
-                    "menuId": 11,
+                    "menuId": "42311dc9-600a-407e-be03-00ee6a457372",
                     "menuName": "Role Un-Assign",
                     "iType": "action",
                     "hidden": 1,
@@ -122,7 +122,7 @@
                 ]
               },
               {
-                "menuId": 12,
+                "menuId": "c7905b4f-db05-4ebf-872c-3a537e7de3b4",
                 "menuName": "User Query",
                 "iType": "action",
                 "hidden": 1,
@@ -132,7 +132,7 @@
                 "deleted": 9
               },
               {
-                "menuId": 13,
+                "menuId": "eea182b5-3682-4a71-8a0b-694153dd60a6",
                 "menuName": "User Create",
                 "iType": "action",
                 "hidden": 1,
@@ -142,7 +142,7 @@
                 "deleted": 9
               },
               {
-                "menuId": 14,
+                "menuId": "a4c4047f-0f94-43bb-a575-c2746738d77a",
                 "menuName": "User Edit",
                 "iType": "action",
                 "hidden": 1,
@@ -152,7 +152,7 @@
                 "deleted": 9
               },
               {
-                "menuId": 15,
+                "menuId": "59faaa1c-b159-482c-b1c2-50bef48f2928",
                 "menuName": "Password Reset",
                 "iType": "action",
                 "hidden": 1,
@@ -162,7 +162,7 @@
                 "deleted": 9
               },
               {
-                "menuId": 16,
+                "menuId": "33856f50-c1ed-446a-b5c6-2a545861607b",
                 "menuName": "User Delete",
                 "iType": "action",
                 "hidden": 1,
@@ -174,7 +174,7 @@
             ]
           },
           {
-            "menuId": 17,
+            "menuId": "ddbaff65-b63a-4128-ab36-15073caf5845",
             "menuName": "Role Mgmt",
             "icon": "mdi-account-group-outline",
             "iType": "menu",
@@ -187,7 +187,7 @@
             "deleted": 9,
             "children": [
               {
-                "menuId": 18,
+                "menuId": "168553fe-b9c8-44b1-a79e-1ed0f05fd92b",
                 "menuName": "Role Perms",
                 "iType": "action",
                 "hidden": 1,
@@ -197,7 +197,7 @@
                 "deleted": 9,
                 "children": [
                   {
-                    "menuId": 19,
+                    "menuId": "9eb276d7-d6e0-4861-86c1-3985e49bfd43",
                     "menuName": "Perms Update",
                     "iType": "action",
                     "hidden": 1,
@@ -209,7 +209,7 @@
                 ]
               },
               {
-                "menuId": 20,
+                "menuId": "c04e8f6e-e801-42f9-83f8-56c86ff3b14e",
                 "menuName": "Role Users",
                 "icon": "mdi-checkbox-multiple-marked-outline",
                 "iType": "menu",
@@ -223,7 +223,7 @@
                 "deleted": 9,
                 "children": [
                   {
-                    "menuId": 21,
+                    "menuId": "9270a296-9c2c-4e51-9434-c41c5dc90fe6",
                     "menuName": "User Assign",
                     "iType": "action",
                     "hidden": 1,
@@ -233,7 +233,7 @@
                     "deleted": 9
                   },
                   {
-                    "menuId": 22,
+                    "menuId": "c9fbd1bf-bb04-4e05-b293-01dad6b0ad3a",
                     "menuName": "User Un-Assign",
                     "iType": "action",
                     "hidden": 1,
@@ -245,7 +245,7 @@
                 ]
               },
               {
-                "menuId": 23,
+                "menuId": "6b6c9f5b-9116-439e-b57d-3997471c8a0d",
                 "menuName": "Role Query",
                 "iType": "action",
                 "hidden": 1,
@@ -255,7 +255,7 @@
                 "deleted": 9
               },
               {
-                "menuId": 24,
+                "menuId": "20a14c51-d835-4f4e-a63e-37482b98dcfc",
                 "menuName": "Role Create",
                 "iType": "action",
                 "hidden": 1,
@@ -265,7 +265,7 @@
                 "deleted": 9
               },
               {
-                "menuId": 25,
+                "menuId": "248a6e79-cece-427f-b4b1-bad297837ab5",
                 "menuName": "Role Edit",
                 "iType": "action",
                 "hidden": 1,
@@ -275,7 +275,7 @@
                 "deleted": 9
               },
               {
-                "menuId": 26,
+                "menuId": "8e95ae58-5285-49bf-98ee-0ca0a18fe956",
                 "menuName": "Role Delete",
                 "iType": "action",
                 "hidden": 1,
@@ -287,7 +287,7 @@
             ]
           },
           {
-            "menuId": 27,
+            "menuId": "e736b0d1-b6b5-47fc-ada4-efd44a81e145",
             "menuName": "Dict Mgmt",
             "icon": "mdi-book-cog-outline",
             "iType": "menu",

@@ -73,7 +73,7 @@ declare namespace NavigationConfig {
   type MenuType = 'overline' | 'directory' | 'menu' | 'action';
   type LayoutType = 'default' | 'auth' | 'landing' | 'ui';
 
-  interface Router extends RouteRecordRaw {
+  type Router = RouteRecordRaw & {
     matched?: Omit<Router, 'matched' | 'children'>[];
     meta?: {
       icon?: string;
@@ -87,7 +87,7 @@ declare namespace NavigationConfig {
       [key: string]: string | number | boolean | undefined;
     };
     children?: Router[];
-  }
+  };
 
   type Menu = Router;
 

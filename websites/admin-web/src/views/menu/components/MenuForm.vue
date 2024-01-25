@@ -29,8 +29,8 @@ const props = defineProps({
     default: false,
   },
   menuId: {
-    type: Number,
-    default: 0,
+    type: String,
+    default: '',
   },
 });
 
@@ -62,9 +62,8 @@ const refForm = ref();
 const formData = ref({} as IMenu);
 const formRules = ref({
   parentId: [
-    (v: number) =>
-      (lodash.isNumber(v) && v >= 0) ||
-      $ndt('common.form.required', [$ndt('views.menu.form.parent')]),
+    (v: string) =>
+      lodash.isString(v) || (!v && $ndt('common.form.required', [$ndt('views.menu.form.parent')])),
   ],
   orderNum: [],
   iType: [(v: string) => !!v || $ndt('common.form.required', [$ndt('views.menu.form.iType')])],
@@ -91,7 +90,7 @@ const formRules = ref({
 const methods = {
   async loadFormData() {
     let menu = undefined;
-    if (props.menuId > 0) {
+    if (props.menuId) {
       menu = await menuStore.query(props.menuId);
     }
     formData.value = lodash.isUndefined(menu) ? ({} as IMenu) : menu;
@@ -126,7 +125,7 @@ const methods = {
     }
 
     try {
-      await (formData.value.menuId > 0
+      await (formData.value.menuId
         ? menuStore.edit(formData.value)
         : menuStore.create(formData.value));
     } finally {
@@ -142,7 +141,7 @@ const methods = {
 
 onMounted(() => {
   menuStore.listTree().then((res) => {
-    staticData.value.menus = [{ menuName: 'Root', menuId: 0 } as IMenu, ...res];
+    staticData.value.menus = [{ menuName: 'Root', menuId: '' } as IMenu, ...res];
   });
 });
 
@@ -169,7 +168,7 @@ watchEffect(() => {
       <v-card-title class="pt-4">
         <v-label>
           {{
-            props.menuId > 0
+            props.menuId
               ? $ndt('common.form.editHeader', [$ndt('views.menu.title'), formData.menuName])
               : $ndt('common.form.newHeader', [$ndt('views.menu.title')])
           }}

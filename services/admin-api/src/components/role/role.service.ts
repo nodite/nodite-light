@@ -122,7 +122,7 @@ export default class RoleService {
    */
   public async selectMenuPerms(roleId: number): Promise<Pick<IMenu, 'menuId' | 'perms'>[]> {
     if (await RoleMenuModel.hasFullPerms(roleId)) {
-      return [{ menuId: 0, perms: '*:*:*' }];
+      return [{ menuId: '*', perms: '*:*:*' }];
     }
 
     const role = await RoleModel.findOne({
@@ -145,7 +145,7 @@ export default class RoleService {
    * @param roleId
    * @param menuIds
    */
-  public async updateMenuPerms(roleId: number, menuIds: number[]): Promise<void> {
+  public async updateMenuPerms(roleId: number, menuIds: string[]): Promise<void> {
     if (roleId === 1) {
       throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Role is not allow update!');
     }
@@ -165,7 +165,7 @@ export default class RoleService {
     await CasbinModel.removeRolePolicies(roleId, transaction);
 
     if (!lodash.isEmpty(menuIds)) {
-      const menuPerms = menuIds.includes(0)
+      const menuPerms = menuIds.includes('*')
         ? ['*:*:*']
         : lodash
             .chain(

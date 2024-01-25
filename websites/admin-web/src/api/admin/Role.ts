@@ -204,7 +204,7 @@ export const adminRolePermListSkipErrorHandler = (id: number, params: RequestPar
  * @name adminRolePermUpdate
  * @request PUT:/role/{id}/perms
  */
-export const adminRolePermUpdate = (id: number, data: number[], params: RequestParams = {}) =>
+export const adminRolePermUpdate = (id: number, data: string[], params: RequestParams = {}) =>
   request<IResponseVoid>({
     path: `/role/${id}/perms`,
     method: "PUT",
@@ -214,7 +214,7 @@ export const adminRolePermUpdate = (id: number, data: number[], params: RequestP
     skipErrorHandler: false,
     ...params,
   });
-export const adminRolePermUpdateSkipErrorHandler = (id: number, data: number[], params: RequestParams = {}) =>
+export const adminRolePermUpdateSkipErrorHandler = (id: number, data: string[], params: RequestParams = {}) =>
   request<IResponseVoid>({
     path: `/role/${id}/perms`,
     method: "PUT",
