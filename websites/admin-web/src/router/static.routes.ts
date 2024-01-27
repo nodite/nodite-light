@@ -81,4 +81,4 @@ export default [
       },
     ],
   },
-] as NavigationConfig.Router[];
+] as NavigationConfig.Route[];

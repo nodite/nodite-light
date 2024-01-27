@@ -26,7 +26,7 @@ const localData = ref({
 const methods = {
   close() {
     if (localData.value.deleting) {
-      toast.warning($t('$vuetify.delete_confirm_form.deleting'));
+      toast.warning($t('$vuetify.deleteConfirmForm.deleting'));
       return;
     }
     localData.value.dialog = false;
@@ -57,7 +57,7 @@ watchEffect(() => {
     :persistent="localData.deleting"
   >
     <v-card>
-      <v-card-text>{{ $t('$vuetify.delete_confirm_form.title') }}</v-card-text>
+      <v-card-text>{{ $t('$vuetify.deleteConfirmForm.title') }}</v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn
@@ -66,7 +66,7 @@ watchEffect(() => {
           @click="methods.cancel"
           :disabled="localData.deleting"
         >
-          {{ $t('$vuetify.delete_confirm_form.cancel') }}
+          {{ $t('$vuetify.deleteConfirmForm.cancel') }}
         </v-btn>
         <v-btn
           color="blut-darken-1"
@@ -75,7 +75,7 @@ watchEffect(() => {
           :loading="localData.deleting"
           :disabled="localData.deleting"
         >
-          {{ $t('$vuetify.delete_confirm_form.confirm') }}
+          {{ $t('$vuetify.deleteConfirmForm.confirm') }}
         </v-btn>
       </v-card-actions>
     </v-card>

@@ -1,16 +1,3 @@
-/*
- * File: menuStore.ts                                                          *
- * Project: @nodite-light/admin-web                                            *
- * Created Date: Sa Dec 2023                                                   *
- * Author: Oscaner Miao                                                        *
- * -----                                                                       *
- * Last Modified: Sat Dec 23 2023                                              *
- * Modified By: Oscaner Miao                                                   *
- * -----                                                                       *
- * Copyright (c) 2023 @nodite                                                  *
- * ----------	---	---------------------------------------------------------    *
- */
-
 import lodash from 'lodash';
 
 import { DataTreeIMenu, IMenu } from '@/api/admin/data-contracts';
@@ -35,14 +22,13 @@ export const useMenuStore = defineStore('menu', {
      * @returns
      */
     async list(): Promise<IMenu[]> {
-      if (lodash.isEmpty(this.menuList)) {
-        this.menuList = lodash.map((await MenuApi.adminMenuList()) || [], (item) => {
-          return {
-            ...item,
-            parentId: item.parentId || '',
-          };
-        });
-      }
+      if (!lodash.isEmpty(this.menuList)) return this.menuList;
+      this.menuList = lodash.map((await MenuApi.adminMenuList()) || [], (item) => {
+        return {
+          ...item,
+          parentId: item.parentId || '',
+        };
+      });
       return this.menuList;
     },
 
@@ -51,9 +37,8 @@ export const useMenuStore = defineStore('menu', {
      * @returns
      */
     async listTree(): Promise<DataTreeIMenu[]> {
-      if (lodash.isEmpty(this.menuTree)) {
-        this.menuTree = (await MenuApi.adminMenuTree()) || [];
-      }
+      if (!lodash.isEmpty(this.menuTree)) return this.menuTree;
+      this.menuTree = (await MenuApi.adminMenuTree()) || [];
       return this.menuTree;
     },
 

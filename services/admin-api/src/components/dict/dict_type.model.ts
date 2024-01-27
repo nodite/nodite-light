@@ -14,7 +14,7 @@ import {
 } from 'sequelize-typescript';
 
 import DictGroupModel from '@/components/dict/dict_group.model';
-import DictTypeSeeds from '@/seeds/sys_dict_type.json';
+import DictTypeSeeds from '@/seeds/sys_dict_type.seeds.json';
 
 @Table({
   ...SequelizeModel.TableOptions,

@@ -19,6 +19,7 @@ import {
 } from 'sequelize-typescript';
 
 import { FindOptions, Pagination } from '@/nodite-sequelize/interface';
+
 /**
  * Class BaseModel.
  */
@@ -30,7 +31,15 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
     omitNull: true,
     underscored: true,
     timestamps: true,
-  } as InitOptions;
+    scopes: {
+      available: {
+        where: {
+          status: { [Op.gt]: 0 },
+          deleted: [0, 9],
+        },
+      },
+    },
+  } as unknown as InitOptions;
 
   @Default(1)
   @Comment('0: disabled, 1: enabled')
@@ -39,7 +48,6 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
 
   @Default(0)
   @Comment('0: normal, 1: soft deleted, 9: not allow delete')
-  @Default(0)
   @Column(DataType.TINYINT({ length: 1 }))
   deleted: 0 | 1 | 9;
 

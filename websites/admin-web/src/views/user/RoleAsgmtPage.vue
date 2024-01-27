@@ -18,7 +18,6 @@ const staticData = ref({
   userId: lodash.toInteger(route.params.id),
   headers: [] as DataTableItemProps['headers'],
   overList: [] as { title: string; key: string; value: unknown }[],
-  status: [] as { title: string; value: number }[],
   assignStatus: [] as { title: string; value: number }[],
 });
 
@@ -107,7 +106,7 @@ watchEffect(() => {
     { title: $ndt('views.role.headers.roleName'), value: 'roleName' },
     { title: $ndt('views.role.headers.roleKey'), value: 'roleKey' },
     { title: $ndt('views.role.headers.orderNum'), value: 'orderNum' },
-    { title: $ndt('common.form.status', ['']), value: 'status' },
+    { title: $ndt('Status'), value: 'status' },
     { title: $ndt('common.form.createTime'), value: 'createTime' },
     { key: 'actions', sortable: false },
   ];
@@ -133,11 +132,9 @@ watchEffect(() => {
       value: localData.value.user.email,
     },
     {
-      title: $ndt('common.form.status'),
+      title: $ndt('Status'),
       key: 'status',
-      value: localData.value.user.status
-        ? $ndt('common.status.enabled')
-        : $ndt('common.status.diabled'),
+      value: localData.value.user.status ? $ndt('Enabled') : $ndt('common.status.diabled'),
     },
     {
       title: $ndt('common.form.createTime'),
@@ -146,10 +143,6 @@ watchEffect(() => {
         ? moment(localData.value.user.createTime).format('YYYY-MM-DD HH:mm:ss')
         : '',
     },
-  ];
-  staticData.value.status = [
-    { title: $ndt('common.status.enabled'), value: 1 },
-    { title: $ndt('common.status.disabled'), value: 0 },
   ];
   staticData.value.assignStatus = [
     { title: $ndt('common.assignment.assigned'), value: 1 },
@@ -192,7 +185,10 @@ watchEffect(() => {
             v-model="queryParams.status"
             @update:model-value="methods.search"
             variant="outlined"
-            :items="staticData.status"
+            :items="[
+              { title: $ndt('Enabled'), value: 1 },
+              { title: $ndt('Disabled'), value: 0 },
+            ]"
             hide-details
             clearable
           >
@@ -223,7 +219,7 @@ watchEffect(() => {
       <v-col cols="12" lg="3" md="3" sm="3">
         <v-card density="compact">
           <v-card-title>
-            <v-label>{{ $ndt('common.overview', [$ndt('views.user.title')]) }}</v-label>
+            <v-label>{{ $ndt('common.overview', [$ndt('User')]) }}</v-label>
           </v-card-title>
           <v-card-text>
             <v-list density="compact">
@@ -252,7 +248,7 @@ watchEffect(() => {
           <template v-slot:item.status="{ value }">
             <v-chip :color="value == '1' ? 'green' : ''" density="comfortable">
               <v-label>
-                {{ value == '1' ? $ndt('common.status.enabled') : $ndt('common.status.disabled') }}
+                {{ value == '1' ? $ndt('Enabled') : $ndt('Disabled') }}
               </v-label>
             </v-chip>
           </template>

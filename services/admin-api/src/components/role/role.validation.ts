@@ -10,7 +10,7 @@ export const CreateValidation: ValidationSchema = {
     .unknown(true),
 };
 
-export const EditValidation: ValidationSchema = {
+export const UpdateValidation: ValidationSchema = {
   body: Joi.object()
     .keys({
       roleId: Joi.forbidden(),

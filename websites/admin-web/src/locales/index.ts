@@ -5,6 +5,8 @@ import lodash from 'lodash';
 import { DefaultLocaleMessageSchema } from 'vue-i18n';
 import * as vuetifyLocale from 'vuetify/locale';
 
+import $vuetify from '@/locales/$vuetify';
+
 const locales = import.meta.glob('@/locales/**/locale.*.ts', {
   import: 'default',
   eager: true,
@@ -32,7 +34,13 @@ lodash.forIn(messages, (value, langcode) => {
 });
 
 export default {
-  zhHans: messages.zhHans,
-  en: messages.en,
-  ja: messages.ja,
+  zhHans: {
+    $vuetify: $vuetify.zhHans,
+  },
+  en: {
+    $vuetify: $vuetify.en,
+  },
+  ja: {
+    $vuetify: $vuetify.ja,
+  },
 };

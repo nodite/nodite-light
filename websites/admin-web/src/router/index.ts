@@ -1,16 +1,3 @@
-/*
- * File: index.ts                                                              *
- * Project: @nodite-light/admin-web                                            *
- * Created Date: We Dec 2023                                                   *
- * Author: Oscaner Miao                                                        *
- * -----                                                                       *
- * Last Modified: Thu Dec 21 2023                                              *
- * Modified By: Oscaner Miao                                                   *
- * -----                                                                       *
- * Copyright (c) 2023 @nodite                                                  *
- * ----------	---	---------------------------------------------------------    *
- */
-
 import { createRouter, createWebHistory } from 'vue-router';
 
 import { $ndt } from '@/plugins/i18n';
@@ -18,6 +5,7 @@ import dynamicRoutes from '@/router/dynamic.routes';
 import staticRoutes from '@/router/static.routes';
 import { useAppStore } from '@/stores/modules/appStore';
 import { useAuthStore } from '@/stores/modules/authStore';
+import { useLocaleStore } from '@/stores/modules/localeStore';
 import { useNavStore } from '@/stores/modules/navStore';
 import { useProfileStore } from '@/stores/modules/profileStore';
 import * as navUtil from '@/utils/navigation';
@@ -43,6 +31,10 @@ router.beforeEach(async (to, from) => {
   // Start loading.
   useAppStore().setGlobalLoading(true);
 
+  // Locale initial.
+  useLocaleStore().initialize();
+
+  // auth.
   const authStore = useAuthStore();
 
   // Authorized user shouldn't visit auth pages.

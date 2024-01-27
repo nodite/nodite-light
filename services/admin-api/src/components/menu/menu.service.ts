@@ -35,24 +35,27 @@ export default class MenuService {
       // user.
       const user = await UserModel.findOne({
         where: { userId },
-        include: [{ model: RoleModel, attributes: ['roleId'], required: false }],
-      });
-
-      // roles with menus.
-      const roles = await RoleModel.findAll({
-        where: {
-          roleId: lodash.map(user?.getDataValue('roles'), 'roleId') || [],
-        },
         include: [
           {
-            model: MenuModel,
+            model: RoleModel,
+            attributes: ['roleId'],
             required: false,
+            include: [
+              {
+                model: MenuModel,
+                required: false,
+              },
+            ],
           },
         ],
       });
 
+      if (lodash.isEmpty(user)) {
+        throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'User not found');
+      }
+
       menus = lodash
-        .chain(roles)
+        .chain(user.roles)
         .map('menus')
         .flatten()
         .map((m) => m.toJSON())

@@ -1,6 +1,10 @@
 const API_ROOT_PATH = '/admin-api';
 const API_DOCS_PATH = '/api-docs';
 
-const AUTH_WHITELIST = [`${API_ROOT_PATH}/auth/login`, `${API_ROOT_PATH}/auth/register`];
+const AUTH_WHITELIST = [
+  `${API_ROOT_PATH}/auth/login`,
+  `${API_ROOT_PATH}/auth/register`,
+  `${API_ROOT_PATH}/locale/available`,
+];
 
 export default { API_ROOT_PATH, API_DOCS_PATH, AUTH_WHITELIST };

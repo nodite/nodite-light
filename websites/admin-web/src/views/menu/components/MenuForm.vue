@@ -1,17 +1,5 @@
-<!--
-* Component: MenuForm.vue
-* Project: @nodite-light/admin-web
-* Created Date: We Dec 2023
-* Author: Oscaner Miao
------
-* Last Modified: Thu Dec 28 2023
-* Modified By: Oscaner Miao
------
-* Copyright (c) 2023 @nodite
--->
-
 <script setup lang="ts">
-import { VIconPicker } from '@nodite-light/vuetify-icon-picker';
+import { IconPicker } from '@nodite-light/vuetify-icon-picker';
 import lodash from 'lodash';
 import { toast } from 'vuetify-sonner';
 
@@ -48,6 +36,7 @@ const staticData = ref({
 // local Data.
 const defLocalData = {
   dialog: props.dialog,
+  iconDialog: false,
   openIconPicker: false,
   isFormValid: true,
   isSaving: false,
@@ -132,7 +121,7 @@ const methods = {
       localData.value.isSaving = false;
     }
 
-    toast.success($ndt('common.form.success'));
+    toast.success($ndt('Saved successfully.'));
 
     methods.closeMenuForm();
     emit('save');
@@ -160,18 +149,14 @@ watchEffect(() => {
   >
     <template v-slot:activator="{ props }">
       <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
-        {{ $ndt('common.form.create', [$ndt('views.menu.title')]) }}
+        {{ $ndt('Create Menu') }}
       </v-btn>
     </template>
 
     <v-card density="compact" elevation="8" rounded="lg">
       <v-card-title class="pt-4">
         <v-label>
-          {{
-            props.menuId
-              ? $ndt('common.form.editHeader', [$ndt('views.menu.title'), formData.menuName])
-              : $ndt('common.form.newHeader', [$ndt('views.menu.title')])
-          }}
+          {{ props.menuId ? $ndt('Edit Menu - {0}', [formData.menuName]) : $ndt('New Menu') }}
         </v-label>
         <v-spacer></v-spacer>
         <v-btn icon @click="methods.closeMenuForm" density="compact" variant="text">
@@ -220,7 +205,7 @@ watchEffect(() => {
                 <v-text-field
                   type="number"
                   density="compact"
-                  :label="$ndt('views.menu.form.orderNum')"
+                  :label="$ndt('Order')"
                   v-model="formData.orderNum"
                   :rules="formRules.orderNum"
                   validate-on="blur"
@@ -268,27 +253,11 @@ watchEffect(() => {
                 </v-text-field>
               </v-col>
               <v-col cols="4">
-                <v-text-field
-                  density="compact"
+                <IconPicker
                   v-model="formData.icon"
-                  :label="$ndt('views.menu.form.icon')"
-                  :prepend-inner-icon="formData.icon"
-                  variant="outlined"
-                  @click="localData.openIconPicker = !localData.openIconPicker"
-                  :readonly="formData.iType !== 'overline'"
-                  :disabled="['overline', 'action'].includes(formData.iType) || localData.isSaving"
-                  :rules="formRules.icon"
-                  validate-on="blur"
-                  :error="localData.error"
-                >
-                  <template v-slot:append-inner>
-                    <VIconPicker
-                      :dialog="localData.openIconPicker"
-                      @close="methods.closeIconPicker"
-                      @input="methods.inputIconPicker"
-                    ></VIconPicker>
-                  </template>
-                </v-text-field>
+                  v-model:dialog="localData.iconDialog"
+                  v-model:error="localData.error"
+                ></IconPicker>
               </v-col>
             </v-row>
 
@@ -402,10 +371,10 @@ watchEffect(() => {
         <!-- actions -->
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" @click="methods.closeMenuForm" :disabled="localData.isSaving">
-          {{ $ndt('common.form.cancel') }}
+          {{ $ndt('Cancel') }}
         </v-btn>
         <v-btn @click="methods.save" :loading="localData.isSaving" :disabled="localData.isSaving">
-          {{ $ndt('common.form.save') }}
+          {{ $ndt('Save') }}
         </v-btn>
       </v-card-actions>
     </v-card>

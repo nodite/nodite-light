@@ -18,8 +18,8 @@ import type {
   IResponsePickIMenuMenuIdOrPermsArray,
   IResponseSequelizePaginationIRole,
   IResponseVoid,
-  OmitIRoleRoleId,
-  OmitIRoleRoleIdOrRoleKey,
+  IRoleCreate,
+  IRoleUpdate,
 } from "./data-contracts";
 
 /**
@@ -98,7 +98,7 @@ export const adminRoleQuerySkipErrorHandler = (id: number, params: RequestParams
  * @summary Update user
  * @request PUT:/role/{id}
  */
-export const adminRoleEdit = (id: number, data: OmitIRoleRoleIdOrRoleKey, params: RequestParams = {}) =>
+export const adminRoleEdit = (id: number, data: IRoleUpdate, params: RequestParams = {}) =>
   request<IResponseIRole>({
     path: `/role/${id}`,
     method: "PUT",
@@ -108,7 +108,7 @@ export const adminRoleEdit = (id: number, data: OmitIRoleRoleIdOrRoleKey, params
     skipErrorHandler: false,
     ...params,
   });
-export const adminRoleEditSkipErrorHandler = (id: number, data: OmitIRoleRoleIdOrRoleKey, params: RequestParams = {}) =>
+export const adminRoleEditSkipErrorHandler = (id: number, data: IRoleUpdate, params: RequestParams = {}) =>
   request<IResponseIRole>({
     path: `/role/${id}`,
     method: "PUT",
@@ -152,7 +152,7 @@ export const adminRoleDeleteSkipErrorHandler = (id: number, params: RequestParam
  * @summary Create role
  * @request POST:/role
  */
-export const adminRoleCreate = (data: OmitIRoleRoleId, params: RequestParams = {}) =>
+export const adminRoleCreate = (data: IRoleCreate, params: RequestParams = {}) =>
   request<IResponseIRole>({
     path: `/role`,
     method: "POST",
@@ -162,7 +162,7 @@ export const adminRoleCreate = (data: OmitIRoleRoleId, params: RequestParams = {
     skipErrorHandler: false,
     ...params,
   });
-export const adminRoleCreateSkipErrorHandler = (data: OmitIRoleRoleId, params: RequestParams = {}) =>
+export const adminRoleCreateSkipErrorHandler = (data: IRoleCreate, params: RequestParams = {}) =>
   request<IResponseIRole>({
     path: `/role`,
     method: "POST",

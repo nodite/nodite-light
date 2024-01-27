@@ -1,0 +1,34 @@
+[
+  {
+    "localeId": 1,
+    "label": "English",
+    "langcode": "en",
+    "momentCode": "en",
+    "icon": "twemoji:flag-united-states",
+    "orderNum": 0,
+    "isDefault": 1,
+    "createBy": "admin",
+    "updateBy": "admin",
+    "deleted": 9
+  },
+  {
+    "localeId": 2,
+    "label": "中文",
+    "langcode": "zhHans",
+    "momentCode": "zh-cn",
+    "icon": "twemoji:flag-china",
+    "orderNum": 1,
+    "createBy": "admin",
+    "updateBy": "admin"
+  },
+  {
+    "localeId": 3,
+    "label": "日本語",
+    "langcode": "ja",
+    "momentCode": "ja",
+    "icon": "twemoji:flag-japan",
+    "orderNum": 2,
+    "createBy": "admin",
+    "updateBy": "admin"
+  }
+]
