@@ -1,12 +1,12 @@
 import { AppError, type DataTree, DataTreeUtil } from '@nodite-light/admin-core';
 import httpStatus from 'http-status';
-import lodash from 'lodash';
 
 import { IMenuCreate, IMenuUpdate } from '@/components/menu/menu.interface';
 import MenuModel, { IMenu } from '@/components/menu/menu.model';
 import RoleModel from '@/components/role/role.model';
 import UserModel from '@/components/user/user.model';
 import UserService from '@/components/user/user.service';
+import lodash from '@/utils/lodash';
 
 /**
  * Class MenuService.

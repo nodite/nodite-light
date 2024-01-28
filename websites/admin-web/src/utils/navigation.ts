@@ -1,22 +1,8 @@
-/*
- * File: nav.ts                                                                *
- * Project: @nodite-light/admin-web                                            *
- * Created Date: Th Dec 2023                                                   *
- * Author: Oscaner Miao                                                        *
- * -----                                                                       *
- * Last Modified: Thu Dec 21 2023                                              *
- * Modified By: Oscaner Miao                                                   *
- * -----                                                                       *
- * Copyright (c) 2023 @nodite                                                  *
- * ----------	---	---------------------------------------------------------    *
- */
-
-import lodash from 'lodash';
-
 import { DataTreeIMenu } from '@/api/admin/data-contracts';
 import { useMenuStore } from '@/stores/modules/menuStore';
 import { useNavStore } from '@/stores/modules/navStore';
 import { NavigationConfig } from '@/types/config';
+import lodash from '@/utils/lodash';
 
 const views = import.meta.glob('@/views/**/*.vue');
 

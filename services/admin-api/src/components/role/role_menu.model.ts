@@ -11,14 +11,14 @@ import RoleMenuSeeds from '@/seeds/sys_role_menu.seeds.json';
 })
 @Subscribe(RoleMenuSeeds)
 export default class RoleMenuModel extends SequelizeModel<RoleMenuModel> {
-  @ForeignKey(() => RoleModel)
   @PrimaryKey
+  @ForeignKey(() => RoleModel)
   @AllowNull(false)
-  @Column({ field: 'role_id', type: DataType.BIGINT({ length: 20 }) })
+  @Column({ field: 'role_id', type: DataType.INTEGER })
   roleId: number;
 
-  @ForeignKey(() => MenuModel)
   @PrimaryKey
+  @ForeignKey(() => MenuModel)
   @AllowNull(false)
   @Column({ field: 'menu_id', type: DataType.UUID })
   menuId: string;

@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { DataTableItemProps } from '@nodite-light/vuetify-tree-data-table';
-import lodash from 'lodash';
 import moment from 'moment';
 
 import { IRole, IUserWithRoles } from '@/api/admin/data-contracts';
-import { $ndt } from '@/plugins/i18n';
 import { useRoleStore } from '@/stores/modules/roleStore';
+import lodash from '@/utils/lodash';
 
 const roleStore = useRoleStore();
 const route = useRoute();
@@ -14,12 +12,7 @@ interface IUser extends IUserWithRoles {
   assignStatus: IUserWithRoles['status'];
 }
 
-const staticData = ref({
-  roleId: lodash.toInteger(route.params.id),
-  headers: [] as DataTableItemProps['headers'],
-  overList: [] as { title: string; key: string; value: unknown }[],
-  assignStatus: [] as { title: string; value: number }[],
-});
+const roleId = computed(() => lodash.toInteger(route.params.id));
 
 const queryParams = ref({
   username: undefined,
@@ -38,22 +31,19 @@ const localData = ref({
 });
 
 const methods = {
-  isAdminRole() {
-    return staticData.value.roleId === 1;
-  },
   async lodaRole() {
     if (route.params.id) {
-      localData.value.role = (await roleStore.query(staticData.value.roleId)) as IRole;
+      localData.value.role = (await roleStore.query(roleId.value)) as IRole;
     }
   },
   async loadRoleUsers() {
     if (route.params.id) {
       localData.value.loading = true;
       localData.value.users = lodash
-        .chain((await roleStore.listRoleUsers(staticData.value.roleId)) || [])
+        .chain((await roleStore.listRoleUsers(roleId.value)) || [])
         .map((user) => {
           lodash.set(user, 'assignStatus', lodash.toInteger(!lodash.isEmpty(user.roles)));
-          if (methods.isAdminRole() && user.userId === 1) {
+          if (user.userId === 1 && roleId.value === 1) {
             lodash.set(user, 'selectable', false);
           }
           return user as IUser;
@@ -79,13 +69,13 @@ const methods = {
   },
   async assign(items: IUser[]) {
     localData.value.operating = true;
-    await roleStore.assignRoleToUsers(staticData.value.roleId, lodash.map(items, 'userId'));
+    await roleStore.assignRoleToUsers(roleId.value, lodash.map(items, 'userId'));
     await methods.loadRoleUsers();
     localData.value.operating = false;
   },
   async unassign(items: IUser[]) {
     localData.value.operating = true;
-    await roleStore.unassignRoleOfUsers(staticData.value.roleId, lodash.map(items, 'userId'));
+    await roleStore.unassignRoleOfUsers(roleId.value, lodash.map(items, 'userId'));
     await methods.loadRoleUsers();
     localData.value.operating = false;
   },
@@ -94,51 +84,6 @@ const methods = {
 onMounted(() => {
   methods.lodaRole();
   methods.loadRoleUsers();
-});
-
-watchEffect(() => {
-  // watch i18n
-  staticData.value.headers = [
-    { title: '', align: 'start', key: 'data-table-select' },
-    { title: $ndt('views.user.headers.userId'), value: 'userId' },
-    { title: $ndt('views.user.headers.username'), value: 'username' },
-    { title: $ndt('views.user.headers.nickname'), value: 'nickname' },
-    { title: $ndt('views.user.headers.email'), value: 'email' },
-    { title: $ndt('Status'), value: 'status' },
-    { title: $ndt('common.form.createTime'), value: 'createTime' },
-    { key: 'actions', sortable: false },
-  ];
-  staticData.value.overList = [
-    {
-      title: $ndt('views.role.headers.roleId'),
-      key: 'roleId',
-      value: localData.value.role.roleId,
-    },
-    {
-      title: $ndt('views.role.headers.roleName'),
-      key: 'roleName',
-      value: localData.value.role.roleName,
-    },
-    {
-      title: $ndt('views.role.headers.roleKey'),
-      key: 'roleKey',
-      value: localData.value.role.roleKey,
-    },
-    {
-      title: $ndt('Status'),
-      key: 'status',
-      value: localData.value.role.status ? $ndt('Enabled') : $ndt('common.status.diabled'),
-    },
-    {
-      title: $ndt('common.form.createTime'),
-      key: 'createTime',
-      value: moment(localData.value.role.createTime).format('YYYY-MM-DD HH:mm:ss'),
-    },
-  ];
-  staticData.value.assignStatus = [
-    { title: $ndt('common.assignment.assigned'), value: 1 },
-    { title: $ndt('common.assignment.unassigned'), value: 0 },
-  ];
 });
 </script>
 
@@ -150,7 +95,7 @@ watchEffect(() => {
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-text-field
             density="compact"
-            :label="$ndt('views.user.form.username')"
+            :label="$ndt('Username')"
             v-model="queryParams.username"
             @update:model-value="methods.search"
             variant="outlined"
@@ -162,7 +107,7 @@ watchEffect(() => {
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-text-field
             density="compact"
-            :label="$ndt('views.user.form.nickname')"
+            :label="$ndt('Nickname')"
             v-model="queryParams.nickname"
             @update:model-value="methods.search"
             variant="outlined"
@@ -173,7 +118,7 @@ watchEffect(() => {
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-text-field
             density="compact"
-            :label="$ndt('views.user.form.email')"
+            :label="$ndt('Email')"
             v-model="queryParams.email"
             @update:model-value="methods.search"
             variant="outlined"
@@ -184,7 +129,7 @@ watchEffect(() => {
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-select
             density="compact"
-            :label="$ndt('views.role.user_asgmt.status')"
+            :label="$ndt('User Status')"
             v-model="queryParams.status"
             @update:model-value="methods.search"
             variant="outlined"
@@ -203,11 +148,14 @@ watchEffect(() => {
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-select
             density="compact"
-            :label="$ndt('common.assignment.assignStatus')"
+            :label="$ndt('Assign Status')"
             v-model="queryParams.assignStatus"
             @update:model-value="methods.search"
             variant="outlined"
-            :items="staticData.assignStatus"
+            :items="[
+              { title: $ndt('Assigned'), value: 1 },
+              { title: $ndt('Unassigned'), value: 0 },
+            ]"
             hide-details
             clearable
           ></v-select>
@@ -222,14 +170,40 @@ watchEffect(() => {
       <v-col cols="12" lg="3" md="3" sm="3">
         <v-card density="compact">
           <v-card-title>
-            <v-label>{{ $ndt('common.overview', [$ndt('Role')]) }}</v-label>
+            <v-label>{{ $ndt('Role Overview') }}</v-label>
           </v-card-title>
           <v-card-text>
             <v-list density="compact">
               <v-list-item
                 density="compact"
                 class="px-0"
-                v-for="item in staticData.overList"
+                v-for="item in [
+                  {
+                    title: $ndt('ID'),
+                    key: 'roleId',
+                    value: localData.role.roleId,
+                  },
+                  {
+                    title: $ndt('Role Name'),
+                    key: 'roleName',
+                    value: localData.role.roleName,
+                  },
+                  {
+                    title: $ndt('Role Key'),
+                    key: 'roleKey',
+                    value: localData.role.roleKey,
+                  },
+                  {
+                    title: $ndt('Status'),
+                    key: 'status',
+                    value: localData.role.status ? $ndt('Enabled') : $ndt('Disabled'),
+                  },
+                  {
+                    title: $ndt('Create Time'),
+                    key: 'createTime',
+                    value: moment(localData.role.createTime).format('YYYY-MM-DD HH:mm:ss'),
+                  },
+                ]"
                 :key="item.key"
               >
                 {{ item.title }}: <v-label>{{ item.value }}</v-label>
@@ -244,7 +218,16 @@ watchEffect(() => {
         <v-data-table
           item-value="userId"
           :loading="localData.loading"
-          :headers="staticData.headers"
+          :headers="[
+            { title: '', align: 'start', key: 'data-table-select' },
+            { title: $ndt('ID'), value: 'userId' },
+            { title: $ndt('Username'), value: 'username' },
+            { title: $ndt('Nickname'), value: 'nickname' },
+            { title: $ndt('Email'), value: 'email' },
+            { title: $ndt('Status'), value: 'status' },
+            { title: $ndt('Create Time'), value: 'createTime' },
+            { key: 'actions', sortable: false },
+          ]"
           :items="localData.filteredUsers"
           item-selectable="selectable"
         >
@@ -270,7 +253,7 @@ watchEffect(() => {
               :loading="localData.operating"
               :disabled="localData.operating"
             >
-              <v-label>{{ $ndt('common.assignment.assign') }}</v-label>
+              <v-label>{{ $ndt('Assign') }}</v-label>
             </v-btn>
             <v-btn
               v-if="!lodash.isEmpty(item.roles)"
@@ -279,9 +262,9 @@ watchEffect(() => {
               @click="methods.unassign([item])"
               prepend-icon="mdi-delete"
               :loading="localData.operating"
-              :disabled="(methods.isAdminRole() && item.userId == 1) || localData.operating"
+              :disabled="(item.userId === 1 && roleId === 1) || localData.operating"
             >
-              <v-label>{{ $ndt('common.assignment.unassign') }}</v-label>
+              <v-label>{{ $ndt('Un-Assign') }}</v-label>
             </v-btn>
           </template>
         </v-data-table>

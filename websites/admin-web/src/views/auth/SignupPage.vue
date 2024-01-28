@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
 
-import { $ndt } from '@/plugins/i18n';
 import { useAuthStore } from '@/stores/modules/authStore';
 
 const authStore = useAuthStore();
@@ -68,7 +67,7 @@ const resetErrors = () => {
 <template>
   <v-card color="white" class="pa-3 ma-3" elevation="3">
     <v-card-title primary-title class="my-4 text-h4">
-      <span class="flex-fill"> {{ $ndt('register.title') }} </span>
+      <span class="flex-fill"> {{ $ndt('Create Account') }} </span>
     </v-card-title>
     <v-card-subtitle>Let's build amazing products</v-card-subtitle>
 
@@ -84,7 +83,7 @@ const resetErrors = () => {
           v-model="signupForm.username"
           required
           :error="errorHandler.error"
-          :label="$ndt('register.username')"
+          :label="$ndt('Username')"
           density="default"
           variant="underlined"
           color="primary"
@@ -101,7 +100,7 @@ const resetErrors = () => {
           v-model="signupForm.email"
           required
           :error="errorHandler.error"
-          :label="$ndt('register.email')"
+          :label="$ndt('Email')"
           density="default"
           variant="underlined"
           color="primary"
@@ -120,7 +119,7 @@ const resetErrors = () => {
           :type="signupState.showPassword ? 'text' : 'password'"
           :error="errorHandler.error"
           :error-messages="errorHandler.errorMessages"
-          :label="$ndt('register.password')"
+          :label="$ndt('Password')"
           density="default"
           variant="underlined"
           color="primary"
@@ -142,11 +141,11 @@ const resetErrors = () => {
           color="primary"
           @click="handleRegister"
           class="mt-2"
-          >{{ $ndt('register.button') }}</v-btn
+          >{{ $ndt('Create Account') }}</v-btn
         >
 
         <div class="text-grey text-center text-caption font-weight-bold text-uppercase my-5">
-          {{ $ndt('register.orsign') }}
+          {{ $ndt('Or sign up with') }}
         </div>
 
         <!-- external providers list -->
@@ -160,7 +159,7 @@ const resetErrors = () => {
           :disabled="signupState.isSignInDisabled"
         >
           <Icon icon="ic:baseline-wechat" class="mr-3 my-2" />
-          WeChat
+          {{ $ndt('WeChat') }}
         </v-btn>
 
         <div v-if="errorHandler.errorProvider" class="error--text my-5">
@@ -168,20 +167,20 @@ const resetErrors = () => {
         </div>
 
         <div class="my-5 text-center">
-          {{ $ndt('register.agree') }}
+          {{ $ndt('By signing up, you agree to the') }}
           <br />
-          <router-link class="text-primary" to="">{{ $ndt('common.tos') }}</router-link>
+          <router-link class="text-primary" to="">{{ $ndt('Terms of Service') }}</router-link>
           &
-          <router-link class="text-primary" to="">{{ $ndt('common.policy') }}</router-link>
+          <router-link class="text-primary" to="">{{ $ndt('Privacy Policy') }}</router-link>
         </div>
       </v-form></v-card-text
     >
   </v-card>
 
   <div class="text-center mt-6">
-    {{ $ndt('register.account') }}
+    {{ $ndt('Already have an account?') }}
     <router-link to="/auth/signin" class="text-primary font-weight-bold">
-      {{ $ndt('register.signin') }}
+      {{ $ndt('Sign In') }}
     </router-link>
   </div>
 </template>

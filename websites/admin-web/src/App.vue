@@ -1,14 +1,3 @@
-<template>
-  <v-app :theme="customizeTheme.darkTheme ? 'dark' : 'light'">
-    <component :is="currentLayout" v-if="isRouterLoaded">
-      <router-view> </router-view>
-    </component>
-    <CustomizationMenu />
-    <BackToTop />
-    <Sonner />
-  </v-app>
-</template>
-
 <script setup lang="ts">
 import BackToTop from '@/components/common/BackToTop.vue';
 import Sonner from '@/components/common/Sonner.vue';
@@ -45,5 +34,16 @@ const currentLayout = computed(() => {
   return layouts[layoutName];
 });
 </script>
+
+<template>
+  <v-app :theme="customizeTheme.darkTheme ? 'dark' : 'light'">
+    <component :is="currentLayout" v-if="isRouterLoaded">
+      <router-view></router-view>
+    </component>
+    <CustomizationMenu />
+    <BackToTop />
+    <Sonner />
+  </v-app>
+</template>
 
 <style scoped></style>

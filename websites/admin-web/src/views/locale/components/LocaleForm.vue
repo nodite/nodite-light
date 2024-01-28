@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import { IconPicker } from '@nodite-light/vuetify-icon-picker';
 import { LanguageSelector } from '@nodite-light/vuetify-language-selector';
-import lodash from 'lodash';
 import { toast } from 'vuetify-sonner';
 
 import { ILocale } from '@/api/admin/data-contracts';
-import { $ndt } from '@/plugins/i18n';
+import i18n from '@/plugins/i18n';
 import { useLocaleStore } from '@/stores/modules/localeStore';
 
 const localeStore = useLocaleStore();
 
-const emit = defineEmits(['close', 'save']);
+const emit = defineEmits(['update:dialog', 'update:localeId', 'save']);
 
 const props = defineProps({
   dialog: {
@@ -23,24 +22,31 @@ const props = defineProps({
   },
 });
 
+const dialog = computed({
+  get: () => props.dialog,
+  set: (v) => emit('update:dialog', v),
+});
+
+const localeId = computed({
+  get: () => props.localeId,
+  set: (v) => emit('update:localeId', v),
+});
+
 // local data.
-const defLocalData = {
-  dialog: props.dialog,
+const localData = ref({
   iconDialog: false,
   isFormValid: false,
   isSaving: false,
   error: false,
   errorMessage: '',
-};
-
-const localData = ref(lodash.cloneDeep(defLocalData));
+});
 
 // form
 const refForm = ref();
 const formData = ref({} as ILocale);
 const formRules = ref({
   label: [],
-  langcode: [(v: string) => !!v || $ndt('common.form.required', [$ndt('Langcode')])],
+  langcode: [(v: string) => !!v || i18n.ndt('Langcode is required.')],
   momentCode: [],
   icon: [],
   orderNum: [],
@@ -51,20 +57,17 @@ const formRules = ref({
 // methods.
 const methods = {
   async loadFormData() {
-    let locale = undefined;
-    if (props.localeId > 0) {
-      locale = await localeStore.query(props.localeId);
-    }
-    formData.value = lodash.isUndefined(locale) ? ({} as ILocale) : locale;
+    formData.value = localeId.value
+      ? (await localeStore.queryLocale(localeId.value)) || ({} as ILocale)
+      : ({} as ILocale);
   },
   closeLocaleForm() {
     if (localData.value.isSaving) {
-      toast.warning($ndt('common.form.saving'));
+      toast.warning(i18n.ndt("It's saving, please wait a moment."));
       return;
     }
-    localData.value = lodash.cloneDeep(defLocalData);
-    formData.value = {} as ILocale;
-    emit('close');
+    dialog.value = false;
+    localeId.value = 0;
   },
   resetErrors() {
     localData.value.error = false;
@@ -82,15 +85,15 @@ const methods = {
 
     try {
       await (props.localeId > 0
-        ? localeStore.edit(formData.value)
-        : localeStore.create(formData.value));
+        ? localeStore.editLocale(formData.value)
+        : localeStore.createLocale(formData.value));
 
       localeStore.$patch({ availableLocales: [] });
+
+      toast.success(i18n.ndt('Saved successfully.'));
     } finally {
       localData.value.isSaving = false;
     }
-
-    toast.success($ndt('Saved successfully.'));
 
     methods.closeLocaleForm();
 
@@ -99,14 +102,13 @@ const methods = {
 };
 
 watchEffect(() => {
-  localData.value.dialog = props.dialog;
   methods.loadFormData();
 });
 </script>
 
 <template>
   <v-dialog
-    v-model="localData.dialog"
+    v-model="dialog"
     @click:outside="methods.closeLocaleForm"
     :persistent="localData.isSaving"
     max-width="750"
@@ -190,7 +192,7 @@ watchEffect(() => {
                   :rules="formRules.langcode"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('Langcode') }}:</v-label>
+                    <v-label> {{ $ndt('Langcode') }}: </v-label>
                   </template>
                 </LanguageSelector>
               </v-col>
@@ -204,7 +206,7 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('Moment Code') }}:</v-label>
+                    <v-label> {{ $ndt('Moment Code') }}: </v-label>
                   </template>
                 </v-text-field>
               </v-col>

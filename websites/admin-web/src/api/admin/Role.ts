@@ -11,7 +11,7 @@
 
 import type { RequestParams } from "@/types/request";
 import { ContentType } from "@/types/request";
-import { request } from "@/utils/request/index";
+import { request } from "@/utils/requests";
 import type {
   IResponseIRole,
   IResponseIUserWithRolesArray,

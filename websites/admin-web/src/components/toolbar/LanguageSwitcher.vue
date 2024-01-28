@@ -1,8 +1,3 @@
-<!--
-* @Component: LanguageSwitcher.vue
-* @Maintainer: J.K. Yang
-* @Description: 语言切换组件
--->
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
 import { useLocale } from 'vuetify';
@@ -23,7 +18,7 @@ const methods = {
 };
 
 onMounted(async () => {
-  availableLocales.value = await localeStore.listAvailable();
+  availableLocales.value = await localeStore.listAvailableLocales();
   methods.setLocale(localeStore.currLocale);
 });
 </script>

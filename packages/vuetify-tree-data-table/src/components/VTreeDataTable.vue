@@ -1,16 +1,5 @@
-<!--
-* Component: VTreeDataTable.vue
-* Project: @nodite-light/admin-web
-* Created Date: Su Dec 2023
-* Author: Oscaner Miao
------
-* Last Modified: Sun Dec 24 2023
-* Modified By: Oscaner Miao
------
-* Copyright (c) 2023 @nodite
--->
 <script setup lang="ts">
-import lodash from 'lodash';
+import { isEmpty as _isEmpty } from 'lodash-es';
 
 import { DataTableItemProps, Item } from '../types/VDataTable';
 import VTreeDataTableRows from './VTreeDataTableRows.vue';
@@ -27,7 +16,7 @@ defineProps({
 });
 
 const cellProps = ({ item, column }: { item: Item; column: { key: string } }) => {
-  if (lodash.isEmpty(item.children) && column.key === 'data-table-expand') {
+  if (_isEmpty(item.children) && column.key === 'data-table-expand') {
     return { class: 'd-none-children' };
   } else if (['data-table-expand', 'data-table-select'].includes(column.key)) {
     return {

@@ -11,14 +11,18 @@
 
 import type { RequestParams } from "@/types/request";
 import { ContentType } from "@/types/request";
-import { request } from "@/utils/request/index";
+import { request } from "@/utils/requests";
 import type {
   ILocaleCreate,
   ILocaleUpdate,
   IResponseIAvailableLocaleArray,
+  IResponseIAvailableMessage,
   IResponseILocale,
   IResponseILocaleArray,
+  IResponseILocaleSource,
+  IResponseSequelizePaginationILocaleMessage,
   IResponseVoid,
+  ISourceCreate,
 } from "./data-contracts";
 
 /**
@@ -174,6 +178,103 @@ export const adminLocaleCreateSkipErrorHandler = (data: ILocaleCreate, params: R
     method: "POST",
     body: data,
     type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags locale
+ * @name adminLocaleSourceCreate
+ * @summary Create locale source if missing
+ * @request POST:/locale/source
+ */
+export const adminLocaleSourceCreate = (data: ISourceCreate, params: RequestParams = {}) =>
+  request<IResponseILocaleSource>({
+    path: `/locale/source`,
+    method: "POST",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminLocaleSourceCreateSkipErrorHandler = (data: ISourceCreate, params: RequestParams = {}) =>
+  request<IResponseILocaleSource>({
+    path: `/locale/source`,
+    method: "POST",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags locale
+ * @name adminLocaleMessageList
+ * @summary Get locale message list
+ * @request GET:/locale/message/list
+ */
+export const adminLocaleMessageList = (
+  query?: {
+    /** @format double */
+    page?: number;
+    /** @format double */
+    itemsPerPage?: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<IResponseSequelizePaginationILocaleMessage>({
+    path: `/locale/message/list`,
+    method: "GET",
+    query: query,
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminLocaleMessageListSkipErrorHandler = (
+  query?: {
+    /** @format double */
+    page?: number;
+    /** @format double */
+    itemsPerPage?: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<IResponseSequelizePaginationILocaleMessage>({
+    path: `/locale/message/list`,
+    method: "GET",
+    query: query,
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags locale
+ * @name adminLocaleMessageAvailable
+ * @summary Get available messages
+ * @request GET:/locale/message/available
+ */
+export const adminLocaleMessageAvailable = (params: RequestParams = {}) =>
+  request<IResponseIAvailableMessage>({
+    path: `/locale/message/available`,
+    method: "GET",
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminLocaleMessageAvailableSkipErrorHandler = (params: RequestParams = {}) =>
+  request<IResponseIAvailableMessage>({
+    path: `/locale/message/available`,
+    method: "GET",
     format: "json",
     skipErrorHandler: true,
     ...params,

@@ -11,16 +11,16 @@ import RoleUserSeeds from '@/seeds/sys_role_user.seeds.json';
 })
 @Subscribe(RoleUserSeeds)
 export default class RoleUserModel extends SequelizeModel<RoleUserModel> {
-  @ForeignKey(() => RoleModel)
   @PrimaryKey
+  @ForeignKey(() => RoleModel)
   @AllowNull(false)
-  @Column({ field: 'role_id', type: DataType.BIGINT({ length: 20 }) })
+  @Column({ field: 'role_id', type: DataType.INTEGER })
   roleId: number;
 
-  @ForeignKey(() => UserModel)
   @PrimaryKey
+  @ForeignKey(() => UserModel)
   @AllowNull(false)
-  @Column({ field: 'user_id', type: DataType.BIGINT({ length: 20 }) })
+  @Column({ field: 'user_id', type: DataType.INTEGER })
   userId: number;
 }
 

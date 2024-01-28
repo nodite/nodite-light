@@ -3,18 +3,13 @@ import {
   type ConfirmCallback,
   VDeleteConfirmForm,
 } from '@nodite-light/vuetify-delete-confirm-form';
-import { type DataTableItemProps, VTreeDataTable } from '@nodite-light/vuetify-tree-data-table';
+import { VTreeDataTable } from '@nodite-light/vuetify-tree-data-table';
 
 import { DataTreeIMenu, IMenu } from '@/api/admin/data-contracts';
-import { $ndt } from '@/plugins/i18n';
 import { useMenuStore } from '@/stores/modules/menuStore';
 import MenuForm from '@/views/menu/components/MenuForm.vue';
 
 const menuStore = useMenuStore();
-
-const staticData = ref({
-  headers: [] as DataTableItemProps['headers'],
-});
 
 const localData = ref({
   loading: true,
@@ -32,8 +27,8 @@ const deleteConfirmFormData = ref({
 });
 
 const methods = {
-  async loadMenuTree(showLoading: boolean = false) {
-    if (showLoading) localData.value.loading = true;
+  async loadMenuTree() {
+    localData.value.loading = true;
     localData.value.items = await menuStore.listTree();
     localData.value.loading = false;
   },
@@ -41,23 +36,14 @@ const methods = {
     menuFormData.value.dialog = true;
     menuFormData.value.menuId = id;
   },
-  closeMenuForm() {
-    menuFormData.value.dialog = false;
-    menuFormData.value.menuId = '';
-  },
   openDeleteConfirmForm(item: IMenu) {
     deleteConfirmFormData.value.dialog = true;
     deleteConfirmFormData.value.item = item;
-  },
-  closeDeleteConfirmForm() {
-    deleteConfirmFormData.value.dialog = false;
-    deleteConfirmFormData.value.item = {} as IMenu;
   },
   async delete(menu: IMenu, cb: ConfirmCallback) {
     try {
       await menuStore.delete(menu.menuId);
       await methods.loadMenuTree();
-      methods.closeDeleteConfirmForm();
       cb(true);
     } catch (error) {
       cb(false);
@@ -67,20 +53,6 @@ const methods = {
 
 onMounted(() => {
   methods.loadMenuTree();
-});
-
-watchEffect(() => {
-  // watch i18n.
-  staticData.value.headers = [
-    { title: '', align: 'start', key: 'data-table-expand' },
-    { title: $ndt('views.menu.headers.menuName'), value: 'menuName' },
-    { title: $ndt('Order'), value: 'orderNum' },
-    { title: $ndt('views.menu.headers.path'), value: 'path' },
-    { title: $ndt('views.menu.headers.iType'), value: 'iType' },
-    { title: $ndt('views.menu.headers.hidden'), value: 'hidden' },
-    { title: $ndt('views.menu.headers.perms'), value: 'perms' },
-    { key: 'actions', sortable: false },
-  ];
 });
 </script>
 
@@ -93,7 +65,16 @@ watchEffect(() => {
       itemsPerPageOptions: [-1],
       showExpand: true,
       loading: localData.loading,
-      headers: staticData.headers,
+      headers: [
+        { title: '', align: 'start', key: 'data-table-expand' },
+        { title: $ndt('Menu Name'), value: 'menuName' },
+        { title: $ndt('Order'), value: 'orderNum' },
+        { title: $ndt('Path'), value: 'path' },
+        { title: $ndt('Type'), value: 'iType' },
+        { title: $ndt('Visibility'), value: 'hidden' },
+        { title: $ndt('Perms'), value: 'perms' },
+        { key: 'actions', sortable: false },
+      ],
       items: localData.items,
     }"
     :offset-columns="['data-table-expand', 'menuName']"
@@ -101,9 +82,8 @@ watchEffect(() => {
     <template v-slot:top>
       <v-toolbar density="compact" color="inherit">
         <menu-form
-          :dialog="menuFormData.dialog"
-          :menu-id="menuFormData.menuId"
-          @close="methods.closeMenuForm"
+          v-model:dialog="menuFormData.dialog"
+          v-model:menu-id="menuFormData.menuId"
           @save="methods.loadMenuTree()"
         ></menu-form>
       </v-toolbar>
@@ -111,13 +91,13 @@ watchEffect(() => {
 
     <template v-slot:item.menuName="{ item }">
       <v-label>
-        {{ item.menuName }}
+        {{ $ndt(item.menuName) }}
         <v-icon v-if="!!item.icon" size="small" class="ml-2">{{ item.icon }}</v-icon>
       </v-label>
     </template>
 
     <template v-slot:item.iType="{ value }">
-      {{ $ndt(`views.menu.type.${value}`) }}
+      {{ $ndt(value) }}
     </template>
 
     <template v-slot:item.path="{ value }">
@@ -127,7 +107,7 @@ watchEffect(() => {
 
     <template v-slot:item.hidden="{ value }">
       <v-chip size="small" :color="value ? 'red' : 'green'">
-        {{ value ? $ndt('common.visibility.hidden') : $ndt('common.visibility.show') }}
+        {{ value ? $ndt('Show') : $ndt('Hidden') }}
       </v-chip>
     </template>
 
@@ -162,10 +142,9 @@ watchEffect(() => {
 
   <!-- delete confirm -->
   <VDeleteConfirmForm
-    :dialog="deleteConfirmFormData.dialog"
-    :item="deleteConfirmFormData.item"
+    v-model:dialog="deleteConfirmFormData.dialog"
+    v-model:item="deleteConfirmFormData.item"
     @confirm="methods.delete"
-    @cancel="methods.closeDeleteConfirmForm"
   ></VDeleteConfirmForm>
 </template>
 

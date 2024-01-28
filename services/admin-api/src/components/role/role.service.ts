@@ -1,8 +1,7 @@
 import { AppError } from '@nodite-light/admin-core';
 import { SequelizePagination } from '@nodite-light/admin-database';
 import httpStatus from 'http-status';
-import lodash from 'lodash';
-import { Op, Transaction } from 'sequelize';
+import { Transaction } from 'sequelize';
 
 import CasbinModel from '@/components/casbin/casbin.model';
 import MenuModel, { IMenu } from '@/components/menu/menu.model';
@@ -12,6 +11,7 @@ import RoleMenuModel from '@/components/role/role_menu.model';
 import RoleUserModel, { IUserWithRoles } from '@/components/role/role_user.model';
 import UserModel from '@/components/user/user.model';
 import { QueryParams } from '@/interfaces';
+import lodash from '@/utils/lodash';
 
 /**
  * Class RoleService.
@@ -23,18 +23,9 @@ export default class RoleService {
    * @returns
    */
   public async selectRoleList(params?: QueryParams): Promise<SequelizePagination<IRole>> {
-    const where = {};
-
-    // queries.
-    lodash.forEach(lodash.omit(params, ['itemsPerPage', 'page', 'sortBy']), (value, key) => {
-      if (value) {
-        lodash.set(where, key, { [Op.like]: `%${value}%` });
-      }
-    });
-
     const page = await RoleModel.paginate({
       attributes: ['roleId', 'roleName', 'roleKey', 'orderNum', 'status', 'createTime'],
-      where,
+      where: RoleModel.buildQueryWhere(params),
       ...lodash.pick(params, ['itemsPerPage', 'page']),
       order: [
         ['orderNum', 'ASC'],
@@ -131,7 +122,6 @@ export default class RoleService {
         {
           model: MenuModel,
           attributes: ['menuId', 'perms'],
-          through: { attributes: [] },
         },
       ],
     });
@@ -190,7 +180,7 @@ export default class RoleService {
    * @param roleId
    * @returns
    */
-  public async selectUsersWithRole(roleId: number): Promise<IUserWithRoles[]> {
+  public async selectUsersOfRole(roleId: number): Promise<IUserWithRoles[]> {
     const userAttrs = ['userId', 'username', 'nickname', 'email', 'status', 'createTime'];
     const roleAttrs = ['roleId'];
 

@@ -1,6 +1,7 @@
 import type { AxiosRequestConfig } from 'axios';
 import Cookie from 'js-cookie';
-import lodash from 'lodash';
+
+import lodash from '@/utils/lodash';
 
 // toolkit: token
 export const token = {

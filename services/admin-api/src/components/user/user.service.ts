@@ -3,17 +3,21 @@ import { AppError } from '@nodite-light/admin-core';
 import { SequelizePagination } from '@nodite-light/admin-database';
 import httpContext from 'express-http-context';
 import httpStatus from 'http-status';
-import lodash from 'lodash';
-import { Op, Transaction } from 'sequelize';
+import { Transaction } from 'sequelize';
 
+import CasbinModel from '@/components/casbin/casbin.model';
+import RoleModel from '@/components/role/role.model';
 import RoleService from '@/components/role/role.service';
 import RoleUserModel, { IRoleWithUsers } from '@/components/role/role_user.model';
-import { IPasswordReset, IUserCreate, IUserUpdate } from '@/components/user/user.interface';
+import {
+  IPasswordReset,
+  IProfile,
+  IUserCreate,
+  IUserUpdate,
+} from '@/components/user/user.interface';
 import UserModel, { IUser } from '@/components/user/user.model';
 import { QueryParams } from '@/interfaces';
-
-import CasbinModel from '../casbin/casbin.model';
-import RoleModel from '../role/role.model';
+import lodash from '@/utils/lodash';
 
 /**
  * Class UserService.
@@ -31,18 +35,9 @@ export default class UserService {
    * @returns
    */
   public async selectUserList(params?: QueryParams): Promise<SequelizePagination<IUser>> {
-    const where = {};
-
-    // queries.
-    lodash.forEach(lodash.omit(params, ['itemsPerPage', 'page', 'sortBy']), (value, key) => {
-      if (value) {
-        lodash.set(where, key, { [Op.like]: `%${value}%` });
-      }
-    });
-
     const page = await UserModel.paginate({
       attributes: ['userId', 'username', 'nickname', 'email', 'status', 'createTime'],
-      where,
+      where: UserModel.buildQueryWhere(params),
       ...lodash.pick(params, ['itemsPerPage', 'page']),
     });
 
@@ -65,6 +60,34 @@ export default class UserService {
     }
 
     return user.toJSON();
+  }
+
+  /**
+   * Select user profile.
+   * @param id
+   * @returns
+   */
+  public async selectProfile(id: number): Promise<IProfile> {
+    const user = (
+      await UserModel.findOne({
+        where: { userId: id },
+        include: [{ model: RoleModel }],
+      })
+    ).toJSON();
+
+    if (lodash.isEmpty(user)) {
+      throw new AppError(httpStatus.NOT_FOUND, 'User not found');
+    }
+
+    const perms = await Promise.all(
+      lodash.map(user.roles, async (role) => this.roleService.selectMenuPerms(role.roleId)),
+    );
+
+    return {
+      ...lodash.omit(user, ['roles']),
+      roles: lodash.map(user.roles, 'roleKey'),
+      perms: lodash.chain(perms).flatten().map('perms').uniq().value(),
+    };
   }
 
   /**

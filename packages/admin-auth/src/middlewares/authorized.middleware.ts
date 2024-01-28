@@ -5,7 +5,9 @@ import { unless } from 'express-unless';
 import httpStatus from 'http-status';
 import { JwtPayload } from 'jsonwebtoken';
 import { TokenDestroyedError, TokenInvalidError } from 'jwt-redis';
-import lodash from 'lodash';
+import _isEmpty from 'lodash/isEmpty';
+import _isString from 'lodash/isString';
+import _toInteger from 'lodash/toInteger';
 
 import { AuthorizedRequest, PermissionOptions } from '@/interfaces/authorization';
 import casbin from '@/nd-casbin';
@@ -32,13 +34,13 @@ export function Permissions(perms?: string | string[], options: PermissionOption
       if (!user) throw new AppError(httpStatus.UNAUTHORIZED, 'Unauthorized');
 
       // skip perms if not provided.
-      if (lodash.isEmpty(perms)) return original.apply(this, args);
+      if (_isEmpty(perms)) return original.apply(this, args);
 
       // self bypass.
       if (
         !!options?.selfBypass &&
         !!options?.userIdDetector &&
-        lodash.toInteger(options.userIdDetector(args)) === user.userId
+        _toInteger(options.userIdDetector(args)) === user.userId
       ) {
         return original.apply(this, args);
       }
@@ -46,7 +48,7 @@ export function Permissions(perms?: string | string[], options: PermissionOption
       // casbin enforce to check permissions.
       const enforcer = await casbin();
 
-      const promises = (lodash.isString(perms) ? [perms] : perms).map(async (perm) => {
+      const promises = (_isString(perms) ? [perms] : perms).map(async (perm) => {
         const [dom, obj, act] = utils.permToCasbinPolicy(perm);
 
         const isValid = await enforcer.enforce(`sys_user:${user.userId}`, dom, obj, act);

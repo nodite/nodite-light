@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import lodash from 'lodash';
-
-import { $ndt } from '@/plugins/i18n';
+import i18n from '@/plugins/i18n';
 import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
 import { NavigationConfig } from '@/types/config';
+import lodash from '@/utils/lodash';
 
 const customizeTheme = useCustomizeThemeStore();
 
@@ -23,7 +22,7 @@ const validator = {
     return props.menuItem.meta?.iType || 'menu';
   },
   hasTitle: () => {
-    return Boolean($ndt(props.menuItem.meta?.title));
+    return Boolean(i18n.ndt(props.menuItem.meta?.title));
   },
   hasChildren: () => {
     return !lodash.isEmpty(props.menuItem.children);

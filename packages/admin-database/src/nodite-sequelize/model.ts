@@ -1,8 +1,12 @@
 import { logger } from '@nodite-light/admin-core';
 import httpContext from 'express-http-context';
-import lodash from 'lodash';
-import { InitOptions, ModelStatic, Op, ValidationError } from 'sequelize';
+import _forEach from 'lodash/forEach';
+import _get from 'lodash/get';
+import _omit from 'lodash/omit';
+import _set from 'lodash/set';
+import { ModelOptions, ModelStatic, Op, ValidationError } from 'sequelize';
 import {
+  AllowNull,
   BeforeBulkCreate,
   BeforeBulkDestroy,
   BeforeBulkUpdate,
@@ -39,14 +43,16 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
         },
       },
     },
-  } as unknown as InitOptions;
+  } as ModelOptions;
 
   @Default(1)
+  @AllowNull(false)
   @Comment('0: disabled, 1: enabled')
   @Column(DataType.TINYINT({ length: 1 }))
   status: 0 | 1;
 
   @Default(0)
+  @AllowNull(false)
   @Comment('0: normal, 1: soft deleted, 9: not allow delete')
   @Column(DataType.TINYINT({ length: 1 }))
   deleted: 0 | 1 | 9;
@@ -82,8 +88,8 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
    */
   @BeforeBulkDestroy
   static deletedNotEqualNine(options: FindOptions): void {
-    const deleted = lodash.get(options, 'where.deleted', {});
-    lodash.set(options, 'where.deleted', { ...deleted, [Op.ne]: 9 });
+    const deleted = _get(options, 'where.deleted', {});
+    _set(options, 'where.deleted', { ...deleted, [Op.ne]: 9 });
   }
 
   /**
@@ -95,7 +101,7 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
     instance.setDataValue(
       'createBy',
       instance.getDataValue('createBy') ||
-        (lodash.get(httpContext.get('user'), 'username', 'unknown') as never),
+        (_get(httpContext.get('user'), 'username', 'unknown') as never),
     );
   }
 
@@ -126,7 +132,7 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
   static bulkSetUpdateBy(options: FindOptions): void {
     const { attributes } = options;
     if (!attributes) return;
-    lodash.set(options, 'attributes.updateBy', this.getUpdateBy());
+    _set(options, 'attributes.updateBy', this.getUpdateBy());
   }
 
   /**
@@ -135,6 +141,22 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
    */
   public static async exists(): Promise<boolean> {
     return Boolean(await this.sequelize?.getQueryInterface().tableExists(this.tableName));
+  }
+
+  /**
+   * Build paginate where.
+   * @param param
+   * @returns
+   */
+  public static buildQueryWhere(param?: Record<string, unknown>) {
+    const where = {};
+
+    _forEach(_omit(param, ['itemsPerPage', 'page', 'sortBy']), (value, key) => {
+      if (!value) return;
+      _set(where, key, { [Op.like]: `%${value}%` });
+    });
+
+    return where;
   }
 
   /**
@@ -151,7 +173,7 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
     // total count.
     const countOptions = Object.keys(options).reduce((acc, key) => {
       if (['order', 'attributes', 'include', 'page', 'itemsPerPage'].includes(key)) return acc;
-      return { ...acc, [key]: lodash.get(options, key) };
+      return { ...acc, [key]: _get(options, key) };
     }, {});
 
     const totalCount = await this.count(countOptions);
@@ -164,15 +186,15 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
       logger.warn('options.offset is not allowed, please use options.page instead!');
     }
 
-    const itemsPerPage = lodash.get(options, 'itemsPerPage', 25);
+    const itemsPerPage = _get(options, 'itemsPerPage', 25);
     const totalPage = itemsPerPage > 0 ? Math.ceil(totalCount / itemsPerPage) : 1;
 
     if (itemsPerPage > 0) {
-      lodash.set(options, 'limit', Number(itemsPerPage));
-      lodash.set(options, 'offset', (lodash.get(options, 'page', 1) - 1) * itemsPerPage);
+      _set(options, 'limit', Number(itemsPerPage));
+      _set(options, 'offset', (_get(options, 'page', 1) - 1) * itemsPerPage);
     } else {
       // eslint-disable-next-line no-param-reassign
-      options = lodash.omit(options, ['limit', 'offset']);
+      options = _omit(options, ['limit', 'offset']);
     }
 
     const items = await this.findAll(options);
@@ -192,6 +214,6 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
    * @returns
    */
   private static getUpdateBy(): string {
-    return lodash.get(httpContext.get('user'), 'username', 'unknown');
+    return _get(httpContext.get('user'), 'username', 'unknown');
   }
 }

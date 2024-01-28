@@ -21,6 +21,7 @@ import i18n from '@/plugins/i18n';
 import vuetify from '@/plugins/vuetify';
 import router from '@/router';
 import pinia from '@/stores';
+import { useLocaleStore } from '@/stores/modules/localeStore';
 
 const app = createApp(App);
 
@@ -35,3 +36,8 @@ app.use(Vue3Lottie, { name: 'LottieAnimation' });
 app.use(autoAnimatePlugin);
 app.use(vuetify);
 app.mount('#app');
+
+app.config.globalProperties.$ndt = i18n.ndt;
+
+// Locale initial.
+useLocaleStore().initialize();

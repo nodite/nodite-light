@@ -6,7 +6,6 @@ declare namespace Common {
 
 interface Config {
   theme: ThemeConfig.Config;
-  locales: unknown;
   currency: CurrencyConfig.Config;
 }
 
@@ -101,5 +100,27 @@ declare namespace NavigationConfig {
     key: string;
     href?: string;
     target?: string;
+  }
+}
+
+declare namespace VueTreeview {
+  interface TreeNode<T> {
+    id: string;
+    text: string;
+    item: T;
+    state: {
+      opened?: boolean;
+      disabled?: boolean;
+      checked?: boolean;
+      indeterminate?: boolean;
+    };
+    children: string[];
+  }
+}
+
+declare namespace Locale {
+  interface TOptions {
+    context?: string;
+    component?: string;
   }
 }

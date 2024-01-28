@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "change-case": "^5.3.0",
-    "lodash": "^4.17.21",
     "vue": "^3.3.13",
     "vue-i18n": "^9.8.0",
     "vuetify": "^3.4.8"

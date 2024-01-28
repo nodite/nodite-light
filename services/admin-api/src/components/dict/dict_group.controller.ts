@@ -21,7 +21,7 @@ export class DictGroupController extends BaseController {
   /**
    * @summary List dict groups.
    */
-  @Get('/list')
+  @Get('list')
   @OperationId('admin:dict:group:list')
   @Permissions('admin:dict:list')
   public async list(): Promise<IResponse<IDictGroup[]>> {
@@ -33,7 +33,7 @@ export class DictGroupController extends BaseController {
   /**
    * @summary List dict group tree.
    */
-  @Get('/tree')
+  @Get('tree')
   @OperationId('admin:dict:group:tree')
   @Permissions('admin:dict:list')
   @Cacheable({ hashKey: 'dict:group:tree' })

@@ -34,18 +34,20 @@ const TABLE_NAME = 'sys_user';
 })
 @Subscribe(UserSeeds)
 export default class UserModel extends SequelizeModel<UserModel> {
-  @AllowNull(false)
   @Unique
   @PrimaryKey
   @AutoIncrement
+  @AllowNull(false)
   @Column({ field: 'user_id', type: DataType.BIGINT })
   userId: number;
 
-  @AllowNull(false)
   @Unique
+  @AllowNull(false)
   @Column(DataType.STRING(32))
   username: string;
 
+  @Default('')
+  @AllowNull(false)
   @Column(DataType.STRING(32))
   nickname: string;
 
@@ -58,6 +60,7 @@ export default class UserModel extends SequelizeModel<UserModel> {
   phone: string;
 
   @Default(0)
+  @AllowNull(false)
   @Comment('0 - secret, 1 - male, 2 - female.')
   @Column(DataType.TINYINT({ length: 1 }))
   sex: 0 | 1;

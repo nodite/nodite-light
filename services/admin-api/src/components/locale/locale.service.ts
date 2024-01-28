@@ -1,31 +1,39 @@
 import { AppError } from '@nodite-light/admin-core';
+import { SequelizePagination } from '@nodite-light/admin-database';
 import httpStatus from 'http-status';
-import lodash from 'lodash';
 
 import {
   IAvailableLocale,
+  IAvailableMessage,
   ILocaleCreate,
   ILocaleUpdate,
+  ISourceCreate,
 } from '@/components/locale/locale.interface';
 import LocaleModel, { ILocale } from '@/components/locale/locale.model';
+import LocaleLocationModel from '@/components/locale/locale_location.model';
+import LocaleMessageModel, { ILocaleMessage } from '@/components/locale/locale_message.model';
+import { QueryParams } from '@/interfaces';
+import lodash from '@/utils/lodash';
+
+import LocaleSourceModel, { ILocaleSource } from './locale_source.model';
 
 /**
- * Class LocaleLangService.
+ * Class LocaleService.
  */
-export default class LocaleLangService {
+export default class LocaleService {
   /**
-   * Select language list.
+   * Select locales.
    * @returns
    */
   public async selectLocaleList(): Promise<ILocale[]> {
-    const langList = await LocaleModel.findAll({
+    const locales = await LocaleModel.findAll({
       order: [
         ['orderNum', 'ASC'],
         ['localeId', 'ASC'],
       ],
     });
 
-    return langList.map((i) => i.toJSON());
+    return locales.map((i) => i.toJSON());
   }
 
   /**
@@ -33,7 +41,7 @@ export default class LocaleLangService {
    * @returns
    */
   public async selectAvailableLocaleList(): Promise<IAvailableLocale[]> {
-    const langList = await LocaleModel.scope('available').findAll({
+    const locales = await LocaleModel.scope('available').findAll({
       attributes: ['langcode', 'momentCode', 'icon', 'label', 'isDefault'],
       order: [
         ['orderNum', 'ASC'],
@@ -41,7 +49,7 @@ export default class LocaleLangService {
       ],
     });
 
-    return langList.map((i) => i.toJSON());
+    return locales.map((i) => i.toJSON());
   }
 
   /**
@@ -61,11 +69,11 @@ export default class LocaleLangService {
 
   /**
    * Create.
-   * @param lang
+   * @param locale
    * @returns
    */
-  public async create(lang: ILocaleCreate): Promise<ILocale> {
-    return LocaleModel.create(lang);
+  public async createLocale(locale: ILocaleCreate): Promise<ILocale> {
+    return LocaleModel.create(locale);
   }
 
   /**
@@ -74,7 +82,7 @@ export default class LocaleLangService {
    * @param locale
    * @returns
    */
-  public async update(id: number, locale: ILocaleUpdate): Promise<ILocale> {
+  public async updateLocale(id: number, locale: Partial<ILocaleUpdate>): Promise<ILocale> {
     // start transaction.
     const transaction = await LocaleModel.sequelize.transaction();
 
@@ -103,8 +111,80 @@ export default class LocaleLangService {
    * Delete.
    * @param id
    */
-  public async delete(id: number): Promise<void> {
+  public async deleteLocale(id: number): Promise<void> {
     const storedLocale = await LocaleModel.findOne({ where: { localeId: id } });
     await storedLocale.destroy();
+  }
+
+  /**
+   * Select locale messages.
+   * @returns
+   */
+  public async selectMessageList(
+    params?: QueryParams,
+  ): Promise<SequelizePagination<ILocaleMessage>> {
+    const page = await LocaleMessageModel.paginate({
+      where: {
+        ...LocaleMessageModel.buildQueryWhere(params),
+      },
+      ...lodash.pick(params, ['itemsPerPage', 'page']),
+    });
+
+    return {
+      ...page,
+      items: page.items.map((i) => i.toJSON()),
+    };
+  }
+
+  /**
+   * Select available messages.
+   * @param langcode
+   * @returns
+   */
+  public async selectAvailableMessageList(langcode: string): Promise<IAvailableMessage> {
+    const messages = await LocaleMessageModel.scope('available').findAll({
+      where: { langcode },
+      include: [{ model: LocaleSourceModel }],
+    });
+
+    return lodash
+      .chain(messages)
+      .map((i) => {
+        const message = i.toJSON();
+        lodash.set(
+          message,
+          'key',
+          message.source.context
+            ? `${message.source.context}.${message.source.source}`
+            : message.source.source,
+        );
+        return message;
+      })
+      .keyBy('key')
+      .mapValues('message')
+      .value();
+  }
+
+  /**
+   * Create source if missing.
+   * @param source
+   * @returns
+   */
+  public async createSourceIfMissing(source: ISourceCreate): Promise<ILocaleSource> {
+    let storedSource = await LocaleSourceModel.findOne({
+      where: { source: source.source, context: source.context },
+    });
+
+    if (lodash.isEmpty(storedSource)) {
+      storedSource = await LocaleSourceModel.create(lodash.omit(source, 'locations'));
+
+      await LocaleLocationModel.bulkCreate(
+        lodash.map(source.locations, (location) =>
+          lodash.set(location, 'srcId', storedSource.getDataValue('srcId')),
+        ),
+      );
+    }
+
+    return storedSource.toJSON();
   }
 }

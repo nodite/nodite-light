@@ -63,6 +63,36 @@ export interface QueryParams {
   [key: string]: any;
 }
 
+export interface IProfile {
+  /** @format double */
+  userId: number;
+  username: string;
+  nickname: string;
+  email: string;
+  phone: string;
+  sex: 0 | 1;
+  avatar: string;
+  password: string;
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  roles: string[];
+  perms: string[];
+}
+
+export interface IResponseIProfile {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: IProfile;
+}
+
 export interface IResponseIUser {
   error: boolean;
   /** @format double */
@@ -118,9 +148,7 @@ export type OmitIUserUserIdOrUsernameOrPassword = PickIUserExcludeKeysUserIdOrUs
 export type IUserUpdate = OmitIUserUserIdOrUsernameOrPassword;
 
 export interface IPasswordReset {
-  /** password */
   password: string;
-  /** Confirm password */
   confirmPassword: string;
 }
 
@@ -383,7 +411,7 @@ export type IMenuCreate = OmitIMenuMenuId;
 export type IMenuUpdate = OmitIMenuMenuId;
 
 /** From T, pick a set of properties whose keys are in the union K */
-export interface PickInstanceTypeTypeofLocaleLangModelLocaleIdOrLabelOrLangcodeOrMomentCodeOrIconOrOrderNumOrIsDefaultOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
+export interface PickInstanceTypeTypeofLocaleModelLocaleIdOrLabelOrLangcodeOrMomentCodeOrIconOrOrderNumOrIsDefaultOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
   status: 0 | 1;
   deleted: 0 | 1 | 9;
   createBy: string;
@@ -404,7 +432,7 @@ export interface PickInstanceTypeTypeofLocaleLangModelLocaleIdOrLabelOrLangcodeO
 }
 
 export type ILocale =
-  PickInstanceTypeTypeofLocaleLangModelLocaleIdOrLabelOrLangcodeOrMomentCodeOrIconOrOrderNumOrIsDefaultOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
+  PickInstanceTypeTypeofLocaleModelLocaleIdOrLabelOrLangcodeOrMomentCodeOrIconOrOrderNumOrIsDefaultOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
 
 export interface IResponseILocaleArray {
   error: boolean;
@@ -466,6 +494,125 @@ export type OmitILocaleLocaleId = PickILocaleExcludeKeysLocaleId;
 export type ILocaleCreate = OmitILocaleLocaleId;
 
 export type ILocaleUpdate = OmitILocaleLocaleId;
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickInstanceTypeTypeofLocaleSourceModelSrcIdOrSourceOrContextOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  /** @format double */
+  srcId: number;
+  source: string;
+  context: string;
+}
+
+export type ILocaleSource =
+  PickInstanceTypeTypeofLocaleSourceModelSrcIdOrSourceOrContextOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
+
+export interface IResponseILocaleSource {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: ILocaleSource;
+}
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickILocaleSourceExcludeKeysSrcId {
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  source: string;
+  context: string;
+}
+
+/** Construct a type with the properties of T except for those in type K. */
+export type OmitILocaleSourceSrcId = PickILocaleSourceExcludeKeysSrcId;
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickILocaleLocationExcludeKeysLcIdOrSrcId {
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  type: string;
+  name: string;
+}
+
+/** Construct a type with the properties of T except for those in type K. */
+export type OmitILocaleLocationLcIdOrSrcId = PickILocaleLocationExcludeKeysLcIdOrSrcId;
+
+export type ILocationCreate = OmitILocaleLocationLcIdOrSrcId;
+
+export type ISourceCreate = OmitILocaleSourceSrcId & {
+  locations: ILocationCreate[];
+};
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickInstanceTypeTypeofLocaleMessageModelSrcIdOrLangcodeOrMessageOrCustomizedOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  langcode: string;
+  /** @format double */
+  srcId: number;
+  message: string;
+  customized: 0 | 1;
+}
+
+export type ILocaleMessage =
+  PickInstanceTypeTypeofLocaleMessageModelSrcIdOrLangcodeOrMessageOrCustomizedOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
+
+export interface SequelizePaginationILocaleMessage {
+  items: ILocaleMessage[];
+  /** @format double */
+  count: number;
+  /** @format double */
+  totalCount: number;
+  /** @format double */
+  totalPage: number;
+  /** @format double */
+  page: number;
+  /** @format double */
+  itemsPerPage: number;
+}
+
+export interface IResponseSequelizePaginationILocaleMessage {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: SequelizePaginationILocaleMessage;
+}
+
+export type IAvailableMessage = Record<string, any>;
+
+export interface IResponseIAvailableMessage {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: IAvailableMessage;
+}
 
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrParentIdOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {

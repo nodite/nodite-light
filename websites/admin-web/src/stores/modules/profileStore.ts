@@ -1,34 +1,22 @@
-/*
- * File: profileStore.ts                                                       *
- * Project: @nodite-light/admin-web                                            *
- * Created Date: We Dec 2023                                                   *
- * Author: Oscaner Miao                                                        *
- * -----                                                                       *
- * Last Modified: Wed Jan 03 2024                                              *
- * Modified By: Oscaner Miao                                                   *
- * -----                                                                       *
- * Copyright (c) 2023 - 2024 @nodite                                           *
- * ----------	---	---------------------------------------------------------    *
- */
-
-import lodash from 'lodash';
-
-import { IUser } from '@/api/admin/data-contracts';
+import { IProfile } from '@/api/admin/data-contracts';
 import * as UserApi from '@/api/admin/User';
+import { useAuthStore } from '@/stores/modules/authStore';
+import { useLocaleStore } from '@/stores/modules/localeStore';
 import { useMenuStore } from '@/stores/modules/menuStore';
 import { useNavStore } from '@/stores/modules/navStore';
 import { useRoleStore } from '@/stores/modules/roleStore';
 import { useUserStore } from '@/stores/modules/userStore';
-
-import { useLocaleStore } from './localeStore';
+import lodash from '@/utils/lodash';
 
 interface ProfileState {
-  profile: IUser | undefined;
+  profile: IProfile;
+  perms: { [key: string]: boolean };
 }
 
 export const useProfileStore = defineStore('profile', {
   state: (): ProfileState => ({
-    profile: undefined,
+    profile: {} as IProfile,
+    perms: {},
   }),
 
   persist: [{ storage: sessionStorage }],
@@ -40,17 +28,49 @@ export const useProfileStore = defineStore('profile', {
      * Get profiles.
      * @returns
      */
-    async getProfile() {
+    async getProfile(): Promise<IProfile> {
       if (lodash.isEmpty(this.profile)) {
-        this.profile = await UserApi.adminUserCurr();
+        this.profile = (await UserApi.adminUserProfile()) || ({} as IProfile);
       }
       return this.profile;
     },
+    /**
+     * Has perms.
+     * @param perms
+     * @returns
+     */
+    async hasPerm(perm: string): Promise<boolean> {
+      if (!useAuthStore().isAuthorized) return false;
 
+      if (lodash.has(this.perms, perm)) return lodash.get(this.perms, perm);
+
+      const profile = await this.getProfile();
+
+      lodash.set(
+        this.perms,
+        perm,
+        lodash.includes(profile.perms, '*:*:*') ? true : lodash.includes(profile.perms, perm),
+      );
+
+      return lodash.get(this.perms, perm);
+    },
+    /**
+     * Is admin.
+     * @returns
+     */
+    async isAdmin(): Promise<boolean> {
+      if (!useAuthStore().isAuthorized) return false;
+
+      const profile = await this.getProfile();
+
+      if (profile.userId === 1) return true;
+
+      return lodash.includes(profile.roles, 'admin');
+    },
     /**
      * Clear cache with current user.
      */
-    async clearCache() {
+    async clearCache(): Promise<void> {
       await this.$reset();
       await useMenuStore().$reset();
       await useNavStore().$reset();

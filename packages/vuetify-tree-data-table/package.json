@@ -15,6 +15,7 @@
     "prettier:fix": "prettier --write \"{*.js,!(node*)**/*.ts}\""
   },
   "dependencies": {
+    "lodash-es": "^4.17.21",
     "vue": "^3.3.13",
     "vuetify": "^3.4.8"
   }

@@ -10,7 +10,7 @@
  */
 
 import type { RequestParams } from "@/types/request";
-import { request } from "@/utils/request/index";
+import { request } from "@/utils/requests";
 import type { IResponseDataTreeIDictGroupArray, IResponseIDictGroupArray } from "./data-contracts";
 
 /**

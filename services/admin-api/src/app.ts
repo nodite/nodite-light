@@ -9,7 +9,8 @@ import api from 'api';
 import cors from 'cors';
 import express, { Application } from 'express';
 import httpContext from 'express-http-context';
-import rateLimit from 'express-rate-limit';
+import rateLimit, { RateLimitRequestHandler } from 'express-rate-limit';
+import { unless } from 'express-unless';
 import helmet from 'helmet';
 
 import http404 from '@/components/404/404.router';
@@ -22,7 +23,8 @@ const apiLimiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 15 minutes
   max: 500,
   message: 'Too many requests from this IP, please try again after 10 minutes',
-});
+}) as RateLimitRequestHandler & { unless: typeof unless };
+apiLimiter.unless = unless;
 
 app.disable('x-powered-by');
 app.use(
@@ -31,7 +33,7 @@ app.use(
   }),
 );
 app.use(helmet());
-app.use(apiLimiter);
+app.use(apiLimiter.unless({ path: consts.RATELIMIT_WHITELIST }));
 app.use(httpContext.middleware);
 app.use(httpLogger.successHandler);
 app.use(httpLogger.errorHandler);

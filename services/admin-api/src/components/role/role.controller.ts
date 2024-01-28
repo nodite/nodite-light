@@ -41,7 +41,7 @@ export class RoleController extends BaseController {
   /**
    * @summary Get all roles
    */
-  @Get('/list')
+  @Get('list')
   @OperationId('admin:role:list')
   @Permissions('admin:role:list')
   public async list(
@@ -58,7 +58,6 @@ export class RoleController extends BaseController {
   @Get('{id}')
   @OperationId('admin:role:query')
   @Permissions('admin:role:query')
-  @Cacheable({ hashKey: 'role:query', cacheKey: (args) => args[0] })
   public async query(@Path() id: number): Promise<IResponse<IRole>> {
     const role = await this.roleService.selectRoleById(id);
     this.setStatus(httpStatus.OK);
@@ -85,7 +84,6 @@ export class RoleController extends BaseController {
   @Middlewares([validate(UpdateValidation)])
   @OperationId('admin:role:edit')
   @Permissions('admin:role:edit')
-  @CacheClear({ hashKey: 'role:query', cacheKey: (args) => args[0] })
   public async update(@Path() id: number, @Body() body: IRoleUpdate): Promise<IResponse<IRole>> {
     const role = await this.roleService.update(id, body);
     this.setStatus(httpStatus.ACCEPTED);
@@ -98,7 +96,6 @@ export class RoleController extends BaseController {
   @Delete('{id}')
   @OperationId('admin:role:delete')
   @Permissions('admin:role:delete')
-  @CacheClear({ hashKey: 'role:query', cacheKey: (args) => args[0] })
   @CacheClear({ hashKey: 'role:perm:list', cacheKey: (args) => args[0] })
   @CacheClear({ hashKey: 'role:user:list', cacheKey: (args) => args[0] })
   public async delete(@Path() id: number): Promise<IResponse<void>> {
@@ -137,7 +134,7 @@ export class RoleController extends BaseController {
   @Permissions('admin:role:user:list')
   @Cacheable({ hashKey: 'role:user:list', cacheKey: (args) => args[0] })
   public async listRoleUsers(@Path() id: number): Promise<IResponse<IUserWithRoles[]>> {
-    const users = await this.roleService.selectUsersWithRole(id);
+    const users = await this.roleService.selectUsersOfRole(id);
     this.setStatus(httpStatus.OK);
     return this.response(users);
   }

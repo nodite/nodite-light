@@ -4,9 +4,9 @@ import { setupCache } from 'axios-cache-interceptor';
 import httpStatus from 'http-status';
 import { toast } from 'vuetify-sonner';
 
-import { $ndt } from '@/plugins/i18n';
+import i18n from '@/plugins/i18n';
 import { ContentType, FullRequestParams, IResponse } from '@/types/request';
-import * as toolkit from '@/utils/request/toolkit';
+import * as toolkit from '@/utils/requestToolkit';
 
 const requestCanceler = new toolkit.RequestCanceler();
 
@@ -40,6 +40,7 @@ axiosInstance.interceptors.request.use((config) => {
 // Response interceptors
 axiosInstance.interceptors.response.use(
   (res) => {
+    // TODO: multiple submit.
     requestCanceler.removePendingRequest(res.config);
     return res;
   },
@@ -50,7 +51,9 @@ axiosInstance.interceptors.response.use(
 
     if (error?.code === 'ERR_CANCELED') return;
 
-    toast.error(error?.response?.data?.message || error.message || $ndt('common.networkError'));
+    if (!error?.response) {
+      toast.error(error.message || i18n.ndt('Network Error, Please try again later.'));
+    }
 
     return error?.response || Promise.reject(error);
   },
@@ -78,7 +81,7 @@ export async function request({
   ...params
 }: FullRequestParams) {
   if (secure && !toolkit.token.get()) {
-    toolkit.redirectToLogin($ndt('common.noSignIn'));
+    toolkit.redirectToLogin(i18n.ndt('No signed in.'));
     return;
   }
 
@@ -123,8 +126,14 @@ export async function request({
   if (code === httpStatus.UNAUTHORIZED) {
     requestCanceler.cleanPendingRequest();
     toolkit.token.remove();
-    toolkit.redirectToLogin(axiosResponse.data?.message || $ndt('common.authExpired'));
+    toolkit.redirectToLogin(
+      axiosResponse.data?.message || i18n.ndt('Authentication expired, please signin again.'),
+    );
   }
+
+  toast.error(axiosResponse.data?.message || i18n.ndt('Request failed, please try again later.'));
 
   throw axiosResponse;
 }
+
+export default axiosInstance;

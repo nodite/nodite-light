@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
 
-import { $ndt } from '@/plugins/i18n';
+import i18n from '@/plugins/i18n';
 import { useAuthStore } from '@/stores/modules/authStore';
 
 const authStore = useAuthStore();
@@ -23,10 +23,10 @@ const loginForm = ref({
 });
 
 const loginRules = ref({
-  username: [(v: string) => !!v || $ndt('login.rules.usernameRequired')],
+  username: [(v: string) => !!v || i18n.ndt('Username is required.')],
   password: [
-    (v: string) => !!v || $ndt('login.rules.passwordRequired'),
-    (v: string) => (v && v.length <= 10) || $ndt('login.rules.passwordMax'),
+    (v: string) => !!v || i18n.ndt('Password is required'),
+    (v: string) => (v && v.length <= 10) || i18n.ndt('Password must be less than 10 characters'),
   ],
 });
 
@@ -83,7 +83,7 @@ const resetErrors = () => {
           v-model="loginForm.username"
           required
           :error="errorHandler.error"
-          :label="$ndt('login.username')"
+          :label="$ndt('Username')"
           density="default"
           variant="underlined"
           color="primary"
@@ -104,7 +104,7 @@ const resetErrors = () => {
           :type="loginState.showPassword ? 'text' : 'password'"
           :error="errorHandler.error"
           :error-messages="errorHandler.errorMessages"
-          :label="$ndt('login.password')"
+          :label="$ndt('Password')"
           placeholder=""
           density="default"
           variant="underlined"
@@ -127,12 +127,12 @@ const resetErrors = () => {
           color="primary"
           @click="methods.handleLogin"
           class="mt-2"
-          >{{ $ndt('login.button') }}</v-btn
+          >{{ $ndt('Sign In') }}</v-btn
         >
 
         <!-- orsign overtext -->
         <div class="text-grey text-center text-caption font-weight-bold text-uppercase my-5">
-          {{ $ndt('login.orsign') }}
+          {{ $ndt('Or sign in with') }}
         </div>
 
         <!-- external providers list -->
@@ -146,7 +146,7 @@ const resetErrors = () => {
           :disabled="loginState.isSignInDisabled"
         >
           <Icon icon="ic:baseline-wechat" class="mr-3 my-2" />
-          WeChat
+          {{ $ndt('WeChat') }}
         </v-btn>
 
         <!-- error message -->
@@ -157,16 +157,16 @@ const resetErrors = () => {
         <!-- forgot password -->
         <div class="mt-5 text-center">
           <router-link class="text-primary" to="/auth/forgot-password">
-            {{ $ndt('login.forgot') }}
+            {{ $ndt('Forgot password?') }}
           </router-link>
         </div>
       </v-form>
     </v-card-text>
   </v-card>
   <div class="text-center mt-6">
-    {{ $ndt('login.noaccount') }}
+    {{ $ndt("Don't have an account?") }}
     <router-link to="/auth/signup" class="text-primary font-weight-bold">
-      {{ $ndt('login.create') }}
+      {{ $ndt('Create one here') }}
     </router-link>
   </div>
 </template>

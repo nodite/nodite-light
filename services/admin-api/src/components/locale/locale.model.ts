@@ -6,11 +6,13 @@ import {
   Comment,
   DataType,
   Default,
+  HasMany,
   PrimaryKey,
   Table,
   Unique,
 } from 'sequelize-typescript';
 
+import LocaleMessageModel from '@/components/locale/locale_message.model';
 import LocaleSeeds from '@/seeds/sys_locale.seeds.json';
 
 @Table({
@@ -18,45 +20,59 @@ import LocaleSeeds from '@/seeds/sys_locale.seeds.json';
   tableName: 'sys_locale',
 })
 @Subscribe(LocaleSeeds)
-export default class LocaleLangModel extends SequelizeModel<LocaleLangModel> {
-  @AllowNull(false)
+export default class LocaleModel extends SequelizeModel<LocaleModel> {
   @Unique
   @PrimaryKey
   @AutoIncrement
-  @Column({ field: 'locale_id', type: DataType.BIGINT({ length: 20 }) })
+  @AllowNull(false)
+  @Comment('Unique identifier of this locale.')
+  @Column({ field: 'locale_id', type: DataType.INTEGER })
   localeId: number;
 
+  @Default('')
+  @AllowNull(false)
   @Comment('locale label')
   @Column(DataType.STRING(50))
   label: string;
 
-  @AllowNull(false)
   @Unique
-  @Comment('language code for vue-i18n')
-  @Column({ field: 'langcode', type: DataType.STRING(20) })
+  @AllowNull(false)
+  @Comment('language code')
+  @Column(DataType.STRING(20))
   langcode: string;
 
   @Default('en')
-  @Comment('language code for moment.js, default is en')
+  @AllowNull(false)
+  @Comment('moment locale code')
   @Column({ field: 'moment_code', type: DataType.STRING(20) })
   momentCode: string;
 
+  @Default('')
+  @AllowNull(false)
   @Comment('locale icon, e.g. twemoji:flag-united-states')
   @Column(DataType.STRING(50))
   icon: string;
 
   @Default(0)
+  @AllowNull(false)
   @Column({ field: 'order_num', type: DataType.INTEGER({ length: 4 }) })
   orderNum: number;
 
   @Default(0)
+  @AllowNull(false)
   @Comment('0: not default, 1: is default')
   @Column({ field: 'is_default', type: DataType.TINYINT({ length: 1 }) })
   isDefault: 0 | 1;
+
+  @HasMany(() => LocaleMessageModel, {
+    foreignKey: 'langcode',
+    constraints: false,
+  })
+  messages: LocaleMessageModel[];
 }
 
 export type ILocale = Pick<
-  InstanceType<typeof LocaleLangModel>,
+  InstanceType<typeof LocaleModel>,
   | 'localeId'
   | 'label'
   | 'langcode'
