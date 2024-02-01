@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import lodash from 'lodash';
 import { toast } from 'vuetify-sonner';
 
 import { IUser } from '@/api/admin/data-contracts';
-import { $ndt } from '@/plugins/i18n';
+import i18n from '@/plugins/i18n';
 import { useUserStore } from '@/stores/modules/userStore';
 
 const userStore = useUserStore();
 
-const emit = defineEmits(['close', 'save']);
+const emit = defineEmits(['update:dialog', 'update:userId', 'save']);
 
 const props = defineProps({
   dialog: {
@@ -21,48 +20,47 @@ const props = defineProps({
   },
 });
 
-// static data.
-const staticData = ref({
-  sex: [] as { title: string; value: number }[],
+const dialog = computed({
+  get: () => props.dialog,
+  set: (v) => emit('update:dialog', v),
+});
+
+const userId = computed({
+  get: () => props.userId,
+  set: (v) => emit('update:userId', v),
 });
 
 // local data.
-const defLocalData = {
-  dialog: props.dialog,
+const localData = ref({
   isFormValid: true,
   isSaving: false,
   error: false,
   errorMessage: '',
-};
-
-const localData = ref(lodash.cloneDeep(defLocalData));
+});
 
 // form.
 const refForm = ref();
 const formData = ref({} as IUser);
 const formRules = ref({
   username: [
-    (v: string) => !!v || $ndt('common.form.required', [$ndt('views.user.form.username')]),
-    (v: string) =>
-      (v && v.length <= 25) || $ndt('common.form.max', [$ndt('views.user.form.username'), 25]),
+    (v: string) => !!v || i18n.ndt('Username is required.'),
+    (v: string) => (v && v.length <= 25) || i18n.ndt('Username must be less than 25 characters.'),
   ],
   nickname: [
-    (v: string) =>
-      !v || v.length <= 32 || $ndt('common.form.max', [$ndt('views.user.form.nickname'), 32]),
+    (v: string) => !v || v.length <= 32 || i18n.ndt('Nickname must be less than 32 characters.'),
   ],
   email: [
-    (v: string) =>
-      !v || v.length <= 50 || $ndt('common.form.max', [$ndt('views.user.form.email'), 50]),
-    (v: string) => !v || /.+@.+\..+/.test(v) || $ndt('common.form.email'),
+    (v: string) => !v || v.length <= 50 || i18n.ndt('Email must be less than 50 characters.'),
+    (v: string) => !v || /.+@.+\..+/.test(v) || i18n.ndt('Please enter a valid email address.'),
   ],
   phone: [],
-  sex: [(v: number) => [0, 1, 2].includes(v) || $ndt('common.form.invalid')],
+  sex: [],
   password: [
-    (v: string) => !!v || $ndt('common.form.required', [$ndt('views.user.form.password')]),
+    (v: string) => !!v || i18n.ndt('Password is required.'),
     (v: string) =>
       formData.value.userId > 0 ||
       (v && v.length <= 25) ||
-      $ndt('common.form.max', [$ndt('views.user.form.password'), 25]),
+      i18n.ndt('Password must be less than 25 characters.'),
   ],
   status: [],
 });
@@ -70,20 +68,17 @@ const formRules = ref({
 // methods.
 const methods = {
   async loadFormData() {
-    let user = undefined;
-    if (props.userId > 0) {
-      user = await userStore.query(props.userId);
-    }
-    formData.value = lodash.isUndefined(user) ? ({} as IUser) : user;
+    formData.value = userId.value
+      ? (await userStore.query(userId.value)) || ({} as IUser)
+      : ({} as IUser);
   },
   closeUserForm() {
     if (localData.value.isSaving) {
-      toast.warning($ndt('common.form.saving'));
+      toast.warning(i18n.ndt("It's saving, please wait a moment."));
       return;
     }
-    localData.value = lodash.cloneDeep(defLocalData);
-    formData.value = {} as IUser;
-    emit('close');
+    dialog.value = false;
+    userId.value = 0;
   },
   resetErrors() {
     localData.value.error = false;
@@ -103,34 +98,26 @@ const methods = {
       await (formData.value.userId > 0
         ? userStore.edit(formData.value)
         : userStore.create(formData.value));
+
+      toast.success(i18n.ndt('Saved successfully.'));
     } finally {
       localData.value.isSaving = false;
     }
 
-    toast.success($ndt('Saved successfully.'));
-
     methods.closeUserForm();
+
     emit('save');
   },
 };
 
 watchEffect(() => {
-  // watch i18n.
-  staticData.value.sex = [
-    { value: 0, title: $ndt('views.user.sex.secret') },
-    { value: 1, title: $ndt('views.user.sex.male') },
-    { value: 2, title: $ndt('views.user.sex.female') },
-  ];
-
-  localData.value.dialog = props.dialog;
-
   methods.loadFormData();
 });
 </script>
 
 <template>
   <v-dialog
-    v-model="localData.dialog"
+    v-model="dialog"
     @click:outside="methods.closeUserForm"
     :persistent="localData.isSaving"
     max-width="750"
@@ -144,7 +131,7 @@ watchEffect(() => {
     <v-card density="compact" elevation="8" rounded="lg">
       <v-card-title>
         <v-label>
-          {{ props.userId > 0 ? $ndt('Edit User - {0}', [formData.username]) : $ndt('New User') }}
+          {{ props.userId ? $ndt('Edit User - {0}', [formData.username]) : $ndt('New User') }}
         </v-label>
       </v-card-title>
 
@@ -169,7 +156,7 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('views.user.form.username') }}:</v-label>
+                    <v-label>{{ $ndt('Username') }}:</v-label>
                   </template>
                 </v-text-field>
               </v-col>
@@ -184,7 +171,7 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('views.user.form.nickname') }}:</v-label>
+                    <v-label>{{ $ndt('Nickname') }}:</v-label>
                   </template>
                 </v-text-field>
               </v-col>
@@ -202,7 +189,7 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('views.user.form.email') }}:</v-label>
+                    <v-label>{{ $ndt('Email') }}:</v-label>
                   </template>
                   <template v-slot:append-inner>
                     <v-icon>mdi-email</v-icon>
@@ -223,7 +210,7 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('views.user.form.phone') }}:</v-label>
+                    <v-label>{{ $ndt('Phone') }}:</v-label>
                   </template>
                   <template v-slot:append-inner>
                     <v-icon>mdi-cellphone</v-icon>
@@ -246,7 +233,7 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('views.user.form.password') }}:</v-label>
+                    <v-label>{{ $ndt('Password') }}:</v-label>
                   </template>
                   <template v-slot:append-inner>
                     <v-icon>mdi-lock</v-icon>
@@ -266,11 +253,11 @@ watchEffect(() => {
                   inline
                 >
                   <template v-slot:prepend>
-                    <v-label>{{ $ndt('views.user.form.sex') }}:</v-label>
+                    <v-label>{{ $ndt('Sex') }}:</v-label>
                   </template>
-                  <v-radio :label="$ndt('views.user.sex.secret')" :value="0"></v-radio>
-                  <v-radio :label="$ndt('views.user.sex.male')" :value="1"></v-radio>
-                  <v-radio :label="$ndt('views.user.sex.female')" :value="2"></v-radio>
+                  <v-radio :label="$ndt('Secret')" :value="0"></v-radio>
+                  <v-radio :label="$ndt('Male')" :value="1"></v-radio>
+                  <v-radio :label="$ndt('Female')" :value="2"></v-radio>
                 </v-radio-group>
               </v-col>
               <v-col cols="5">

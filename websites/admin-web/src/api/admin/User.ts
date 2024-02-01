@@ -11,9 +11,10 @@
 
 import type { RequestParams } from "@/types/request";
 import { ContentType } from "@/types/request";
-import { request } from "@/utils/request/index";
+import { request } from "@/utils/requests";
 import type {
   IPasswordReset,
+  IResponseIProfile,
   IResponseIRoleWithUsersArray,
   IResponseIUser,
   IResponseSequelizePaginationIUser,
@@ -69,51 +70,22 @@ export const adminUserListSkipErrorHandler = (
  * No description
  *
  * @tags user
- * @name adminUserCurr
+ * @name adminUserProfile
  * @summary Get current user
- * @request GET:/user
+ * @request GET:/user/profile
  */
-export const adminUserCurr = (params: RequestParams = {}) =>
-  request<IResponseIUser>({
-    path: `/user`,
+export const adminUserProfile = (params: RequestParams = {}) =>
+  request<IResponseIProfile>({
+    path: `/user/profile`,
     method: "GET",
     format: "json",
     skipErrorHandler: false,
     ...params,
   });
-export const adminUserCurrSkipErrorHandler = (params: RequestParams = {}) =>
-  request<IResponseIUser>({
-    path: `/user`,
+export const adminUserProfileSkipErrorHandler = (params: RequestParams = {}) =>
+  request<IResponseIProfile>({
+    path: `/user/profile`,
     method: "GET",
-    format: "json",
-    skipErrorHandler: true,
-    ...params,
-  });
-
-/**
- * No description
- *
- * @tags user
- * @name adminUserCreate
- * @summary Create user
- * @request POST:/user
- */
-export const adminUserCreate = (data: IUserCreate, params: RequestParams = {}) =>
-  request<IResponseIUser>({
-    path: `/user`,
-    method: "POST",
-    body: data,
-    type: ContentType.Json,
-    format: "json",
-    skipErrorHandler: false,
-    ...params,
-  });
-export const adminUserCreateSkipErrorHandler = (data: IUserCreate, params: RequestParams = {}) =>
-  request<IResponseIUser>({
-    path: `/user`,
-    method: "POST",
-    body: data,
-    type: ContentType.Json,
     format: "json",
     skipErrorHandler: true,
     ...params,
@@ -193,6 +165,35 @@ export const adminUserDeleteSkipErrorHandler = (id: number, params: RequestParam
   request<IResponseVoid>({
     path: `/user/${id}`,
     method: "DELETE",
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags user
+ * @name adminUserCreate
+ * @summary Create user
+ * @request POST:/user
+ */
+export const adminUserCreate = (data: IUserCreate, params: RequestParams = {}) =>
+  request<IResponseIUser>({
+    path: `/user`,
+    method: "POST",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminUserCreateSkipErrorHandler = (data: IUserCreate, params: RequestParams = {}) =>
+  request<IResponseIUser>({
+    path: `/user`,
+    method: "POST",
+    body: data,
+    type: ContentType.Json,
     format: "json",
     skipErrorHandler: true,
     ...params,

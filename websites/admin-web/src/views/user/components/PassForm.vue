@@ -1,26 +1,13 @@
-<!--
-* Component: PassForm.vue
-* Project: @nodite-light/admin-web
-* Created Date: Su Dec 2023
-* Author: Oscaner Miao
------
-* Last Modified: Sun Dec 31 2023
-* Modified By: Oscaner Miao
------
-* Copyright (c) 2023 @nodite
--->
-
 <script setup lang="ts">
-import lodash from 'lodash';
 import { toast } from 'vuetify-sonner';
 
 import { IPasswordReset } from '@/api/admin/data-contracts';
-import { $ndt } from '@/plugins/i18n';
+import i18n from '@/plugins/i18n';
 import { useUserStore } from '@/stores/modules/userStore';
 
 const userStore = useUserStore();
 
-const emit = defineEmits(['close', 'save']);
+const emit = defineEmits(['update:dialog', 'update:userId', 'save']);
 
 const props = defineProps({
   dialog: {
@@ -29,59 +16,61 @@ const props = defineProps({
   },
   username: {
     type: String,
+    default: '',
   },
   userId: {
     type: Number,
+    required: true,
   },
 });
 
+const dialog = computed({
+  get: () => props.dialog,
+  set: (v) => emit('update:dialog', v),
+});
+
+const userId = computed({
+  get: () => props.userId,
+  set: (v) => emit('update:userId', v),
+});
+
 // local data.
-const defLocalData = {
-  dialog: props.dialog,
+const localData = ref({
   isFormValid: false,
   isSaving: false,
   showPassword: false,
   showConfirmPassword: false,
   error: false,
   errorMessage: '',
-};
-
-const localData = ref(lodash.cloneDeep(defLocalData));
+});
 
 // form.
 const refForm = ref();
 const formData = ref({} as IPasswordReset);
 const formRules = ref({
   password: [
-    (v: string) => !!v || $ndt('common.form.required', [$ndt('views.user.form.password')]),
-    (v: string) =>
-      (v && v.length <= 25) || $ndt('common.form.max', [$ndt('views.user.form.password'), 25]),
+    (v: string) => !!v || i18n.ndt('Password is required.'),
+    (v: string) => (v && v.length <= 25) || i18n.ndt('Password must be less than 25 characters.'),
   ],
   confirmPassword: [
-    (v: string) => !!v || $ndt('common.form.required', [$ndt('views.user.form.confirmPassword')]),
+    (v: string) => !!v || i18n.ndt('Confirm Password is required.'),
     (v: string) =>
-      v === formData.value.password ||
-      $ndt('common.form.notEq', [
-        $ndt('views.user.form.confirmPassword'),
-        $ndt('views.user.form.password'),
-      ]),
+      v === formData.value.password || i18n.ndt('Confirm Password must be equal to Password.'),
   ],
-});
-
-watchEffect(() => {
-  localData.value.dialog = props.dialog;
 });
 
 // methods.
 const methods = {
   closePassForm() {
     if (localData.value.isSaving) {
-      toast.warning($ndt('common.form.saving'));
+      toast.warning(i18n.ndt("It's saving, please wait a moment."));
       return;
     }
-    localData.value = lodash.cloneDeep(defLocalData);
+    dialog.value = false;
+    userId.value = 0;
     formData.value = {} as IPasswordReset;
-    emit('close');
+    localData.value.showPassword = false;
+    localData.value.showConfirmPassword = false;
   },
   resetErrors() {
     localData.value.error = false;
@@ -103,13 +92,14 @@ const methods = {
         formData.value.password,
         formData.value.confirmPassword,
       );
+
+      toast.success(i18n.ndt('Saved successfully.'));
     } finally {
       localData.value.isSaving = false;
     }
 
-    toast.success($ndt('Saved successfully.'));
-
     methods.closePassForm();
+
     emit('save');
   },
 };
@@ -117,14 +107,14 @@ const methods = {
 
 <template>
   <v-dialog
-    v-model="localData.dialog"
+    v-model="dialog"
     @click:outside="methods.closePassForm"
     :persistent="localData.isSaving"
     max-width="700"
   >
     <v-card>
       <v-card-title>
-        <v-label>{{ $ndt('views.user.form.resetPassword', [props.username]) }}</v-label>
+        <v-label>{{ $ndt('Reset Password - {0}', [username]) }}</v-label>
       </v-card-title>
 
       <v-card-text>
@@ -151,7 +141,7 @@ const methods = {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('views.user.form.password') }}:</v-label>
+                    <v-label>{{ $ndt('Password') }}:</v-label>
                   </template>
                 </v-text-field>
               </v-col>
@@ -173,7 +163,7 @@ const methods = {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('views.user.form.confirmPassword') }}:</v-label>
+                    <v-label>{{ $ndt('Confirm Password') }}:</v-label>
                   </template>
                 </v-text-field>
               </v-col>

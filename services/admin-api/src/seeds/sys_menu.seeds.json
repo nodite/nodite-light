@@ -312,7 +312,68 @@
             "createBy": "admin",
             "updateBy": "admin",
             "deleted": 9,
-            "children": []
+            "children": [
+              {
+                "menuId": "d77f8a4c-e663-4953-ac5c-b8279c8e5120",
+                "menuName": "Locale Query",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:locale:query",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": "cbfd4f9b-1dde-498a-aa22-30c7d89d021d",
+                "menuName": "Locale Create",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:locale:create",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": "a6981346-894f-4bd8-bd10-7dd6d684273f",
+                "menuName": "Locale Edit",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:locale:edit",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": "035afe01-6679-455a-aec0-2312148079e3",
+                "menuName": "Locale Delete",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:locale:delete",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": "8f83ff6e-3755-49b1-985f-ed857ba9be67",
+                "menuName": "Message Create",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:locale:message:create",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": "eb8ca326-c07e-47b4-b7df-646a0de2863a",
+                "menuName": "Message BatchUpsert",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:locale:message:batchUpsert",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              }
+            ]
           }
         ]
       }

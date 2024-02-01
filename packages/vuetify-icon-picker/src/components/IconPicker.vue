@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { kebabCase } from 'change-case';
 import { ref } from 'vue';
-import { computed, defineEmits, defineProps, PropType } from 'vue';
+import { computed, PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import IconCommon from '../assets/icons/common';
@@ -66,30 +66,18 @@ const props = defineProps({
 });
 
 const modelValue = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(value) {
-    emit('update:modelValue', value);
-  },
+  get: () => props.modelValue,
+  set: (v) => emit('update:modelValue', v),
 });
 
 const dialogValue = computed({
-  get() {
-    return props.dialog;
-  },
-  set(value) {
-    emit('update:dialog', value);
-  },
+  get: () => props.dialog,
+  set: (v) => emit('update:dialog', v),
 });
 
 const error = computed({
-  get() {
-    return props.error;
-  },
-  set(value) {
-    emit('update:error', value);
-  },
+  get: () => props.error,
+  set: (v) => emit('update:error', v),
 });
 
 const localData = ref({

@@ -1,68 +1,57 @@
 <script setup lang="ts">
-import 'vue3-treeview/dist/style.css';
+import '@employee87/vue3-treeview/dist/style.css';
 
-import lodash from 'lodash';
-import VueTreeView from 'vue3-treeview';
+import VueTreeView from '@employee87/vue3-treeview';
 import { toast } from 'vuetify-sonner';
 
 import { IMenu } from '@/api/admin/data-contracts';
-import { $ndt } from '@/plugins/i18n';
+import i18n from '@/plugins/i18n';
 import { useMenuStore } from '@/stores/modules/menuStore';
+import { useRoleStore } from '@/stores/modules/roleStore';
+import { VueTreeview as VueTreeViewConfig } from '@/types/config';
+import lodash from '@/utils/lodash';
 
 const menuStore = useMenuStore();
+const roleStore = useRoleStore();
 
-const emit = defineEmits(['close', 'save']);
-
-interface TreeNode {
-  id: string;
-  text: string;
-  item: IMenu;
-  state: {
-    opened?: boolean;
-    disabled?: boolean;
-    checked?: boolean;
-    indeterminate?: boolean;
-  };
-  children: string[];
-}
+const emit = defineEmits(['update:drawer', 'update:roleId']);
 
 const props = defineProps({
-  label: {
-    type: String,
-    default: '',
-  },
   drawer: {
     type: Boolean,
     default: false,
   },
-  initMethod: {
-    type: Function,
+  roleId: {
+    type: Number,
     required: true,
   },
-  initMethodParam: {
-    type: Object,
-    default: () => ({}),
-  },
-  checkboxes: {
-    type: Boolean,
-    default: false,
+  label: {
+    type: String,
+    default: '',
   },
 });
 
-const defLocalData = {
-  drawer: props.drawer,
+const drawer = computed({
+  get: () => props.drawer,
+  set: (v) => emit('update:drawer', v),
+});
+
+const roleId = computed({
+  get: () => props.roleId,
+  set: (v) => emit('update:roleId', v),
+});
+
+const localData = ref({
   treeConfig: {
-    checkboxes: props.checkboxes,
+    checkboxes: true,
   },
   selectedIds: [] as string[],
+  treeNodes: {} as Record<string, VueTreeViewConfig.TreeNode<IMenu>>,
   expand: false,
   selectAll: false,
   linkage: false,
-  treeNodes: {} as Record<string, TreeNode>,
   isSaving: false,
-};
-
-const localData = ref(lodash.cloneDeep(defLocalData));
+});
 
 const methods = {
   /**
@@ -131,8 +120,8 @@ const methods = {
    * checkOrUncheck
    * @param node
    */
-  checkOrUncheck(node: TreeNode) {
-    const _linkage = (node: TreeNode, checked?: boolean) => {
+  checkOrUncheck(node: VueTreeViewConfig.TreeNode<IMenu>) {
+    const _linkage = (node: VueTreeViewConfig.TreeNode<IMenu>, checked?: boolean) => {
       node.state.indeterminate = false;
       node.state.checked = checked;
       lodash.forEach(node.children, (id) => {
@@ -150,42 +139,43 @@ const methods = {
    * closeTreeView
    * @param drawer
    */
-  closeTreeView(drawer: boolean = false) {
-    if (drawer) return;
-
+  closeTreeView() {
     if (localData.value.isSaving) {
-      toast.warning($ndt('common.form.saving'));
+      toast.warning(i18n.ndt("It's saving, please wait a moment."));
       return;
     }
-
-    localData.value = lodash.cloneDeep(defLocalData);
-
-    emit('close');
+    drawer.value = false;
+    roleId.value = 0;
   },
   /**
    * save
    */
-  save() {
+  async save() {
     localData.value.isSaving = true;
 
-    const ids = localData.value.selectAll
-      ? [0]
-      : lodash
-          .chain(localData.value.treeNodes)
-          .filter((node) => Boolean(node.state.checked))
-          .map((m) => Number(m.id))
-          .value();
+    try {
+      const ids = localData.value.selectAll
+        ? ['*']
+        : lodash
+            .chain(localData.value.treeNodes)
+            .filter((node) => Boolean(node.state.checked))
+            .map((m) => m.id)
+            .value();
 
-    emit('save', ids, (close: boolean = true) => {
+      await roleStore.updateMenuPerms(roleId.value, ids);
+
+      toast.success(i18n.ndt('Save successfully.'));
+    } finally {
       localData.value.isSaving = false;
-      if (close) methods.closeTreeView(false);
-    });
+    }
+
+    methods.closeTreeView();
   },
   /**
    * _parentState
    * @param node
    */
-  _updateNodeState(node: TreeNode) {
+  _updateNodeState(node: VueTreeViewConfig.TreeNode<IMenu>) {
     // the current checked, the current not indeterminate.
     if (node.state.checked) node.state.indeterminate = false;
 
@@ -232,11 +222,8 @@ const methods = {
 };
 
 watchEffect(async () => {
-  localData.value.drawer = props.drawer;
-  localData.value.treeConfig.checkboxes = props.checkboxes;
-
-  if (!lodash.isEmpty(props.initMethodParam)) {
-    localData.value.selectedIds = await props.initMethod(props.initMethodParam);
+  if (roleId.value) {
+    localData.value.selectedIds = lodash.map(await roleStore.listMenuPerms(roleId.value), 'menuId');
     localData.value.selectAll = localData.value.selectedIds.includes('*');
     await methods.getNodes();
   }
@@ -245,7 +232,7 @@ watchEffect(async () => {
 
 <template>
   <v-navigation-drawer
-    v-model="localData.drawer"
+    v-model="drawer"
     @update:model-value="methods.closeTreeView"
     location="right"
     temporary
@@ -266,7 +253,7 @@ watchEffect(async () => {
         <v-checkbox
           v-model="localData.expand"
           @update:model-value="methods.expandOrCollapse"
-          :label="$ndt('views.menu.treeview.expandOrCollapse')"
+          :label="$ndt('Expand/Collapse')"
           :disabled="localData.isSaving"
           hide-details
         ></v-checkbox>
@@ -274,14 +261,14 @@ watchEffect(async () => {
         <v-checkbox
           v-model="localData.selectAll"
           @update:model-value="methods.selectAllOrNone"
-          :label="$ndt('views.menu.treeview.selectAllOrNone')"
-          :disabled="localData.isSaving"
+          :label="$ndt('Select All/None')"
+          :disabled="localData.isSaving || roleId === 1"
           hide-details
         ></v-checkbox>
 
         <v-checkbox
           v-model="localData.linkage"
-          :label="$ndt('views.menu.treeview.linkageOrNot')"
+          :label="$ndt('Linkage/Not')"
           :disabled="localData.isSaving"
           hide-details
         ></v-checkbox>
@@ -298,11 +285,9 @@ watchEffect(async () => {
         @node-checked="methods.checkOrUncheck"
         @node-unchecked="methods.checkOrUncheck"
       >
-        <template v-slot:after-input="{ node }">
-          <v-label class="text-subtitle-2">
-            {{ $ndt(node.item.menuName) }}
-            {{ node.item.perms ? `[${node.item.perms}]` : '' }}
-          </v-label>
+        <template v-slot:input="{ node }">
+          {{ $ndt(node.item.menuName) }}
+          {{ node.item.perms ? `[${node.item.perms}]` : '' }}
         </template>
       </vue-tree-view>
 
@@ -311,27 +296,19 @@ watchEffect(async () => {
         <v-spacer></v-spacer>
         <v-btn
           color="blue darken-1"
-          @click="methods.closeTreeView(false)"
+          @click="methods.closeTreeView()"
           :disabled="localData.isSaving"
         >
           {{ $ndt('Cancel') }}
         </v-btn>
-        <v-btn @click="methods.save" :loading="localData.isSaving" :disabled="localData.isSaving">
+        <v-btn
+          @click="methods.save"
+          :loading="localData.isSaving"
+          :disabled="localData.isSaving || roleId === 1"
+        >
           {{ $ndt('Save') }}
         </v-btn>
       </v-card-actions>
     </v-card>
   </v-navigation-drawer>
 </template>
-
-<style scoped lang="css">
-.menu-treeview {
-  overflow: auto;
-}
-:deep(.node-wrapper) {
-  min-height: 30px !important;
-}
-:deep(.checkbox-wrapper:after) {
-  left: -0.1em;
-}
-</style>

@@ -190,4 +190,24 @@ html {
 
   }
 
+  // vue3-treeview
+  .tree {
+    overflow: auto;
+
+    .tree-node .node-wrapper {
+      min-height: 30px !important;
+
+      .checkbox-wrapper {
+        margin-right: 0.3em;
+      }
+
+      .checkbox-wrapper:after {
+        left: -0.1em;
+      }
+
+      .input-wrapper {
+        white-space: nowrap;
+      }
+    }
+  }
 }

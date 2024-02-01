@@ -1,17 +1,14 @@
 /// <reference types="vitest" />
-// Plugins
 import { fileURLToPath, URL } from 'node:url';
 
 import vue from '@vitejs/plugin-vue';
-import lodash from 'lodash';
+import { merge } from 'lodash-es';
 import AutoImport from 'unplugin-auto-import/vite';
-// Utilities
 import { defineConfig, loadEnv, version as viteVersion } from 'vite';
 import { compression } from 'vite-plugin-compression2';
-// versions
 import vuetify from 'vite-plugin-vuetify';
-import { version as vueVersion } from 'vue/package.json';
-import { version as vuetifyVersion } from 'vuetify/package.json';
+import vuePkg from 'vue/package.json' assert { type: 'json' };
+import vuetifyPkg from 'vuetify/package.json' assert { type: 'json' };
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -32,10 +29,10 @@ export default defineConfig(({ command, mode }) => {
       compression(),
     ],
     define: {
-      'process.env': lodash.merge(env, {
+      'process.env': merge(env, {
         vite: viteVersion,
-        vue: vueVersion,
-        vuetify: vuetifyVersion,
+        vue: vuePkg.version,
+        vuetify: vuetifyPkg.version,
       }),
     },
     test: {
@@ -64,6 +61,19 @@ export default defineConfig(({ command, mode }) => {
       preprocessorOptions: {
         scss: { charset: false },
         css: { charset: false },
+      },
+    },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vue3-lottie': ['vue3-lottie'],
+            'vue3-apexcharts': ['vue3-apexcharts'],
+            'lodash-es': ['lodash-es'],
+            vuetify: ['vuetify'],
+            moment: ['moment'],
+          },
+        },
       },
     },
   };

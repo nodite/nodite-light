@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { toast } from 'vuetify-sonner';
 
 const { t: $t } = useI18n();
 
-const emit = defineEmits(['confirm', 'cancel']);
+const emit = defineEmits(['update:dialog', 'update:item', 'confirm']);
 
 const props = defineProps({
   dialog: {
@@ -18,62 +18,52 @@ const props = defineProps({
   },
 });
 
-const localData = ref({
-  dialog: props.dialog,
-  deleting: false,
+const dialog = computed({
+  get: () => props.dialog,
+  set: (v) => emit('update:dialog', v),
 });
+
+const item = computed({
+  get: () => props.item,
+  set: (v) => emit('update:item', v),
+});
+
+const deleting = ref(false);
 
 const methods = {
   close() {
-    if (localData.value.deleting) {
+    if (deleting.value) {
       toast.warning($t('$vuetify.deleteConfirmForm.deleting'));
       return;
     }
-    localData.value.dialog = false;
+    dialog.value = false;
+    item.value = {};
   },
   confirm() {
-    localData.value.deleting = true;
+    deleting.value = true;
     emit('confirm', props.item, (close: boolean = true) => {
-      localData.value.deleting = false;
+      deleting.value = false;
       if (close) methods.close();
     });
   },
-  cancel() {
-    emit('cancel');
-    methods.close();
-  },
 };
-
-watchEffect(() => {
-  localData.value.dialog = props.dialog;
-});
 </script>
 
 <template>
-  <v-dialog
-    v-model="localData.dialog"
-    max-width="400"
-    @clock:outside="methods.close"
-    :persistent="localData.deleting"
-  >
+  <v-dialog v-model="dialog" max-width="400" @clock:outside="methods.close" :persistent="deleting">
     <v-card>
       <v-card-text>{{ $t('$vuetify.deleteConfirmForm.title') }}</v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn
-          color="blue-darken-1"
-          variant="text"
-          @click="methods.cancel"
-          :disabled="localData.deleting"
-        >
+        <v-btn color="blue-darken-1" variant="text" @click="methods.close" :disabled="deleting">
           {{ $t('$vuetify.deleteConfirmForm.cancel') }}
         </v-btn>
         <v-btn
           color="blut-darken-1"
           variant="text"
           @click="methods.confirm"
-          :loading="localData.deleting"
-          :disabled="localData.deleting"
+          :loading="deleting"
+          :disabled="deleting"
         >
           {{ $t('$vuetify.deleteConfirmForm.confirm') }}
         </v-btn>

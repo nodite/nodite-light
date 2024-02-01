@@ -1,18 +1,3 @@
-/*
- * File: roleStore.ts                                                          *
- * Project: @nodite-light/admin-web                                            *
- * Created Date: Tu Jan 2024                                                   *
- * Author: Oscaner Miao                                                        *
- * -----                                                                       *
- * Last Modified: Tue Jan 02 2024                                              *
- * Modified By: Oscaner Miao                                                   *
- * -----                                                                       *
- * Copyright (c) 2024 @nodite                                                  *
- * ----------	---	---------------------------------------------------------    *
- */
-
-import lodash from 'lodash';
-
 import {
   IRole,
   IUserWithRoles,
@@ -21,6 +6,7 @@ import {
   SequelizePaginationIRole,
 } from '@/api/admin/data-contracts';
 import * as RoleApi from '@/api/admin/Role';
+import lodash from '@/utils/lodash';
 
 interface RoleState {
   roles: IRole[];

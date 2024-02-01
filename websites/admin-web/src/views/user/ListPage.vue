@@ -1,17 +1,12 @@
 <script setup lang="ts">
-import {
-  ItemsPerPageOption,
-  VDataTablePagination,
-} from '@nodite-light/vuetify-data-table-pagination';
+import { VDataTablePagination } from '@nodite-light/vuetify-data-table-pagination';
 import {
   type ConfirmCallback,
   VDeleteConfirmForm,
 } from '@nodite-light/vuetify-delete-confirm-form';
-import { DataTableItemProps } from '@nodite-light/vuetify-tree-data-table';
 import moment from 'moment';
 
 import { IUser, QueryParams, SequelizePaginationIUser } from '@/api/admin/data-contracts';
-import { $ndt } from '@/plugins/i18n';
 import { useProfileStore } from '@/stores/modules/profileStore';
 import { useUserStore } from '@/stores/modules/userStore';
 import PassForm from '@/views/user/components/PassForm.vue';
@@ -20,11 +15,6 @@ import UserForm from '@/views/user/components/UserForm.vue';
 const userStore = useUserStore();
 const profileStore = useProfileStore();
 const router = useRouter();
-
-const staticData = ref({
-  itemsPerPageOptions: [] as ItemsPerPageOption[],
-  headers: [] as DataTableItemProps['headers'],
-});
 
 const localData = ref({
   loading: true,
@@ -60,12 +50,10 @@ const deleteConfirmFormData = ref({
 });
 
 const methods = {
-  async loadList(showLoading: boolean = false) {
-    if (showLoading) localData.value.loading = true;
-
+  async loadList() {
+    localData.value.loading = true;
     localData.value.pageResult =
       (await userStore.list(queryParams.value)) || ({} as SequelizePaginationIUser);
-
     localData.value.loading = false;
   },
   isSelf(item: IUser) {
@@ -100,27 +88,14 @@ const methods = {
     userFormData.value.dialog = true;
     userFormData.value.userId = id;
   },
-  closeUserForm() {
-    userFormData.value.dialog = false;
-    userFormData.value.userId = 0;
-  },
   openPassForm(username: string, id: number) {
     passFormData.value.dialog = true;
     passFormData.value.username = username;
     passFormData.value.userId = id;
   },
-  closePassForm() {
-    passFormData.value.dialog = false;
-    passFormData.value.username = '';
-    passFormData.value.userId = 0;
-  },
   openDeleteConfirmForm(item: IUser) {
     deleteConfirmFormData.value.dialog = true;
     deleteConfirmFormData.value.item = item;
-  },
-  closeDeleteConfirmForm() {
-    deleteConfirmFormData.value.dialog = false;
-    deleteConfirmFormData.value.item = {} as IUser;
   },
   async openRoleAsgmtPage(item: IUser) {
     await router.push(`/user/${item.userId}/roles`);
@@ -132,7 +107,6 @@ const methods = {
     try {
       await userStore.delete(item.userId);
       await methods.loadList();
-      methods.closeDeleteConfirmForm();
       cb(true);
     } catch (error) {
       cb(false);
@@ -141,27 +115,7 @@ const methods = {
 };
 
 onMounted(() => {
-  methods.loadList(true);
-});
-
-watchEffect(() => {
-  // watch i18n.
-  staticData.value.itemsPerPageOptions = [
-    { value: 10, title: '10' },
-    { value: 25, title: '25' },
-    { value: 50, title: '50' },
-    { value: -1, title: $ndt('$vuetify.dataFooter.itemsPerPageAll') },
-  ];
-  staticData.value.headers = [
-    { title: '', align: 'start', key: 'data-table-select' },
-    { title: $ndt('views.user.headers.userId'), value: 'userId' },
-    { title: $ndt('views.user.headers.username'), value: 'username' },
-    { title: $ndt('views.user.headers.nickname'), value: 'nickname' },
-    { title: $ndt('views.user.headers.email'), value: 'email' },
-    { title: $ndt('Status'), value: 'status' },
-    { title: $ndt('common.form.createTime'), value: 'createTime' },
-    { key: 'actions', sortable: false },
-  ];
+  methods.loadList();
 });
 </script>
 
@@ -172,7 +126,7 @@ watchEffect(() => {
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-text-field
             density="compact"
-            :label="$ndt('views.user.form.username')"
+            :label="$ndt('Username')"
             v-model="queryParams.username"
             variant="outlined"
             hide-details
@@ -183,7 +137,7 @@ watchEffect(() => {
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-text-field
             density="compact"
-            :label="$ndt('views.user.form.nickname')"
+            :label="$ndt('Nickname')"
             v-model="queryParams.nickname"
             variant="outlined"
             hide-details
@@ -193,7 +147,7 @@ watchEffect(() => {
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-text-field
             density="compact"
-            :label="$ndt('views.user.form.email')"
+            :label="$ndt('Email')"
             v-model="queryParams.email"
             variant="outlined"
             hide-details
@@ -229,7 +183,7 @@ watchEffect(() => {
           :loading="localData.searching"
           @click="methods.searchList"
         >
-          {{ $ndt('common.form.search') }}
+          {{ $ndt('Search') }}
         </v-btn>
         <v-btn
           class="align-self-center"
@@ -239,7 +193,7 @@ watchEffect(() => {
           :loading="localData.searchResetting"
           @click="methods.resetSearch"
         >
-          {{ $ndt('common.form.reset') }}
+          {{ $ndt('Reset') }}
         </v-btn>
       </v-row>
     </v-card-text>
@@ -247,24 +201,31 @@ watchEffect(() => {
 
   <v-data-table
     item-value="userId"
-    :headers="staticData.headers"
+    :headers="[
+      { title: '', align: 'start', key: 'data-table-select' },
+      { title: $ndt('ID'), value: 'userId' },
+      { title: $ndt('Username'), value: 'username' },
+      { title: $ndt('Nickname'), value: 'nickname' },
+      { title: $ndt('Email'), value: 'email' },
+      { title: $ndt('Status'), value: 'status' },
+      { title: $ndt('Create Time'), value: 'createTime' },
+      { key: 'actions', sortable: false },
+    ]"
     :items="localData.pageResult.items"
   >
     <template v-slot:top>
       <v-toolbar density="compact" color="inherit">
-        <user-form
-          :dialog="userFormData.dialog"
-          :user-id="userFormData.userId"
-          @close="methods.closeUserForm"
+        <UserForm
+          v-model:dialog="userFormData.dialog"
+          v-model:user-id="userFormData.userId"
           @save="methods.loadList()"
-        ></user-form>
-        <pass-form
-          :dialog="passFormData.dialog"
+        ></UserForm>
+        <PassForm
+          v-model:dialog="passFormData.dialog"
+          v-model:user-id="passFormData.userId"
           :username="passFormData.username"
-          :user-id="passFormData.userId"
-          @close="methods.closePassForm"
           @save="methods.loadList()"
-        ></pass-form>
+        ></PassForm>
       </v-toolbar>
     </template>
 
@@ -337,7 +298,7 @@ watchEffect(() => {
               @click="methods.openRoleAsgmtPage(item)"
               prepend-icon="mdi-checkbox-multiple-marked-outline"
             >
-              <v-label>{{ $ndt('views.user.role_asgmt.title') }}</v-label>
+              <v-label>{{ $ndt('Role Asgmt') }}</v-label>
             </v-btn>
           </v-list-item>
         </v-list>
@@ -347,7 +308,12 @@ watchEffect(() => {
     <template v-slot:bottom>
       <VDataTablePagination
         :items-per-page="queryParams.itemsPerPage"
-        :items-per-page-options="staticData.itemsPerPageOptions"
+        :items-per-page-options="[
+          { value: 10, title: '10' },
+          { value: 25, title: '25' },
+          { value: 50, title: '50' },
+          { value: -1, title: $ndt('$vuetify.dataFooter.itemsPerPageAll') },
+        ]"
         :page="queryParams.page"
         :current-count="localData.pageResult.count"
         :total-count="localData.pageResult.totalCount"
@@ -360,10 +326,9 @@ watchEffect(() => {
 
   <!-- delete confirm -->
   <VDeleteConfirmForm
-    :dialog="deleteConfirmFormData.dialog"
-    :item="deleteConfirmFormData.item"
+    v-model:dialog="deleteConfirmFormData.dialog"
+    v-model:item="deleteConfirmFormData.item"
     @confirm="methods.delete"
-    @cancel="methods.closeDeleteConfirmForm"
   ></VDeleteConfirmForm>
 </template>
 

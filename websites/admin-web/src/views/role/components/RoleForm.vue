@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import lodash from 'lodash';
 import { toast } from 'vuetify-sonner';
 
 import { IRole } from '@/api/admin/data-contracts';
-import { $ndt } from '@/plugins/i18n';
+import i18n from '@/plugins/i18n';
 import { useRoleStore } from '@/stores/modules/roleStore';
 
 const roleStore = useRoleStore();
 
-const emit = defineEmits(['close', 'save']);
+const emit = defineEmits(['update:dialog', 'update:roleId', 'save']);
 
 const props = defineProps({
   dialog: {
@@ -21,28 +20,32 @@ const props = defineProps({
   },
 });
 
+const dialog = computed({
+  get: () => props.dialog,
+  set: (v) => emit('update:dialog', v),
+});
+
+const roleId = computed({
+  get: () => props.roleId,
+  set: (v) => emit('update:roleId', v),
+});
+
 // local data.
-const defLocalData = {
-  dialog: props.dialog,
+const localData = ref({
   isFormValid: false,
   isSaving: false,
   error: false,
   errorMessage: '',
-};
-
-const localData = ref(lodash.cloneDeep(defLocalData));
+});
 
 // form
 const refForm = ref();
 const formData = ref({} as IRole);
 const formRules = ref({
-  roleName: [
-    (v: string) => !!v || $ndt('common.form.required', [$ndt('views.role.form.roleName')]),
-  ],
+  roleName: [(v: string) => !!v || i18n.ndt('Role Name is required.')],
   roleKey: [
-    (v: string) => !!v || $ndt('common.form.required', [$ndt('views.role.form.roleKey')]),
-    (v: string) =>
-      (v && v.length <= 50) || $ndt('common.form.max', [$ndt('views.role.form.roleKey'), 50]),
+    (v: string) => !!v || i18n.ndt('Role Key is required.'),
+    (v: string) => (v && v.length <= 50) || i18n.ndt('Role Key must be less than 50 characters.'),
   ],
   orderNum: [],
   status: [],
@@ -51,20 +54,17 @@ const formRules = ref({
 // methods.
 const methods = {
   async loadFormData() {
-    let role = undefined;
-    if (props.roleId > 0) {
-      role = await roleStore.query(props.roleId);
-    }
-    formData.value = lodash.isUndefined(role) ? ({} as IRole) : role;
+    formData.value = roleId.value
+      ? (await roleStore.query(roleId.value)) || ({} as IRole)
+      : ({} as IRole);
   },
   closeRoleForm() {
     if (localData.value.isSaving) {
-      toast.warning($ndt('common.form.saving'));
+      toast.warning(i18n.ndt("It's saving, please wait a moment."));
       return;
     }
-    localData.value = lodash.cloneDeep(defLocalData);
-    formData.value = {} as IRole;
-    emit('close');
+    dialog.value = false;
+    roleId.value = 0;
   },
   resetErrors() {
     localData.value.error = false;
@@ -84,26 +84,26 @@ const methods = {
       await (formData.value.roleId > 0
         ? roleStore.edit(formData.value)
         : roleStore.create(formData.value));
+
+      toast.success(i18n.ndt('Saved successfully.'));
     } finally {
       localData.value.isSaving = false;
     }
 
-    toast.success($ndt('Saved successfully.'));
-
     methods.closeRoleForm();
+
     emit('save');
   },
 };
 
 watchEffect(() => {
-  localData.value.dialog = props.dialog;
   methods.loadFormData();
 });
 </script>
 
 <template>
   <v-dialog
-    v-model="localData.dialog"
+    v-model="dialog"
     @click:outside="methods.closeRoleForm"
     :persistent="localData.isSaving"
     max-width="750"
@@ -141,7 +141,7 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('views.role.form.roleName') }}:</v-label>
+                    <v-label>{{ $ndt('Role Name') }}:</v-label>
                   </template>
                 </v-text-field>
               </v-col>
@@ -149,7 +149,7 @@ watchEffect(() => {
                 <v-text-field
                   type="number"
                   density="compact"
-                  :label="$ndt('views.role.form.orderNum')"
+                  :label="$ndt('Order')"
                   v-model="formData.orderNum"
                   :rules="formRules.orderNum"
                   validate-on="blur"
@@ -172,7 +172,7 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('views.role.form.roleKey') }}:</v-label>
+                    <v-label>{{ $ndt('Role Key') }}:</v-label>
                   </template>
                 </v-text-field>
               </v-col>

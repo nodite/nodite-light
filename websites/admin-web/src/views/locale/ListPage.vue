@@ -1,19 +1,12 @@
 <script setup lang="ts">
 import { ConfirmCallback, VDeleteConfirmForm } from '@nodite-light/vuetify-delete-confirm-form';
 import { Icon } from '@nodite-light/vuetify-icon-picker';
-import { DataTableItemProps } from '@nodite-light/vuetify-tree-data-table';
 
 import { ILocale } from '@/api/admin/data-contracts';
-import { $ndt } from '@/plugins/i18n';
 import { useLocaleStore } from '@/stores/modules/localeStore';
 import LocaleForm from '@/views/locale/components/LocaleForm.vue';
 
 const localeStore = useLocaleStore();
-
-const staticData = ref({
-  headers: [] as DataTableItemProps['headers'],
-  status: [] as { title: string; value: number }[],
-});
 
 const localData = ref({
   loading: false,
@@ -33,7 +26,7 @@ const deleteConfirmFormData = ref({
 const methods = {
   async loadList() {
     localData.value.loading = true;
-    localData.value.locales = (await localeStore.list()) as ILocale[];
+    localData.value.locales = (await localeStore.listLocales()) as ILocale[];
     localData.value.loading = false;
   },
   async setLocaleDefault(locale: ILocale) {
@@ -44,29 +37,20 @@ const methods = {
     });
   },
   async changeLocaleStatus(id: number, status: number) {
-    await localeStore.edit({ localeId: id, status: status } as ILocale);
+    await localeStore.editLocale({ localeId: id, status: status } as ILocale);
   },
   openLocaleForm(id: number) {
     localeFormData.value.dialog = true;
     localeFormData.value.localeId = id;
   },
-  closeLocaleForm() {
-    localeFormData.value.dialog = false;
-    localeFormData.value.localeId = 0;
-  },
   openDeleteConfirmForm(item: ILocale) {
     deleteConfirmFormData.value.dialog = true;
     deleteConfirmFormData.value.item = item;
   },
-  closeDeleteConfirmForm() {
-    deleteConfirmFormData.value.dialog = false;
-    deleteConfirmFormData.value.item = {} as ILocale;
-  },
   async delete(item: ILocale, cb: ConfirmCallback) {
     try {
-      await localeStore.delete(item.localeId);
+      await localeStore.deleteLocale(item.localeId);
       await methods.loadList();
-      methods.closeDeleteConfirmForm();
       cb(true);
     } catch (e) {
       cb(false);
@@ -77,33 +61,27 @@ const methods = {
 onMounted(() => {
   methods.loadList();
 });
-
-watchEffect(() => {
-  staticData.value.headers = [
-    { title: $ndt('ID'), value: 'localeId' },
-    { title: $ndt('Label', undefined, { context: 'locale.list' }), value: 'label' },
-    { title: $ndt('Langcode'), value: 'langcode' },
-    { title: $ndt('Order'), value: 'orderNum' },
-    { title: $ndt('Default'), value: 'isDefault' },
-    { title: $ndt('Status'), value: 'status' },
-    { key: 'actions', sortable: false },
-  ];
-
-  staticData.value.status = [
-    { title: $ndt('Enabled'), value: 1 },
-    { title: $ndt('Disabled'), value: 0 },
-  ];
-});
 </script>
 
 <template>
-  <v-data-table item-value="localeId" :headers="staticData.headers" :items="localData.locales">
+  <v-data-table
+    item-value="localeId"
+    :headers="[
+      { title: $ndt('ID'), value: 'localeId' },
+      { title: $ndt('Label'), value: 'label' },
+      { title: $ndt('Langcode'), value: 'langcode' },
+      { title: $ndt('Order'), value: 'orderNum' },
+      { title: $ndt('Default'), value: 'isDefault' },
+      { title: $ndt('Status'), value: 'status' },
+      { key: 'actions', sortable: false },
+    ]"
+    :items="localData.locales"
+  >
     <template v-slot:top>
       <v-toolbar density="compact" color="inherit">
         <locale-form
-          :dialog="localeFormData.dialog"
-          :localeId="localeFormData.localeId"
-          @close="methods.closeLocaleForm"
+          v-model:dialog="localeFormData.dialog"
+          v-model:localeId="localeFormData.localeId"
           @save="methods.loadList"
         ></locale-form>
       </v-toolbar>
@@ -167,9 +145,8 @@ watchEffect(() => {
 
   <!-- delete confirm -->
   <VDeleteConfirmForm
-    :dialog="deleteConfirmFormData.dialog"
-    :item="deleteConfirmFormData.item"
+    v-model:dialog="deleteConfirmFormData.dialog"
+    v-model:item="deleteConfirmFormData.item"
     @confirm="methods.delete"
-    @cancel="methods.closeDeleteConfirmForm"
   ></VDeleteConfirmForm>
 </template>

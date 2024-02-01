@@ -19,7 +19,12 @@ import {
 
 import BaseController from '@/components/base.controller';
 import { IRoleWithUsers } from '@/components/role/role_user.model';
-import { IPasswordReset, IUserCreate, IUserUpdate } from '@/components/user/user.interface';
+import {
+  IPasswordReset,
+  IProfile,
+  IUserCreate,
+  IUserUpdate,
+} from '@/components/user/user.interface';
 import { IUser } from '@/components/user/user.model';
 import UserService from '@/components/user/user.service';
 import {
@@ -45,7 +50,7 @@ export class UserController extends BaseController {
   /**
    * @summary Get all users
    */
-  @Get('/list')
+  @Get('list')
   @OperationId('admin:user:list')
   @Permissions('admin:user:list')
   public async list(
@@ -59,17 +64,12 @@ export class UserController extends BaseController {
   /**
    * @summary Get current user
    */
-  @Get()
-  @OperationId('admin:user:curr')
-  @Permissions('admin:user:query', {
-    selfBypass: true,
-    userIdDetector: (args) => args[0].user?.userId,
-  })
-  @Cacheable({ hashKey: 'user:query', cacheKey: (args) => args[0].user?.userId })
-  public async curr(@Request() req: AuthorizedRequest): Promise<IResponse<IUser>> {
-    const user = await this.userService.selectUserById(req.user?.userId);
+  @Get('profile')
+  @OperationId('admin:user:profile')
+  public async profile(@Request() req: AuthorizedRequest): Promise<IResponse<IProfile>> {
+    const profile = await this.userService.selectProfile(req.user?.userId);
     this.setStatus(httpStatus.OK);
-    return this.response(user);
+    return this.response(profile);
   }
 
   /**
@@ -78,7 +78,6 @@ export class UserController extends BaseController {
   @Get('{id}')
   @OperationId('admin:user:query')
   @Permissions('admin:user:query', { selfBypass: true, userIdDetector: (args) => args[0] })
-  @Cacheable({ hashKey: 'user:query', cacheKey: (args) => args[0] })
   public async query(@Path() id: number): Promise<IResponse<IUser>> {
     const user = await this.userService.selectUserById(id);
     this.setStatus(httpStatus.OK);
@@ -105,7 +104,6 @@ export class UserController extends BaseController {
   @Middlewares([validate(EditValidation)])
   @OperationId('admin:user:edit')
   @Permissions('admin:user:edit', { selfBypass: true, userIdDetector: (args) => args[0] })
-  @CacheClear({ hashKey: 'user:query', cacheKey: (args) => args[0] })
   public async update(@Path() id: number, @Body() body: IUserUpdate): Promise<IResponse<IUser>> {
     const user = await this.userService.update(id, body);
     this.setStatus(httpStatus.ACCEPTED);
@@ -119,7 +117,6 @@ export class UserController extends BaseController {
   @Middlewares([validate(ResetPasswordValidation)])
   @OperationId('admin:user:resetPassword')
   @Permissions('admin:user:resetPassword', { selfBypass: true, userIdDetector: (args) => args[0] })
-  @CacheClear({ hashKey: 'user:query', cacheKey: (args) => args[0] })
   public async resetPassword(
     @Path() id: number,
     @Body() body: IPasswordReset,
@@ -135,7 +132,6 @@ export class UserController extends BaseController {
   @Delete('{id}')
   @OperationId('admin:user:delete')
   @Permissions('admin:user:delete')
-  @CacheClear({ hashKey: 'user:query', cacheKey: (args) => args[0] })
   @CacheClear({ hashKey: 'user:role:list', cacheKey: (args) => args[0] })
   public async delete(@Path() id: number): Promise<IResponse<void>> {
     await this.userService.delete(id);

@@ -1,5 +1,3 @@
-// import { ImportGlobOptions } from 'vite';
-
 declare interface ImportMeta {
   readonly env: {
     // Environment variables defined in .env
@@ -19,4 +17,4 @@ declare module '*.vue' {
 
 declare module 'vue-virtual-scroller';
 
-declare module 'vue3-treeview';
+declare module '@employee87/vue3-treeview';

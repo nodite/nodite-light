@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { IconPicker } from '@nodite-light/vuetify-icon-picker';
-import lodash from 'lodash';
 import { toast } from 'vuetify-sonner';
 
 import { DataTreeIMenu, IMenu } from '@/api/admin/data-contracts';
-import { $ndt } from '@/plugins/i18n';
+import i18n from '@/plugins/i18n';
 import { useMenuStore } from '@/stores/modules/menuStore';
+import lodash from '@/utils/lodash';
 
 const menuStore = useMenuStore();
 
-const emit = defineEmits(['close', 'save']);
+const emit = defineEmits(['update:dialog', 'update:menuId', 'save']);
 
 const props = defineProps({
   dialog: {
@@ -22,82 +22,62 @@ const props = defineProps({
   },
 });
 
+const dialog = computed({
+  get: () => props.dialog,
+  set: (v) => emit('update:dialog', v),
+});
+
+const menuId = computed({
+  get: () => props.menuId,
+  set: (v) => emit('update:menuId', v),
+});
+
 // static Data.
 const staticData = ref({
   menus: [] as DataTreeIMenu[],
-  layouts: [
-    { value: 'default', title: 'Default' },
-    { value: 'auth', title: 'Auth' },
-    { value: 'landing', title: 'Landing' },
-    { value: 'ui', title: 'UI' },
-  ],
 });
 
 // local Data.
-const defLocalData = {
-  dialog: props.dialog,
+const localData = ref({
   iconDialog: false,
   openIconPicker: false,
   isFormValid: true,
   isSaving: false,
   error: false,
   errorMessages: '',
-};
-
-const localData = ref(lodash.cloneDeep(defLocalData));
+});
 
 // Form.
 const refForm = ref();
 const formData = ref({} as IMenu);
 const formRules = ref({
-  parentId: [
-    (v: string) =>
-      lodash.isString(v) || (!v && $ndt('common.form.required', [$ndt('views.menu.form.parent')])),
-  ],
+  parentId: [(v: string) => lodash.isString(v) || (!v && i18n.ndt('Parent Menu is required.'))],
   orderNum: [],
-  iType: [(v: string) => !!v || $ndt('common.form.required', [$ndt('views.menu.form.iType')])],
-  menuName: [
-    (v: string) => !!v || $ndt('common.form.required', [$ndt('views.menu.form.menuName')]),
-  ],
+  iType: [(v: string) => !!v || i18n.ndt('Menu Type is required.')],
+  menuName: [(v: string) => !!v || i18n.ndt('Menu Name is required.')],
   icon: [],
-  path: [(v: string) => !v || v.startsWith('/') || $ndt('common.form.startswith', [v, '/'])],
+  path: [(v: string) => !v || v.startsWith('/') || i18n.ndt('Path must start with slash (/).')],
   redirect: [],
   component: [],
-  layout: [
-    (v: string) =>
-      // v required
-      !!v || $ndt('common.form.required', [$ndt('views.menu.form.layout')]),
-    (v: string) =>
-      // v is in layouts
-      lodash.map(staticData.value.layouts, 'value').includes(v) || $ndt('common.form.invalid', [v]),
-  ],
+  layout: [(v: string) => !!v || i18n.ndt('Layout is required')],
   perms: [],
-  hidden: [(v: number) => [0, 1].includes(v) || $ndt('common.form.invalid')],
+  hidden: [],
 });
 
 // methods.
 const methods = {
   async loadFormData() {
-    let menu = undefined;
-    if (props.menuId) {
-      menu = await menuStore.query(props.menuId);
-    }
-    formData.value = lodash.isUndefined(menu) ? ({} as IMenu) : menu;
+    formData.value = menuId.value
+      ? (await menuStore.query(menuId.value)) || ({} as IMenu)
+      : ({} as IMenu);
   },
   closeMenuForm() {
     if (localData.value.isSaving) {
-      toast.warning($ndt('common.form.saving'));
+      toast.warning(i18n.ndt("It's saving, please wait a moment."));
       return;
     }
-    localData.value = lodash.cloneDeep(defLocalData);
-    formData.value = {} as IMenu;
-    emit('close');
-  },
-  closeIconPicker() {
-    localData.value.openIconPicker = false;
-  },
-  inputIconPicker(icon: string) {
-    formData.value.icon = icon;
+    dialog.value = false;
+    menuId.value = '';
   },
   resetErrors() {
     localData.value.error = false;
@@ -117,13 +97,14 @@ const methods = {
       await (formData.value.menuId
         ? menuStore.edit(formData.value)
         : menuStore.create(formData.value));
+
+      toast.success(i18n.ndt('Saved successfully.'));
     } finally {
       localData.value.isSaving = false;
     }
 
-    toast.success($ndt('Saved successfully.'));
-
     methods.closeMenuForm();
+
     emit('save');
   },
 };
@@ -135,14 +116,13 @@ onMounted(() => {
 });
 
 watchEffect(() => {
-  localData.value.dialog = props.dialog;
   methods.loadFormData();
 });
 </script>
 
 <template>
   <v-dialog
-    v-model="localData.dialog"
+    v-model="dialog"
     @click:outside="methods.closeMenuForm"
     :persistent="localData.isSaving"
     max-width="750"
@@ -156,7 +136,7 @@ watchEffect(() => {
     <v-card density="compact" elevation="8" rounded="lg">
       <v-card-title class="pt-4">
         <v-label>
-          {{ props.menuId ? $ndt('Edit Menu - {0}', [formData.menuName]) : $ndt('New Menu') }}
+          {{ menuId ? $ndt('Edit Menu - {0}', [formData.menuName]) : $ndt('New Menu') }}
         </v-label>
         <v-spacer></v-spacer>
         <v-btn icon @click="methods.closeMenuForm" density="compact" variant="text">
@@ -190,7 +170,7 @@ watchEffect(() => {
                   clearable
                 >
                   <template v-slot:prepend>
-                    <v-label>{{ $ndt('views.menu.form.parent') }}:</v-label>
+                    <v-label>{{ $ndt('Parent Menu') }}:</v-label>
                   </template>
                   <template v-slot:chip="{ item }">
                     <v-chip>{{ $ndt(item.raw.menuName) }}</v-chip>
@@ -226,12 +206,12 @@ watchEffect(() => {
                   inline
                 >
                   <template v-slot:prepend>
-                    <v-label>{{ $ndt('views.menu.form.iType') }}:</v-label>
+                    <v-label> {{ $ndt('Menu Type') }}: </v-label>
                   </template>
-                  <v-radio :label="$ndt('views.menu.type.overline')" value="overline"></v-radio>
-                  <v-radio :label="$ndt('views.menu.type.directory')" value="directory"></v-radio>
-                  <v-radio :label="$ndt('views.menu.type.menu')" value="menu"></v-radio>
-                  <v-radio :label="$ndt('views.menu.type.action')" value="action"></v-radio>
+                  <v-radio :label="$ndt('Overline')" value="overline"></v-radio>
+                  <v-radio :label="$ndt('Directory')" value="directory"></v-radio>
+                  <v-radio :label="$ndt('Menu')" value="menu"></v-radio>
+                  <v-radio :label="$ndt('Action')" value="action"></v-radio>
                 </v-radio-group>
               </v-col>
             </v-row>
@@ -248,7 +228,7 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend>
-                    <v-label>{{ $ndt('views.menu.form.menuName') }}:</v-label>
+                    <v-label> {{ $ndt('Menu Name') }}: </v-label>
                   </template>
                 </v-text-field>
               </v-col>
@@ -266,7 +246,7 @@ watchEffect(() => {
               <v-col>
                 <v-text-field
                   v-model="formData.perms"
-                  :hint="$ndt('views.menu.form.permsHint')"
+                  :hint="$ndt('Format: [dom]:[obj]:[act], e.g. admin:menu:create')"
                   :rules="formRules.perms"
                   validate-on="blur"
                   :error="localData.error"
@@ -274,7 +254,7 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend>
-                    <v-label>{{ $ndt('views.menu.form.perms') }}:</v-label>
+                    <v-label> {{ $ndt('Permission') }}: </v-label>
                   </template>
                 </v-text-field>
               </v-col>
@@ -292,7 +272,7 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('views.menu.form.path') }}:</v-label>
+                    <v-label>{{ $ndt('Path') }}:</v-label>
                   </template>
                 </v-text-field>
               </v-col>
@@ -306,7 +286,7 @@ watchEffect(() => {
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('views.menu.form.redirect') }}:</v-label>
+                    <v-label>{{ $ndt('redirect to') }}:</v-label>
                   </template>
                 </v-text-field>
               </v-col>
@@ -319,13 +299,13 @@ watchEffect(() => {
                   v-model="formData.component"
                   density="compact"
                   variant="outlined"
-                  :hint="$ndt('views.menu.form.componentHint')"
+                  :hint="$ndt('The path of the component to be rendered.')"
                   :rules="formRules.component"
                   validate-on="blur"
                   :error="localData.error"
                 >
                   <template v-slot:prepend>
-                    <v-label>{{ $ndt('views.menu.form.component') }}:</v-label>
+                    <v-label>{{ $ndt('Component') }}:</v-label>
                   </template>
                 </v-text-field>
               </v-col>
@@ -333,9 +313,14 @@ watchEffect(() => {
                 <v-select
                   density="compact"
                   v-model="formData.layout"
-                  :items="staticData.layouts"
-                  :label="$ndt('views.menu.form.layout')"
-                  :hint="$ndt('views.menu.form.layoutHint')"
+                  :items="[
+                    { value: 'default', title: $ndt('Default') },
+                    { value: 'auth', title: $ndt('Auth') },
+                    { value: 'landing', title: $ndt('Landing') },
+                    { value: 'ui', title: $ndt('UI') },
+                  ]"
+                  :label="$ndt('Layout')"
+                  :hint="$ndt('The layout used for component render.')"
                   :rules="formRules.layout"
                   validate-on="blur"
                   :error="localData.error"
@@ -356,10 +341,10 @@ watchEffect(() => {
                   inline
                 >
                   <template v-slot:prepend>
-                    <v-label>{{ $ndt('views.menu.form.hidden') }}:</v-label>
+                    <v-label>{{ $ndt('Visibility') }}:</v-label>
                   </template>
-                  <v-radio :label="$ndt('common.visibility.show')" :value="0"></v-radio>
-                  <v-radio :label="$ndt('common.visibility.hidden')" :value="1"></v-radio>
+                  <v-radio :label="$ndt('Show')" :value="0"></v-radio>
+                  <v-radio :label="$ndt('Hidden')" :value="1"></v-radio>
                 </v-radio-group>
               </v-col>
             </v-row>

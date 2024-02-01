@@ -1,24 +1,11 @@
-/*
- * File: authStore.ts                                                          *
- * Project: @nodite-light/admin-web                                            *
- * Created Date: We Dec 2023                                                   *
- * Author: Oscaner Miao                                                        *
- * -----                                                                       *
- * Last Modified: Thu Dec 21 2023                                              *
- * Modified By: Oscaner Miao                                                   *
- * -----                                                                       *
- * Copyright (c) 2023 @nodite                                                  *
- * ----------	---	---------------------------------------------------------    *
- */
-
 import { defineStore } from 'pinia';
 import { toast } from 'vuetify-sonner';
 
 import * as AuthApi from '@/api/admin/Auth';
 import { LoginBody } from '@/api/admin/data-contracts';
-import { $ndt } from '@/plugins/i18n';
+import i18n from '@/plugins/i18n';
 import { useProfileStore } from '@/stores/modules/profileStore';
-import * as toolkit from '@/utils/request/toolkit';
+import * as toolkit from '@/utils/requestToolkit';
 
 export interface AuthState {
   isLoggedIn: boolean;
@@ -46,7 +33,7 @@ export const useAuthStore = defineStore('auth', {
 
   actions: {
     async register(userInfo: Record<string, unknown>) {
-      toast.warning($ndt('common.maintenance'));
+      toast.warning(i18n.ndt('System Maintenance'));
     },
 
     /**
@@ -58,7 +45,7 @@ export const useAuthStore = defineStore('auth', {
       const response = await AuthApi.adminAuthLogin(userInfo);
       toolkit.token.set(response?.token || '', response?.expiresIn);
       this.isLoggedIn = true;
-      toast.success($ndt('login.success'));
+      toast.success(i18n.ndt('Login successfully'));
       window.location.href = `${import.meta.env.VITE_APP_BASE_PATH || ''}/`;
     },
 
@@ -66,14 +53,14 @@ export const useAuthStore = defineStore('auth', {
      * Login with WeChat.
      */
     async loginWithWeChat() {
-      toast.warning('WeChat login is not supported yet.');
+      toast.warning(i18n.ndt('WeChat login is not supported yet.'));
     },
 
     /**
      * Login with Google.
      */
     async loginWithGoogle() {
-      toast.warning('Google login is not supported yet.');
+      toast.warning(i18n.ndt('Google login is not supported yet.'));
     },
 
     /**

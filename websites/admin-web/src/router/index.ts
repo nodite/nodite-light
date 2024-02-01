@@ -1,15 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import { $ndt } from '@/plugins/i18n';
+import i18n from '@/plugins/i18n';
 import dynamicRoutes from '@/router/dynamic.routes';
 import staticRoutes from '@/router/static.routes';
 import { useAppStore } from '@/stores/modules/appStore';
 import { useAuthStore } from '@/stores/modules/authStore';
-import { useLocaleStore } from '@/stores/modules/localeStore';
 import { useNavStore } from '@/stores/modules/navStore';
 import { useProfileStore } from '@/stores/modules/profileStore';
 import * as navUtil from '@/utils/navigation';
-import * as toolkit from '@/utils/request/toolkit';
+import * as toolkit from '@/utils/requestToolkit';
 import * as url from '@/utils/url';
 
 const router = createRouter({
@@ -31,14 +30,14 @@ router.beforeEach(async (to, from) => {
   // Start loading.
   useAppStore().setGlobalLoading(true);
 
-  // Locale initial.
-  useLocaleStore().initialize();
-
   // auth.
   const authStore = useAuthStore();
+  const profileStore = useProfileStore();
+  const navStore = useNavStore();
+  const isAdmin = await profileStore.isAdmin();
 
-  // Authorized user shouldn't visit auth pages.
-  if (authStore.isAuthorized && to.path === '/auth/signin') {
+  // Authorized no-admin user shouldn't visit auth pages.
+  if (authStore.isAuthorized && !isAdmin && ['/auth/signin', '/auth/signup'].includes(to.path)) {
     return { path: '/' };
   }
   // In white list.
@@ -47,13 +46,11 @@ router.beforeEach(async (to, from) => {
   }
   // Unauthorized.
   else if (!authStore.isAuthorized) {
-    toolkit.redirectToLogin($ndt('common.noSignIn'));
+    toolkit.redirectToLogin(i18n.ndt('No signed in.'));
     return false;
   }
 
-  const profileStore = useProfileStore();
-  const navStore = useNavStore();
-
+  // routing.
   try {
     if (!navStore.isRouterReady) {
       // Waiting profile ready.

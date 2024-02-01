@@ -1,25 +1,44 @@
 import { Permissions } from '@nodite-light/admin-auth';
 import { IResponse, validate } from '@nodite-light/admin-core';
-import { Cacheable, CacheClear } from '@nodite-light/admin-database';
+import { Cacheable, CacheClear, SequelizePagination } from '@nodite-light/admin-database';
 import httpStatus from 'http-status';
-import { Body, Delete, Get, Middlewares, OperationId, Path, Post, Put, Route, Tags } from 'tsoa';
+import {
+  Body,
+  Delete,
+  Get,
+  Header,
+  Middlewares,
+  OperationId,
+  Path,
+  Post,
+  Put,
+  Queries,
+  Route,
+  Tags,
+} from 'tsoa';
 
 import BaseController from '@/components/base.controller';
 import {
   IAvailableLocale,
+  IAvailableMessage,
   ILocaleCreate,
   ILocaleUpdate,
+  ISourceCreate,
 } from '@/components/locale/locale.interface';
 import { ILocale } from '@/components/locale/locale.model';
 import LocaleService from '@/components/locale/locale.service';
 import {
   LocaleCreateValidation,
-  LocaleEditValidation,
+  LocaleUpdateValidation,
+  SourceCreateValidation,
 } from '@/components/locale/locale.validation';
+import { ILocaleMessage } from '@/components/locale/locale_message.model';
+import { ILocaleSource } from '@/components/locale/locale_source.model';
+import { QueryParams } from '@/interfaces';
 
 @Route('locale')
 @Tags('locale')
-export class LocaleLangController extends BaseController {
+export class LocaleController extends BaseController {
   localeService: LocaleService;
 
   constructor() {
@@ -30,7 +49,7 @@ export class LocaleLangController extends BaseController {
   /**
    * @summary Get locale list
    */
-  @Get('/list')
+  @Get('list')
   @OperationId('admin:locale:list')
   @Permissions('admin:locale:list')
   public async list(): Promise<IResponse<ILocale[]>> {
@@ -42,7 +61,7 @@ export class LocaleLangController extends BaseController {
   /**
    * @summary Get available locales
    */
-  @Get('/available')
+  @Get('available')
   @OperationId('admin:locale:available')
   @Cacheable({ hashKey: 'locale:available' })
   public async listAvailable(): Promise<IResponse<IAvailableLocale[]>> {
@@ -57,7 +76,6 @@ export class LocaleLangController extends BaseController {
   @Get('{id}')
   @OperationId('admin:locale:query')
   @Permissions('admin:locale:query')
-  @Cacheable({ hashKey: 'locale:query', cacheKey: (args) => args[0] })
   public async query(@Path() id: number): Promise<IResponse<ILocale>> {
     const locale = await this.localeService.selectLocaleById(id);
     this.setStatus(httpStatus.OK);
@@ -72,7 +90,7 @@ export class LocaleLangController extends BaseController {
   @OperationId('admin:locale:create')
   @CacheClear({ hashKey: 'locale:available' })
   public async create(@Body() body: ILocaleCreate): Promise<IResponse<ILocale>> {
-    const locale = await this.localeService.create(body);
+    const locale = await this.localeService.createLocale(body);
     this.setStatus(httpStatus.CREATED);
     return this.response(locale);
   }
@@ -81,16 +99,15 @@ export class LocaleLangController extends BaseController {
    * @summary Update locale
    */
   @Put('{id}')
-  @Middlewares([validate(LocaleEditValidation)])
+  @Middlewares([validate(LocaleUpdateValidation)])
   @OperationId('admin:locale:edit')
   @Permissions('admin:locale:edit')
   @CacheClear({ hashKey: 'locale:available' })
-  @CacheClear({ hashKey: 'locale:query', cacheKey: (args) => args[0] })
   public async update(
     @Path() id: number,
     @Body() body: ILocaleUpdate,
   ): Promise<IResponse<ILocale>> {
-    const locale = await this.localeService.update(id, body);
+    const locale = await this.localeService.updateLocale(id, body);
     this.setStatus(httpStatus.OK);
     return this.response(locale);
   }
@@ -102,12 +119,54 @@ export class LocaleLangController extends BaseController {
   @OperationId('admin:locale:delete')
   @Permissions('admin:locale:delete')
   @CacheClear({ hashKey: 'locale:available' })
-  @CacheClear({ hashKey: 'locale:query', cacheKey: (args) => args[0] })
   public async delete(@Path() id: number): Promise<IResponse<void>> {
-    await this.localeService.delete(id);
+    await this.localeService.deleteLocale(id);
     this.setStatus(httpStatus.NO_CONTENT);
     return this.response();
   }
+
+  /**
+   * @summary Create locale source if missing
+   */
+  @Post('source')
+  @Middlewares([validate(SourceCreateValidation)])
+  @OperationId('admin:locale:source:create')
+  @Permissions('admin:locale:source:create')
+  public async createSourceIfMissing(
+    @Body() body: ISourceCreate,
+  ): Promise<IResponse<ILocaleSource>> {
+    const source = await this.localeService.createSourceIfMissing(body);
+    this.setStatus(httpStatus.OK);
+    return this.response(source);
+  }
+
+  /**
+   * @summary Get locale message list
+   */
+  @Get('message/list')
+  @OperationId('admin:locale:message:list')
+  @Permissions('admin:locale:list')
+  public async listMessages(
+    @Queries() params?: QueryParams,
+  ): Promise<IResponse<SequelizePagination<ILocaleMessage>>> {
+    const messages = await this.localeService.selectMessageList(params);
+    this.setStatus(httpStatus.OK);
+    return this.response(messages);
+  }
+
+  /**
+   * @summary Get available messages
+   */
+  @Get('message/available')
+  @OperationId('admin:locale:message:available')
+  @Cacheable({ hashKey: 'locale:message:available' })
+  public async listAvailableMessages(
+    @Header('Accept-Language') acceptLanguage: string,
+  ): Promise<IResponse<IAvailableMessage>> {
+    const messages = await this.localeService.selectAvailableMessageList(acceptLanguage);
+    this.setStatus(httpStatus.OK);
+    return this.response(messages);
+  }
 }
 
-export default LocaleLangController;
+export default LocaleController;

@@ -29,11 +29,11 @@ const TABLE_NAME = 'sys_role';
 })
 @Subscribe(RoleSeeds)
 export default class RoleModel extends SequelizeModel<RoleModel> {
-  @AllowNull(false)
   @Unique
   @PrimaryKey
   @AutoIncrement
-  @Column({ field: 'role_id', type: DataType.BIGINT({ length: 20 }) })
+  @AllowNull(false)
+  @Column({ field: 'role_id', type: DataType.INTEGER })
   roleId: number;
 
   @AllowNull(false)
@@ -41,13 +41,14 @@ export default class RoleModel extends SequelizeModel<RoleModel> {
   @Column({ field: 'role_name', type: DataType.STRING(50) })
   roleName: string;
 
-  @AllowNull(false)
   @Unique
+  @AllowNull(false)
   @Comment('role key')
   @Column({ field: 'role_key', type: DataType.STRING(100) })
   roleKey: string;
 
   @Default(0)
+  @AllowNull(false)
   @Column({ field: 'order_num', type: DataType.INTEGER({ length: 4 }) })
   orderNum: number;
 

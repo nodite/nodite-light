@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import lodash from 'lodash';
-
-import { $ndt } from '@/plugins/i18n';
+import i18n from '@/plugins/i18n';
 import { Common, NavigationConfig } from '@/types/config';
 import { BreadcrumbItem } from '@/types/vuetify/components/VBreadcrumbs';
+import lodash from '@/utils/lodash';
 
-const route = useRoute() as unknown as NavigationConfig.Router;
+const route = useRoute() as unknown as NavigationConfig.Route;
 
 const breadcrumbs = ref<Exclude<Common.ArrayElem<NonNullable<BreadcrumbItem>>, string>[]>([]);
 
@@ -21,7 +20,7 @@ watchEffect(() => {
     .map((item) => {
       return {
         to: item.path ? { path: item.path } : undefined,
-        title: $ndt(item.meta?.title) as string,
+        title: i18n.ndt(item.meta?.title) as string,
         disabled: false,
       };
     })

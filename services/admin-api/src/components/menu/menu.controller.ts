@@ -38,7 +38,7 @@ export class MenuController extends BaseController {
   /**
    * @summary List menu by user
    */
-  @Get('/list')
+  @Get('list')
   @OperationId('admin:menu:list')
   @Permissions('admin:menu:list')
   public async list(@Request() req: AuthorizedRequest): Promise<IResponse<IMenu[]>> {
@@ -50,7 +50,7 @@ export class MenuController extends BaseController {
   /**
    * @summary List menu tree by user
    */
-  @Get('/tree')
+  @Get('tree')
   @OperationId('admin:menu:tree')
   @Cacheable({ hashKey: 'menu:tree', cacheKey: (args) => args[0]?.user?.userId })
   public async listTree(@Request() req: AuthorizedRequest): Promise<IResponse<DataTree<IMenu>[]>> {
@@ -65,7 +65,6 @@ export class MenuController extends BaseController {
   @Get('{id}')
   @OperationId('admin:menu:query')
   @Permissions('admin:menu:query')
-  @Cacheable({ hashKey: 'menu:query', cacheKey: (args) => args[0] })
   public async query(@Path() id: string): Promise<IResponse<IMenu>> {
     const menu = await this.menuService.selectMenuById(id);
     this.setStatus(httpStatus.OK);
@@ -94,7 +93,6 @@ export class MenuController extends BaseController {
   @OperationId('admin:menu:edit')
   @Permissions('admin:menu:edit')
   @CacheClear({ hashKey: 'menu:tree:*' })
-  @CacheClear({ hashKey: 'menu:query', cacheKey: (args) => args[0] })
   public async update(@Path() id: string, @Body() body: IMenuUpdate): Promise<IResponse<IMenu>> {
     const menu = await this.menuService.update(id, body);
     this.setStatus(httpStatus.ACCEPTED);
@@ -108,7 +106,6 @@ export class MenuController extends BaseController {
   @OperationId('admin:menu:delete')
   @Permissions('admin:menu:delete')
   @CacheClear({ hashKey: 'menu:tree:*' })
-  @CacheClear({ hashKey: 'menu:query', cacheKey: (args) => args[0] })
   public async delete(@Path() id: string): Promise<IResponse<void>> {
     await this.menuService.delete(id);
     this.setStatus(httpStatus.NO_CONTENT);

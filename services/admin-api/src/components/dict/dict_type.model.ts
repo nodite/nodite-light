@@ -22,32 +22,39 @@ import DictTypeSeeds from '@/seeds/sys_dict_type.seeds.json';
 })
 @Subscribe(DictTypeSeeds)
 export default class DictTypeModel extends SequelizeModel<DictTypeModel> {
-  @AllowNull(false)
   @Unique
   @PrimaryKey
   @AutoIncrement
-  @Column({ field: 'dict_id', type: DataType.BIGINT({ length: 20 }) })
+  @AllowNull(false)
+  @Column({ field: 'dict_id', type: DataType.INTEGER })
   dictId: number;
 
   @ForeignKey(() => DictGroupModel)
+  @Default(0)
+  @AllowNull(false)
   @Comment('dict group id')
-  @Column({ field: 'dict_gid', type: DataType.BIGINT({ length: 20 }) })
+  @Column({ field: 'dict_gid', type: DataType.INTEGER })
   dictGid: number;
 
+  @Default('')
   @AllowNull(false)
   @Comment('dict name')
   @Column({ field: 'dict_name', type: DataType.STRING(50) })
   dictName: string;
 
+  @Default('default')
   @AllowNull(false)
   @Column({ field: 'dict_type', type: DataType.STRING(32) })
   dictType: 'default' | 'select';
 
+  @Default('')
+  @AllowNull(false)
   @Comment('dict desc')
   @Column({ field: 'dict_desc', type: DataType.TEXT })
   dictDesc: string;
 
   @Default(0)
+  @AllowNull(false)
   @Column({ field: 'order_num', type: DataType.INTEGER({ length: 4 }) })
   orderNum: number;
 

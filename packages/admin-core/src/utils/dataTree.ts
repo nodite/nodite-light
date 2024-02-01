@@ -1,4 +1,6 @@
-import lodash from 'lodash';
+import _difference from 'lodash/difference';
+import _map from 'lodash/map';
+import _reduce from 'lodash/reduce';
 import { arrayToTree } from 'performant-array-to-tree';
 
 import { BuildOptions, DataTree } from '@/interfaces/dataTree';
@@ -32,8 +34,8 @@ export function buildTree<T>(items: T[], options: BuildOptions): DataTree<T>[] {
     id: idKey,
     parentId: pidKey,
     dataField: null,
-    rootParentIds: lodash.reduce(
-      lodash.difference(lodash.map(items, pidKey), lodash.map(items, idKey)),
+    rootParentIds: _reduce(
+      _difference(_map(items, pidKey), _map(items, idKey)),
       (result, value) => ({ ...result, [value]: true }),
       {},
     ),

@@ -21,23 +21,26 @@ import DictGroupSeeds from '@/seeds/sys_dict_group.seeds.json';
 })
 @Subscribe(DictGroupSeeds)
 export default class DictGroupModel extends SequelizeModel<DictGroupModel> {
-  @AllowNull(false)
   @Unique
   @PrimaryKey
   @AutoIncrement
-  @Column({ field: 'group_id', type: DataType.BIGINT({ length: 20 }) })
+  @AllowNull(false)
+  @Column({ field: 'group_id', type: DataType.INTEGER })
   groupId: number;
 
+  @Default('')
   @AllowNull(false)
   @Comment('dict group name')
   @Column({ field: 'group_name', type: DataType.STRING(50) })
   groupName: string;
 
   @Default(0)
-  @Column({ field: 'parent_id', type: DataType.BIGINT({ length: 20 }) })
+  @AllowNull(false)
+  @Column({ field: 'parent_id', type: DataType.INTEGER })
   parentId: number;
 
   @Default(0)
+  @AllowNull(false)
   @Column({ field: 'order_num', type: DataType.INTEGER({ length: 4 }) })
   orderNum: number;
 
