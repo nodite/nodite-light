@@ -58,9 +58,10 @@ const updatePrimaryColor = (color: ThemeConfig.Color) => {
           <div class="px-3 pt-3" v-if="customizeTheme.darkTheme">
             <v-btn
               @click="customizeTheme.setDarkTheme(!customizeTheme.darkTheme, updatePrimaryColor)"
-              icon
               color="grey-darken-4"
               class="text-white"
+              :title="$ndt('Change to Light Mode')"
+              icon
             >
               <Icon width="30" icon="line-md:moon-filled-loop" />
             </v-btn>
@@ -69,9 +70,10 @@ const updatePrimaryColor = (color: ThemeConfig.Color) => {
           <div class="px-3 pt-3" v-else>
             <v-btn
               @click="customizeTheme.setDarkTheme(!customizeTheme.darkTheme, updatePrimaryColor)"
-              icon
               color="white"
               class="text-red"
+              :title="$ndt('Change to Dark Mode')"
+              icon
             >
               <Icon width="30" icon="line-md:moon-filled-alt-to-sunny-filled-loop-transition" />
             </v-btn>
@@ -81,45 +83,10 @@ const updatePrimaryColor = (color: ThemeConfig.Color) => {
 
         <hr class="my-6" />
 
-        <!--
-        <div class="primary-color-area">
-          <b>Primary Colors</b>
-          <v-item-group class="mt-3" v-model="currentColor" selected-class="elevation-12" mandatory>
-            <v-item
-              v-for="color in primaryColors"
-              :key="color.colorId"
-              :value="color"
-              v-slot="{ isSelected, toggle }"
-            >
-              <v-btn
-                @click="toggle"
-                class="text-white mr-1"
-                icon
-                size="30"
-                :color="color.colorValue"
-              >
-                <Icon width="22" v-if="isSelected" icon="line-md:confirm" />
-              </v-btn>
-            </v-item>
-          </v-item-group>
-        </div>
-
-
-        <hr class="my-6" />
-        <div class="">
-          <b>MiniSideBar</b>
-          <v-switch
-            color="primary"
-            class="ml-2"
-            hide-details
-            :label="`Mini: ${customizeTheme.miniSidebar}`"
-          ></v-switch>
-        </div>
-        <hr class="mb-6" />
-        -->
-
         <div>
-          <v-btn color="" class="gradient info" block size="large">Contact Me</v-btn>
+          <v-btn color="" class="gradient info" block size="large" :title="$ndt('Contact Me')">
+            Contact Me
+          </v-btn>
         </div>
         <div class="ml-5 mt-5 d-flex align-center">
           <v-icon color="primary" class="mr-2">mdi-email-outline</v-icon>

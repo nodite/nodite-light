@@ -28,8 +28,8 @@ export const useProfileStore = defineStore('profile', {
      * Get profiles.
      * @returns
      */
-    async getProfile(): Promise<IProfile> {
-      if (lodash.isEmpty(this.profile)) {
+    async getProfile(force: boolean = false): Promise<IProfile> {
+      if (lodash.isEmpty(this.profile) || force) {
         this.profile = (await UserApi.adminUserProfile()) || ({} as IProfile);
       }
       return this.profile;

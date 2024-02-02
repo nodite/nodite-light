@@ -9,7 +9,9 @@ import { Vue3Lottie } from 'vue3-lottie';
         :height="500"
         :width="500"
       />
-      <v-btn flat color="#00A9D7" class="mb-4 text-white" to="/">Go Back to Home</v-btn>
+      <v-btn flat color="#00A9D7" class="mb-4 text-white" to="/">
+        {{ $ndt('Go Back to Home') }}
+      </v-btn>
     </div>
   </v-card>
 </template>

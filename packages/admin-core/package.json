@@ -16,7 +16,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check \"{*.js,!(node*)**/*.ts}\"",
-    "prettier:fix": "prettier --write \"{*.js,!(node*)**/*.ts}\""
+    "prettier:fix": "prettier --write \"{*.js,!(node*)**/*.ts}\"",
+    "clean": "rimraf lib"
   },
   "dependencies": {
     "express": "^4.18.2",
@@ -34,7 +35,9 @@
     "winston": "^3.11.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.202",
     "@types/md5": "^2.3.5",
-    "node-mocks-http": "^1.14.0"
+    "node-mocks-http": "^1.14.0",
+    "rimraf": "^5.0.5"
   }
 }

@@ -107,4 +107,5 @@ export default [
   'mdiXml',
   'mdiCodeBraces',
   'mdiCodeJson',
+  'mdiTranslate',
 ];

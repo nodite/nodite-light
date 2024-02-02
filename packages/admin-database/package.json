@@ -16,7 +16,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check \"{*.js,!(node*)**/*.ts}\"",
-    "prettier:fix": "prettier --write \"{*.js,!(node*)**/*.ts}\""
+    "prettier:fix": "prettier --write \"{*.js,!(node*)**/*.ts}\"",
+    "clean": "rimraf lib"
   },
   "dependencies": {
     "@nodite-light/admin-core": "*",
@@ -32,7 +33,9 @@
     "sequelize-typescript": "^2.1.6"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.202",
     "@types/node": "^20.10.6",
-    "@types/validator": "^13.11.7"
+    "@types/validator": "^13.11.7",
+    "rimraf": "^5.0.5"
   }
 }

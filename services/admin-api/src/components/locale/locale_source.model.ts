@@ -1,7 +1,6 @@
 import { SequelizeModel, Subscribe } from '@nodite-light/admin-database';
 import {
   AllowNull,
-  AutoIncrement,
   Column,
   Comment,
   DataType,
@@ -31,15 +30,22 @@ import LocaleSourceSeeds from '@/seeds/sys_locale_source.seeds.json';
 export default class LocaleSourceModel extends SequelizeModel<LocaleSourceModel> {
   @Unique
   @PrimaryKey
-  @AutoIncrement
   @AllowNull(false)
+  @Default(DataType.UUIDV4)
   @Comment('Unique identifier of this source.')
-  @Column({ field: 'src_id', type: DataType.INTEGER })
-  srcId: number;
+  @Column({ field: 'src_id', type: DataType.UUID })
+  srcId: string;
 
+  @Default('')
   @AllowNull(false)
   @Comment('The original string.')
-  @Column(DataType.TEXT)
+  @Column({
+    field: 'source',
+    type: DataType.BLOB,
+    get() {
+      return this.getDataValue('source')?.toString('utf8');
+    },
+  })
   source: string;
 
   @Default('')

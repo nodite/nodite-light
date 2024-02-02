@@ -35,9 +35,10 @@ export const useMenuStore = defineStore('menu', {
      * List tree.
      * @returns
      */
-    async listTree(): Promise<DataTreeIMenu[]> {
-      if (!lodash.isEmpty(this.menuTree)) return this.menuTree;
-      this.menuTree = (await MenuApi.adminMenuTree()) || [];
+    async listTree(force: boolean = false): Promise<DataTreeIMenu[]> {
+      if (lodash.isEmpty(this.menuTree) || force) {
+        this.menuTree = (await MenuApi.adminMenuTree()) || [];
+      }
       return this.menuTree;
     },
 
@@ -56,7 +57,6 @@ export const useMenuStore = defineStore('menu', {
      */
     async create(menu: IMenu): Promise<void> {
       await MenuApi.adminMenuCreate(lodash.omit(menu, ['menuId']));
-      await this.$reset();
     },
 
     /**
@@ -65,7 +65,6 @@ export const useMenuStore = defineStore('menu', {
      */
     async edit(menu: IMenu): Promise<void> {
       await MenuApi.adminMenuEdit(menu.menuId, lodash.omit(menu, ['menuId']));
-      await this.$reset();
     },
 
     /**
@@ -74,7 +73,6 @@ export const useMenuStore = defineStore('menu', {
      */
     async delete(id: string): Promise<void> {
       await MenuApi.adminMenuDelete(id);
-      await this.$reset();
     },
   },
 });

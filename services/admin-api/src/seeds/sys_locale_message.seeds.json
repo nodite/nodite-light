@@ -1,1 +1,1544 @@
-[]
+[
+  {
+    "createBy": "admin",
+    "srcId": "0011f3f3-90f1-43fc-aacf-f0ca5ee9621e",
+    "langcode": "en",
+    "message": "The path of the component to be rendered."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0011f3f3-90f1-43fc-aacf-f0ca5ee9621e",
+    "langcode": "zhHans",
+    "message": "需要渲染的组件路径"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0035ba2e-8906-4ce4-9e87-e24c27047164",
+    "langcode": "en",
+    "message": "Menu Type is required."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0035ba2e-8906-4ce4-9e87-e24c27047164",
+    "langcode": "zhHans",
+    "message": "菜单类型是必填项"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "00636517-9973-4047-a30a-32a76364bf3a",
+    "langcode": "en",
+    "message": "Privacy Policy"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "00636517-9973-4047-a30a-32a76364bf3a",
+    "langcode": "zhHans",
+    "message": "隐私政策"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0088cfec-5e53-433d-8e09-0619e7bdf61b",
+    "langcode": "en",
+    "message": "Parent Menu"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0088cfec-5e53-433d-8e09-0619e7bdf61b",
+    "langcode": "zhHans",
+    "message": "父级菜单"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "01dfdef6-bc96-4a3a-ab63-c5af35488ea7",
+    "langcode": "en",
+    "message": "Expand/Collapse"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "01dfdef6-bc96-4a3a-ab63-c5af35488ea7",
+    "langcode": "zhHans",
+    "message": "展开/折叠"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "05504b26-9dad-4c93-8ed9-ae7e7961a039",
+    "langcode": "en",
+    "message": "Role Create"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "05504b26-9dad-4c93-8ed9-ae7e7961a039",
+    "langcode": "zhHans",
+    "message": "角色创建"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "08cd777f-becb-4370-982a-0d88a73fc78e",
+    "langcode": "en",
+    "message": "Directory"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "08cd777f-becb-4370-982a-0d88a73fc78e",
+    "langcode": "zhHans",
+    "message": "目录"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "08ce9ccf-6cf5-4af9-b8de-a7785465785c",
+    "langcode": "en",
+    "message": "Welcome"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "08ce9ccf-6cf5-4af9-b8de-a7785465785c",
+    "langcode": "zhHans",
+    "message": "欢迎"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0bb4ba4e-2c54-46ff-aff4-78596c2a4db2",
+    "langcode": "en",
+    "message": "Root"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0bb4ba4e-2c54-46ff-aff4-78596c2a4db2",
+    "langcode": "zhHans",
+    "message": "根目录"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0e10e481-c3a1-4135-9588-a0c969ea4e34",
+    "langcode": "en",
+    "message": "Menu Name is required."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0e10e481-c3a1-4135-9588-a0c969ea4e34",
+    "langcode": "zhHans",
+    "message": "菜单名称是必填项"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0e9e9a88-8eea-4b69-a2a6-efaa4a5fcdc4",
+    "langcode": "en",
+    "message": "Reset"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0e9e9a88-8eea-4b69-a2a6-efaa4a5fcdc4",
+    "langcode": "zhHans",
+    "message": "重置"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0f23649a-903a-4b61-9918-49f593811a4f",
+    "langcode": "en",
+    "message": "redirect to"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0f23649a-903a-4b61-9918-49f593811a4f",
+    "langcode": "zhHans",
+    "message": "跳转到"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1087d82e-c287-4bbe-b3b4-001fc5aa60c2",
+    "langcode": "en",
+    "message": "Create Locale"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1087d82e-c287-4bbe-b3b4-001fc5aa60c2",
+    "langcode": "zhHans",
+    "message": "创建区域"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "13eca577-b77c-4da0-9955-d3ce903a21e6",
+    "langcode": "en",
+    "message": "Menu"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "13eca577-b77c-4da0-9955-d3ce903a21e6",
+    "langcode": "zhHans",
+    "message": "菜单"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "157c9f60-9043-4168-803d-3d173e7c20ec",
+    "langcode": "en",
+    "message": "Go Back to Home"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "157c9f60-9043-4168-803d-3d173e7c20ec",
+    "langcode": "zhHans",
+    "message": "返回主页"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "16e9c97b-d9be-488f-af08-bcb389d00256",
+    "langcode": "en",
+    "message": "Context"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "16e9c97b-d9be-488f-af08-bcb389d00256",
+    "langcode": "zhHans",
+    "message": "上下文"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1c631932-dd64-4fde-a598-ebadb5c35071",
+    "langcode": "en",
+    "message": "Sign In"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1c631932-dd64-4fde-a598-ebadb5c35071",
+    "langcode": "zhHans",
+    "message": "登陆"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1dbe48a9-8408-4511-8742-1f413e38f93c",
+    "langcode": "en",
+    "message": "Menu Type"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1dbe48a9-8408-4511-8742-1f413e38f93c",
+    "langcode": "zhHans",
+    "message": "菜单类型"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1f1d381a-08f0-4c4a-9338-b1045cddcdd8",
+    "langcode": "en",
+    "message": "overline"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1f1d381a-08f0-4c4a-9338-b1045cddcdd8",
+    "langcode": "zhHans",
+    "message": "overline"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "21bf849c-7a1f-4c9c-9552-9cf61112a9b7",
+    "langcode": "en",
+    "message": "Role Name"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "21bf849c-7a1f-4c9c-9552-9cf61112a9b7",
+    "langcode": "zhHans",
+    "message": "角色名称"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "26d96a95-a28d-4043-b6a0-6195c1270619",
+    "langcode": "en",
+    "message": "Language Switcher"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "26d96a95-a28d-4043-b6a0-6195c1270619",
+    "langcode": "zhHans",
+    "message": "语言切换"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "2a81ead2-1bd2-4163-accb-75cea6a8e39b",
+    "langcode": "en",
+    "message": "Menu Create"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "2dac52a8-826d-4fa4-9e3b-b6d80eadd008",
+    "langcode": "en",
+    "message": "Don't have an account?"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "2dac52a8-826d-4fa4-9e3b-b6d80eadd008",
+    "langcode": "zhHans",
+    "message": "没有帐号？"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "307bacf0-c654-4bcb-9b68-51ac60836e2f",
+    "langcode": "en",
+    "message": "Username"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "307bacf0-c654-4bcb-9b68-51ac60836e2f",
+    "langcode": "zhHans",
+    "message": "用户名"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "30af8375-9b12-4698-95c4-783e6f9a4fa1",
+    "langcode": "en",
+    "message": "Set as default"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "30af8375-9b12-4698-95c4-783e6f9a4fa1",
+    "langcode": "zhHans",
+    "message": "设为默认"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "31c99ca5-fcf1-4f96-91b6-a7c4a352480b",
+    "langcode": "en",
+    "message": "Label"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "31c99ca5-fcf1-4f96-91b6-a7c4a352480b",
+    "langcode": "zhHans",
+    "message": "名称"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "330de27f-e866-48d3-801f-f19734db3074",
+    "langcode": "en",
+    "message": "Save"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "330de27f-e866-48d3-801f-f19734db3074",
+    "langcode": "zhHans",
+    "message": "保存"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "35dad8cd-e460-461e-a226-39b0b2f99da4",
+    "langcode": "en",
+    "message": "Permission"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "35dad8cd-e460-461e-a226-39b0b2f99da4",
+    "langcode": "zhHans",
+    "message": "权限标识"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "380b1288-510e-4dff-a5fd-5050132c1da6",
+    "langcode": "en",
+    "message": "Forgot password?"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "380b1288-510e-4dff-a5fd-5050132c1da6",
+    "langcode": "zhHans",
+    "message": "忘记密码？"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3a73ad1c-e25b-41e0-a161-2cfe6a149611",
+    "langcode": "en",
+    "message": "Role Perms"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3a73ad1c-e25b-41e0-a161-2cfe6a149611",
+    "langcode": "zhHans",
+    "message": "角色权限"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3c932509-b0b2-4d6c-a5f7-3852407eb62b",
+    "langcode": "en",
+    "message": "Secret"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3c932509-b0b2-4d6c-a5f7-3852407eb62b",
+    "langcode": "zhHans",
+    "message": "保密"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3df8c329-b54a-4568-bf32-16bdd3b02f81",
+    "langcode": "en",
+    "message": "menu"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3df8c329-b54a-4568-bf32-16bdd3b02f81",
+    "langcode": "zhHans",
+    "message": "菜单"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3f524cbe-c027-4b0b-971d-ea333bcb62ae",
+    "langcode": "en",
+    "message": "(empty)"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3f524cbe-c027-4b0b-971d-ea333bcb62ae",
+    "langcode": "zhHans",
+    "message": "(empty)"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "44134080-0087-4d68-adeb-f740367fd5f1",
+    "langcode": "en",
+    "message": "Menu Edit"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "444655e4-a884-4339-96f0-17b3a3a955b0",
+    "langcode": "en",
+    "message": "System"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "444655e4-a884-4339-96f0-17b3a3a955b0",
+    "langcode": "zhHans",
+    "message": "系统"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "45cded0a-be74-4a35-a53c-89ef2770bd31",
+    "langcode": "en",
+    "message": "New Menu"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "45cded0a-be74-4a35-a53c-89ef2770bd31",
+    "langcode": "zhHans",
+    "message": "创建菜单"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "464f2949-d079-4669-ba1c-f84136bfadd7",
+    "langcode": "en",
+    "message": "Sign in to your account"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "464f2949-d079-4669-ba1c-f84136bfadd7",
+    "langcode": "zhHans",
+    "message": "请登陆"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "49462796-818a-410c-8f3d-506370224c2a",
+    "langcode": "en",
+    "message": "Order"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "49462796-818a-410c-8f3d-506370224c2a",
+    "langcode": "zhHans",
+    "message": "排序"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4bf0104c-6191-40a5-a49b-db0c9f38f596",
+    "langcode": "en",
+    "message": "Welcome! Let's build amazing things together."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4bf0104c-6191-40a5-a49b-db0c9f38f596",
+    "langcode": "zhHans",
+    "message": "欢迎! 让我们一起创造奇迹。"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4dc4eb1e-63a9-40a3-8aa2-65463bc16c49",
+    "langcode": "en",
+    "message": "Landing"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4dc4eb1e-63a9-40a3-8aa2-65463bc16c49",
+    "langcode": "zhHans",
+    "message": "Landing"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4e67e335-9c4e-4720-ba90-fcc46c23c06a",
+    "langcode": "en",
+    "message": "Role Mgmt"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4e67e335-9c4e-4720-ba90-fcc46c23c06a",
+    "langcode": "zhHans",
+    "message": "角色管理"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4eae2297-c7c2-4d80-9a52-60e79d6c9521",
+    "langcode": "en",
+    "message": "Default"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4eae2297-c7c2-4d80-9a52-60e79d6c9521",
+    "langcode": "zhHans",
+    "message": "默认"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4f354219-edf8-4231-8296-04b076cf6202",
+    "langcode": "en",
+    "message": "Female"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4f354219-edf8-4231-8296-04b076cf6202",
+    "langcode": "zhHans",
+    "message": "女"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4f385a02-7f91-45fe-a46c-1b83d6d2e27d",
+    "langcode": "en",
+    "message": "Locale Query"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4f385a02-7f91-45fe-a46c-1b83d6d2e27d",
+    "langcode": "zhHans",
+    "message": "区域查询"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4fd50a6d-b507-4304-a6b5-774e40acf7c7",
+    "langcode": "en",
+    "message": "Disabled"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4fd50a6d-b507-4304-a6b5-774e40acf7c7",
+    "langcode": "zhHans",
+    "message": "禁用"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "512237b0-3f64-4acb-baf7-f6fe532f4eef",
+    "langcode": "en",
+    "message": "Edit Menu - {0}"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "512237b0-3f64-4acb-baf7-f6fe532f4eef",
+    "langcode": "zhHans",
+    "message": "编辑菜单 - {0}"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5278e1ac-8581-442c-af02-7c01958cd953",
+    "langcode": "en",
+    "message": "Perms"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5278e1ac-8581-442c-af02-7c01958cd953",
+    "langcode": "zhHans",
+    "message": "权限"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "573c726a-69c4-4495-a262-c189f433bfbe",
+    "langcode": "en",
+    "message": "Create Account"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "573c726a-69c4-4495-a262-c189f433bfbe",
+    "langcode": "zhHans",
+    "message": "创建帐号"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "575504c8-4bbf-4698-b1b2-c219e4faafec",
+    "langcode": "en",
+    "message": "Role Key"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "575504c8-4bbf-4698-b1b2-c219e4faafec",
+    "langcode": "zhHans",
+    "message": "角色标识"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "59fbf527-2aa4-46d2-8d77-9172888c15e2",
+    "langcode": "en",
+    "message": "WeChat"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "59fbf527-2aa4-46d2-8d77-9172888c15e2",
+    "langcode": "zhHans",
+    "message": "微信"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5a09e64c-b097-469b-b1a3-b1186f5a72f8",
+    "langcode": "en",
+    "message": "directory"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5a09e64c-b097-469b-b1a3-b1186f5a72f8",
+    "langcode": "zhHans",
+    "message": "目录"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5a42f770-2fbc-4415-a04d-82e73458beaa",
+    "langcode": "en",
+    "message": "Create Time"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5a42f770-2fbc-4415-a04d-82e73458beaa",
+    "langcode": "zhHans",
+    "message": "创建时间"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5b419471-e200-4f2f-bbf3-374b766b7b8d",
+    "langcode": "en",
+    "message": "Langcode"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5b419471-e200-4f2f-bbf3-374b766b7b8d",
+    "langcode": "zhHans",
+    "message": "语言代码"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5d7e9d06-8a7e-4f7b-8390-d9f33dbd7915",
+    "langcode": "en",
+    "message": "By signing up, you agree to the"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5d7e9d06-8a7e-4f7b-8390-d9f33dbd7915",
+    "langcode": "zhHans",
+    "message": "签署即表示您同意"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "647c3b7c-024e-4cd8-aefa-fcbddc568e9f",
+    "langcode": "en",
+    "message": "Role Delete"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "647c3b7c-024e-4cd8-aefa-fcbddc568e9f",
+    "langcode": "zhHans",
+    "message": "角色删除"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "67569c0a-abf0-406a-a224-cf76acff5396",
+    "langcode": "en",
+    "message": "Username is required."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "67569c0a-abf0-406a-a224-cf76acff5396",
+    "langcode": "zhHans",
+    "message": "用户名是必填项"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "688c5bf9-877c-41d3-8bff-ab0543e05c15",
+    "langcode": "en",
+    "message": "Moment Code"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "688c5bf9-877c-41d3-8bff-ab0543e05c15",
+    "langcode": "zhHans",
+    "message": "moment 代码"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "68e7c6f0-5964-446b-ab60-c973ad51e25e",
+    "langcode": "en",
+    "message": "Change to Dark Mode"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "68e7c6f0-5964-446b-ab60-c973ad51e25e",
+    "langcode": "zhHans",
+    "message": "切换为黑暗模式"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "693a4a1d-527d-4daf-905e-dc130f94a239",
+    "langcode": "en",
+    "message": "Message"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "693a4a1d-527d-4daf-905e-dc130f94a239",
+    "langcode": "zhHans",
+    "message": "消息"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6def3cfa-3d38-4cde-9bf1-9c98fe840b51",
+    "langcode": "en",
+    "message": "Email"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6def3cfa-3d38-4cde-9bf1-9c98fe840b51",
+    "langcode": "zhHans",
+    "message": "邮箱"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6e39d4c6-cb72-4959-821a-de647f3e4a21",
+    "langcode": "en",
+    "message": "Save All ({0})"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6e39d4c6-cb72-4959-821a-de647f3e4a21",
+    "langcode": "zhHans",
+    "message": "保存所有 ({0})"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6f589f0f-f979-4f40-8888-968b46a6e729",
+    "langcode": "en",
+    "message": "Locale Delete"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6f589f0f-f979-4f40-8888-968b46a6e729",
+    "langcode": "zhHans",
+    "message": "区域删除"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6fa3d516-efe4-4642-8809-f3febf079d67",
+    "langcode": "en",
+    "message": "Auth"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6fa3d516-efe4-4642-8809-f3febf079d67",
+    "langcode": "zhHans",
+    "message": "Auth"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7441f3ac-6c03-4515-9ec9-6fd0653b4a07",
+    "langcode": "en",
+    "message": "Visibility"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7441f3ac-6c03-4515-9ec9-6fd0653b4a07",
+    "langcode": "zhHans",
+    "message": "可见性"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "75dbe0ab-ca43-4d7f-9f3e-29495d846a90",
+    "langcode": "en",
+    "message": "Menu Delete"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "786dac95-3f74-4b59-9177-0a9e234c17f5",
+    "langcode": "en",
+    "message": "Locale Edit"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "786dac95-3f74-4b59-9177-0a9e234c17f5",
+    "langcode": "zhHans",
+    "message": "区域编辑"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7ab6c4cf-6e0c-46c1-a3cb-598dea232fde",
+    "langcode": "en",
+    "message": "Path"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7ab6c4cf-6e0c-46c1-a3cb-598dea232fde",
+    "langcode": "zhHans",
+    "message": "路径"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7c5e8cc9-4a5c-4e95-8e7d-b0b954f56852",
+    "langcode": "en",
+    "message": "Edit Role - {0}"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7e9b9fec-44d6-4ad7-8363-00154162c448",
+    "langcode": "en",
+    "message": "Type"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7e9b9fec-44d6-4ad7-8363-00154162c448",
+    "langcode": "zhHans",
+    "message": "类型"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7ee9ccf8-d142-4f7e-a946-c7f95c873de8",
+    "langcode": "en",
+    "message": "Icon"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7ee9ccf8-d142-4f7e-a946-c7f95c873de8",
+    "langcode": "zhHans",
+    "message": "图标"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "80de4a61-ca4f-44bd-9dec-4ef19689a7a5",
+    "langcode": "en",
+    "message": "System Mgmt"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "80de4a61-ca4f-44bd-9dec-4ef19689a7a5",
+    "langcode": "zhHans",
+    "message": "系统管理"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "847aa8f8-7e81-46af-a793-4e922dd5b60f",
+    "langcode": "en",
+    "message": "Nickname"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "847aa8f8-7e81-46af-a793-4e922dd5b60f",
+    "langcode": "zhHans",
+    "message": "昵称"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "84fc95dd-133f-4027-ad49-c7449959cd3d",
+    "langcode": "en",
+    "message": "Sex"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "84fc95dd-133f-4027-ad49-c7449959cd3d",
+    "langcode": "zhHans",
+    "message": "性别"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "851e4239-ecf0-4b56-bf39-aa409d082f50",
+    "langcode": "en",
+    "message": "Or sign up with"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "851e4239-ecf0-4b56-bf39-aa409d082f50",
+    "langcode": "zhHans",
+    "message": "或注册"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "89d768cc-6c79-44ba-93ba-8b3dd63ac6eb",
+    "langcode": "en",
+    "message": "Edit User - {0}"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "89d768cc-6c79-44ba-93ba-8b3dd63ac6eb",
+    "langcode": "zhHans",
+    "message": "编辑用户 - {0}"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "8b99e724-a71f-4592-9ef3-2830dc052010",
+    "langcode": "en",
+    "message": "Role Users"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "8b99e724-a71f-4592-9ef3-2830dc052010",
+    "langcode": "zhHans",
+    "message": "角色用户"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "8c52a0cb-c358-46b7-98d6-f554d93f7dda",
+    "langcode": "en",
+    "message": "The layout used for component render."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "8c52a0cb-c358-46b7-98d6-f554d93f7dda",
+    "langcode": "zhHans",
+    "message": "用于视图显示的布局"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "8d0e82a6-f369-43f1-afbd-50f3b7f2db9d",
+    "langcode": "en",
+    "message": "Show"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "8d0e82a6-f369-43f1-afbd-50f3b7f2db9d",
+    "langcode": "zhHans",
+    "message": "显示"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "92358f27-14f7-40ab-ae4a-4b18a7e69793",
+    "langcode": "en",
+    "message": "Layout"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "92358f27-14f7-40ab-ae4a-4b18a7e69793",
+    "langcode": "zhHans",
+    "message": "Layout"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "946e9026-c3ed-447b-b68a-65d41cf954b9",
+    "langcode": "en",
+    "message": "Locale Mgmt"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "946e9026-c3ed-447b-b68a-65d41cf954b9",
+    "langcode": "zhHans",
+    "message": "区域管理"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "9ce498a1-f473-4a37-ae08-81583a7a010a",
+    "langcode": "en",
+    "message": "Role Query"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "9ce498a1-f473-4a37-ae08-81583a7a010a",
+    "langcode": "zhHans",
+    "message": "角色查询"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "9e0e03f7-d82f-4230-8d97-8bf890404403",
+    "langcode": "en",
+    "message": "New User"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "9e0e03f7-d82f-4230-8d97-8bf890404403",
+    "langcode": "zhHans",
+    "message": "新建用户"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "9f41dca2-615f-4037-b1b3-fe91f449ca48",
+    "langcode": "en",
+    "message": "Parent Menu is required."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "9f41dca2-615f-4037-b1b3-fe91f449ca48",
+    "langcode": "zhHans",
+    "message": "父级菜单是必填项"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "a10d8439-7dd2-46d1-93e8-e4744b034a94",
+    "langcode": "en",
+    "message": "New Locale"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "a10d8439-7dd2-46d1-93e8-e4744b034a94",
+    "langcode": "zhHans",
+    "message": "新建区域"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "a338f2f5-b1a4-4923-aca4-2048f7bbc120",
+    "langcode": "en",
+    "message": "Password"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "a338f2f5-b1a4-4923-aca4-2048f7bbc120",
+    "langcode": "zhHans",
+    "message": "密码"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "a6d0e920-6103-4c07-a498-f13b8644e642",
+    "langcode": "en",
+    "message": "action"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "a6d0e920-6103-4c07-a498-f13b8644e642",
+    "langcode": "zhHans",
+    "message": "操作"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "a76a3df7-d0a6-41bc-b747-8650383a9bd2",
+    "langcode": "en",
+    "message": "Or sign in with"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "a76a3df7-d0a6-41bc-b747-8650383a9bd2",
+    "langcode": "zhHans",
+    "message": "或使用"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ab4139a4-484f-4e0f-a55e-c8c56c9d7636",
+    "langcode": "en",
+    "message": "Role Name is required."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ab4139a4-484f-4e0f-a55e-c8c56c9d7636",
+    "langcode": "zhHans",
+    "message": "角色名是必填项"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ad766c76-1319-4a12-8829-ca3d8a2a708d",
+    "langcode": "en",
+    "message": "Langcode is required."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ad766c76-1319-4a12-8829-ca3d8a2a708d",
+    "langcode": "zhHans",
+    "message": "语言代码是必填项"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b30c36d0-88e7-4156-a744-91c75b40114c",
+    "langcode": "en",
+    "message": "Locale Create"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b30c36d0-88e7-4156-a744-91c75b40114c",
+    "langcode": "zhHans",
+    "message": "区域创建"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b5686052-edb2-440b-bf18-eaeddfa30c0f",
+    "langcode": "en",
+    "message": "Message BatchUpsert"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b5686052-edb2-440b-bf18-eaeddfa30c0f",
+    "langcode": "zhHans",
+    "message": "翻译批量更新"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b682b37e-cad6-4580-b43f-554645d42adb",
+    "langcode": "en",
+    "message": "Menu Query"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b91ca2d7-ca2a-4975-b991-8495667ade5e",
+    "langcode": "en",
+    "message": "Message Create"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b91ca2d7-ca2a-4975-b991-8495667ade5e",
+    "langcode": "zhHans",
+    "message": "翻译创建"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "bbc03c6d-33d8-43a2-824b-80197f971105",
+    "langcode": "en",
+    "message": "User Mgmt"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "bbc03c6d-33d8-43a2-824b-80197f971105",
+    "langcode": "zhHans",
+    "message": "用户管理"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "bbf81f47-9eef-404c-8f9e-b8f1b6569991",
+    "langcode": "en",
+    "message": "Male"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "bbf81f47-9eef-404c-8f9e-b8f1b6569991",
+    "langcode": "zhHans",
+    "message": "男"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "bfa7378d-ed05-4bce-a1b7-91059c720a09",
+    "langcode": "en",
+    "message": "Hidden"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "bfa7378d-ed05-4bce-a1b7-91059c720a09",
+    "langcode": "zhHans",
+    "message": "隐藏"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c098331e-b6c8-4de7-8ad3-40fac43c1910",
+    "langcode": "en",
+    "message": "Save All"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c098331e-b6c8-4de7-8ad3-40fac43c1910",
+    "langcode": "zhHans",
+    "message": "保存所有"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c2dfa960-9aee-41bc-afc0-610b1561640e",
+    "langcode": "en",
+    "message": "Format: [dom]:[obj]:[act], e.g. admin:menu:create"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c2dfa960-9aee-41bc-afc0-610b1561640e",
+    "langcode": "zhHans",
+    "message": "格式: [dom]:[obj]:[act], 如 admin:menu:create"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c372bb46-997f-406d-a1a5-b6ea4cf9d0f6",
+    "langcode": "en",
+    "message": "Menu Perms"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c372bb46-997f-406d-a1a5-b6ea4cf9d0f6",
+    "langcode": "zhHans",
+    "message": "菜单权限"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c4a807e0-7071-4e19-9fd6-f5a5ea34aa87",
+    "langcode": "en",
+    "message": "Create one here"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c4a807e0-7071-4e19-9fd6-f5a5ea34aa87",
+    "langcode": "zhHans",
+    "message": "在此处创建一个"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c5ca7edd-84b6-40f7-ad72-e4aad608d4cf",
+    "langcode": "en",
+    "message": "Linkage/Not"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c5ca7edd-84b6-40f7-ad72-e4aad608d4cf",
+    "langcode": "zhHans",
+    "message": "父子联动"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c7ba9eaf-3239-4dbf-829b-0b0cf85842e1",
+    "langcode": "en",
+    "message": "Role Edit"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c7ba9eaf-3239-4dbf-829b-0b0cf85842e1",
+    "langcode": "zhHans",
+    "message": "角色编辑"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c98e8b37-947b-4bbf-bd00-f8d6f585ab6f",
+    "langcode": "en",
+    "message": "Locales"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c98e8b37-947b-4bbf-bd00-f8d6f585ab6f",
+    "langcode": "zhHans",
+    "message": "区域"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ca922fae-4070-4804-91cb-e3c028c1fe1c",
+    "langcode": "en",
+    "message": "Dict Mgmt"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ca922fae-4070-4804-91cb-e3c028c1fe1c",
+    "langcode": "zhHans",
+    "message": "字典管理"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ca9244a4-6f36-40ea-ac88-a3bbfc5ec6f3",
+    "langcode": "en",
+    "message": "Contact Me"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ca9244a4-6f36-40ea-ac88-a3bbfc5ec6f3",
+    "langcode": "zhHans",
+    "message": "联系我"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d0426919-d4da-430a-bad9-7fbf52d01a01",
+    "langcode": "en",
+    "message": "Status"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d0426919-d4da-430a-bad9-7fbf52d01a01",
+    "langcode": "zhHans",
+    "message": "状态"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d2152470-2e4d-45d1-8744-179cdf33b960",
+    "langcode": "en",
+    "message": "User Assign"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d2152470-2e4d-45d1-8744-179cdf33b960",
+    "langcode": "zhHans",
+    "message": "用户分配"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d2441884-d7d2-41c7-b6fb-66a453880e8c",
+    "langcode": "en",
+    "message": "Overline"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d2441884-d7d2-41c7-b6fb-66a453880e8c",
+    "langcode": "zhHans",
+    "message": "Overline"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d249edc2-2f2e-4cd1-a228-72cb0ff16f59",
+    "langcode": "en",
+    "message": "Role Key is required."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d249edc2-2f2e-4cd1-a228-72cb0ff16f59",
+    "langcode": "zhHans",
+    "message": "角色标识是必填项"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d2ea24ff-2e71-4dd5-aa50-ac79e8f4c075",
+    "langcode": "en",
+    "message": "Messages"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d2ea24ff-2e71-4dd5-aa50-ac79e8f4c075",
+    "langcode": "zhHans",
+    "message": "翻译"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d4f47209-7b77-411a-bdbd-331a44b349db",
+    "langcode": "en",
+    "message": "Menu Name"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d4f47209-7b77-411a-bdbd-331a44b349db",
+    "langcode": "zhHans",
+    "message": "菜单名称"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d6b52311-66b2-428e-a3dc-d455d03478a7",
+    "langcode": "en",
+    "message": "Already have an account?"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d6b52311-66b2-428e-a3dc-d455d03478a7",
+    "langcode": "zhHans",
+    "message": "已经有帐号了？"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "db4368c1-65d2-41c0-9824-20443459018b",
+    "langcode": "en",
+    "message": "Message"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "db4368c1-65d2-41c0-9824-20443459018b",
+    "langcode": "zhHans",
+    "message": "翻译"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "dcb41c04-be08-4214-a999-cf978b78c90a",
+    "langcode": "en",
+    "message": "Component"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "dcb41c04-be08-4214-a999-cf978b78c90a",
+    "langcode": "zhHans",
+    "message": "组件"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e04bcccf-cf7f-4281-aa9e-ef37612c07ac",
+    "langcode": "en",
+    "message": "Enabled"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e04bcccf-cf7f-4281-aa9e-ef37612c07ac",
+    "langcode": "zhHans",
+    "message": "启用"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e10edc2e-6c1d-48fe-83e5-3d0c18721d8a",
+    "langcode": "en",
+    "message": "ID"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e10edc2e-6c1d-48fe-83e5-3d0c18721d8a",
+    "langcode": "zhHans",
+    "message": "ID"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e330a033-4ac2-4010-8a75-d1ace0d2136e",
+    "langcode": "en",
+    "message": "Source"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e330a033-4ac2-4010-8a75-d1ace0d2136e",
+    "langcode": "zhHans",
+    "message": "源"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e4e0e597-b4f2-45c6-9ffc-5ba1018adb7e",
+    "langcode": "en",
+    "message": "User Un-Assign"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e4e0e597-b4f2-45c6-9ffc-5ba1018adb7e",
+    "langcode": "zhHans",
+    "message": "用户取消分配"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e6f7e0aa-a2b8-4a8b-8031-558e9affe600",
+    "langcode": "en",
+    "message": "Create Role"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e6f7e0aa-a2b8-4a8b-8031-558e9affe600",
+    "langcode": "zhHans",
+    "message": "创建角色"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e9ac6a3c-b5c1-4808-9d1b-7c17d8a8ec8f",
+    "langcode": "en",
+    "message": "Phone"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e9ac6a3c-b5c1-4808-9d1b-7c17d8a8ec8f",
+    "langcode": "zhHans",
+    "message": "手机号"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "eab4fcfe-5eec-4d96-aa8f-448d0b42eb24",
+    "langcode": "en",
+    "message": "Password is required."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "eab4fcfe-5eec-4d96-aa8f-448d0b42eb24",
+    "langcode": "zhHans",
+    "message": "密码是必填项"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "eb2f4924-7b0a-4725-8ff7-ab7e4b275f39",
+    "langcode": "en",
+    "message": "Select All/None"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "eb2f4924-7b0a-4725-8ff7-ab7e4b275f39",
+    "langcode": "zhHans",
+    "message": "全选/全不选"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ec0f5022-37ef-402f-b1c1-120ee76d195c",
+    "langcode": "en",
+    "message": "Create Menu"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ec0f5022-37ef-402f-b1c1-120ee76d195c",
+    "langcode": "zhHans",
+    "message": "创建菜单"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ed31a2a4-a49f-4123-98eb-9817ac13757a",
+    "langcode": "en",
+    "message": "Search"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ed31a2a4-a49f-4123-98eb-9817ac13757a",
+    "langcode": "zhHans",
+    "message": "搜索"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f089788c-ffad-4d3c-a2bd-650121f50100",
+    "langcode": "en",
+    "message": "Create User"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f089788c-ffad-4d3c-a2bd-650121f50100",
+    "langcode": "zhHans",
+    "message": "创建用户"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f72adb05-1390-41e7-8a0a-c50485c386d3",
+    "langcode": "en",
+    "message": "UI"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f72adb05-1390-41e7-8a0a-c50485c386d3",
+    "langcode": "zhHans",
+    "message": "UI"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f8210d73-13dc-4e2e-bc19-5335011f59d1",
+    "langcode": "en",
+    "message": "New Role"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f8210d73-13dc-4e2e-bc19-5335011f59d1",
+    "langcode": "zhHans",
+    "message": "新建角色"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f87c051d-55ce-4af6-9d84-d2a5de9f6de9",
+    "langcode": "en",
+    "message": "Action"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f87c051d-55ce-4af6-9d84-d2a5de9f6de9",
+    "langcode": "zhHans",
+    "message": "操作"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f8bde630-3a36-4af6-abc0-1515dfadb79d",
+    "langcode": "en",
+    "message": "Menu Mgmt"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f8bde630-3a36-4af6-abc0-1515dfadb79d",
+    "langcode": "zhHans",
+    "message": "菜单管理"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "fcd1cc41-0589-4619-af5d-e4b7b78dea98",
+    "langcode": "en",
+    "message": "Terms of Service"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "fcd1cc41-0589-4619-af5d-e4b7b78dea98",
+    "langcode": "zhHans",
+    "message": "服务条款"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "fe76a700-1737-41e3-bb5d-572d4d4e6851",
+    "langcode": "en",
+    "message": "Cancel"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "fe76a700-1737-41e3-bb5d-572d4d4e6851",
+    "langcode": "zhHans",
+    "message": "取消"
+  }
+]

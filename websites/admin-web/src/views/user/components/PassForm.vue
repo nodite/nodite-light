@@ -34,8 +34,8 @@ const userId = computed({
   set: (v) => emit('update:userId', v),
 });
 
-// local data.
-const localData = ref({
+// Local data.
+const myRefStore = ref({
   isFormValid: false,
   isSaving: false,
   showPassword: false,
@@ -44,7 +44,7 @@ const localData = ref({
   errorMessage: '',
 });
 
-// form.
+// Form.
 const refForm = ref();
 const formData = ref({} as IPasswordReset);
 const formRules = ref({
@@ -59,30 +59,33 @@ const formRules = ref({
   ],
 });
 
-// methods.
+// Methods.
 const methods = {
+  // Close password form.
   closePassForm() {
-    if (localData.value.isSaving) {
+    if (myRefStore.value.isSaving) {
       toast.warning(i18n.ndt("It's saving, please wait a moment."));
       return;
     }
     dialog.value = false;
     userId.value = 0;
     formData.value = {} as IPasswordReset;
-    localData.value.showPassword = false;
-    localData.value.showConfirmPassword = false;
+    myRefStore.value.showPassword = false;
+    myRefStore.value.showConfirmPassword = false;
   },
+  // Reset errors.
   resetErrors() {
-    localData.value.error = false;
-    localData.value.errorMessage = '';
+    myRefStore.value.error = false;
+    myRefStore.value.errorMessage = '';
   },
+  // Save.
   async save() {
-    localData.value.isSaving = true;
+    myRefStore.value.isSaving = true;
 
     const { valid } = await refForm.value.validate();
 
-    if (!valid || !localData.value.isFormValid) {
-      localData.value.isSaving = false;
+    if (!valid || !myRefStore.value.isFormValid) {
+      myRefStore.value.isSaving = false;
       return;
     }
 
@@ -95,7 +98,7 @@ const methods = {
 
       toast.success(i18n.ndt('Saved successfully.'));
     } finally {
-      localData.value.isSaving = false;
+      myRefStore.value.isSaving = false;
     }
 
     methods.closePassForm();
@@ -109,7 +112,7 @@ const methods = {
   <v-dialog
     v-model="dialog"
     @click:outside="methods.closePassForm"
-    :persistent="localData.isSaving"
+    :persistent="myRefStore.isSaving"
     max-width="700"
   >
     <v-card>
@@ -120,8 +123,8 @@ const methods = {
       <v-card-text>
         <v-form
           ref="refForm"
-          v-model="localData.isFormValid"
-          :disabled="localData.isSaving"
+          v-model="myRefStore.isFormValid"
+          :disabled="myRefStore.isSaving"
           lazy-validation
         >
           <v-container class="px-10 pb-0">
@@ -132,12 +135,12 @@ const methods = {
                   density="compact"
                   v-model="formData.password"
                   :rules="formRules.password"
-                  :disabled="localData.isSaving"
-                  :type="localData.showPassword ? 'text' : 'password'"
-                  :append-icon="localData.showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                  @click:append="localData.showPassword = !localData.showPassword"
+                  :disabled="myRefStore.isSaving"
+                  :type="myRefStore.showPassword ? 'text' : 'password'"
+                  :append-icon="myRefStore.showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="myRefStore.showPassword = !myRefStore.showPassword"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
@@ -154,12 +157,12 @@ const methods = {
                   density="compact"
                   v-model="formData.confirmPassword"
                   :rules="formRules.confirmPassword"
-                  :disabled="localData.isSaving"
-                  :type="localData.showConfirmPassword ? 'text' : 'password'"
-                  :append-icon="localData.showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                  @click:append="localData.showConfirmPassword = !localData.showConfirmPassword"
+                  :disabled="myRefStore.isSaving"
+                  :type="myRefStore.showConfirmPassword ? 'text' : 'password'"
+                  :append-icon="myRefStore.showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="myRefStore.showConfirmPassword = !myRefStore.showConfirmPassword"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
@@ -175,10 +178,10 @@ const methods = {
       <v-card-actions>
         <!-- actions -->
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" @click="methods.closePassForm" :disabled="localData.isSaving">
+        <v-btn color="blue darken-1" @click="methods.closePassForm" :disabled="myRefStore.isSaving">
           {{ $ndt('Cancel') }}
         </v-btn>
-        <v-btn @click="methods.save" :loading="localData.isSaving" :disabled="localData.isSaving">
+        <v-btn @click="methods.save" :loading="myRefStore.isSaving" :disabled="myRefStore.isSaving">
           {{ $ndt('Save') }}
         </v-btn>
       </v-card-actions>

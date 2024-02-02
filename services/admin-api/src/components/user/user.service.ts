@@ -71,7 +71,7 @@ export default class UserService {
     const user = (
       await UserModel.findOne({
         where: { userId: id },
-        include: [{ model: RoleModel }],
+        include: [{ model: RoleModel, required: false }],
       })
     ).toJSON();
 

@@ -32,8 +32,8 @@ const localeId = computed({
   set: (v) => emit('update:localeId', v),
 });
 
-// local data.
-const localData = ref({
+// Local data.
+const myRefStore = ref({
   iconDialog: false,
   isFormValid: false,
   isSaving: false,
@@ -41,7 +41,7 @@ const localData = ref({
   errorMessage: '',
 });
 
-// form
+// From.
 const refForm = ref();
 const formData = ref({} as ILocale);
 const formRules = ref({
@@ -54,32 +54,37 @@ const formRules = ref({
   status: [],
 });
 
-// methods.
+// Methods.
 const methods = {
+  // Load form data.
   async loadFormData() {
+    if (!localeId.value) return;
     formData.value = localeId.value
       ? (await localeStore.queryLocale(localeId.value)) || ({} as ILocale)
       : ({} as ILocale);
   },
+  // Close locale form.
   closeLocaleForm() {
-    if (localData.value.isSaving) {
+    if (myRefStore.value.isSaving) {
       toast.warning(i18n.ndt("It's saving, please wait a moment."));
       return;
     }
     dialog.value = false;
     localeId.value = 0;
   },
+  // Reset errors.
   resetErrors() {
-    localData.value.error = false;
-    localData.value.errorMessage = '';
+    myRefStore.value.error = false;
+    myRefStore.value.errorMessage = '';
   },
+  // Save.
   async save() {
-    localData.value.isSaving = true;
+    myRefStore.value.isSaving = true;
 
     const { valid } = await refForm.value.validate();
 
-    if (!valid || !localData.value.isFormValid) {
-      localData.value.isSaving = false;
+    if (!valid || !myRefStore.value.isFormValid) {
+      myRefStore.value.isSaving = false;
       return;
     }
 
@@ -88,11 +93,11 @@ const methods = {
         ? localeStore.editLocale(formData.value)
         : localeStore.createLocale(formData.value));
 
-      localeStore.$patch({ availableLocales: [] });
+      localeStore.listAvailableLocales(true);
 
       toast.success(i18n.ndt('Saved successfully.'));
     } finally {
-      localData.value.isSaving = false;
+      myRefStore.value.isSaving = false;
     }
 
     methods.closeLocaleForm();
@@ -110,7 +115,7 @@ watchEffect(() => {
   <v-dialog
     v-model="dialog"
     @click:outside="methods.closeLocaleForm"
-    :persistent="localData.isSaving"
+    :persistent="myRefStore.isSaving"
     max-width="750"
   >
     <template v-slot:activator="{ props }">
@@ -135,8 +140,8 @@ watchEffect(() => {
       <v-card-text>
         <v-form
           ref="refForm"
-          v-model="localData.isFormValid"
-          :disabled="localData.isSaving"
+          v-model="myRefStore.isFormValid"
+          :disabled="myRefStore.isSaving"
           lazy-validation
         >
           <v-container class="px-10 pb-0">
@@ -148,7 +153,7 @@ watchEffect(() => {
                   v-model="formData.label"
                   :rules="formRules.label"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
@@ -164,7 +169,7 @@ watchEffect(() => {
                   v-model="formData.orderNum"
                   :rules="formRules.orderNum"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   variant="outlined"
                 ></v-text-field>
               </v-col>
@@ -175,9 +180,9 @@ watchEffect(() => {
               <v-col>
                 <IconPicker
                   v-model="formData.icon"
-                  v-model:dialog="localData.iconDialog"
+                  v-model:dialog="myRefStore.iconDialog"
                   :label="$ndt('Icon')"
-                  v-model:error="localData.error"
+                  v-model:error="myRefStore.error"
                 ></IconPicker>
               </v-col>
             </v-row>
@@ -188,8 +193,9 @@ watchEffect(() => {
                 <LanguageSelector
                   v-model="formData.langcode"
                   density="compact"
-                  v-model:error="localData.error"
+                  v-model:error="myRefStore.error"
                   :rules="formRules.langcode"
+                  :show-code="true"
                 >
                   <template v-slot:prepend-inner>
                     <v-label> {{ $ndt('Langcode') }}: </v-label>
@@ -202,7 +208,7 @@ watchEffect(() => {
                   v-model="formData.momentCode"
                   :rules="formRules.momentCode"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
@@ -219,7 +225,7 @@ watchEffect(() => {
                   v-model="formData.status"
                   :rules="formRules.status"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   inline
                 >
                   <template v-slot:prepend>
@@ -241,11 +247,11 @@ watchEffect(() => {
         <v-btn
           color="blue darken-1"
           @click="methods.closeLocaleForm"
-          :disabled="localData.isSaving"
+          :disabled="myRefStore.isSaving"
         >
           {{ $ndt('Cancel') }}
         </v-btn>
-        <v-btn @click="methods.save" :loading="localData.isSaving" :disabled="localData.isSaving">
+        <v-btn @click="methods.save" :loading="myRefStore.isSaving" :disabled="myRefStore.isSaving">
           {{ $ndt('Save') }}
         </v-btn>
       </v-card-actions>

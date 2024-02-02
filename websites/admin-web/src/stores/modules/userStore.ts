@@ -41,7 +41,6 @@ export const useUserStore = defineStore('user', {
      */
     async create(user: IUser): Promise<void> {
       await UserApi.adminUserCreate(lodash.omit(user, ['userId']));
-      await this.$reset();
     },
     /**
      * Edit.
@@ -52,7 +51,6 @@ export const useUserStore = defineStore('user', {
         user.userId,
         lodash.omit(user, ['userId', 'username', 'password']),
       );
-      await this.$reset();
     },
     /**
      * Reset password.
@@ -69,7 +67,6 @@ export const useUserStore = defineStore('user', {
      */
     async delete(id: number): Promise<void> {
       await UserApi.adminUserDelete(id);
-      await this.$reset();
     },
     /**
      * List user's roles.

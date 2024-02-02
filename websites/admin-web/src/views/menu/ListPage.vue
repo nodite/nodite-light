@@ -11,39 +11,47 @@ import MenuForm from '@/views/menu/components/MenuForm.vue';
 
 const menuStore = useMenuStore();
 
-const localData = ref({
+// Local data.
+const myRefStore = ref({
   loading: true,
   items: [] as DataTreeIMenu[],
 });
 
+// Menu form.
 const menuFormData = ref({
   dialog: false,
   menuId: '',
 });
 
+// Delete confirm.
 const deleteConfirmFormData = ref({
   dialog: false,
   item: {} as IMenu,
 });
 
+// Methods.
 const methods = {
-  async loadMenuTree() {
-    localData.value.loading = true;
-    localData.value.items = await menuStore.listTree();
-    localData.value.loading = false;
+  // Load menu tree.
+  async loadMenuTree(force: boolean = false) {
+    myRefStore.value.loading = true;
+    myRefStore.value.items = await menuStore.listTree(force);
+    myRefStore.value.loading = false;
   },
+  // Open menu form.
   openMenuForm(id: string) {
     menuFormData.value.dialog = true;
     menuFormData.value.menuId = id;
   },
+  // Open delete confirm form.
   openDeleteConfirmForm(item: IMenu) {
     deleteConfirmFormData.value.dialog = true;
     deleteConfirmFormData.value.item = item;
   },
+  // Delete menu.
   async delete(menu: IMenu, cb: ConfirmCallback) {
     try {
       await menuStore.delete(menu.menuId);
-      await methods.loadMenuTree();
+      await methods.loadMenuTree(true);
       cb(true);
     } catch (error) {
       cb(false);
@@ -51,8 +59,9 @@ const methods = {
   },
 };
 
-onMounted(() => {
-  methods.loadMenuTree();
+// Lifecycle.
+onMounted(async () => {
+  await methods.loadMenuTree();
 });
 </script>
 
@@ -64,7 +73,7 @@ onMounted(() => {
       itemsPerPage: -1,
       itemsPerPageOptions: [-1],
       showExpand: true,
-      loading: localData.loading,
+      loading: myRefStore.loading,
       headers: [
         { title: '', align: 'start', key: 'data-table-expand' },
         { title: $ndt('Menu Name'), value: 'menuName' },
@@ -75,7 +84,7 @@ onMounted(() => {
         { title: $ndt('Perms'), value: 'perms' },
         { key: 'actions', sortable: false },
       ],
-      items: localData.items,
+      items: myRefStore.items,
     }"
     :offset-columns="['data-table-expand', 'menuName']"
   >
@@ -84,7 +93,7 @@ onMounted(() => {
         <menu-form
           v-model:dialog="menuFormData.dialog"
           v-model:menu-id="menuFormData.menuId"
-          @save="methods.loadMenuTree()"
+          @save="methods.loadMenuTree(true)"
         ></menu-form>
       </v-toolbar>
     </template>
@@ -107,7 +116,7 @@ onMounted(() => {
 
     <template v-slot:item.hidden="{ value }">
       <v-chip size="small" :color="value ? 'red' : 'green'">
-        {{ value ? $ndt('Show') : $ndt('Hidden') }}
+        {{ value ? $ndt('Hidden') : $ndt('Show') }}
       </v-chip>
     </template>
 

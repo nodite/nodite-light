@@ -2,7 +2,9 @@ import { logger } from '@nodite-light/admin-core';
 import httpContext from 'express-http-context';
 import _forEach from 'lodash/forEach';
 import _get from 'lodash/get';
+import _keys from 'lodash/keys';
 import _omit from 'lodash/omit';
+import _pick from 'lodash/pick';
 import _set from 'lodash/set';
 import { ModelOptions, ModelStatic, Op, ValidationError } from 'sequelize';
 import {
@@ -148,12 +150,15 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
    * @param param
    * @returns
    */
-  public static buildQueryWhere(param?: Record<string, unknown>) {
+  public static buildQueryWhere<M extends Model>(
+    this: ModelStatic<M>,
+    param?: Record<string, unknown>,
+  ) {
     const where = {};
 
-    _forEach(_omit(param, ['itemsPerPage', 'page', 'sortBy']), (value, key) => {
+    _forEach(_pick(param, _keys(this.getAttributes())), (value, key) => {
       if (!value) return;
-      _set(where, key, { [Op.like]: `%${value}%` });
+      _set(where, key, { [Op.substring]: value });
     });
 
     return where;

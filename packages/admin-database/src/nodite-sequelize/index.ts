@@ -44,6 +44,10 @@ export default class Database {
           Database.client = new Sequelize({
             dialect: 'sqlite',
             storage: `${storagePath}/${dbName}.sqlite`,
+            define: {
+              charset: 'utf8',
+              collate: 'utf8_general_ci',
+            },
             logging: (sql: string) => logger.debug(sql),
           });
           break;
@@ -59,6 +63,10 @@ export default class Database {
             dialect: engine,
             username: user,
             password: pass,
+            define: {
+              charset: 'utf8',
+              collate: 'utf8_general_ci',
+            },
             logging: (sql: string) => logger.debug(sql),
           });
           break;
@@ -67,6 +75,10 @@ export default class Database {
         default:
           engine = 'in:memory';
           Database.client = new Sequelize('sqlite::memory:', {
+            define: {
+              charset: 'utf8',
+              collate: 'utf8_general_ci',
+            },
             logging: (sql: string) => logger.debug(sql),
           });
           break;

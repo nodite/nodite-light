@@ -8,7 +8,6 @@
     "orderNum": 0,
     "isDefault": 1,
     "createBy": "admin",
-    "updateBy": "admin",
     "deleted": 9
   },
   {
@@ -18,8 +17,7 @@
     "momentCode": "zh-cn",
     "icon": "twemoji:flag-china",
     "orderNum": 1,
-    "createBy": "admin",
-    "updateBy": "admin"
+    "createBy": "admin"
   },
   {
     "localeId": 3,
@@ -28,7 +26,7 @@
     "momentCode": "ja",
     "icon": "twemoji:flag-japan",
     "orderNum": 2,
-    "createBy": "admin",
-    "updateBy": "admin"
+    "status": 0,
+    "createBy": "admin"
   }
 ]

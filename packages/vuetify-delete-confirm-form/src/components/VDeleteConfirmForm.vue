@@ -55,7 +55,13 @@ const methods = {
       <v-card-text>{{ $t('$vuetify.deleteConfirmForm.title') }}</v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue-darken-1" variant="text" @click="methods.close" :disabled="deleting">
+        <v-btn
+          color="blue-darken-1"
+          variant="text"
+          @click="methods.close"
+          :disabled="deleting"
+          :title="$t('$vuetify.deleteConfirmForm.cancel')"
+        >
           {{ $t('$vuetify.deleteConfirmForm.cancel') }}
         </v-btn>
         <v-btn
@@ -64,6 +70,7 @@ const methods = {
           @click="methods.confirm"
           :loading="deleting"
           :disabled="deleting"
+          :title="$t('$vuetify.deleteConfirmForm.confirm')"
         >
           {{ $t('$vuetify.deleteConfirmForm.confirm') }}
         </v-btn>

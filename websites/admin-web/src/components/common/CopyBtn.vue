@@ -34,12 +34,14 @@ const copyText = (event: Event) => {
     <v-snackbar v-model="snackbar" :timeout="timeout">
       {{ copiedText }}
       <template v-slot:actions>
-        <v-btn color="blue" variant="text" @click="snackbar = false"> Close </v-btn>
+        <v-btn color="blue" variant="text" @click="snackbar = false" :title="$ndt('Close')">
+          {{ $ndt('Close') }}
+        </v-btn>
       </template>
     </v-snackbar>
 
-    <v-btn v-bind="$attrs" icon @click="copyText($event)"
-      ><v-icon>mdi-content-copy</v-icon>
+    <v-btn v-bind="$attrs" icon @click="copyText($event)" :title="$ndt('Copy')">
+      <v-icon>mdi-content-copy</v-icon>
       <v-tooltip activator="parent" location="bottom" text="Copy"></v-tooltip>
     </v-btn>
   </div>

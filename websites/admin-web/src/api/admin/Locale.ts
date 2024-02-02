@@ -15,12 +15,13 @@ import { request } from "@/utils/requests";
 import type {
   ILocaleCreate,
   ILocaleUpdate,
+  IMessageUpsert,
   IResponseIAvailableLocaleArray,
-  IResponseIAvailableMessage,
+  IResponseIAvailableMessageArray,
   IResponseILocale,
   IResponseILocaleArray,
   IResponseILocaleSource,
-  IResponseSequelizePaginationILocaleMessage,
+  IResponseSequelizePaginationISourceWithMessages,
   IResponseVoid,
   ISourceCreate,
 } from "./data-contracts";
@@ -31,11 +32,11 @@ import type {
  * @tags locale
  * @name adminLocaleList
  * @summary Get locale list
- * @request GET:/locale/list
+ * @request GET:/locale/i/list
  */
 export const adminLocaleList = (params: RequestParams = {}) =>
   request<IResponseILocaleArray>({
-    path: `/locale/list`,
+    path: `/locale/i/list`,
     method: "GET",
     format: "json",
     skipErrorHandler: false,
@@ -43,7 +44,7 @@ export const adminLocaleList = (params: RequestParams = {}) =>
   });
 export const adminLocaleListSkipErrorHandler = (params: RequestParams = {}) =>
   request<IResponseILocaleArray>({
-    path: `/locale/list`,
+    path: `/locale/i/list`,
     method: "GET",
     format: "json",
     skipErrorHandler: true,
@@ -56,11 +57,11 @@ export const adminLocaleListSkipErrorHandler = (params: RequestParams = {}) =>
  * @tags locale
  * @name adminLocaleAvailable
  * @summary Get available locales
- * @request GET:/locale/available
+ * @request GET:/locale/i/available
  */
 export const adminLocaleAvailable = (params: RequestParams = {}) =>
   request<IResponseIAvailableLocaleArray>({
-    path: `/locale/available`,
+    path: `/locale/i/available`,
     method: "GET",
     format: "json",
     skipErrorHandler: false,
@@ -68,7 +69,7 @@ export const adminLocaleAvailable = (params: RequestParams = {}) =>
   });
 export const adminLocaleAvailableSkipErrorHandler = (params: RequestParams = {}) =>
   request<IResponseIAvailableLocaleArray>({
-    path: `/locale/available`,
+    path: `/locale/i/available`,
     method: "GET",
     format: "json",
     skipErrorHandler: true,
@@ -81,11 +82,11 @@ export const adminLocaleAvailableSkipErrorHandler = (params: RequestParams = {})
  * @tags locale
  * @name adminLocaleQuery
  * @summary Get locale by id
- * @request GET:/locale/{id}
+ * @request GET:/locale/i/{id}
  */
 export const adminLocaleQuery = (id: number, params: RequestParams = {}) =>
   request<IResponseILocale>({
-    path: `/locale/${id}`,
+    path: `/locale/i/${id}`,
     method: "GET",
     format: "json",
     skipErrorHandler: false,
@@ -93,7 +94,7 @@ export const adminLocaleQuery = (id: number, params: RequestParams = {}) =>
   });
 export const adminLocaleQuerySkipErrorHandler = (id: number, params: RequestParams = {}) =>
   request<IResponseILocale>({
-    path: `/locale/${id}`,
+    path: `/locale/i/${id}`,
     method: "GET",
     format: "json",
     skipErrorHandler: true,
@@ -106,11 +107,11 @@ export const adminLocaleQuerySkipErrorHandler = (id: number, params: RequestPara
  * @tags locale
  * @name adminLocaleEdit
  * @summary Update locale
- * @request PUT:/locale/{id}
+ * @request PUT:/locale/i/{id}
  */
 export const adminLocaleEdit = (id: number, data: ILocaleUpdate, params: RequestParams = {}) =>
   request<IResponseILocale>({
-    path: `/locale/${id}`,
+    path: `/locale/i/${id}`,
     method: "PUT",
     body: data,
     type: ContentType.Json,
@@ -120,7 +121,7 @@ export const adminLocaleEdit = (id: number, data: ILocaleUpdate, params: Request
   });
 export const adminLocaleEditSkipErrorHandler = (id: number, data: ILocaleUpdate, params: RequestParams = {}) =>
   request<IResponseILocale>({
-    path: `/locale/${id}`,
+    path: `/locale/i/${id}`,
     method: "PUT",
     body: data,
     type: ContentType.Json,
@@ -135,11 +136,11 @@ export const adminLocaleEditSkipErrorHandler = (id: number, data: ILocaleUpdate,
  * @tags locale
  * @name adminLocaleDelete
  * @summary Delete locale
- * @request DELETE:/locale/{id}
+ * @request DELETE:/locale/i/{id}
  */
 export const adminLocaleDelete = (id: number, params: RequestParams = {}) =>
   request<IResponseVoid>({
-    path: `/locale/${id}`,
+    path: `/locale/i/${id}`,
     method: "DELETE",
     format: "json",
     skipErrorHandler: false,
@@ -147,7 +148,7 @@ export const adminLocaleDelete = (id: number, params: RequestParams = {}) =>
   });
 export const adminLocaleDeleteSkipErrorHandler = (id: number, params: RequestParams = {}) =>
   request<IResponseVoid>({
-    path: `/locale/${id}`,
+    path: `/locale/i/${id}`,
     method: "DELETE",
     format: "json",
     skipErrorHandler: true,
@@ -160,11 +161,11 @@ export const adminLocaleDeleteSkipErrorHandler = (id: number, params: RequestPar
  * @tags locale
  * @name adminLocaleCreate
  * @summary Create locale
- * @request POST:/locale
+ * @request POST:/locale/i
  */
 export const adminLocaleCreate = (data: ILocaleCreate, params: RequestParams = {}) =>
   request<IResponseILocale>({
-    path: `/locale`,
+    path: `/locale/i`,
     method: "POST",
     body: data,
     type: ContentType.Json,
@@ -174,10 +175,53 @@ export const adminLocaleCreate = (data: ILocaleCreate, params: RequestParams = {
   });
 export const adminLocaleCreateSkipErrorHandler = (data: ILocaleCreate, params: RequestParams = {}) =>
   request<IResponseILocale>({
-    path: `/locale`,
+    path: `/locale/i`,
     method: "POST",
     body: data,
     type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags locale
+ * @name adminLocaleSourceList
+ * @summary Get source list.
+ * @request GET:/locale/source/list
+ */
+export const adminLocaleSourceList = (
+  query?: {
+    /** @format double */
+    page?: number;
+    /** @format double */
+    itemsPerPage?: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<IResponseSequelizePaginationISourceWithMessages>({
+    path: `/locale/source/list`,
+    method: "GET",
+    query: query,
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminLocaleSourceListSkipErrorHandler = (
+  query?: {
+    /** @format double */
+    page?: number;
+    /** @format double */
+    itemsPerPage?: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<IResponseSequelizePaginationISourceWithMessages>({
+    path: `/locale/source/list`,
+    method: "GET",
+    query: query,
     format: "json",
     skipErrorHandler: true,
     ...params,
@@ -216,38 +260,32 @@ export const adminLocaleSourceCreateSkipErrorHandler = (data: ISourceCreate, par
  * No description
  *
  * @tags locale
- * @name adminLocaleMessageList
- * @summary Get locale message list
- * @request GET:/locale/message/list
+ * @name adminLocaleMessageAvailable
+ * @summary Get available message list
+ * @request GET:/locale/message/available
  */
-export const adminLocaleMessageList = (
+export const adminLocaleMessageAvailable = (
   query?: {
-    /** @format double */
-    page?: number;
-    /** @format double */
-    itemsPerPage?: number;
+    langcode?: string;
   },
   params: RequestParams = {},
 ) =>
-  request<IResponseSequelizePaginationILocaleMessage>({
-    path: `/locale/message/list`,
+  request<IResponseIAvailableMessageArray>({
+    path: `/locale/message/available`,
     method: "GET",
     query: query,
     format: "json",
     skipErrorHandler: false,
     ...params,
   });
-export const adminLocaleMessageListSkipErrorHandler = (
+export const adminLocaleMessageAvailableSkipErrorHandler = (
   query?: {
-    /** @format double */
-    page?: number;
-    /** @format double */
-    itemsPerPage?: number;
+    langcode?: string;
   },
   params: RequestParams = {},
 ) =>
-  request<IResponseSequelizePaginationILocaleMessage>({
-    path: `/locale/message/list`,
+  request<IResponseIAvailableMessageArray>({
+    path: `/locale/message/available`,
     method: "GET",
     query: query,
     format: "json",
@@ -259,22 +297,26 @@ export const adminLocaleMessageListSkipErrorHandler = (
  * No description
  *
  * @tags locale
- * @name adminLocaleMessageAvailable
- * @summary Get available messages
- * @request GET:/locale/message/available
+ * @name adminLocaleMessageUpsert
+ * @summary Upsert messages
+ * @request POST:/locale/message/upsert
  */
-export const adminLocaleMessageAvailable = (params: RequestParams = {}) =>
-  request<IResponseIAvailableMessage>({
-    path: `/locale/message/available`,
-    method: "GET",
+export const adminLocaleMessageUpsert = (data: IMessageUpsert[], params: RequestParams = {}) =>
+  request<IResponseVoid>({
+    path: `/locale/message/upsert`,
+    method: "POST",
+    body: data,
+    type: ContentType.Json,
     format: "json",
     skipErrorHandler: false,
     ...params,
   });
-export const adminLocaleMessageAvailableSkipErrorHandler = (params: RequestParams = {}) =>
-  request<IResponseIAvailableMessage>({
-    path: `/locale/message/available`,
-    method: "GET",
+export const adminLocaleMessageUpsertSkipErrorHandler = (data: IMessageUpsert[], params: RequestParams = {}) =>
+  request<IResponseVoid>({
+    path: `/locale/message/upsert`,
+    method: "POST",
+    body: data,
+    type: ContentType.Json,
     format: "json",
     skipErrorHandler: true,
     ...params,

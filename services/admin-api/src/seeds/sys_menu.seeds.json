@@ -355,20 +355,20 @@
               },
               {
                 "menuId": "8f83ff6e-3755-49b1-985f-ed857ba9be67",
-                "menuName": "Message Create",
+                "menuName": "Source Create",
                 "iType": "action",
                 "hidden": 1,
-                "perms": "admin:locale:message:create",
+                "perms": "admin:locale:source:create",
                 "createBy": "admin",
                 "updateBy": "admin",
                 "deleted": 9
               },
               {
-                "menuId": "eb8ca326-c07e-47b4-b7df-646a0de2863a",
-                "menuName": "Message BatchUpsert",
+                "menuId": "01356bba-5606-4b72-9940-8c06f8988354",
+                "menuName": "Message Upsert",
                 "iType": "action",
                 "hidden": 1,
-                "perms": "admin:locale:message:batchUpsert",
+                "perms": "admin:locale:message:upsert",
                 "createBy": "admin",
                 "updateBy": "admin",
                 "deleted": 9

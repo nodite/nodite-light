@@ -80,7 +80,8 @@ const error = computed({
   set: (v) => emit('update:error', v),
 });
 
-const localData = ref({
+// Local data.
+const myRefStore = ref({
   initialized: false,
   tab: null,
   tabs: [
@@ -103,14 +104,18 @@ const localData = ref({
   } as Record<string, string[]>,
 });
 
+// Methods.
 const methods = {
+  // Open dialog.
   open() {
     dialogValue.value = true;
   },
+  // Input icon.
   input(icon: string) {
     modelValue.value = icon;
     dialogValue.value = false;
   },
+  // Close dialog.
   close() {
     dialogValue.value = false;
   },
@@ -131,11 +136,16 @@ const methods = {
         validate-on="blur"
         :error="error"
       >
-        <template v-slot:prepend-inner>
+        <template v-if="modelValue" v-slot:prepend-inner>
           <Icon :icon="modelValue"></Icon>
         </template>
         <template v-slot:append-inner>
-          <v-btn v-bind="actProps" variant="tonal" density="compact">
+          <v-btn
+            v-bind="actProps"
+            variant="tonal"
+            density="compact"
+            :title="$t('$vuetify.iconPicker.open')"
+          >
             {{ $t('$vuetify.iconPicker.open') }}
           </v-btn>
         </template>
@@ -146,30 +156,31 @@ const methods = {
       <v-toolbar color="primary">
         <v-toolbar-title>{{ $t('$vuetify.iconPicker.title') }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn icon @click="methods.close">
+        <v-btn icon @click="methods.close" :title="$t('Close')">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-toolbar>
 
       <div class="d-flex flex-row">
-        <v-tabs v-model="localData.tab" direction="vertical" color="primary">
-          <v-tab v-for="v in localData.tabs" :key="v.key" :value="v.key" class="py-2">
+        <v-tabs v-model="myRefStore.tab" direction="vertical" color="primary">
+          <v-tab v-for="v in myRefStore.tabs" :key="v.key" :value="v.key" class="py-2">
             <v-icon start>{{ v.icon }}</v-icon>
             {{ $t(`$vuetify.iconPicker.group.${v.key}`) }}
           </v-tab>
         </v-tabs>
 
-        <v-window v-model="localData.tab">
-          <v-window-item v-for="v in localData.tabs" :key="v.key" :value="v.key">
+        <v-window v-model="myRefStore.tab">
+          <v-window-item v-for="v in myRefStore.tabs" :key="v.key" :value="v.key">
             <v-card flat>
               <v-card-text>
                 <v-btn
                   class="ma-2"
                   elevation="20"
-                  v-for="icon in localData.iconDict[v.key]"
+                  v-for="icon in myRefStore.iconDict[v.key]"
                   :key="icon"
                   density="default"
                   @click="methods.input(icon)"
+                  :title="icon"
                 >
                   <v-icon>{{ icon }}</v-icon>
                 </v-btn>

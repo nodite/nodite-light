@@ -21,14 +21,13 @@ const ndt = (text?: string, args: any[] = [], options?: LocaleConfig.TOptions): 
   // direct return if text is key.
   if (text.startsWith('$')) return i18n.global.t(text, args);
 
-  const localeStore = useLocaleStore();
-
   const key = localeUtil.toKey(text, options?.context);
 
   // key exists.
   if (i18n.global.te(key)) return i18n.global.t(key, args);
 
   // create source if not created.
+  const localeStore = useLocaleStore();
   if (!lodash.has(localeStore.createdSources, key)) {
     localeStore.createSource({
       source: text,
@@ -37,7 +36,7 @@ const ndt = (text?: string, args: any[] = [], options?: LocaleConfig.TOptions): 
     } as ISourceCreate);
   }
 
-  return i18n.global.t(text, args);
+  return i18n.global.t(text, args, { fallbackWarn: false });
 };
 
 lodash.set(i18n, 'ndt', ndt);

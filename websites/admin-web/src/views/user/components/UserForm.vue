@@ -30,15 +30,15 @@ const userId = computed({
   set: (v) => emit('update:userId', v),
 });
 
-// local data.
-const localData = ref({
+// Local data.
+const myRefStore = ref({
   isFormValid: true,
   isSaving: false,
   error: false,
   errorMessage: '',
 });
 
-// form.
+// Form.
 const refForm = ref();
 const formData = ref({} as IUser);
 const formRules = ref({
@@ -65,32 +65,36 @@ const formRules = ref({
   status: [],
 });
 
-// methods.
+// Methods.
 const methods = {
+  // Load form data.
   async loadFormData() {
     formData.value = userId.value
       ? (await userStore.query(userId.value)) || ({} as IUser)
       : ({} as IUser);
   },
+  // Close user form.
   closeUserForm() {
-    if (localData.value.isSaving) {
+    if (myRefStore.value.isSaving) {
       toast.warning(i18n.ndt("It's saving, please wait a moment."));
       return;
     }
     dialog.value = false;
     userId.value = 0;
   },
+  // Reset errors.
   resetErrors() {
-    localData.value.error = false;
-    localData.value.errorMessage = '';
+    myRefStore.value.error = false;
+    myRefStore.value.errorMessage = '';
   },
+  // Save.
   async save() {
-    localData.value.isSaving = true;
+    myRefStore.value.isSaving = true;
 
     const { valid } = await refForm.value.validate();
 
-    if (!valid || !localData.value.isFormValid) {
-      localData.value.isSaving = false;
+    if (!valid || !myRefStore.value.isFormValid) {
+      myRefStore.value.isSaving = false;
       return;
     }
 
@@ -101,7 +105,7 @@ const methods = {
 
       toast.success(i18n.ndt('Saved successfully.'));
     } finally {
-      localData.value.isSaving = false;
+      myRefStore.value.isSaving = false;
     }
 
     methods.closeUserForm();
@@ -110,8 +114,9 @@ const methods = {
   },
 };
 
-watchEffect(() => {
-  methods.loadFormData();
+// Lifecycle.
+watchEffect(async () => {
+  await methods.loadFormData();
 });
 </script>
 
@@ -119,7 +124,7 @@ watchEffect(() => {
   <v-dialog
     v-model="dialog"
     @click:outside="methods.closeUserForm"
-    :persistent="localData.isSaving"
+    :persistent="myRefStore.isSaving"
     max-width="750"
   >
     <template v-slot:activator="{ props }">
@@ -138,8 +143,8 @@ watchEffect(() => {
       <v-card-text>
         <v-form
           ref="refForm"
-          v-model="localData.isFormValid"
-          :disabled="localData.isSaving"
+          v-model="myRefStore.isFormValid"
+          :disabled="myRefStore.isSaving"
           lazy-validation
         >
           <v-container class="px-10 pb-0">
@@ -152,7 +157,7 @@ watchEffect(() => {
                   :rules="formRules.username"
                   :disabled="!!formData.userId"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
@@ -167,7 +172,7 @@ watchEffect(() => {
                   v-model="formData.nickname"
                   :rules="formRules.nickname"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   variant="outlined"
                 >
                   <template v-slot:prepend-inner>
@@ -184,7 +189,7 @@ watchEffect(() => {
                   v-model="formData.email"
                   :rules="formRules.email"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   density="compact"
                   variant="outlined"
                 >
@@ -205,7 +210,7 @@ watchEffect(() => {
                   v-model="formData.phone"
                   :rules="formRules.phone"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   density="compact"
                   variant="outlined"
                 >
@@ -226,7 +231,7 @@ watchEffect(() => {
                   v-model="formData.password"
                   :rules="formRules.password"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   :disabled="!!formData.userId"
                   type="password"
                   density="compact"
@@ -249,7 +254,7 @@ watchEffect(() => {
                   v-model="formData.sex"
                   :rules="formRules.sex"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   inline
                 >
                   <template v-slot:prepend>
@@ -265,7 +270,7 @@ watchEffect(() => {
                   v-model="formData.status"
                   :rules="formRules.status"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   :disabled="formData.userId === 1"
                   inline
                 >
@@ -284,10 +289,10 @@ watchEffect(() => {
       <v-card-actions>
         <!-- actions -->
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" @click="methods.closeUserForm" :disabled="localData.isSaving">
+        <v-btn color="blue darken-1" @click="methods.closeUserForm" :disabled="myRefStore.isSaving">
           {{ $ndt('Cancel') }}
         </v-btn>
-        <v-btn @click="methods.save" :loading="localData.isSaving" :disabled="localData.isSaving">
+        <v-btn @click="methods.save" :loading="myRefStore.isSaving" :disabled="myRefStore.isSaving">
           {{ $ndt('Save') }}
         </v-btn>
       </v-card-actions>
