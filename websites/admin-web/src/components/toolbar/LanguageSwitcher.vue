@@ -8,24 +8,23 @@ import { useLocaleStore } from '@/stores/modules/localeStore';
 const { current } = useLocale();
 const localeStore = useLocaleStore();
 
-const availableLocales = ref([] as IAvailableLocale[]);
+const availableLocales = computed(() => localeStore.availableLocales);
 
 const methods = {
-  setLocale(locale: IAvailableLocale) {
+  setLocale(locale: IAvailableLocale, notice: boolean = true) {
     if (locale.langcode) current.value = locale.langcode;
-    localeStore.setCurrLocale(locale);
+    if (notice) localeStore.setCurrLocale(locale);
   },
 };
 
 onMounted(async () => {
-  availableLocales.value = await localeStore.listAvailableLocales();
-  methods.setLocale(localeStore.currLocale);
+  methods.setLocale(localeStore.currLocale, false);
 });
 </script>
 <template>
   <v-menu>
     <template v-slot:activator="{ props }">
-      <v-btn icon v-bind="props">
+      <v-btn icon v-bind="props" :title="$ndt('Language Switcher')">
         <v-icon color="primary">mdi-translate</v-icon>
       </v-btn>
     </template>

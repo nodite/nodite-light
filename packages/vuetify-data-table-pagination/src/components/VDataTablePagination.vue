@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { PropType, ref } from 'vue';
+import { computed, PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { ItemsPerPageOption } from '../types';
 
 const { t: $t } = useI18n();
 
-const emit = defineEmits(['update-items-per-page', 'update-page']);
+const emit = defineEmits(['update:itemsPerPage', 'update:page']);
 
 const props = defineProps({
   itemsPerPage: {
@@ -35,38 +35,29 @@ const props = defineProps({
   },
 });
 
-const localData = ref({
-  itemsPerPage: props.itemsPerPage,
-  itemsPerPageOptions: [] as ItemsPerPageOption[],
-  page: props.page,
-  totalPage: props.totalPage,
+const itemsPerPage = computed({
+  get: () => props.itemsPerPage,
+  set: (v: number) => emit('update:itemsPerPage', v),
 });
 
-watchEffect(() => {
-  localData.value.itemsPerPage = props.itemsPerPage;
-  localData.value.page = props.page;
-  localData.value.totalPage = props.totalPage;
+const page = computed({
+  get: () => props.page,
+  set: (v: number) => emit('update:page', v),
 });
 
-onMounted(() => {
-  localData.value.itemsPerPageOptions = props.itemsPerPageOptions || [
-    { value: 5, title: 5 },
-    { value: 10, title: 10 },
-    { value: 25, title: 25 },
-    { value: 50, title: 50 },
-    { value: 100, title: 100 },
-    { value: -1, title: $t('$vuetify.dataFooter.itemsPerPageAll') },
-  ];
-});
+const itemsPerPageOptions = computed(() =>
+  props.itemsPerPageOptions.length > 0
+    ? props.itemsPerPageOptions
+    : [
+        { value: 10, title: '10' },
+        { value: 25, title: '25' },
+        { value: 50, title: '50' },
+        { value: 100, title: '100' },
+        { value: -1, title: $t('$vuetify.dataFooter.itemsPerPageAll') },
+      ],
+);
 
-const methods = {
-  updateItemsPerPage: (v: number) => {
-    emit('update-items-per-page', v);
-  },
-  updatePage: (v: number) => {
-    emit('update-page', v);
-  },
-};
+const totalPage = computed(() => props.totalPage);
 </script>
 
 <template>
@@ -74,9 +65,8 @@ const methods = {
     <div class="v-data-table-footer__items-per-page">
       <span>{{ $t('$vuetify.dataFooter.itemsPerPageText') }}</span>
       <v-select
-        v-model="localData.itemsPerPage"
-        @update:model-value="methods.updateItemsPerPage"
-        :items="localData.itemsPerPageOptions"
+        v-model="itemsPerPage"
+        :items="itemsPerPageOptions"
         density="compact"
         variant="outlined"
         hide-details
@@ -97,9 +87,8 @@ const methods = {
 
     <div class="v-data-table-footer__pagination">
       <v-pagination
-        v-model="localData.page"
-        @update:model-value="methods.updatePage"
-        :length="localData.totalPage"
+        v-model="page"
+        :length="totalPage"
         :total-visible="3"
         density="compact"
         rounded

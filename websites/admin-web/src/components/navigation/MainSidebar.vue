@@ -88,6 +88,7 @@ const scrollToBottom = () => {
               size="40"
               color="white"
               :class="`text-${customizeTheme.primaryColor.colorName}`"
+              title="'Github'"
               icon
             >
               <Icon width="30" icon="line-md:github-loop" />
@@ -106,6 +107,7 @@ const scrollToBottom = () => {
               prepend-icon="mdi-thumb-up-outline"
               variant="elevated"
               @click="openGithubSite"
+              title="Star Me"
             >
               Star-Me
             </v-btn>

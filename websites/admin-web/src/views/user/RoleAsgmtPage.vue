@@ -14,6 +14,7 @@ interface IRole extends IRoleWithUsers {
 
 const userId = computed(() => lodash.toInteger(route.params.id));
 
+// Query params.
 const queryParams = ref({
   roleName: undefined,
   roleKey: undefined,
@@ -21,7 +22,8 @@ const queryParams = ref({
   assignStatus: undefined,
 });
 
-const localData = ref({
+// Local data.
+const myRefStore = ref({
   loading: false,
   operating: false,
   user: {} as IUser,
@@ -29,17 +31,20 @@ const localData = ref({
   filterRoles: [] as IRole[],
 });
 
+// Methods.
 const methods = {
+  // Load user.
   async loadUser() {
-    if (!route.params.id) return;
-    localData.value.user = (await userStore.query(userId.value)) as IUser;
+    if (!userId.value) return;
+    myRefStore.value.user = (await userStore.query(userId.value)) as IUser;
   },
+  // Load user roles.
   async loadUserRoles() {
-    if (!route.params.id) return;
+    if (!userId.value) return;
 
-    localData.value.loading = true;
+    myRefStore.value.loading = true;
 
-    localData.value.roles = lodash
+    myRefStore.value.roles = lodash
       .chain((await userStore.listUserRoles(userId.value)) || [])
       .map((role) => {
         lodash.set(role, 'assignStatus', lodash.toInteger(!lodash.isEmpty(role.users)));
@@ -50,12 +55,13 @@ const methods = {
       })
       .value();
 
-    localData.value.filterRoles = localData.value.roles;
+    myRefStore.value.filterRoles = myRefStore.value.roles;
 
-    localData.value.loading = false;
+    myRefStore.value.loading = false;
   },
+  // Search.
   search() {
-    localData.value.filterRoles = lodash.filter(localData.value.roles, (role) => {
+    myRefStore.value.filterRoles = lodash.filter(myRefStore.value.roles, (role) => {
       let result = true;
 
       lodash.forEach(queryParams.value, (value, key) => {
@@ -69,23 +75,25 @@ const methods = {
       return result;
     });
   },
+  // Assign.
   async assign(items: IRole[]) {
-    localData.value.operating = true;
+    myRefStore.value.operating = true;
     await userStore.assignRolesToUser(userId.value, lodash.map(items, 'roleId'));
     await methods.loadUserRoles();
-    localData.value.operating = false;
+    myRefStore.value.operating = false;
   },
+  // Unassign.
   async unassign(items: IRole[]) {
-    localData.value.operating = true;
+    myRefStore.value.operating = true;
     await userStore.unassignRolesOfUser(userId.value, lodash.map(items, 'roleId'));
     await methods.loadUserRoles();
-    localData.value.operating = false;
+    myRefStore.value.operating = false;
   },
 };
 
-onMounted(() => {
-  methods.loadUser();
-  methods.loadUserRoles();
+// Lifecycle.
+onMounted(async () => {
+  await Promise.all([methods.loadUser(), methods.loadUserRoles()]);
 });
 </script>
 
@@ -171,33 +179,33 @@ onMounted(() => {
                   {
                     title: $ndt('ID'),
                     key: 'userId',
-                    value: localData.user.userId,
+                    value: myRefStore.user.userId,
                   },
                   {
                     title: $ndt('Username'),
                     key: 'username',
-                    value: localData.user.username,
+                    value: myRefStore.user.username,
                   },
                   {
                     title: $ndt('Nickname'),
                     key: 'nickname',
-                    value: localData.user.nickname,
+                    value: myRefStore.user.nickname,
                   },
                   {
                     title: $ndt('Email'),
                     key: 'email',
-                    value: localData.user.email,
+                    value: myRefStore.user.email,
                   },
                   {
                     title: $ndt('Status'),
                     key: 'status',
-                    value: localData.user.status ? $ndt('Enabled') : $ndt('Disabled'),
+                    value: myRefStore.user.status ? $ndt('Enabled') : $ndt('Disabled'),
                   },
                   {
                     title: $ndt('Create Time'),
                     key: 'createTime',
-                    value: localData.user.createTime
-                      ? moment(localData.user.createTime).format('YYYY-MM-DD HH:mm:ss')
+                    value: myRefStore.user.createTime
+                      ? moment(myRefStore.user.createTime).format('YYYY-MM-DD HH:mm:ss')
                       : '',
                   },
                 ]"
@@ -214,7 +222,7 @@ onMounted(() => {
       <v-col cols="12" lg="9" md="9" sm="9">
         <v-data-table
           item-value="roleId"
-          :loading="localData.loading"
+          :loading="myRefStore.loading"
           :headers="[
             { title: '', align: 'start', key: 'data-table-select' },
             { title: $ndt('ID'), value: 'roleId' },
@@ -225,7 +233,7 @@ onMounted(() => {
             { title: $ndt('Create Time'), value: 'createTime' },
             { key: 'actions', sortable: false },
           ]"
-          :items="localData.filterRoles"
+          :items="myRefStore.filterRoles"
           item-selectable="selectable"
         >
           <template v-slot:item.status="{ value }">
@@ -247,8 +255,8 @@ onMounted(() => {
               density="comfortable"
               @click="methods.assign([item])"
               prepend-icon="mdi-sticker-plus-outline"
-              :loading="localData.operating"
-              :disabled="localData.operating"
+              :loading="myRefStore.operating"
+              :disabled="myRefStore.operating"
             >
               <v-label>{{ $ndt('Assign') }}</v-label>
             </v-btn>
@@ -258,8 +266,8 @@ onMounted(() => {
               density="comfortable"
               @click="methods.unassign([item])"
               prepend-icon="mdi-delete"
-              :loading="localData.operating"
-              :disabled="(userId === 1 && item.roleId === 1) || localData.operating"
+              :loading="myRefStore.operating"
+              :disabled="(userId === 1 && item.roleId === 1) || myRefStore.operating"
             >
               <v-label>{{ $ndt('Un-Assign') }}</v-label>
             </v-btn>

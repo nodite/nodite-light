@@ -32,13 +32,10 @@ const menuId = computed({
   set: (v) => emit('update:menuId', v),
 });
 
-// static Data.
-const staticData = ref({
-  menus: [] as DataTreeIMenu[],
-});
+const menus = ref([] as DataTreeIMenu[]);
 
-// local Data.
-const localData = ref({
+// Local Data.
+const myRefStore = ref({
   iconDialog: false,
   openIconPicker: false,
   isFormValid: true,
@@ -64,32 +61,36 @@ const formRules = ref({
   hidden: [],
 });
 
-// methods.
+// Methods.
 const methods = {
+  // Load form data.
   async loadFormData() {
     formData.value = menuId.value
       ? (await menuStore.query(menuId.value)) || ({} as IMenu)
       : ({} as IMenu);
   },
+  // Close menu form.
   closeMenuForm() {
-    if (localData.value.isSaving) {
+    if (myRefStore.value.isSaving) {
       toast.warning(i18n.ndt("It's saving, please wait a moment."));
       return;
     }
     dialog.value = false;
     menuId.value = '';
   },
+  // Reset errors.
   resetErrors() {
-    localData.value.error = false;
-    localData.value.errorMessages = '';
+    myRefStore.value.error = false;
+    myRefStore.value.errorMessages = '';
   },
+  // Save.
   async save() {
-    localData.value.isSaving = true;
+    myRefStore.value.isSaving = true;
 
     const { valid } = await refForm.value.validate();
 
-    if (!valid || !localData.value.isFormValid) {
-      localData.value.isSaving = false;
+    if (!valid || !myRefStore.value.isFormValid) {
+      myRefStore.value.isSaving = false;
       return;
     }
 
@@ -100,7 +101,7 @@ const methods = {
 
       toast.success(i18n.ndt('Saved successfully.'));
     } finally {
-      localData.value.isSaving = false;
+      myRefStore.value.isSaving = false;
     }
 
     methods.closeMenuForm();
@@ -109,14 +110,13 @@ const methods = {
   },
 };
 
-onMounted(() => {
-  menuStore.listTree().then((res) => {
-    staticData.value.menus = [{ menuName: 'Root', menuId: '' } as IMenu, ...res];
-  });
+// Lifecycle.
+onMounted(async () => {
+  menus.value = [{ menuName: 'Root', menuId: '' } as IMenu, ...(await menuStore.listTree())];
 });
 
-watchEffect(() => {
-  methods.loadFormData();
+watchEffect(async () => {
+  await methods.loadFormData();
 });
 </script>
 
@@ -124,7 +124,7 @@ watchEffect(() => {
   <v-dialog
     v-model="dialog"
     @click:outside="methods.closeMenuForm"
-    :persistent="localData.isSaving"
+    :persistent="myRefStore.isSaving"
     max-width="750"
   >
     <template v-slot:activator="{ props }">
@@ -147,8 +147,8 @@ watchEffect(() => {
       <v-card-text>
         <v-form
           ref="refForm"
-          v-model="localData.isFormValid"
-          :disabled="localData.isSaving"
+          v-model="myRefStore.isFormValid"
+          :disabled="myRefStore.isSaving"
           lazy-validation
         >
           <v-container class="px-10 pb-0">
@@ -158,14 +158,14 @@ watchEffect(() => {
                 <v-select
                   density="compact"
                   v-model="formData.parentId"
-                  :items="staticData.menus"
+                  :items="menus"
                   item-title="menuName"
                   item-value="menuId"
                   prepend-inner-icon="mdi-sort-variant"
                   variant="outlined"
                   :rules="formRules.parentId"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   chips
                   clearable
                 >
@@ -189,7 +189,7 @@ watchEffect(() => {
                   v-model="formData.orderNum"
                   :rules="formRules.orderNum"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   variant="outlined"
                 ></v-text-field>
               </v-col>
@@ -202,7 +202,7 @@ watchEffect(() => {
                   v-model="formData.iType"
                   :rules="formRules.iType"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   inline
                 >
                   <template v-slot:prepend>
@@ -224,7 +224,7 @@ watchEffect(() => {
                   v-model="formData.menuName"
                   :rules="formRules.menuName"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   variant="outlined"
                 >
                   <template v-slot:prepend>
@@ -232,11 +232,14 @@ watchEffect(() => {
                   </template>
                 </v-text-field>
               </v-col>
-              <v-col cols="4">
+              <v-col cols="5">
                 <IconPicker
                   v-model="formData.icon"
-                  v-model:dialog="localData.iconDialog"
-                  v-model:error="localData.error"
+                  v-model:dialog="myRefStore.iconDialog"
+                  v-model:error="myRefStore.error"
+                  :label="$ndt('Icon')"
+                  :disabled="myRefStore.isSaving"
+                  :rules="formRules.icon"
                 ></IconPicker>
               </v-col>
             </v-row>
@@ -249,7 +252,7 @@ watchEffect(() => {
                   :hint="$ndt('Format: [dom]:[obj]:[act], e.g. admin:menu:create')"
                   :rules="formRules.perms"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   density="compact"
                   variant="outlined"
                 >
@@ -267,7 +270,7 @@ watchEffect(() => {
                   v-model="formData.path"
                   :rules="formRules.path"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   density="compact"
                   variant="outlined"
                 >
@@ -281,7 +284,7 @@ watchEffect(() => {
                   v-model="formData.redirect"
                   :rules="formRules.redirect"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   density="compact"
                   variant="outlined"
                 >
@@ -302,7 +305,7 @@ watchEffect(() => {
                   :hint="$ndt('The path of the component to be rendered.')"
                   :rules="formRules.component"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                 >
                   <template v-slot:prepend>
                     <v-label>{{ $ndt('Component') }}:</v-label>
@@ -323,7 +326,7 @@ watchEffect(() => {
                   :hint="$ndt('The layout used for component render.')"
                   :rules="formRules.layout"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   variant="outlined"
                   clearable
                 ></v-select>
@@ -337,7 +340,7 @@ watchEffect(() => {
                   v-model="formData.hidden"
                   :rules="formRules.hidden"
                   validate-on="blur"
-                  :error="localData.error"
+                  :error="myRefStore.error"
                   inline
                 >
                   <template v-slot:prepend>
@@ -355,10 +358,10 @@ watchEffect(() => {
       <v-card-actions>
         <!-- actions -->
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" @click="methods.closeMenuForm" :disabled="localData.isSaving">
+        <v-btn color="blue darken-1" @click="methods.closeMenuForm" :disabled="myRefStore.isSaving">
           {{ $ndt('Cancel') }}
         </v-btn>
-        <v-btn @click="methods.save" :loading="localData.isSaving" :disabled="localData.isSaving">
+        <v-btn @click="methods.save" :loading="myRefStore.isSaving" :disabled="myRefStore.isSaving">
           {{ $ndt('Save') }}
         </v-btn>
       </v-card-actions>

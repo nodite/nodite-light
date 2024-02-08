@@ -122,11 +122,12 @@ export default class RoleService {
         {
           model: MenuModel,
           attributes: ['menuId', 'perms'],
+          required: false,
         },
       ],
     });
 
-    return role.menus;
+    return role.menus || [];
   }
 
   /**

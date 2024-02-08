@@ -43,6 +43,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  showCode: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const modelValue = computed({
@@ -105,11 +109,12 @@ const error = computed({
       { title: $t('$vuetify.language.zhHans'), value: 'zhHans' },
       { title: $t('$vuetify.language.zhHant'), value: 'zhHant' },
     ]"
+    :item-title="props.showCode ? 'title' : 'value'"
+    item-value="value"
     :density="props.density"
     :variant="props.variant"
     :rules="props.rules"
     :error="error"
-    chips
   >
     <template v-for="(_, name) in $slots" v-slot:[name]="data">
       <!-- slots -->

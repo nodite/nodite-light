@@ -6,7 +6,7 @@ import {
 } from '@nodite-light/vuetify-delete-confirm-form';
 import moment from 'moment';
 
-import { IRole, QueryParams, SequelizePaginationIRole } from '@/api/admin/data-contracts';
+import { IRole, SequelizePaginationIRole } from '@/api/admin/data-contracts';
 import { useRoleStore } from '@/stores/modules/roleStore';
 import MenuTreeView from '@/views/role/components/MenuTreeView.vue';
 import RoleForm from '@/views/role/components/RoleForm.vue';
@@ -14,32 +14,57 @@ import RoleForm from '@/views/role/components/RoleForm.vue';
 const roleStore = useRoleStore();
 const router = useRouter();
 
-const localData = ref({
+interface QueryParams {
+  roleName?: string;
+  roleKey?: string;
+  status?: number;
+}
+
+// Local data.
+const myRefStore = ref({
   loading: true,
-  searching: false,
-  searchResetting: false,
   pageResult: {} as SequelizePaginationIRole,
   items: [] as IRole[],
+  page: 1,
+  itemsPerPage: 10,
+});
+
+// Query params.
+const queryParamPage = computed({
+  get: () => myRefStore.value.page || 1,
+  set: (v: number) => {
+    myRefStore.value.page = v;
+    methods.loadList();
+  },
+});
+
+const queryParamItemsPerPage = computed({
+  get: () => myRefStore.value.itemsPerPage || 10,
+  set: (v: number) => {
+    myRefStore.value.itemsPerPage = v;
+    methods.loadList();
+  },
 });
 
 const queryParams = ref({
-  page: 1,
-  itemsPerPage: 10,
   roleName: undefined,
   roleKey: undefined,
   status: undefined,
 } as QueryParams);
 
+// Role form.
 const roleFormData = ref({
   dialog: false,
   roleId: 0,
 });
 
+// Delete confirm.
 const deleteConfirmFormData = ref({
   dialog: false,
   item: {} as IRole,
 });
 
+// Menu perms view.
 const menuPermsView = ref({
   drawer: false,
   roleId: 0,
@@ -47,57 +72,45 @@ const menuPermsView = ref({
   menuIds: [] as string[],
 });
 
+// Methods.
 const methods = {
+  // Load list.
   async loadList() {
-    localData.value.loading = true;
-    localData.value.pageResult =
+    myRefStore.value.loading = true;
+    myRefStore.value.pageResult =
       (await roleStore.list(queryParams.value)) || ({} as SequelizePaginationIRole);
-    localData.value.loading = false;
+    myRefStore.value.loading = false;
   },
-  setItemsPerPage(v: number) {
-    queryParams.value.itemsPerPage = v;
-    methods.loadList();
-  },
-  setPage(v: number) {
-    queryParams.value.page = v;
-    methods.loadList();
-  },
-  async searchList() {
-    localData.value.searching = true;
-    try {
-      await methods.loadList();
-    } finally {
-      localData.value.searching = false;
-    }
-  },
+  // Reset search.
   async resetSearch() {
-    localData.value.searchResetting = true;
-    try {
-      queryParams.value = {};
-      await methods.loadList();
-    } finally {
-      localData.value.searchResetting = false;
-    }
+    queryParams.value = {};
+    await methods.loadList();
   },
+  // Open role form.
   openRoleForm(id: number) {
     roleFormData.value.dialog = true;
     roleFormData.value.roleId = id;
   },
+  // Open delete confirm form.
   openDeleteConfirmForm(item: IRole) {
     deleteConfirmFormData.value.dialog = true;
     deleteConfirmFormData.value.item = item;
   },
+  // Open menu perms view.
   async openMenuPermsView(item: IRole) {
     menuPermsView.value.drawer = true;
     menuPermsView.value.roleId = item.roleId;
     menuPermsView.value.roleName = item.roleName;
   },
+  // Open user asgmt page.
   async openUserAsgmtPage(item: IRole) {
     await router.push(`/role/${item.roleId}/users`);
   },
+  // Change role status.
   async changeRoleStatus(id: number, status: number) {
     await roleStore.edit({ roleId: id, status: status } as IRole);
   },
+  // Delete.
   async delete(item: IRole, cb: ConfirmCallback) {
     try {
       await roleStore.delete(item.roleId);
@@ -109,8 +122,9 @@ const methods = {
   },
 };
 
-onMounted(() => {
-  methods.loadList();
+// Lifecycle.
+onMounted(async () => {
+  await methods.loadList();
 });
 </script>
 
@@ -166,8 +180,7 @@ onMounted(() => {
           color="primary"
           prepend-icon="mdi-magnify"
           density="comfortable"
-          :loading="localData.searching"
-          @click="methods.searchList"
+          @click="methods.loadList"
         >
           {{ $ndt('Search') }}
         </v-btn>
@@ -176,7 +189,6 @@ onMounted(() => {
           color="inherit"
           prepend-icon="mdi-sync"
           density="comfortable"
-          :loading="localData.searchResetting"
           @click="methods.resetSearch"
         >
           {{ $ndt('Reset') }}
@@ -197,7 +209,8 @@ onMounted(() => {
       { title: $ndt('Create Time'), value: 'createTime' },
       { key: 'actions', sortable: false },
     ]"
-    :items="localData.pageResult.items"
+    :items="myRefStore.pageResult.items"
+    :items-per-page="queryParamItemsPerPage"
   >
     <template v-slot:top>
       <v-toolbar density="compact" color="inherit">
@@ -290,19 +303,11 @@ onMounted(() => {
 
     <template v-slot:bottom>
       <VDataTablePagination
-        :items-per-page="queryParams.itemsPerPage"
-        :items-per-page-options="[
-          { value: 10, title: '10' },
-          { value: 25, title: '25' },
-          { value: 50, title: '50' },
-          { value: -1, title: $ndt('$vuetify.dataFooter.itemsPerPageAll') },
-        ]"
-        :page="queryParams.page"
-        :current-count="localData.pageResult.count"
-        :total-count="localData.pageResult.totalCount"
-        :total-page="localData.pageResult.totalPage"
-        @update-items-per-page="methods.setItemsPerPage"
-        @update-page="methods.setPage"
+        v-model:page="queryParamPage"
+        v-model:items-per-page="queryParamItemsPerPage"
+        :current-count="myRefStore.pageResult.count"
+        :total-count="myRefStore.pageResult.totalCount"
+        :total-page="myRefStore.pageResult.totalPage"
       ></VDataTablePagination>
     </template>
   </v-data-table>

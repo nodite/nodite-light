@@ -16,7 +16,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check \"{*.js,!(node*)**/*.ts}\"",
-    "prettier:fix": "prettier --write \"{*.js,!(node*)**/*.ts}\""
+    "prettier:fix": "prettier --write \"{*.js,!(node*)**/*.ts}\"",
+    "clean": "rimraf lib"
   },
   "dependencies": {
     "@nodite-light/admin-core": "*",
@@ -35,6 +36,8 @@
   "devDependencies": {
     "@types/bluebird": "^3.5.42",
     "@types/jsonwebtoken": "^9.0.5",
-    "node-mocks-http": "^1.14.0"
+    "@types/lodash": "^4.14.202",
+    "node-mocks-http": "^1.14.0",
+    "rimraf": "^5.0.5"
   }
 }

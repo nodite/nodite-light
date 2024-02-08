@@ -7,11 +7,13 @@ import {
   IAvailableMessage,
   ILocaleCreate,
   ILocaleUpdate,
+  IMessageUpsert,
   ISourceCreate,
+  ISourceWithMessages,
 } from '@/components/locale/locale.interface';
 import LocaleModel, { ILocale } from '@/components/locale/locale.model';
 import LocaleLocationModel from '@/components/locale/locale_location.model';
-import LocaleMessageModel, { ILocaleMessage } from '@/components/locale/locale_message.model';
+import LocaleMessageModel from '@/components/locale/locale_message.model';
 import { QueryParams } from '@/interfaces';
 import lodash from '@/utils/lodash';
 
@@ -83,28 +85,21 @@ export default class LocaleService {
    * @returns
    */
   public async updateLocale(id: number, locale: Partial<ILocaleUpdate>): Promise<ILocale> {
-    // start transaction.
-    const transaction = await LocaleModel.sequelize.transaction();
-
     // If isDefault is true, set all other locales to false.
     if (locale.isDefault) {
-      await LocaleModel.update({ isDefault: 0 }, { where: { isDefault: 1 }, transaction });
+      await LocaleModel.update({ isDefault: 0 }, { where: { isDefault: 1 } });
     }
     // If isDefault is false, check if there is at least one default locale.
     else {
-      const count = await LocaleModel.count({ where: { isDefault: 1 }, transaction });
+      const count = await LocaleModel.count({ where: { isDefault: 1 } });
       if (count === 0) {
         throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'At least one locale must be default');
       }
     }
 
-    const storedLocale = await LocaleModel.findOne({ where: { localeId: id }, transaction });
-    const updatedLocale = await storedLocale.update(locale, { transaction });
+    await LocaleModel.update(locale, { where: { localeId: id } });
 
-    // commit transaction.
-    await transaction.commit();
-
-    return updatedLocale.toJSON();
+    return LocaleModel.findOne({ where: { localeId: id } });
   }
 
   /**
@@ -117,52 +112,50 @@ export default class LocaleService {
   }
 
   /**
-   * Select locale messages.
-   * @returns
-   */
-  public async selectMessageList(
-    params?: QueryParams,
-  ): Promise<SequelizePagination<ILocaleMessage>> {
-    const page = await LocaleMessageModel.paginate({
-      where: {
-        ...LocaleMessageModel.buildQueryWhere(params),
-      },
-      ...lodash.pick(params, ['itemsPerPage', 'page']),
-    });
-
-    return {
-      ...page,
-      items: page.items.map((i) => i.toJSON()),
-    };
-  }
-
-  /**
    * Select available messages.
    * @param langcode
    * @returns
    */
-  public async selectAvailableMessageList(langcode: string): Promise<IAvailableMessage> {
+  public async selectAvailableMessageList(langcode: string): Promise<IAvailableMessage[]> {
     const messages = await LocaleMessageModel.scope('available').findAll({
+      attributes: ['langcode', 'message'],
       where: { langcode },
-      include: [{ model: LocaleSourceModel }],
+      include: [{ model: LocaleSourceModel, attributes: ['source', 'context'] }],
     });
 
-    return lodash
-      .chain(messages)
-      .map((i) => {
-        const message = i.toJSON();
-        lodash.set(
-          message,
-          'key',
-          message.source.context
-            ? `${message.source.context}.${message.source.source}`
-            : message.source.source,
-        );
-        return message;
-      })
-      .keyBy('key')
-      .mapValues('message')
-      .value();
+    return lodash.map(messages, (i) => ({
+      langcode: i.langcode,
+      message: i.message,
+      source: i.source?.source,
+      context: i.source?.context,
+    }));
+  }
+
+  /**
+   * Select source list.
+   * @param langcode
+   * @param params
+   * @returns
+   */
+  public async selectSourceList(
+    langcode: string,
+    params?: QueryParams,
+  ): Promise<SequelizePagination<ISourceWithMessages>> {
+    const page = await LocaleSourceModel.paginate({
+      where: LocaleSourceModel.buildQueryWhere(params),
+      ...lodash.pick(params, ['itemsPerPage', 'page']),
+      include: [
+        {
+          model: LocaleMessageModel,
+          where: { langcode },
+          required: false,
+        },
+      ],
+    });
+    return {
+      ...page,
+      items: page.items.map((i) => i.toJSON()),
+    };
   }
 
   /**
@@ -183,8 +176,31 @@ export default class LocaleService {
           lodash.set(location, 'srcId', storedSource.getDataValue('srcId')),
         ),
       );
+
+      const defaultLocale = await LocaleModel.findOne({
+        attributes: ['langcode'],
+        where: { isDefault: 1 },
+      });
+
+      await this.upsertMessages([
+        {
+          srcId: storedSource.getDataValue('srcId'),
+          langcode: defaultLocale.getDataValue('langcode'),
+          message: source.source,
+        },
+      ] as IMessageUpsert[]);
     }
 
     return storedSource.toJSON();
+  }
+
+  /**
+   * Upsert messages.
+   * @param messages
+   */
+  public async upsertMessages(messages: IMessageUpsert[]): Promise<void> {
+    await LocaleMessageModel.bulkCreate(messages, {
+      updateOnDuplicate: ['message', 'customized'],
+    });
   }
 }

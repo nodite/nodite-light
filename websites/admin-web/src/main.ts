@@ -3,13 +3,11 @@
  *
  */
 
-// Components
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
 import '@/styles/main.scss';
 
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
 import MasonryWall from '@yeger/vue-masonry-wall';
-// Composables
 import { createApp } from 'vue';
 import VueVirtualScroller from 'vue-virtual-scroller';
 import VueApexCharts from 'vue3-apexcharts';
@@ -25,19 +23,19 @@ import { useLocaleStore } from '@/stores/modules/localeStore';
 
 const app = createApp(App);
 
+app.config.globalProperties.$ndt = i18n.ndt;
+
+// Locale initial.
+app.use(pinia);
+useLocaleStore().initialize();
+
 app.use(router);
 app.use(PerfectScrollbar);
 app.use(MasonryWall);
 app.use(VueVirtualScroller);
 app.use(VueApexCharts);
-app.use(pinia);
 app.use(i18n);
 app.use(Vue3Lottie, { name: 'LottieAnimation' });
 app.use(autoAnimatePlugin);
 app.use(vuetify);
 app.mount('#app');
-
-app.config.globalProperties.$ndt = i18n.ndt;
-
-// Locale initial.
-useLocaleStore().initialize();

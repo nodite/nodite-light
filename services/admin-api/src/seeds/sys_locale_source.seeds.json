@@ -1,1 +1,788 @@
-[]
+[
+  {
+    "createBy": "admin",
+    "srcId": "0011f3f3-90f1-43fc-aacf-f0ca5ee9621e",
+    "source": "The path of the component to be rendered.",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0035ba2e-8906-4ce4-9e87-e24c27047164",
+    "source": "Menu Type is required.",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "00636517-9973-4047-a30a-32a76364bf3a",
+    "source": "Privacy Policy",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0088cfec-5e53-433d-8e09-0619e7bdf61b",
+    "source": "Parent Menu",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "01dfdef6-bc96-4a3a-ab63-c5af35488ea7",
+    "source": "Expand/Collapse",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "05504b26-9dad-4c93-8ed9-ae7e7961a039",
+    "source": "Role Create",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "08cd777f-becb-4370-982a-0d88a73fc78e",
+    "source": "Directory",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "08ce9ccf-6cf5-4af9-b8de-a7785465785c",
+    "source": "Welcome",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0bb4ba4e-2c54-46ff-aff4-78596c2a4db2",
+    "source": "Root",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0e10e481-c3a1-4135-9588-a0c969ea4e34",
+    "source": "Menu Name is required.",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0e9e9a88-8eea-4b69-a2a6-efaa4a5fcdc4",
+    "source": "Reset",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0f23649a-903a-4b61-9918-49f593811a4f",
+    "source": "redirect to",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1087d82e-c287-4bbe-b3b4-001fc5aa60c2",
+    "source": "Create Locale",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "13eca577-b77c-4da0-9955-d3ce903a21e6",
+    "source": "Menu",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "157c9f60-9043-4168-803d-3d173e7c20ec",
+    "source": "Go Back to Home",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "16e9c97b-d9be-488f-af08-bcb389d00256",
+    "source": "Context",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1c631932-dd64-4fde-a598-ebadb5c35071",
+    "source": "Sign In",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1dbe48a9-8408-4511-8742-1f413e38f93c",
+    "source": "Menu Type",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1f1d381a-08f0-4c4a-9338-b1045cddcdd8",
+    "source": "overline",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "21bf849c-7a1f-4c9c-9552-9cf61112a9b7",
+    "source": "Role Name",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "26d96a95-a28d-4043-b6a0-6195c1270619",
+    "source": "Language Switcher",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "2a81ead2-1bd2-4163-accb-75cea6a8e39b",
+    "source": "Menu Create",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "2dac52a8-826d-4fa4-9e3b-b6d80eadd008",
+    "source": "Don't have an account?",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "307bacf0-c654-4bcb-9b68-51ac60836e2f",
+    "source": "Username",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "30af8375-9b12-4698-95c4-783e6f9a4fa1",
+    "source": "Set as default",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "31c99ca5-fcf1-4f96-91b6-a7c4a352480b",
+    "source": "Label",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "330de27f-e866-48d3-801f-f19734db3074",
+    "source": "Save",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "35dad8cd-e460-461e-a226-39b0b2f99da4",
+    "source": "Permission",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "380b1288-510e-4dff-a5fd-5050132c1da6",
+    "source": "Forgot password?",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3a73ad1c-e25b-41e0-a161-2cfe6a149611",
+    "source": "Role Perms",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3c932509-b0b2-4d6c-a5f7-3852407eb62b",
+    "source": "Secret",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3df8c329-b54a-4568-bf32-16bdd3b02f81",
+    "source": "menu",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3f524cbe-c027-4b0b-971d-ea333bcb62ae",
+    "source": "(empty)",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "44134080-0087-4d68-adeb-f740367fd5f1",
+    "source": "Menu Edit",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "444655e4-a884-4339-96f0-17b3a3a955b0",
+    "source": "System",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "45cded0a-be74-4a35-a53c-89ef2770bd31",
+    "source": "New Menu",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "464f2949-d079-4669-ba1c-f84136bfadd7",
+    "source": "Sign in to your account",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "49462796-818a-410c-8f3d-506370224c2a",
+    "source": "Order",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4bf0104c-6191-40a5-a49b-db0c9f38f596",
+    "source": "Welcome! Let's build amazing things together.",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4dc4eb1e-63a9-40a3-8aa2-65463bc16c49",
+    "source": "Landing",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4e67e335-9c4e-4720-ba90-fcc46c23c06a",
+    "source": "Role Mgmt",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4eae2297-c7c2-4d80-9a52-60e79d6c9521",
+    "source": "Default",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4f354219-edf8-4231-8296-04b076cf6202",
+    "source": "Female",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4f385a02-7f91-45fe-a46c-1b83d6d2e27d",
+    "source": "Locale Query",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4fd50a6d-b507-4304-a6b5-774e40acf7c7",
+    "source": "Disabled",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "512237b0-3f64-4acb-baf7-f6fe532f4eef",
+    "source": "Edit Menu - {0}",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5278e1ac-8581-442c-af02-7c01958cd953",
+    "source": "Perms",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "573c726a-69c4-4495-a262-c189f433bfbe",
+    "source": "Create Account",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "575504c8-4bbf-4698-b1b2-c219e4faafec",
+    "source": "Role Key",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "59fbf527-2aa4-46d2-8d77-9172888c15e2",
+    "source": "WeChat",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5a09e64c-b097-469b-b1a3-b1186f5a72f8",
+    "source": "directory",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5a42f770-2fbc-4415-a04d-82e73458beaa",
+    "source": "Create Time",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5b419471-e200-4f2f-bbf3-374b766b7b8d",
+    "source": "Langcode",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5d7e9d06-8a7e-4f7b-8390-d9f33dbd7915",
+    "source": "By signing up, you agree to the",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "647c3b7c-024e-4cd8-aefa-fcbddc568e9f",
+    "source": "Role Delete",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "67569c0a-abf0-406a-a224-cf76acff5396",
+    "source": "Username is required.",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "688c5bf9-877c-41d3-8bff-ab0543e05c15",
+    "source": "Moment Code",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "68e7c6f0-5964-446b-ab60-c973ad51e25e",
+    "source": "Change to Dark Mode",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "693a4a1d-527d-4daf-905e-dc130f94a239",
+    "source": "Message",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6def3cfa-3d38-4cde-9bf1-9c98fe840b51",
+    "source": "Email",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6e39d4c6-cb72-4959-821a-de647f3e4a21",
+    "source": "Save All ({0})",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6f589f0f-f979-4f40-8888-968b46a6e729",
+    "source": "Locale Delete",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6fa3d516-efe4-4642-8809-f3febf079d67",
+    "source": "Auth",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7441f3ac-6c03-4515-9ec9-6fd0653b4a07",
+    "source": "Visibility",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "75dbe0ab-ca43-4d7f-9f3e-29495d846a90",
+    "source": "Menu Delete",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "786dac95-3f74-4b59-9177-0a9e234c17f5",
+    "source": "Locale Edit",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7ab6c4cf-6e0c-46c1-a3cb-598dea232fde",
+    "source": "Path",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7c5e8cc9-4a5c-4e95-8e7d-b0b954f56852",
+    "source": "Edit Role - {0}",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7e9b9fec-44d6-4ad7-8363-00154162c448",
+    "source": "Type",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7ee9ccf8-d142-4f7e-a946-c7f95c873de8",
+    "source": "Icon",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "80de4a61-ca4f-44bd-9dec-4ef19689a7a5",
+    "source": "System Mgmt",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "847aa8f8-7e81-46af-a793-4e922dd5b60f",
+    "source": "Nickname",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "84fc95dd-133f-4027-ad49-c7449959cd3d",
+    "source": "Sex",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "851e4239-ecf0-4b56-bf39-aa409d082f50",
+    "source": "Or sign up with",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "89d768cc-6c79-44ba-93ba-8b3dd63ac6eb",
+    "source": "Edit User - {0}",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "8b99e724-a71f-4592-9ef3-2830dc052010",
+    "source": "Role Users",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "8c52a0cb-c358-46b7-98d6-f554d93f7dda",
+    "source": "The layout used for component render.",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "8d0e82a6-f369-43f1-afbd-50f3b7f2db9d",
+    "source": "Show",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "92358f27-14f7-40ab-ae4a-4b18a7e69793",
+    "source": "Layout",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "946e9026-c3ed-447b-b68a-65d41cf954b9",
+    "source": "Locale Mgmt",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "9ce498a1-f473-4a37-ae08-81583a7a010a",
+    "source": "Role Query",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "9e0e03f7-d82f-4230-8d97-8bf890404403",
+    "source": "New User",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "9f41dca2-615f-4037-b1b3-fe91f449ca48",
+    "source": "Parent Menu is required.",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "a10d8439-7dd2-46d1-93e8-e4744b034a94",
+    "source": "New Locale",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "a338f2f5-b1a4-4923-aca4-2048f7bbc120",
+    "source": "Password",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "a6d0e920-6103-4c07-a498-f13b8644e642",
+    "source": "action",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "a76a3df7-d0a6-41bc-b747-8650383a9bd2",
+    "source": "Or sign in with",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ab4139a4-484f-4e0f-a55e-c8c56c9d7636",
+    "source": "Role Name is required.",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ad766c76-1319-4a12-8829-ca3d8a2a708d",
+    "source": "Langcode is required.",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b30c36d0-88e7-4156-a744-91c75b40114c",
+    "source": "Locale Create",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b5686052-edb2-440b-bf18-eaeddfa30c0f",
+    "source": "Message BatchUpsert",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b682b37e-cad6-4580-b43f-554645d42adb",
+    "source": "Menu Query",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b91ca2d7-ca2a-4975-b991-8495667ade5e",
+    "source": "Message Create",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "bbc03c6d-33d8-43a2-824b-80197f971105",
+    "source": "User Mgmt",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "bbf81f47-9eef-404c-8f9e-b8f1b6569991",
+    "source": "Male",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "bfa7378d-ed05-4bce-a1b7-91059c720a09",
+    "source": "Hidden",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c098331e-b6c8-4de7-8ad3-40fac43c1910",
+    "source": "Save All",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c2dfa960-9aee-41bc-afc0-610b1561640e",
+    "source": "Format: [dom]:[obj]:[act], e.g. admin:menu:create",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c372bb46-997f-406d-a1a5-b6ea4cf9d0f6",
+    "source": "Menu Perms",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c4a807e0-7071-4e19-9fd6-f5a5ea34aa87",
+    "source": "Create one here",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c5ca7edd-84b6-40f7-ad72-e4aad608d4cf",
+    "source": "Linkage/Not",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c7ba9eaf-3239-4dbf-829b-0b0cf85842e1",
+    "source": "Role Edit",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c98e8b37-947b-4bbf-bd00-f8d6f585ab6f",
+    "source": "Locales",
+    "context": "locale.tab"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ca922fae-4070-4804-91cb-e3c028c1fe1c",
+    "source": "Dict Mgmt",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ca9244a4-6f36-40ea-ac88-a3bbfc5ec6f3",
+    "source": "Contact Me",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d0426919-d4da-430a-bad9-7fbf52d01a01",
+    "source": "Status",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d2152470-2e4d-45d1-8744-179cdf33b960",
+    "source": "User Assign",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d2441884-d7d2-41c7-b6fb-66a453880e8c",
+    "source": "Overline",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d249edc2-2f2e-4cd1-a228-72cb0ff16f59",
+    "source": "Role Key is required.",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d2ea24ff-2e71-4dd5-aa50-ac79e8f4c075",
+    "source": "Messages",
+    "context": "locale.tab"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d4f47209-7b77-411a-bdbd-331a44b349db",
+    "source": "Menu Name",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d6b52311-66b2-428e-a3dc-d455d03478a7",
+    "source": "Already have an account?",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "db4368c1-65d2-41c0-9824-20443459018b",
+    "source": "Message",
+    "context": "locale.messages.header"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "dcb41c04-be08-4214-a999-cf978b78c90a",
+    "source": "Component",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e04bcccf-cf7f-4281-aa9e-ef37612c07ac",
+    "source": "Enabled",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e10edc2e-6c1d-48fe-83e5-3d0c18721d8a",
+    "source": "ID",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e330a033-4ac2-4010-8a75-d1ace0d2136e",
+    "source": "Source",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e4e0e597-b4f2-45c6-9ffc-5ba1018adb7e",
+    "source": "User Un-Assign",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e6f7e0aa-a2b8-4a8b-8031-558e9affe600",
+    "source": "Create Role",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e9ac6a3c-b5c1-4808-9d1b-7c17d8a8ec8f",
+    "source": "Phone",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "eab4fcfe-5eec-4d96-aa8f-448d0b42eb24",
+    "source": "Password is required.",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "eb2f4924-7b0a-4725-8ff7-ab7e4b275f39",
+    "source": "Select All/None",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ec0f5022-37ef-402f-b1c1-120ee76d195c",
+    "source": "Create Menu",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ed31a2a4-a49f-4123-98eb-9817ac13757a",
+    "source": "Search",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f089788c-ffad-4d3c-a2bd-650121f50100",
+    "source": "Create User",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f72adb05-1390-41e7-8a0a-c50485c386d3",
+    "source": "UI",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f8210d73-13dc-4e2e-bc19-5335011f59d1",
+    "source": "New Role",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f87c051d-55ce-4af6-9d84-d2a5de9f6de9",
+    "source": "Action",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f8bde630-3a36-4af6-abc0-1515dfadb79d",
+    "source": "Menu Mgmt",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "fcd1cc41-0589-4619-af5d-e4b7b78dea98",
+    "source": "Terms of Service",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "fe76a700-1737-41e3-bb5d-572d4d4e6851",
+    "source": "Cancel",
+    "context": ""
+  }
+]

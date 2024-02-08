@@ -152,6 +152,7 @@ const items = ref([
         rounded="0"
         variant="text"
         @click="item.action"
+        :title="item.title"
         v-else
       >
         <v-icon>{{ item.icon }}</v-icon>

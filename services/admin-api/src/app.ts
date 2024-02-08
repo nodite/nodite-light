@@ -33,7 +33,7 @@ app.use(
   }),
 );
 app.use(helmet());
-app.use(apiLimiter.unless({ path: consts.RATELIMIT_WHITELIST }));
+// app.use(apiLimiter.unless({ path: consts.RATELIMIT_WHITELIST }));
 app.use(httpContext.middleware);
 app.use(httpLogger.successHandler);
 app.use(httpLogger.errorHandler);

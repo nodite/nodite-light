@@ -505,14 +505,58 @@ export interface PickInstanceTypeTypeofLocaleSourceModelSrcIdOrSourceOrContextOr
   updateBy: string;
   /** @format date-time */
   updateTime: string;
-  /** @format double */
-  srcId: number;
+  srcId: string;
   source: string;
   context: string;
 }
 
 export type ILocaleSource =
   PickInstanceTypeTypeofLocaleSourceModelSrcIdOrSourceOrContextOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickInstanceTypeTypeofLocaleMessageModelSrcIdOrLangcodeOrMessageOrCustomizedOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  langcode: string;
+  srcId: string;
+  message: string;
+  customized: 0 | 1;
+}
+
+export type ILocaleMessage =
+  PickInstanceTypeTypeofLocaleMessageModelSrcIdOrLangcodeOrMessageOrCustomizedOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
+
+export type ISourceWithMessages = ILocaleSource & {
+  messages: ILocaleMessage[];
+};
+
+export interface SequelizePaginationISourceWithMessages {
+  items: ISourceWithMessages[];
+  /** @format double */
+  count: number;
+  /** @format double */
+  totalCount: number;
+  /** @format double */
+  totalPage: number;
+  /** @format double */
+  page: number;
+  /** @format double */
+  itemsPerPage: number;
+}
+
+export interface IResponseSequelizePaginationISourceWithMessages {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: SequelizePaginationISourceWithMessages;
+}
 
 export interface IResponseILocaleSource {
   error: boolean;
@@ -562,57 +606,22 @@ export type ISourceCreate = OmitILocaleSourceSrcId & {
   locations: ILocationCreate[];
 };
 
-/** From T, pick a set of properties whose keys are in the union K */
-export interface PickInstanceTypeTypeofLocaleMessageModelSrcIdOrLangcodeOrMessageOrCustomizedOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
-  status: 0 | 1;
-  deleted: 0 | 1 | 9;
-  createBy: string;
-  /** @format date-time */
-  createTime: string;
-  updateBy: string;
-  /** @format date-time */
-  updateTime: string;
+export interface IAvailableMessage {
   langcode: string;
-  /** @format double */
-  srcId: number;
   message: string;
-  customized: 0 | 1;
+  source: string;
+  context: string;
 }
 
-export type ILocaleMessage =
-  PickInstanceTypeTypeofLocaleMessageModelSrcIdOrLangcodeOrMessageOrCustomizedOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
-
-export interface SequelizePaginationILocaleMessage {
-  items: ILocaleMessage[];
-  /** @format double */
-  count: number;
-  /** @format double */
-  totalCount: number;
-  /** @format double */
-  totalPage: number;
-  /** @format double */
-  page: number;
-  /** @format double */
-  itemsPerPage: number;
-}
-
-export interface IResponseSequelizePaginationILocaleMessage {
+export interface IResponseIAvailableMessageArray {
   error: boolean;
   /** @format double */
   httpCode: number;
   message: string;
-  data?: SequelizePaginationILocaleMessage;
+  data?: IAvailableMessage[];
 }
 
-export type IAvailableMessage = Record<string, any>;
-
-export interface IResponseIAvailableMessage {
-  error: boolean;
-  /** @format double */
-  httpCode: number;
-  message: string;
-  data?: IAvailableMessage;
-}
+export type IMessageUpsert = ILocaleMessage;
 
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrParentIdOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {

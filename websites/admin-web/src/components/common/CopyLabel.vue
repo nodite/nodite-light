@@ -42,7 +42,9 @@ const copyText = (text: string, event: Event) => {
   <v-snackbar v-model="snackbar" :timeout="timeout">
     {{ copiedText }}
     <template v-slot:actions>
-      <v-btn color="blue" variant="text" @click="snackbar = false"> Close </v-btn>
+      <v-btn color="blue" variant="text" @click="snackbar = false" :title="$ndt('Close')">
+        {{ $ndt('Close') }}
+      </v-btn>
     </template>
   </v-snackbar>
   <v-tooltip location="bottom">

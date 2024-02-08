@@ -31,11 +31,10 @@ import LocaleMessageSeeds from '@/seeds/sys_locale_message.seeds.json';
 @Subscribe(LocaleMessageSeeds)
 export default class LocaleMessageModel extends SequelizeModel<LocaleMessageModel> {
   @PrimaryKey
-  @Default(0)
   @AllowNull(false)
   @Comment('Source string ID. References "sys_locale_source".srcId.')
-  @Column({ field: 'src_id', type: DataType.INTEGER })
-  srcId: number;
+  @Column({ field: 'src_id', type: DataType.UUID })
+  srcId: string;
 
   @PrimaryKey
   @AllowNull(false)
@@ -43,9 +42,16 @@ export default class LocaleMessageModel extends SequelizeModel<LocaleMessageMode
   @Column(DataType.STRING(20))
   langcode: string;
 
+  @Default('')
   @AllowNull(false)
   @Comment('Translation string value in this language.')
-  @Column(DataType.TEXT)
+  @Column({
+    field: 'message',
+    type: DataType.BLOB,
+    get() {
+      return this.getDataValue('message')?.toString('utf8');
+    },
+  })
   message: string;
 
   @Default(0)

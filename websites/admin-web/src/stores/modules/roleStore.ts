@@ -42,7 +42,6 @@ export const useRoleStore = defineStore('role', {
      */
     async create(role: IRole): Promise<void> {
       await RoleApi.adminRoleCreate(lodash.omit(role, ['roleId']));
-      await this.$reset();
     },
     /**
      * Edit.
@@ -50,7 +49,6 @@ export const useRoleStore = defineStore('role', {
      */
     async edit(role: IRole): Promise<void> {
       await RoleApi.adminRoleEdit(role.roleId, lodash.omit(role, ['roleId', 'roleKey']));
-      await this.$reset();
     },
     /**
      * Delete.
@@ -58,7 +56,6 @@ export const useRoleStore = defineStore('role', {
      */
     async delete(id: number): Promise<void> {
       await RoleApi.adminRoleDelete(id);
-      await this.$reset();
     },
     /**
      * List menu perms.

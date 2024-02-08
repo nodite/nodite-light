@@ -1,3 +1,5 @@
+import md5 from 'md5';
+
 import { ILocationCreate } from '@/api/admin/data-contracts';
 import messages from '@/locales';
 import { Locale as LocaleConfig } from '@/types/config';
@@ -14,7 +16,11 @@ try {
   console.error(e);
 }
 
+const PREFIX = 'ndt';
+
 export default {
+  PREFIX,
+
   // default locale
   BROWSER_LOCALE,
 
@@ -24,8 +30,8 @@ export default {
    * @param context
    * @returns
    */
-  toKey: (source: string, context?: string): string => {
-    return context ? `${source}.${context}` : source;
+  toKey: (source: string, context?: string, prefix: string = PREFIX): string => {
+    return (prefix ? prefix + '.' : '') + md5(context ? `${context}.${source}` : source);
   },
 
   /**
@@ -49,8 +55,6 @@ export default {
     if (lodash.isEmpty(locations)) {
       locations.push({ type: 'unknown', name: modulePath } as ILocationCreate);
     }
-
-    console.log('locations', locations);
 
     return locations;
   },

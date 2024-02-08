@@ -37,8 +37,8 @@ export default class LocaleLocationModel extends SequelizeModel<LocaleLocationMo
 
   @AllowNull(false)
   @Comment('Unique identifier of this source.')
-  @Column({ field: 'src_id', type: DataType.INTEGER })
-  srcId: number;
+  @Column({ field: 'src_id', type: DataType.UUID })
+  srcId: string;
 
   @Default('')
   @AllowNull(false)

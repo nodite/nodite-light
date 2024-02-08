@@ -6,7 +6,7 @@ import {
 } from '@nodite-light/vuetify-delete-confirm-form';
 import moment from 'moment';
 
-import { IUser, QueryParams, SequelizePaginationIUser } from '@/api/admin/data-contracts';
+import { IUser, SequelizePaginationIUser } from '@/api/admin/data-contracts';
 import { useProfileStore } from '@/stores/modules/profileStore';
 import { useUserStore } from '@/stores/modules/userStore';
 import PassForm from '@/views/user/components/PassForm.vue';
@@ -16,93 +16,117 @@ const userStore = useUserStore();
 const profileStore = useProfileStore();
 const router = useRouter();
 
-const localData = ref({
+interface QueryParams {
+  username?: string;
+  nickname?: string;
+  email?: string;
+  status?: number;
+}
+
+// Local data.
+const myRefStore = ref({
   loading: true,
-  searching: false,
-  searchResetting: false,
+
   pageResult: {} as SequelizePaginationIUser,
   items: [] as IUser[],
+
+  page: 1,
+  itemsPerPage: 10,
+});
+
+// Query params.
+const queryParamPage = computed({
+  get: () => myRefStore.value.page || 1,
+  set: (v: number) => {
+    myRefStore.value.page = v;
+    methods.loadList();
+  },
+});
+
+const queryParamItemsPerPage = computed({
+  get: () => myRefStore.value.itemsPerPage || 10,
+  set: (v: number) => {
+    myRefStore.value.itemsPerPage = v;
+    methods.loadList();
+  },
 });
 
 const queryParams = ref({
-  page: 1,
-  itemsPerPage: 10,
   username: undefined,
   nickname: undefined,
   email: undefined,
   status: undefined,
 } as QueryParams);
 
+// User from.
 const userFormData = ref({
   dialog: false,
   userId: 0,
 });
 
+// Pass form.
 const passFormData = ref({
   dialog: false,
   username: '',
   userId: 0,
 });
 
+// Delete confirm.
 const deleteConfirmFormData = ref({
   dialog: false,
   item: {} as IUser,
 });
 
+// Methods.
 const methods = {
+  // Load list.
   async loadList() {
-    localData.value.loading = true;
-    localData.value.pageResult =
-      (await userStore.list(queryParams.value)) || ({} as SequelizePaginationIUser);
-    localData.value.loading = false;
+    myRefStore.value.loading = true;
+
+    const pageResult = await userStore.list({
+      page: queryParamPage.value,
+      itemsPerPage: queryParamItemsPerPage.value,
+      ...queryParams.value,
+    });
+
+    myRefStore.value.pageResult = pageResult || ({} as SequelizePaginationIUser);
+
+    myRefStore.value.loading = false;
   },
+  // Is self.
   isSelf(item: IUser) {
     return item.userId === profileStore.profile?.userId;
   },
-  setItemsPerPage(v: number) {
-    queryParams.value.itemsPerPage = v;
-    methods.loadList();
-  },
-  setPage(v: number) {
-    queryParams.value.page = v;
-    methods.loadList();
-  },
-  async searchList() {
-    localData.value.searching = true;
-    try {
-      await methods.loadList();
-    } finally {
-      localData.value.searching = false;
-    }
-  },
+  // Reset search.
   async resetSearch() {
-    localData.value.searchResetting = true;
-    try {
-      queryParams.value = {};
-      await methods.loadList();
-    } finally {
-      localData.value.searchResetting = false;
-    }
+    queryParams.value = {};
+    await methods.loadList();
   },
+  // Open user form.
   openUserForm(id: number) {
     userFormData.value.dialog = true;
     userFormData.value.userId = id;
   },
+  // Open pass form.
   openPassForm(username: string, id: number) {
     passFormData.value.dialog = true;
     passFormData.value.username = username;
     passFormData.value.userId = id;
   },
+  // Open delete confirm form.
   openDeleteConfirmForm(item: IUser) {
     deleteConfirmFormData.value.dialog = true;
     deleteConfirmFormData.value.item = item;
   },
+  // Open role asgmt page.
   async openRoleAsgmtPage(item: IUser) {
     await router.push(`/user/${item.userId}/roles`);
   },
+  // Change user status.
   async changeUserStatus(id: number, status: number) {
     await userStore.edit({ userId: id, status: status } as IUser);
   },
+  // Delete.
   async delete(item: IUser, cb: ConfirmCallback) {
     try {
       await userStore.delete(item.userId);
@@ -114,8 +138,9 @@ const methods = {
   },
 };
 
-onMounted(() => {
-  methods.loadList();
+// Lifecycle.
+onMounted(async () => {
+  await methods.loadList();
 });
 </script>
 
@@ -180,8 +205,7 @@ onMounted(() => {
           color="primary"
           prepend-icon="mdi-magnify"
           density="comfortable"
-          :loading="localData.searching"
-          @click="methods.searchList"
+          @click="methods.loadList"
         >
           {{ $ndt('Search') }}
         </v-btn>
@@ -190,7 +214,6 @@ onMounted(() => {
           color="inherit"
           prepend-icon="mdi-sync"
           density="comfortable"
-          :loading="localData.searchResetting"
           @click="methods.resetSearch"
         >
           {{ $ndt('Reset') }}
@@ -211,7 +234,8 @@ onMounted(() => {
       { title: $ndt('Create Time'), value: 'createTime' },
       { key: 'actions', sortable: false },
     ]"
-    :items="localData.pageResult.items"
+    :items="myRefStore.pageResult.items"
+    :items-per-page="queryParamItemsPerPage"
   >
     <template v-slot:top>
       <v-toolbar density="compact" color="inherit">
@@ -307,19 +331,11 @@ onMounted(() => {
 
     <template v-slot:bottom>
       <VDataTablePagination
-        :items-per-page="queryParams.itemsPerPage"
-        :items-per-page-options="[
-          { value: 10, title: '10' },
-          { value: 25, title: '25' },
-          { value: 50, title: '50' },
-          { value: -1, title: $ndt('$vuetify.dataFooter.itemsPerPageAll') },
-        ]"
-        :page="queryParams.page"
-        :current-count="localData.pageResult.count"
-        :total-count="localData.pageResult.totalCount"
-        :total-page="localData.pageResult.totalPage"
-        @update-items-per-page="methods.setItemsPerPage"
-        @update-page="methods.setPage"
+        v-model:page="queryParamPage"
+        v-model:items-per-page="queryParamItemsPerPage"
+        :current-count="myRefStore.pageResult.count"
+        :total-count="myRefStore.pageResult.totalCount"
+        :total-page="myRefStore.pageResult.totalPage"
       ></VDataTablePagination>
     </template>
   </v-data-table>

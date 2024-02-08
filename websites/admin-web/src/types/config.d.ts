@@ -6,24 +6,6 @@ declare namespace Common {
 
 interface Config {
   theme: ThemeConfig.Config;
-  currency: CurrencyConfig.Config;
-}
-
-declare namespace CurrencyConfig {
-  interface Currency {
-    label: string;
-    decimalDigits: number;
-    decimalSeparator: string;
-    thousandsSeparator: string;
-    currencySymbol: string;
-    currencySymbolNumberOfSpaces: number;
-    currencySymbolPosition: string;
-  }
-
-  interface Config {
-    currency: Currency;
-    availableCurrencies: Currency[];
-  }
 }
 
 declare namespace ThemeConfig {
@@ -122,5 +104,8 @@ declare namespace Locale {
   interface TOptions {
     context?: string;
     component?: string;
+  }
+  interface Message {
+    [key: string]: string | Message;
   }
 }
