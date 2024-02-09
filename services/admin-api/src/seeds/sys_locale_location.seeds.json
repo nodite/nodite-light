@@ -784,5 +784,41 @@
     "srcId": "7c5e8cc9-4a5c-4e95-8e7d-b0b954f56852",
     "type": "module_path",
     "name": "/admin/src/views/role/components/RoleForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "07b717ec-80ad-4478-8a63-ecf7d1472a20",
+    "type": "module_path",
+    "name": "/admin/src/components/toolbar/CacheClear.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "9aa06c03-de7f-4928-bc4a-f13f7ad9bef2",
+    "type": "module_path",
+    "name": "/admin/src/components/toolbar/CacheClear.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "eb499884-7097-46ee-b2ad-acd484fd3fb7",
+    "type": "module_path",
+    "name": "/admin/src/components/toolbar/CacheClear.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "77925c27-76c6-4f8a-82d7-75b5fc4eb78c",
+    "type": "module_path",
+    "name": "/admin/src/components/toolbar/CacheClear.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c7502eae-acb6-4713-895b-49a9a2b36935",
+    "type": "module_path",
+    "name": "/admin/src/components/toolbar/CacheClear.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "8971f796-a3d9-4402-ac14-09c00ee0c2fc",
+    "type": "module_path",
+    "name": "/admin/src/components/toolbar/CacheClear.vue"
   }
 ]

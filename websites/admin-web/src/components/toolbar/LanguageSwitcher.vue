@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Icon } from '@iconify/vue';
+import { Icon } from '@nodite-light/vuetify-icon-picker';
 import { useLocale } from 'vuetify';
 
 import { IAvailableLocale } from '@/api/admin/data-contracts';
@@ -8,7 +8,7 @@ import { useLocaleStore } from '@/stores/modules/localeStore';
 const { current } = useLocale();
 const localeStore = useLocaleStore();
 
-const availableLocales = computed(() => localeStore.availableLocales);
+const availableLocales = ref([] as IAvailableLocale[]);
 
 const methods = {
   setLocale(locale: IAvailableLocale, notice: boolean = true) {
@@ -19,6 +19,10 @@ const methods = {
 
 onMounted(async () => {
   methods.setLocale(localeStore.currLocale, false);
+});
+
+watchEffect(async () => {
+  availableLocales.value = await localeStore.listAvailableLocales();
 });
 </script>
 <template>
@@ -37,7 +41,7 @@ onMounted(async () => {
         :active="locale.langcode === current"
       >
         <template v-slot:prepend>
-          <Icon :icon="locale.icon" class="mr-2" />
+          <Icon :icon="locale.icon" classes="mr-2" />
         </template>
         <v-list-item-title> {{ locale.label }}</v-list-item-title>
       </v-list-item>

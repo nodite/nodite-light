@@ -624,7 +624,7 @@ export interface IResponseIAvailableMessageArray {
 export type IMessageUpsert = ILocaleMessage;
 
 /** From T, pick a set of properties whose keys are in the union K */
-export interface PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrParentIdOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
+export interface PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrGroupKeyOrParentIdOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
   status: 0 | 1;
   deleted: 0 | 1 | 9;
   createBy: string;
@@ -637,13 +637,13 @@ export interface PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrParentI
   orderNum: number;
   /** @format double */
   parentId: number;
-  /** @format double */
-  groupId: number;
+  groupId: string;
   groupName: string;
+  groupKey: string;
 }
 
 export type IDictGroup =
-  PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrParentIdOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
+  PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrGroupKeyOrParentIdOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
 
 export interface IResponseIDictGroupArray {
   error: boolean;

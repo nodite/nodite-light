@@ -132,7 +132,6 @@ export class RoleController extends BaseController {
   @Get('{id}/users')
   @OperationId('admin:role:user:list')
   @Permissions('admin:role:user:list')
-  @Cacheable({ hashKey: 'role:user:list', cacheKey: (args) => args[0] })
   public async listRoleUsers(@Path() id: number): Promise<IResponse<IUserWithRoles[]>> {
     const users = await this.roleService.selectUsersOfRole(id);
     this.setStatus(httpStatus.OK);
@@ -142,7 +141,6 @@ export class RoleController extends BaseController {
   @Put('{id}/users')
   @OperationId('admin:role:user:assign')
   @Permissions('admin:role:user:assign')
-  @CacheClear({ hashKey: 'role:user:list', cacheKey: (args) => args[0] })
   public async assignRoleToUsers(
     @Path() id: number,
     @Body() userIds: number[],
@@ -155,7 +153,6 @@ export class RoleController extends BaseController {
   @Delete('{id}/users')
   @OperationId('admin:role:user:unassign')
   @Permissions('admin:role:user:unassign')
-  @CacheClear({ hashKey: 'role:user:list', cacheKey: (args) => args[0] })
   public async unassignRoleOfUsers(
     @Path() id: number,
     @Body() userIds: number[],

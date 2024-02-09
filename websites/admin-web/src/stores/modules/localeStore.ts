@@ -19,7 +19,6 @@ import axios from '@/utils/requests';
 
 interface LocaleState {
   initialized: boolean;
-  entryLocale: IAvailableLocale;
   currLocale: IAvailableLocale;
 
   availableLocales: IAvailableLocale[];
@@ -32,12 +31,9 @@ interface LocaleState {
 export const useLocaleStore = defineStore('locale', {
   state: (): LocaleState => ({
     initialized: false,
-    entryLocale: {
-      langcode: localeUtil.BROWSER_LOCALE,
-    } as IAvailableLocale,
     currLocale: {
-      langcode: localeUtil.BROWSER_LOCALE,
-      momentCode: localeUtil.BROWSER_LOCALE,
+      langcode: localeUtil.getCurrLang(),
+      momentCode: localeUtil.getCurrLang(),
     } as IAvailableLocale,
 
     availableLocales: [],
@@ -49,56 +45,9 @@ export const useLocaleStore = defineStore('locale', {
 
   persist: [{ storage: localStorage }],
 
-  getters: {
-    fallbackLocale: (state): IAvailableLocale => {
-      return lodash.find(state.availableLocales, { isDefault: 1 }) || state.entryLocale;
-    },
-  },
+  getters: {},
 
   actions: {
-    /**
-     * Initialize.
-     */
-    async initialize(froce: boolean = false) {
-      if (froce) this.initialized = false;
-      if (!this.initialized) await this.listAvailableLocales();
-      await Promise.all([
-        this.setCurrLocale(this.currLocale),
-        this.setDefaultLocale({ langcode: this.fallbackLocale.langcode } as ILocale),
-      ]);
-      this.initialized = true;
-    },
-    /**
-     * Initialize messages.
-     * @returns
-     */
-    async initializeMessages(langcode: string, force: boolean = false) {
-      const messagePath = [langcode, localeUtil.PREFIX];
-
-      if (!lodash.has(this.availableMessages, langcode) || force) {
-        lodash.set(
-          this.availableMessages,
-          messagePath,
-          lodash
-            .chain((await LocaleApi.adminLocaleMessageAvailable({ langcode: langcode })) || [])
-            .map((i) => ({ key: localeUtil.toKey(i.source, i.context, ''), ...i }))
-            .groupBy('langcode')
-            .mapValues((i) => lodash.chain(i).keyBy('key').mapValues('message').value())
-            .get(langcode)
-            .value(),
-        );
-      }
-
-      const effected = lodash.isEqual(
-        lodash.get(this.availableMessages, messagePath) || 0,
-        lodash.get(i18n.global.messages.value, messagePath) || 1,
-      );
-
-      if (!effected && !lodash.isEmpty(this.availableMessages[langcode])) {
-        console.log('mergeLocaleMessage', langcode);
-        i18n.global.mergeLocaleMessage(langcode, this.availableMessages[langcode]);
-      }
-    },
     /**
      * List locales.
      * @returns
@@ -183,6 +132,64 @@ export const useLocaleStore = defineStore('locale', {
         lodash.map(messages, (i) => ({ ...i, customized: 1 })),
       );
     },
+
+    /**
+     * Initialize.
+     */
+    async initialize(froce: boolean = false) {
+      if (froce) this.initialized = false;
+      if (!this.initialized) await this.listAvailableLocales();
+      await Promise.all([
+        this.setCurrLocale(this.currLocale),
+        this.setDefaultLocale({ langcode: (await this.getDefaultLocale()).langcode } as ILocale),
+      ]);
+      this.initialized = true;
+    },
+    /**
+     * Initialize messages.
+     * @returns
+     */
+    async initializeMessages(langcode: string, force: boolean = false) {
+      const messagePath = [langcode, localeUtil.PREFIX];
+
+      if (!lodash.has(this.availableMessages, langcode) || force) {
+        lodash.set(
+          this.availableMessages,
+          messagePath,
+          lodash
+            .chain((await LocaleApi.adminLocaleMessageAvailable({ langcode: langcode })) || [])
+            .map((i) => ({ key: localeUtil.toKey(i.source, i.context, ''), ...i }))
+            .groupBy('langcode')
+            .mapValues((i) => lodash.chain(i).keyBy('key').mapValues('message').value())
+            .get(langcode)
+            .value(),
+        );
+      }
+
+      const effected = lodash.isEqual(
+        lodash.get(this.availableMessages, messagePath) || 0,
+        lodash.get(i18n.global.messages.value, messagePath) || 1,
+      );
+
+      if (!effected && !lodash.isEmpty(this.availableMessages[langcode])) {
+        console.log('mergeLocaleMessage', langcode);
+        i18n.global.mergeLocaleMessage(langcode, this.availableMessages[langcode]);
+      }
+    },
+    /**
+     * Get default locale.
+     * @returns
+     */
+    async getDefaultLocale(): Promise<IAvailableLocale> {
+      return (
+        lodash.find(await this.listAvailableLocales(), { isDefault: 1 }) ||
+        lodash.find(await this.listAvailableLocales(), { langcode: localeUtil.getDefLang() }) ||
+        ({
+          langcode: localeUtil.getDefLang(),
+          momentCode: localeUtil.getDefLang(),
+        } as IAvailableLocale)
+      );
+    },
     /**
      * Set default locale.
      * @param locale
@@ -193,6 +200,8 @@ export const useLocaleStore = defineStore('locale', {
         await this.editLocale({ localeId: locale.localeId, isDefault: 1 } as ILocale);
       // fallback locale.
       if (locale.langcode) i18n.global.fallbackLocale.value = locale.langcode as any;
+      // html attribute.
+      document.querySelector('html')?.setAttribute('def-lang', locale.langcode);
       // messages.
       await this.initializeMessages(locale.langcode);
     },

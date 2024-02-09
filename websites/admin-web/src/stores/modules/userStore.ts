@@ -7,14 +7,10 @@ import {
 import * as UserApi from '@/api/admin/User';
 import lodash from '@/utils/lodash';
 
-interface UserState {
-  users: IUser[];
-}
+interface UserState {}
 
 export const useUserStore = defineStore('user', {
-  state: (): UserState => ({
-    users: [],
-  }),
+  state: (): UserState => ({}),
 
   persist: [{ storage: sessionStorage }],
 

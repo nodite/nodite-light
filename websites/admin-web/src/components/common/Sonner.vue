@@ -6,5 +6,5 @@ import { VSonner } from 'vuetify-sonner';
 </script>
 
 <template>
-  <VSonner position="top-right" />
+  <VSonner position="top-center" />
 </template>

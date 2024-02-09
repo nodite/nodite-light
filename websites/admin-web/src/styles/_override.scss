@@ -46,6 +46,14 @@ html {
     font-weight: 500;
   }
 
+  hr.linear {
+    background-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4), transparent) !important;
+    background-color: transparent;
+    opacity: 0.25;
+    border: none;
+    height: 1px;
+  }
+
   // tables beautify
   .v-table {
     table {

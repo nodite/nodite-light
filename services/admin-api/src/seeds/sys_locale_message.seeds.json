@@ -73,6 +73,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "07b717ec-80ad-4478-8a63-ecf7d1472a20",
+    "langcode": "en",
+    "message": "Clear Cache"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "07b717ec-80ad-4478-8a63-ecf7d1472a20",
+    "langcode": "zhHans",
+    "message": "清理缓存"
+  },
+  {
+    "createBy": "admin",
     "srcId": "08cd777f-becb-4370-982a-0d88a73fc78e",
     "langcode": "en",
     "message": "Directory"
@@ -763,6 +775,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "77925c27-76c6-4f8a-82d7-75b5fc4eb78c",
+    "langcode": "en",
+    "message": "Clear profile cache"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "77925c27-76c6-4f8a-82d7-75b5fc4eb78c",
+    "langcode": "zhHans",
+    "message": "清理用户缓存"
+  },
+  {
+    "createBy": "admin",
     "srcId": "786dac95-3f74-4b59-9177-0a9e234c17f5",
     "langcode": "en",
     "message": "Locale Edit"
@@ -865,6 +889,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "8971f796-a3d9-4402-ac14-09c00ee0c2fc",
+    "langcode": "en",
+    "message": "Clear perms cache"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "8971f796-a3d9-4402-ac14-09c00ee0c2fc",
+    "langcode": "zhHans",
+    "message": "清理权限缓存"
+  },
+  {
+    "createBy": "admin",
     "srcId": "89d768cc-6c79-44ba-93ba-8b3dd63ac6eb",
     "langcode": "en",
     "message": "Edit User - {0}"
@@ -934,6 +970,18 @@
     "srcId": "946e9026-c3ed-447b-b68a-65d41cf954b9",
     "langcode": "zhHans",
     "message": "区域管理"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "9aa06c03-de7f-4928-bc4a-f13f7ad9bef2",
+    "langcode": "en",
+    "message": "Clear all cache"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "9aa06c03-de7f-4928-bc4a-f13f7ad9bef2",
+    "langcode": "zhHans",
+    "message": "清理所有缓存"
   },
   {
     "createBy": "admin",
@@ -1180,6 +1228,18 @@
     "srcId": "c5ca7edd-84b6-40f7-ad72-e4aad608d4cf",
     "langcode": "zhHans",
     "message": "父子联动"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c7502eae-acb6-4713-895b-49a9a2b36935",
+    "langcode": "en",
+    "message": "Clear locale cache"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c7502eae-acb6-4713-895b-49a9a2b36935",
+    "langcode": "zhHans",
+    "message": "清理区域缓存"
   },
   {
     "createBy": "admin",
@@ -1432,6 +1492,18 @@
     "srcId": "eb2f4924-7b0a-4725-8ff7-ab7e4b275f39",
     "langcode": "zhHans",
     "message": "全选/全不选"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "eb499884-7097-46ee-b2ad-acd484fd3fb7",
+    "langcode": "en",
+    "message": "Clear menu/nav cache"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "eb499884-7097-46ee-b2ad-acd484fd3fb7",
+    "langcode": "zhHans",
+    "message": "清理菜单/导航缓存"
   },
   {
     "createBy": "admin",

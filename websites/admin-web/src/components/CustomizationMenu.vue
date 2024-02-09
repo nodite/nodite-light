@@ -51,7 +51,7 @@ const updatePrimaryColor = (color: ThemeConfig.Color) => {
           <div>See our dashboard options.</div>
         </div>
 
-        <hr class="my-6" />
+        <hr class="my-6 linear" />
 
         <div class="theme-area">
           <b>Global Theme Mode</b>
@@ -81,7 +81,7 @@ const updatePrimaryColor = (color: ThemeConfig.Color) => {
           </div>
         </div>
 
-        <hr class="my-6" />
+        <hr class="my-6 linear" />
 
         <div>
           <v-btn color="" class="gradient info" block size="large" :title="$ndt('Contact Me')">
@@ -132,13 +132,5 @@ const updatePrimaryColor = (color: ThemeConfig.Color) => {
       transform: rotate(360deg);
     }
   }
-}
-
-hr {
-  background-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4), transparent) !important;
-  background-color: transparent;
-  opacity: 0.25;
-  border: none;
-  height: 1px;
 }
 </style>

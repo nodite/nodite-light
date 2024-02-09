@@ -1,11 +1,6 @@
 import { IProfile } from '@/api/admin/data-contracts';
 import * as UserApi from '@/api/admin/User';
 import { useAuthStore } from '@/stores/modules/authStore';
-import { useLocaleStore } from '@/stores/modules/localeStore';
-import { useMenuStore } from '@/stores/modules/menuStore';
-import { useNavStore } from '@/stores/modules/navStore';
-import { useRoleStore } from '@/stores/modules/roleStore';
-import { useUserStore } from '@/stores/modules/userStore';
 import lodash from '@/utils/lodash';
 
 interface ProfileState {
@@ -66,17 +61,6 @@ export const useProfileStore = defineStore('profile', {
       if (profile.userId === 1) return true;
 
       return lodash.includes(profile.roles, 'admin');
-    },
-    /**
-     * Clear cache with current user.
-     */
-    async clearCache(): Promise<void> {
-      await this.$reset();
-      await useMenuStore().$reset();
-      await useNavStore().$reset();
-      await useUserStore().$reset();
-      await useRoleStore().$reset();
-      await useLocaleStore().$reset();
     },
   },
 });

@@ -1,9 +1,0 @@
-import { Router } from 'express';
-
-import healthcheck from '@/components/healthcheck/healthCheck.controller';
-
-const router: Router = Router();
-
-router.get('/health', healthcheck);
-
-export default router;

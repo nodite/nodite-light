@@ -1,7 +1,6 @@
 import { SequelizeModel, Subscribe } from '@nodite-light/admin-database';
 import {
   AllowNull,
-  AutoIncrement,
   Column,
   Comment,
   DataType,
@@ -23,16 +22,21 @@ import DictGroupSeeds from '@/seeds/sys_dict_group.seeds.json';
 export default class DictGroupModel extends SequelizeModel<DictGroupModel> {
   @Unique
   @PrimaryKey
-  @AutoIncrement
   @AllowNull(false)
-  @Column({ field: 'group_id', type: DataType.INTEGER })
-  groupId: number;
+  @Default(DataType.UUIDV4)
+  @Column({ field: 'group_id', type: DataType.UUID })
+  groupId: string;
 
   @Default('')
   @AllowNull(false)
   @Comment('dict group name')
   @Column({ field: 'group_name', type: DataType.STRING(50) })
   groupName: string;
+
+  @Unique
+  @Default('')
+  @Column({ field: 'group_key', type: DataType.STRING(50) })
+  groupKey: string;
 
   @Default(0)
   @AllowNull(false)
@@ -55,6 +59,7 @@ export type IDictGroup = Pick<
   InstanceType<typeof DictGroupModel>,
   | 'groupId'
   | 'groupName'
+  | 'groupKey'
   | 'parentId'
   | 'orderNum'
   | 'status'

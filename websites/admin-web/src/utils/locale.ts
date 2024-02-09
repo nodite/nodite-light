@@ -6,23 +6,43 @@ import { Locale as LocaleConfig } from '@/types/config';
 import lodash from '@/utils/lodash';
 import url from '@/utils/url';
 
-let BROWSER_LOCALE = 'en';
-
-try {
-  const { 0: browserLang } = navigator.language.split('-');
-  if (browserLang == 'zh') BROWSER_LOCALE = 'zhHans';
-  if (Object.keys(messages).includes(browserLang)) BROWSER_LOCALE = browserLang;
-} catch (e) {
-  console.error(e);
-}
-
 const PREFIX = 'ndt';
 
+/**
+ * Get current langcode.
+ * @returns
+ */
+function getCurrLang(): string {
+  let langcode = document.querySelector('html')?.getAttribute('lang');
+
+  if (langcode) return langcode;
+
+  try {
+    const { 0: navLangcode } = navigator.language.split('-');
+    if (Object.keys(messages).includes(navLangcode)) langcode = navLangcode;
+    if (navLangcode == 'zh') langcode = 'zhHans';
+  } catch (e) {
+    /* empty */
+  }
+
+  return langcode || 'en';
+}
+
+/**
+ * Get default langcode.
+ * @returns
+ */
+function getDefLang(): string {
+  return document.querySelector('html')?.getAttribute('def-lang') || getCurrLang() || 'en';
+}
+
+// export.
 export default {
   PREFIX,
 
-  // default locale
-  BROWSER_LOCALE,
+  getCurrLang: getCurrLang,
+
+  getDefLang: getDefLang,
 
   /**
    * Generate locale key.
