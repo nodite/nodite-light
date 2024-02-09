@@ -44,19 +44,26 @@ const scrollToBottom = () => {
     elevation="1"
     v-model="customizeTheme.mainSidebar"
     id="mainMenu"
+    :rail="customizeTheme.mainSidebarRail"
+    permanent
   >
     <!-- ---------------------------------------------- -->
     <!---Top Area -->
     <!-- ---------------------------------------------- -->
-    <template v-if="!customizeTheme.miniSidebar" v-slot:prepend>
+    <template v-slot:prepend>
       <v-card
         style="box-shadow: rgba(0, 0, 0, 0.05) 0px 25px 15px -20px"
         height="100"
         class="d-flex align-center justify-center"
         :to="{ path: '/' }"
       >
-        <img v-if="customizeTheme.darkTheme" width="200" src="@/assets/logo_dark.svg" alt="" />
-        <img v-else width="200" src="@/assets/logo_light.svg" alt="" />
+        <v-card-text v-if="!customizeTheme.mainSidebarRail">
+          <img v-if="customizeTheme.darkTheme" width="200" src="@/assets/logo_dark.svg" alt="" />
+          <img v-else width="200" src="@/assets/logo_light.svg" alt="" />
+        </v-card-text>
+        <v-card-text v-if="customizeTheme.mainSidebarRail">
+          <!-- todo -->
+        </v-card-text>
       </v-card>
     </template>
 
@@ -69,7 +76,7 @@ const scrollToBottom = () => {
     <!-- ---------------------------------------------- -->
     <!---Bottom Area -->
     <!-- ---------------------------------------------- -->
-    <template v-if="!customizeTheme.miniSidebar" v-slot:append>
+    <template v-if="!customizeTheme.mainSidebarRail" v-slot:append>
       <v-card
         theme="dark"
         height="225"

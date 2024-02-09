@@ -17,7 +17,7 @@ defineProps({
   <v-list class="menu-list" nav dense color="primary">
     <template v-for="menu in menus" :key="menu.menuId">
       <!-- menu level 0 -->
-      <main-menu-item :menu-item="menu" :menu-level="0"></main-menu-item>
+      <MainMenuItem :menu-item="menu" :menu-level="0"></MainMenuItem>
     </template>
   </v-list>
 </template>

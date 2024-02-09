@@ -28,7 +28,7 @@ const customizeTheme = useCustomizeThemeStore();
       <!-- NavIcon -->
       <!-- ---------------------------------------------- -->
       <v-app-bar-nav-icon
-        @click="customizeTheme.mainSidebar = !customizeTheme.mainSidebar"
+        @click="customizeTheme.mainSidebarRail = !customizeTheme.mainSidebarRail"
       ></v-app-bar-nav-icon>
 
       <v-spacer></v-spacer>
