@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import i18n from '@/plugins/i18n';
 import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
 import { NavigationConfig } from '@/types/config';
 import lodash from '@/utils/lodash';
@@ -18,11 +17,11 @@ const props = defineProps({
 });
 
 const validator = {
-  getiType: (): NavigationConfig.MenuType => {
+  getType: (): NavigationConfig.MenuType => {
     return props.menuItem.meta?.iType || 'menu';
   },
   hasTitle: () => {
-    return Boolean(i18n.ndt(props.menuItem.meta?.title));
+    return Boolean(props.menuItem.meta?.title);
   },
   hasChildren: () => {
     return !lodash.isEmpty(props.menuItem.children);
@@ -31,69 +30,100 @@ const validator = {
     return Boolean(props.menuItem.meta?.hidden) || !validator.hasTitle();
   },
   isOverline: (): boolean => {
-    return validator.getiType() === 'overline';
+    return validator.getType() === 'overline';
   },
   isDirectory: (): boolean => {
-    return validator.getiType() === 'directory';
+    if (validator.getType() === 'directory') {
+      return true;
+    }
+    if (validator.getType() === 'menu' && validator.hasChildren()) {
+      return true;
+    }
+    return false;
   },
   isMenu: (): boolean => {
-    return validator.getiType() === 'menu';
+    return validator.getType() === 'menu';
   },
   isAction: (): boolean => {
-    return validator.getiType() === 'action';
+    return validator.getType() === 'action';
   },
 };
 </script>
 
 <template>
   <template v-if="!validator.isHidden()">
+    <!-- overline -->
     <template v-if="validator.isOverline()">
-      <!-- overline -->
-      <div
-        v-bind="props"
-        v-if="!customizeTheme.miniSidebar && validator.hasTitle()"
-        class="pa-1 mt-2 text-overline"
-      >
-        {{ $ndt(props.menuItem.meta?.title) }}
+      <div v-bind="props" v-if="validator.hasTitle()" class="px-1 text-overline">
+        <hr v-if="customizeTheme.mainSidebarRail" />
+        <span v-if="!customizeTheme.mainSidebarRail">{{ $ndt(props.menuItem.meta?.title) }}</span>
       </div>
+
+      <!-- subMenu -->
       <template v-if="validator.hasChildren()">
-        <!-- subMenu -->
-        <main-menu-item
+        <MainMenuItem
           v-bind="props"
           v-for="(subMenuItem, idx) in menuItem.children"
           :key="idx"
           :menu-item="subMenuItem"
           :menu-level="menuLevel + 1"
-        ></main-menu-item>
+        ></MainMenuItem>
       </template>
     </template>
 
+    <!-- directory -->
     <template v-else-if="validator.isDirectory()">
-      <!-- directory -->
-      <v-list-group :value="menuItem.children">
+      <!-- no-rail -->
+      <v-list-group v-if="!customizeTheme.mainSidebarRail">
         <!-- activator -->
         <template v-slot:activator="{ props }">
-          <v-list-item v-bind="props" :title="$ndt(menuItem.meta?.title)">
+          <v-list-item v-bind="props" :title="$ndt(menuItem.meta?.title)" density="compact">
             <template v-slot:prepend>
               <v-icon size="small">{{ menuItem.meta?.icon || 'mdi-circle-medium' }}</v-icon>
             </template>
           </v-list-item>
         </template>
-        <template v-if="validator.hasChildren()">
-          <!-- subMenu -->
-          <main-menu-item
+        <!-- subMenu -->
+        <template v-if="validator.hasChildren() && !customizeTheme.mainSidebarRail">
+          <MainMenuItem
             v-bind="props"
             v-for="(subMenuItem, idx) in menuItem.children"
             :key="idx"
             :menu-item="subMenuItem"
             :menu-level="menuLevel + 1"
-          ></main-menu-item>
+          ></MainMenuItem>
         </template>
       </v-list-group>
+
+      <!-- rail -->
+      <v-menu v-if="customizeTheme.mainSidebarRail" location="end" open-on-hover open-on-click>
+        <!-- activator -->
+        <template v-slot:activator="{ props }">
+          <v-list-item v-bind="props" :title="$ndt(menuItem.meta?.title)" density="compact">
+            <template v-slot:prepend>
+              <v-icon size="small">{{ menuItem.meta?.icon || 'mdi-circle-medium' }}</v-icon>
+            </template>
+          </v-list-item>
+        </template>
+        <!-- subMenu -->
+        <v-list class="v-list-item--nav" density="compact">
+          <v-list-subheader>
+            {{ $ndt(menuItem.meta?.title) }}
+            <hr />
+          </v-list-subheader>
+          <MainMenuItem
+            v-bind="props"
+            v-for="(subMenuItem, idx) in menuItem.children"
+            :key="idx"
+            :menu-item="subMenuItem"
+            :menu-level="menuLevel + 1"
+          ></MainMenuItem>
+        </v-list>
+      </v-menu>
     </template>
 
+    <!-- menu -->
     <template v-else-if="validator.isMenu()">
-      <!-- menu -->
       <v-list-item
         v-bind="props"
         :to="menuItem.path"

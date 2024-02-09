@@ -1,9 +1,17 @@
-.v-list-group .v-list-item {
-  padding-left: 8px !important;
+hr {
+  background-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4), transparent) !important;
+  background-color: transparent;
+  opacity: 0.25;
+  border: none;
+  height: 1px;
 }
 
-.v-list-group .v-list-item[menuLevel="2"] {
-  padding-left: 16px !important;
+.v-list-group {
+  --prepend-width: 0px
+}
+
+.v-list-item {
+  margin-left: 4px;
 }
 
 .active-nav-grey {
