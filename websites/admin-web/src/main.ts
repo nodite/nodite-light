@@ -7,7 +7,6 @@ import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
 import '@/styles/main.scss';
 
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
-import MasonryWall from '@yeger/vue-masonry-wall';
 import { createApp } from 'vue';
 import VueVirtualScroller from 'vue-virtual-scroller';
 import VueApexCharts from 'vue3-apexcharts';
@@ -31,7 +30,6 @@ useLocaleStore().initialize();
 
 app.use(router);
 app.use(PerfectScrollbar);
-app.use(MasonryWall);
 app.use(VueVirtualScroller);
 app.use(VueApexCharts);
 app.use(i18n);
