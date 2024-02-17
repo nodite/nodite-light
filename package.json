@@ -57,7 +57,7 @@
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-jsx-a11y": "6.8.0",
     "eslint-plugin-security": "^2.1.0",
-    "eslint-plugin-simple-import-sort": "11.0.0",
+    "eslint-plugin-simple-import-sort": "12.0.0",
     "eslint-plugin-tsdoc": "0.2.17",
     "eslint-plugin-unused-imports": "^3.0.0",
     "husky": "9.0.10",
