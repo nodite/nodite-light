@@ -14,8 +14,8 @@ import { unless } from 'express-unless';
 import helmet from 'helmet';
 
 import http404 from '@/components/404/404.router';
-import healthCheck from '@/components/healthcheck/healthCheck.router';
-import swaggerApiDocs from '@/components/swagger-ui/swagger.router';
+import health from '@/components/health/health.router';
+import swaggerApiDocs from '@/components/swagger/swagger.router';
 
 const app: Application = express();
 
@@ -46,7 +46,7 @@ app.use(
   api,
 );
 app.use(swaggerApiDocs);
-app.use(healthCheck);
+app.use(health);
 app.use(http404);
 
 app.use(ErrorHandlingMiddleware);

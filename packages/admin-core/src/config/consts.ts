@@ -6,7 +6,7 @@ const RATELIMIT_WHITELIST = [];
 const AUTH_WHITELIST = [
   `${API_ROOT_PATH}/auth/login`,
   `${API_ROOT_PATH}/auth/register`,
-  `${API_ROOT_PATH}/locale/available`,
+  `${API_ROOT_PATH}/locale/i/available`,
   `${API_ROOT_PATH}/locale/message/available`,
 ];
 

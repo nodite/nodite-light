@@ -55,7 +55,7 @@ const validator = {
     <!-- overline -->
     <template v-if="validator.isOverline()">
       <div v-bind="props" v-if="validator.hasTitle()" class="px-1 text-overline">
-        <hr v-if="customizeTheme.mainSidebarRail" />
+        <hr class="linear" v-if="customizeTheme.mainSidebarRail" />
         <span v-if="!customizeTheme.mainSidebarRail">{{ $ndt(props.menuItem.meta?.title) }}</span>
       </div>
 
@@ -109,8 +109,10 @@ const validator = {
         <v-list class="v-list-item--nav" density="compact">
           <v-list-subheader>
             {{ $ndt(menuItem.meta?.title) }}
-            <hr />
           </v-list-subheader>
+
+          <hr class="linear" />
+
           <MainMenuItem
             v-bind="props"
             v-for="(subMenuItem, idx) in menuItem.children"

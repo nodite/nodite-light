@@ -4,8 +4,8 @@ import { toast } from 'vuetify-sonner';
 import * as AuthApi from '@/api/admin/Auth';
 import { LoginBody } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
-import { useProfileStore } from '@/stores/modules/profileStore';
-import * as toolkit from '@/utils/requestToolkit';
+import cache from '@/utils/cache';
+import * as rToolkit from '@/utils/requestToolkit';
 
 export interface AuthState {
   isLoggedIn: boolean;
@@ -27,7 +27,7 @@ export const useAuthStore = defineStore('auth', {
      * @returns
      */
     isAuthorized: (state) => {
-      return toolkit.token.get() && state.isLoggedIn;
+      return rToolkit.token.get() && state.isLoggedIn;
     },
   },
 
@@ -41,9 +41,8 @@ export const useAuthStore = defineStore('auth', {
      * @param userInfo
      */
     async login(userInfo: LoginBody) {
-      await useProfileStore().clearCache();
       const response = await AuthApi.adminAuthLogin(userInfo);
-      toolkit.token.set(response?.token || '', response?.expiresIn);
+      rToolkit.token.set(response?.token || '', response?.expiresIn);
       this.isLoggedIn = true;
       toast.success(i18n.ndt('Login successfully'));
       window.location.href = `${import.meta.env.VITE_APP_BASE_PATH || ''}/`;
@@ -70,13 +69,13 @@ export const useAuthStore = defineStore('auth', {
     async logout(redirect: boolean = false) {
       await AuthApi.adminAuthLogout();
       // remove token.
-      toolkit.token.remove();
+      rToolkit.token.remove();
       // remove logged in status.
       this.$patch({ isLoggedIn: false });
-      // clear profile store.
-      await useProfileStore().clearCache();
+      // clear cache.
+      cache.invalidateStore.all();
       // redirect to login page if needed.
-      if (redirect) toolkit.redirectToLogin();
+      if (redirect) rToolkit.redirectToLogin();
     },
   },
 });

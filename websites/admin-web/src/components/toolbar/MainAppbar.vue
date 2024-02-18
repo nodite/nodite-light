@@ -1,11 +1,7 @@
-<!--
-* @Component:
-* @Maintainer: J.K. Yang
-* @Description:
--->
 <script setup lang="ts">
 import { useDisplay } from 'vuetify';
 
+import CacheClear from '@/components/toolbar/CacheClear.vue';
 import LanguageSwitcher from '@/components/toolbar/LanguageSwitcher.vue';
 import ToolbarUser from '@/components/toolbar/ToolbarUser.vue';
 import { useCustomizeThemeStore } from '@/stores/modules/customizeTheme';
@@ -35,6 +31,7 @@ const customizeTheme = useCustomizeThemeStore();
 
       <div class="d-flex">
         <LanguageSwitcher />
+        <CacheClear />
         <ToolbarUser />
       </div>
     </div>

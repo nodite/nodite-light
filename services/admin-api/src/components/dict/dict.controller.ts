@@ -8,7 +8,7 @@ import BaseController from '@/components/base.controller';
 import { IDictGroup } from '@/components/dict/dict_group.model';
 import DictGroupService from '@/components/dict/dict_group.service';
 
-@Route('dict/group')
+@Route('dict')
 @Tags('dict')
 export class DictGroupController extends BaseController {
   dictGroupService: DictGroupService;
@@ -21,7 +21,7 @@ export class DictGroupController extends BaseController {
   /**
    * @summary List dict groups.
    */
-  @Get('list')
+  @Get('group/list')
   @OperationId('admin:dict:group:list')
   @Permissions('admin:dict:list')
   public async list(): Promise<IResponse<IDictGroup[]>> {
@@ -33,7 +33,7 @@ export class DictGroupController extends BaseController {
   /**
    * @summary List dict group tree.
    */
-  @Get('tree')
+  @Get('group/tree')
   @OperationId('admin:dict:group:tree')
   @Permissions('admin:dict:list')
   @Cacheable({ hashKey: 'dict:group:tree' })

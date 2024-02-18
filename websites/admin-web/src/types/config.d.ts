@@ -1,13 +1,15 @@
 import { RouteRecordRaw } from 'vue-router';
 
+/**
+ * @namespace Common
+ */
 declare namespace Common {
   type ArrayElem<ArrType> = ArrType extends readonly (infer ElementType)[] ? ElementType : never;
 }
 
-interface Config {
-  theme: ThemeConfig.Config;
-}
-
+/**
+ * @namespace ThemeConfig
+ */
 declare namespace ThemeConfig {
   interface Config {
     //primary color
@@ -50,6 +52,9 @@ declare namespace ThemeConfig {
   type UpdatePrimaryColor = (color: Color) => void;
 }
 
+/**
+ * @namespace NavigationConfig
+ */
 declare namespace NavigationConfig {
   type MenuType = 'overline' | 'directory' | 'menu' | 'action';
   type LayoutType = 'default' | 'auth' | 'landing' | 'ui';
@@ -85,6 +90,9 @@ declare namespace NavigationConfig {
   }
 }
 
+/**
+ * @namespace VueTreeview
+ */
 declare namespace VueTreeview {
   interface TreeNode<T> {
     id: string;
@@ -100,6 +108,9 @@ declare namespace VueTreeview {
   }
 }
 
+/**
+ * @namespace Locale
+ */
 declare namespace Locale {
   interface TOptions {
     context?: string;

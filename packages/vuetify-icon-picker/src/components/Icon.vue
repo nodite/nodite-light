@@ -16,5 +16,5 @@ defineProps({
 
 <template>
   <Icon v-if="icon?.includes(':')" :icon="icon" :class="classes" @click="$emit('click')"></Icon>
-  <v-icon v-else :class="classes" :icon="icon" @click="$emit('click')"></v-icon>
+  <v-icon v-else :icon="icon" :class="classes" @click="$emit('click')"></v-icon>
 </template>
