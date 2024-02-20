@@ -101,10 +101,34 @@ declare namespace VueTreeview {
     state: {
       opened?: boolean;
       disabled?: boolean;
+      editable?: boolean;
+      draggable?: boolean;
+      dropable?: boolean;
       checked?: boolean;
       indeterminate?: boolean;
+      isLoading?: boolean;
     };
     children: string[];
+  }
+
+  interface TreeConfig {
+    roots: string[];
+    leaves?: string[];
+    padding?: number;
+    editable?: boolean;
+    editing?: string;
+    editableClass?: string;
+    checkboxes?: boolean;
+    checkMode?: checkMode;
+    dragAndDrop?: boolean;
+    keyboardNavigation?: boolean;
+    disabled?: boolean;
+    disabledClass?: string;
+    openedIcon?: IIcon;
+    closedIcon?: IIcon;
+    focusClass?: string;
+    checkedClass?: string;
+    indeterminateClass?: string;
   }
 }
 

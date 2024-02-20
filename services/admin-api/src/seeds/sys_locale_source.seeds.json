@@ -31,8 +31,20 @@
   },
   {
     "createBy": "admin",
+    "srcId": "05436309-1010-4711-bd9c-8bafb1f9643c",
+    "source": "Role Asgmt",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "05504b26-9dad-4c93-8ed9-ae7e7961a039",
     "source": "Role Create",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "06f3acb3-22dd-4e12-8184-18cee2bc0c73",
+    "source": "Un-Assign",
     "context": ""
   },
   {
@@ -61,6 +73,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "0ce24cca-8209-4ff1-8a57-0ae731f6684e",
+    "source": "Viewer",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0dbb5b56-01c4-410d-87dc-76512370cb1d",
+    "source": "Role Overview",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "0e10e481-c3a1-4135-9588-a0c969ea4e34",
     "source": "Menu Name is required.",
     "context": ""
@@ -85,6 +109,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "12605e3d-acd0-4cfd-8f63-015f0690d734",
+    "source": "Admin",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "13eca577-b77c-4da0-9955-d3ce903a21e6",
     "source": "Menu",
     "context": ""
@@ -99,6 +129,18 @@
     "createBy": "admin",
     "srcId": "16e9c97b-d9be-488f-af08-bcb389d00256",
     "source": "Context",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "18819690-de4e-4f8b-ac71-7fffbccf511f",
+    "source": "Assign",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1b2d227d-c97a-4d82-abbf-91e29d2543d5",
+    "source": "User Asgmt",
     "context": ""
   },
   {
@@ -187,6 +229,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "3c4cc3d8-9b46-4406-8445-dc2d348b2a29",
+    "source": "Password Reset",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "3c932509-b0b2-4d6c-a5f7-3852407eb62b",
     "source": "Secret",
     "context": ""
@@ -201,6 +249,24 @@
     "createBy": "admin",
     "srcId": "3f524cbe-c027-4b0b-971d-ea333bcb62ae",
     "source": "(empty)",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "428fd447-2707-408a-a427-f5ee496f4fde",
+    "source": "User Status",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "42e29cc1-8bf1-4bf9-b396-4d88cc9f03af",
+    "source": "Role Un-Assign",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "43954eca-c621-4978-a7bf-61aab6ddd294",
+    "source": "Change to Light Mode",
     "context": ""
   },
   {
@@ -223,8 +289,20 @@
   },
   {
     "createBy": "admin",
+    "srcId": "4623977f-0c27-4a36-b27a-94a420e88ac9",
+    "source": "User Delete",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "464f2949-d079-4669-ba1c-f84136bfadd7",
     "source": "Sign in to your account",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "48556f87-e418-4b77-8818-0be54a7ed6bf",
+    "source": "Confirm Password",
     "context": ""
   },
   {
@@ -289,6 +367,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "56a52bd4-e009-4574-8271-e8414b5d8349",
+    "source": "Assign Status",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "573c726a-69c4-4495-a262-c189f433bfbe",
     "source": "Create Account",
     "context": ""
@@ -331,8 +415,20 @@
   },
   {
     "createBy": "admin",
+    "srcId": "61ecfd8c-013e-49a0-87a1-22f8ea7c0b8e",
+    "source": "Message Upsert",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "647c3b7c-024e-4cd8-aefa-fcbddc568e9f",
     "source": "Role Delete",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "649aede4-e396-452a-9a4f-665603ebd9d4",
+    "source": "Source Create",
     "context": ""
   },
   {
@@ -357,6 +453,18 @@
     "createBy": "admin",
     "srcId": "693a4a1d-527d-4daf-905e-dc130f94a239",
     "source": "Message",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "694cfbfb-8363-4451-952e-49601ed98474",
+    "source": "Reset Password - {0}",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6d272bc7-b774-4892-838d-9bff3fd109eb",
+    "source": "Assigned",
     "context": ""
   },
   {
@@ -457,6 +565,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "86da0fd0-8309-4291-bf98-4ad1c8c90906",
+    "source": "Role Status",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "8971f796-a3d9-4402-ac14-09c00ee0c2fc",
     "source": "Clear perms cache",
     "context": ""
@@ -483,6 +597,12 @@
     "createBy": "admin",
     "srcId": "8d0e82a6-f369-43f1-afbd-50f3b7f2db9d",
     "source": "Show",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "91fc6480-1626-449b-93df-7ff6c607bf77",
+    "source": "Perms Update",
     "context": ""
   },
   {
@@ -565,6 +685,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "b3fd7c5e-061a-461f-8f87-b37709092c41",
+    "source": "Parent Menu cannot be itself.",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "b5686052-edb2-440b-bf18-eaeddfa30c0f",
     "source": "Message BatchUpsert",
     "context": ""
@@ -577,8 +703,20 @@
   },
   {
     "createBy": "admin",
+    "srcId": "b8fb6457-f7c4-49e8-b0fc-433a3af4371a",
+    "source": "Saved successfully.",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "b91ca2d7-ca2a-4975-b991-8495667ade5e",
     "source": "Message Create",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "bac7d008-c49b-422f-8ae4-44494c93e860",
+    "source": "At least one locale must be default.",
     "context": ""
   },
   {
@@ -591,6 +729,12 @@
     "createBy": "admin",
     "srcId": "bbf81f47-9eef-404c-8f9e-b8f1b6569991",
     "source": "Male",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "be778121-c035-4a4b-b6bc-ed00a6d58272",
+    "source": "User Create",
     "context": ""
   },
   {
@@ -643,6 +787,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "c8340f36-23f4-4bcc-9177-c569e46096fb",
+    "source": "Unassigned",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "c98e8b37-947b-4bbf-bd00-f8d6f585ab6f",
     "source": "Locales",
     "context": "locale.tab"
@@ -663,6 +813,12 @@
     "createBy": "admin",
     "srcId": "d0426919-d4da-430a-bad9-7fbf52d01a01",
     "source": "Status",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d16fa5d2-76c9-4763-83c6-8554cb592e96",
+    "source": "User Query",
     "context": ""
   },
   {
@@ -709,8 +865,26 @@
   },
   {
     "createBy": "admin",
+    "srcId": "dc02b38b-650f-41be-b3d6-bfbd07ef1161",
+    "source": "At least one locale must be enable.",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "dcb41c04-be08-4214-a999-cf978b78c90a",
     "source": "Component",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "df2e6075-f93c-410f-b9a8-e3507646936d",
+    "source": "Edit Locale - {0}",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "dfa9d84d-e445-4087-bbe5-53cc4c52bd89",
+    "source": "User Edit",
     "context": ""
   },
   {
@@ -727,8 +901,20 @@
   },
   {
     "createBy": "admin",
+    "srcId": "e2829fba-cbd3-44e4-b7cc-967b38a63277",
+    "source": "Role Assign",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "e330a033-4ac2-4010-8a75-d1ace0d2136e",
     "source": "Source",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e3d7a714-57ef-4974-a56f-f3bc0679335b",
+    "source": "All",
     "context": ""
   },
   {
@@ -783,6 +969,18 @@
     "createBy": "admin",
     "srcId": "f089788c-ffad-4d3c-a2bd-650121f50100",
     "source": "Create User",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f0eb5898-30ac-4a2b-b57e-b0e9a134fe4e",
+    "source": "User Overview",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f368094b-07b1-4ba0-899b-2ed031b2e7dc",
+    "source": "Confirm Password is required.",
     "context": ""
   },
   {

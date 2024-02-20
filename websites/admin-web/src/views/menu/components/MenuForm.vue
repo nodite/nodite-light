@@ -2,7 +2,8 @@
 import { IconPicker } from '@nodite-light/vuetify-icon-picker';
 import { toast } from 'vuetify-sonner';
 
-import { DataTreeIMenu, IMenu } from '@/api/admin/data-contracts';
+import { IMenu } from '@/api/admin/data-contracts';
+import TreeSelect from '@/components/form/TreeSelect.vue';
 import i18n from '@/plugins/i18n';
 import { useMenuStore } from '@/stores/modules/menuStore';
 import lodash from '@/utils/lodash';
@@ -32,10 +33,11 @@ const menuId = computed({
   set: (v) => emit('update:menuId', v),
 });
 
-const menus = ref([] as DataTreeIMenu[]);
+const menus = ref([] as IMenu[]);
 
 // Local Data.
 const myRefStore = ref({
+  parentDialog: false,
   iconDialog: false,
   openIconPicker: false,
   isFormValid: true,
@@ -48,7 +50,10 @@ const myRefStore = ref({
 const refForm = ref();
 const formData = ref({} as IMenu);
 const formRules = ref({
-  parentId: [(v: string) => lodash.isString(v) || (!v && i18n.ndt('Parent Menu is required.'))],
+  parentId: [
+    (v: string) => lodash.isString(v) || (!v && i18n.ndt('Parent Menu is required.')),
+    (v: string) => v !== menuId.value || i18n.ndt('Parent Menu cannot be itself.'),
+  ],
   orderNum: [],
   iType: [(v: string) => !!v || i18n.ndt('Menu Type is required.')],
   menuName: [(v: string) => !!v || i18n.ndt('Menu Name is required.')],
@@ -112,7 +117,7 @@ const methods = {
 
 // Lifecycle.
 onMounted(async () => {
-  menus.value = [{ menuName: 'Root', menuId: '' } as IMenu, ...(await menuStore.listTree())];
+  menus.value = await menuStore.list();
 });
 
 watchEffect(async () => {
@@ -155,17 +160,20 @@ watchEffect(async () => {
             <v-row dense>
               <v-col>
                 <!-- todo: v-treeview -->
-                <v-select
-                  density="compact"
+                <TreeSelect
                   v-model="formData.parentId"
+                  v-model:dialog="myRefStore.parentDialog"
                   :items="menus"
                   item-title="menuName"
                   item-value="menuId"
+                  parent-value="parentId"
                   prepend-inner-icon="mdi-sort-variant"
                   variant="outlined"
                   :rules="formRules.parentId"
-                  validate-on="blur"
                   :error="myRefStore.error"
+                  validate-on="blur"
+                  :disabled-items="menuId ? [formData.menuId] : []"
+                  show-root
                   chips
                   clearable
                 >
@@ -175,10 +183,7 @@ watchEffect(async () => {
                   <template v-slot:chip="{ item }">
                     <v-chip>{{ $ndt(item.raw.menuName) }}</v-chip>
                   </template>
-                  <template v-slot:item="{ props, item }">
-                    <v-list-item v-bind="props" :title="$ndt(item.raw.menuName)"></v-list-item>
-                  </template>
-                </v-select>
+                </TreeSelect>
               </v-col>
 
               <v-col cols="4">
@@ -236,10 +241,10 @@ watchEffect(async () => {
                 <IconPicker
                   v-model="formData.icon"
                   v-model:dialog="myRefStore.iconDialog"
-                  v-model:error="myRefStore.error"
                   :label="$ndt('Icon')"
                   :disabled="myRefStore.isSaving"
                   :rules="formRules.icon"
+                  :error="myRefStore.error"
                 ></IconPicker>
               </v-col>
             </v-row>

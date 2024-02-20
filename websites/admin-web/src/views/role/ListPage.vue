@@ -8,7 +8,7 @@ import moment from 'moment';
 
 import { IRole, SequelizePaginationIRole } from '@/api/admin/data-contracts';
 import { useRoleStore } from '@/stores/modules/roleStore';
-import MenuTreeView from '@/views/role/components/MenuTreeView.vue';
+import MenuPermsView from '@/views/role/components/MenuPermsView.vue';
 import RoleForm from '@/views/role/components/RoleForm.vue';
 
 const roleStore = useRoleStore();
@@ -320,9 +320,9 @@ onMounted(async () => {
   ></VDeleteConfirmForm>
 
   <!-- menu perms -->
-  <MenuTreeView
+  <MenuPermsView
     v-model:drawer="menuPermsView.drawer"
     v-model:role-id="menuPermsView.roleId"
     :label="`${$ndt('Menu Perms')} (${$ndt(menuPermsView.roleName)})`"
-  ></MenuTreeView>
+  ></MenuPermsView>
 </template>
