@@ -1,6 +1,7 @@
 import { AppError } from '@nodite-light/admin-core';
 import { SequelizePagination } from '@nodite-light/admin-database';
 import httpStatus from 'http-status';
+import { Op } from 'sequelize';
 
 import {
   IAvailableLocale,
@@ -84,16 +85,30 @@ export default class LocaleService {
    * @param locale
    * @returns
    */
-  public async updateLocale(id: number, locale: Partial<ILocaleUpdate>): Promise<ILocale> {
+  public async updateLocale(id: number, locale: ILocaleUpdate): Promise<ILocale> {
+    // status.
+    if (
+      !lodash.isUndefined(locale.status) &&
+      !lodash.isNull(locale.status) &&
+      !locale.status &&
+      (await LocaleModel.count({ where: { status: 1, localeId: { [Op.ne]: id } } })) === 0
+    ) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'At least one locale must be enable.');
+    }
+
+    // isDefault.
+    if (lodash.isUndefined(locale.isDefault) || lodash.isNull(locale.isDefault)) {
+      /** empty */
+    }
     // If isDefault is true, set all other locales to false.
-    if (locale.isDefault) {
+    else if (locale.isDefault) {
       await LocaleModel.update({ isDefault: 0 }, { where: { isDefault: 1 } });
     }
     // If isDefault is false, check if there is at least one default locale.
     else {
-      const count = await LocaleModel.count({ where: { isDefault: 1 } });
+      const count = await LocaleModel.count({ where: { isDefault: 1, localeId: { [Op.ne]: id } } });
       if (count === 0) {
-        throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'At least one locale must be default');
+        throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'At least one locale must be default.');
       }
     }
 

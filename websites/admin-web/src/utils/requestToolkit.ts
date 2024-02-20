@@ -86,14 +86,13 @@ export const redirectToLogin = (msg?: string) => {
   if (window.location.pathname.includes('/auth/signin')) return;
 
   const searchParams: Record<string, string> = {
-    redirect:
-      '/' +
-      lodash.trim(window.location.pathname.replace(import.meta.env.VITE_APP_BASE_PATH, ''), '/'),
+    redirect: window.location.pathname,
   };
 
   if (msg) searchParams.msg = msg;
 
-  window.location.href = `${
-    import.meta.env.VITE_APP_BASE_PATH || ''
-  }/auth/signin?${new URLSearchParams(searchParams)}`;
+  window.location.href =
+    (import.meta.env.VITE_APP_BASE_PATH || '') +
+    '/auth/signin?' +
+    new URLSearchParams(searchParams);
 };

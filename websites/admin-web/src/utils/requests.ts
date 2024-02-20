@@ -127,11 +127,11 @@ export async function request({
     requestCanceler.cleanPendingRequest();
     toolkit.token.remove();
     toolkit.redirectToLogin(
-      axiosResponse.data?.message || i18n.ndt('Authentication expired, please signin again.'),
+      i18n.ndt(axiosResponse.data?.message || 'Authentication expired, please signin again.'),
     );
   }
 
-  toast.error(axiosResponse.data?.message || i18n.ndt('Request failed, please try again later.'));
+  toast.error(i18n.ndt(axiosResponse.data?.message || 'Request failed, please try again later.'));
 
   throw axiosResponse;
 }
