@@ -196,8 +196,12 @@ export const useLocaleStore = defineStore('locale', {
      */
     async setDefaultLocale(locale: ILocale) {
       // backend.
-      if (locale.localeId)
-        await this.editLocale({ localeId: locale.localeId, isDefault: 1 } as ILocale);
+      if (locale.localeId) {
+        await this.editLocale({
+          localeId: locale.localeId,
+          isDefault: locale.isDefault,
+        } as ILocale);
+      }
       // fallback locale.
       if (locale.langcode) i18n.global.fallbackLocale.value = locale.langcode as any;
       // html attribute.

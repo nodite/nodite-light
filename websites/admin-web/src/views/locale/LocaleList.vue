@@ -4,6 +4,7 @@ import { Icon } from '@nodite-light/vuetify-icon-picker';
 
 import { ILocale } from '@/api/admin/data-contracts';
 import { useLocaleStore } from '@/stores/modules/localeStore';
+import lodash from '@/utils/lodash';
 import LocaleForm from '@/views/locale/components/LocaleForm.vue';
 
 const localeStore = useLocaleStore();
@@ -36,16 +37,24 @@ const methods = {
   },
   // Set default locale.
   async setLocaleDefault(locale: ILocale) {
-    await localeStore.setDefaultLocale(locale);
-    myRefStore.value.locales.forEach((item) => {
-      if (item.localeId === locale.localeId) return;
-      item.isDefault = 0;
-    });
+    try {
+      await localeStore.setDefaultLocale(locale);
+    } finally {
+      locale.isDefault = 1;
+      lodash
+        .chain(myRefStore.value.locales)
+        .filter((item) => item.localeId !== locale.localeId)
+        .forEach((item) => (item.isDefault = 0))
+        .value();
+    }
   },
   // Change locale status.
   async changeLocaleStatus(id: number, status: number) {
     await localeStore.editLocale({ localeId: id, status: status } as ILocale);
-    await localeStore.listAvailableLocales(true);
+    const locales = await localeStore.listAvailableLocales(true);
+    if (locales.length === 1) {
+      await localeStore.setCurrLocale(locales[0]);
+    }
   },
   // Open locale form.
   openLocaleForm(id: number) {
@@ -127,7 +136,6 @@ onMounted(async () => {
         :true-value="1"
         :false-value="0"
         @change="methods.changeLocaleStatus(item.localeId, Number(item.status))"
-        :disabled="item.localeId == 1"
         hide-details
       ></v-switch>
     </template>
