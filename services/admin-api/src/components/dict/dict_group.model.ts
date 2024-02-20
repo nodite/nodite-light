@@ -38,10 +38,10 @@ export default class DictGroupModel extends SequelizeModel<DictGroupModel> {
   @Column({ field: 'group_key', type: DataType.STRING(50) })
   groupKey: string;
 
-  @Default(0)
+  @Default('')
   @AllowNull(false)
-  @Column({ field: 'parent_id', type: DataType.INTEGER })
-  parentId: number;
+  @Column({ field: 'parent_id', type: DataType.UUID })
+  parentId: string;
 
   @Default(0)
   @AllowNull(false)

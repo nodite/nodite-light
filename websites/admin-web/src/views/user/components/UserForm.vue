@@ -32,6 +32,7 @@ const userId = computed({
 
 // Local data.
 const myRefStore = ref({
+  title: '',
   isFormValid: true,
   isSaving: false,
   error: false,
@@ -72,6 +73,10 @@ const methods = {
     formData.value = userId.value
       ? (await userStore.query(userId.value)) || ({} as IUser)
       : ({} as IUser);
+
+    myRefStore.value.title = userId.value
+      ? i18n.ndt('Edit User - {0}', [formData.value.username])
+      : i18n.ndt('New User');
   },
   // Close user form.
   closeUserForm() {
@@ -135,9 +140,11 @@ watchEffect(async () => {
 
     <v-card density="compact" elevation="8" rounded="lg">
       <v-card-title>
-        <v-label>
-          {{ props.userId ? $ndt('Edit User - {0}', [formData.username]) : $ndt('New User') }}
-        </v-label>
+        <v-label>{{ myRefStore.title }}</v-label>
+        <v-spacer></v-spacer>
+        <v-btn icon @click="methods.closeUserForm" density="compact" variant="text">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
       </v-card-title>
 
       <v-card-text>

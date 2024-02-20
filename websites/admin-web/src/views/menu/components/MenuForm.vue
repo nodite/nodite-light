@@ -37,7 +37,8 @@ const menus = ref([] as IMenu[]);
 
 // Local Data.
 const myRefStore = ref({
-  parentDialog: false,
+  title: '',
+  parentIdDialog: false,
   iconDialog: false,
   openIconPicker: false,
   isFormValid: true,
@@ -52,18 +53,16 @@ const formData = ref({} as IMenu);
 const formRules = ref({
   parentId: [
     (v: string) => lodash.isString(v) || (!v && i18n.ndt('Parent Menu is required.')),
-    (v: string) => v !== menuId.value || i18n.ndt('Parent Menu cannot be itself.'),
+    (v: string) => !menuId.value || v !== menuId.value || i18n.ndt('Parent Menu cannot be itself.'),
   ],
-  orderNum: [],
   iType: [(v: string) => !!v || i18n.ndt('Menu Type is required.')],
   menuName: [(v: string) => !!v || i18n.ndt('Menu Name is required.')],
-  icon: [],
   path: [(v: string) => !v || v.startsWith('/') || i18n.ndt('Path must start with slash (/).')],
-  redirect: [],
-  component: [],
+  redirect: [
+    (v: string) => !v || v.startsWith('/') || i18n.ndt('Redirect must start with slash (/).'),
+  ],
   layout: [(v: string) => !!v || i18n.ndt('Layout is required')],
-  perms: [],
-  hidden: [],
+  perms: [(v: string) => !v || v.split(':').length >= 3 || i18n.ndt('Invalid perms format.')],
 });
 
 // Methods.
@@ -73,6 +72,10 @@ const methods = {
     formData.value = menuId.value
       ? (await menuStore.query(menuId.value)) || ({} as IMenu)
       : ({} as IMenu);
+
+    myRefStore.value.title = menuId.value
+      ? i18n.ndt('Edit Menu - {0}', [formData.value.menuName])
+      : i18n.ndt('New Menu');
   },
   // Close menu form.
   closeMenuForm() {
@@ -140,9 +143,7 @@ watchEffect(async () => {
 
     <v-card density="compact" elevation="8" rounded="lg">
       <v-card-title class="pt-4">
-        <v-label>
-          {{ menuId ? $ndt('Edit Menu - {0}', [formData.menuName]) : $ndt('New Menu') }}
-        </v-label>
+        <v-label>{{ myRefStore.title }}</v-label>
         <v-spacer></v-spacer>
         <v-btn icon @click="methods.closeMenuForm" density="compact" variant="text">
           <v-icon>mdi-close</v-icon>
@@ -158,11 +159,11 @@ watchEffect(async () => {
         >
           <v-container class="px-10 pb-0">
             <v-row dense>
+              <!-- parent & order -->
               <v-col>
-                <!-- todo: v-treeview -->
                 <TreeSelect
                   v-model="formData.parentId"
-                  v-model:dialog="myRefStore.parentDialog"
+                  v-model:dialog="myRefStore.parentIdDialog"
                   :items="menus"
                   item-title="menuName"
                   item-value="menuId"
@@ -171,7 +172,6 @@ watchEffect(async () => {
                   variant="outlined"
                   :rules="formRules.parentId"
                   :error="myRefStore.error"
-                  validate-on="blur"
                   :disabled-items="menuId ? [formData.menuId] : []"
                   show-root
                   chips
@@ -192,7 +192,6 @@ watchEffect(async () => {
                   density="compact"
                   :label="$ndt('Order')"
                   v-model="formData.orderNum"
-                  :rules="formRules.orderNum"
                   validate-on="blur"
                   :error="myRefStore.error"
                   variant="outlined"
@@ -243,7 +242,6 @@ watchEffect(async () => {
                   v-model:dialog="myRefStore.iconDialog"
                   :label="$ndt('Icon')"
                   :disabled="myRefStore.isSaving"
-                  :rules="formRules.icon"
                   :error="myRefStore.error"
                 ></IconPicker>
               </v-col>
@@ -308,7 +306,6 @@ watchEffect(async () => {
                   density="compact"
                   variant="outlined"
                   :hint="$ndt('The path of the component to be rendered.')"
-                  :rules="formRules.component"
                   validate-on="blur"
                   :error="myRefStore.error"
                 >
@@ -343,7 +340,6 @@ watchEffect(async () => {
               <v-col>
                 <v-radio-group
                   v-model="formData.hidden"
-                  :rules="formRules.hidden"
                   validate-on="blur"
                   :error="myRefStore.error"
                   inline

@@ -200,22 +200,24 @@ html {
 
   // vue3-treeview
   .tree {
+    width: 100% !important;
     overflow: auto;
 
-    .tree-node .node-wrapper {
+    .node-wrapper {
+      padding: 0 5px;
       min-height: 30px !important;
+    }
 
-      .checkbox-wrapper {
-        margin-right: 0.3em;
-      }
+    .checkbox-wrapper {
+      margin-right: 0.3em;
+    }
 
-      .checkbox-wrapper:after {
-        left: -0.1em;
-      }
+    .checkbox-wrapper:after {
+      left: -0.1em;
+    }
 
-      .input-wrapper {
-        white-space: nowrap;
-      }
+    .input-wrapper {
+      white-space: nowrap;
     }
   }
 }

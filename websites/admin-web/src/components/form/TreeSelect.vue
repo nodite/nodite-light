@@ -5,7 +5,7 @@ import VueTreeView from '@employee87/vue3-treeview';
 import { PropType } from 'vue';
 
 import i18n from '@/plugins/i18n';
-import { VueTreeview as VueTreeViewConfig } from '@/types/config';
+import { VueTreeView as VueTreeViewConfig } from '@/types/config';
 import lodash from '@/utils/lodash';
 
 const emit = defineEmits(['update:modelValue', 'update:dialog', 'update:error']);
@@ -23,6 +23,10 @@ const props = defineProps({
     type: Number,
     default: 450,
   },
+  label: {
+    type: String,
+    default: undefined,
+  },
   items: {
     type: Array as PropType<any[]>,
     default: () => [],
@@ -30,6 +34,10 @@ const props = defineProps({
   itemTitle: {
     type: String,
     default: 'title',
+  },
+  itemTitleContext: {
+    type: String,
+    default: '',
   },
   itemValue: {
     type: String,
@@ -160,10 +168,10 @@ watchEffect(() => {
 
       return {
         id: id,
-        text: i18n.ndt(item[props.itemTitle]),
+        text: i18n.ndt(item[props.itemTitle], undefined, { context: props.itemTitleContext }),
         item: item,
         state: {
-          opened: tree.value.nodes[id]?.state.opened || false,
+          opened: tree.value.nodes[id]?.state?.opened || false,
           checked: methods.nodeIsChecked(item),
           disabled: props.disabledItems.includes(id),
         },
@@ -201,6 +209,7 @@ watchEffect(() => {
       <v-select
         density="compact"
         v-model="modelValue"
+        :label="label"
         :items="items"
         :item-title="itemTitle"
         :item-value="itemValue"
@@ -245,10 +254,6 @@ watchEffect(() => {
 </template>
 
 <style scoped lang="css">
-.tree {
-  width: 100% !important;
-  overflow-y: auto;
-}
 .tree.uni :deep(.node-wrapper.checked) {
   border: 0;
   background-color: #e0e0e0;

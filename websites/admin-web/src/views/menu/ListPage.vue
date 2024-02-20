@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import {
-  type ConfirmCallback,
-  VDeleteConfirmForm,
-} from '@nodite-light/vuetify-delete-confirm-form';
 import { VTreeDataTable } from '@nodite-light/vuetify-tree-data-table';
 
 import { DataTreeIMenu, IMenu } from '@/api/admin/data-contracts';
+import i18n from '@/plugins/i18n';
 import { useMenuStore } from '@/stores/modules/menuStore';
+import dialogs from '@/utils/dialogs';
 import MenuForm from '@/views/menu/components/MenuForm.vue';
 
 const menuStore = useMenuStore();
@@ -23,12 +21,6 @@ const menuFormData = ref({
   menuId: '',
 });
 
-// Delete confirm.
-const deleteConfirmFormData = ref({
-  dialog: false,
-  item: {} as IMenu,
-});
-
 // Methods.
 const methods = {
   // Load menu tree.
@@ -42,20 +34,16 @@ const methods = {
     menuFormData.value.dialog = true;
     menuFormData.value.menuId = id;
   },
-  // Open delete confirm form.
-  openDeleteConfirmForm(item: IMenu) {
-    deleteConfirmFormData.value.dialog = true;
-    deleteConfirmFormData.value.item = item;
-  },
   // Delete menu.
-  async delete(menu: IMenu, cb: ConfirmCallback) {
-    try {
-      await menuStore.delete(menu.menuId);
-      await methods.loadMenuTree(true);
-      cb(true);
-    } catch (error) {
-      cb(false);
-    }
+  async delete(item: IMenu) {
+    const confirm = await dialogs.deleteConfirm(
+      i18n.ndt('Are your sure to delete this menu ({0})', [item.menuName]),
+    );
+
+    if (!confirm) return;
+
+    await menuStore.delete(item.menuId);
+    await methods.loadMenuTree(true);
   },
 };
 
@@ -77,6 +65,7 @@ onMounted(async () => {
       headers: [
         { title: '', align: 'start', key: 'data-table-expand' },
         { title: $ndt('Menu Name'), value: 'menuName' },
+        { title: $ndt('Translation'), value: 'trans' },
         { title: $ndt('Order'), value: 'orderNum' },
         { title: $ndt('Path'), value: 'path' },
         { title: $ndt('Type'), value: 'iType' },
@@ -90,19 +79,23 @@ onMounted(async () => {
   >
     <template v-slot:top>
       <v-toolbar density="compact" color="inherit">
-        <menu-form
+        <MenuForm
           v-model:dialog="menuFormData.dialog"
           v-model:menu-id="menuFormData.menuId"
           @save="methods.loadMenuTree(true)"
-        ></menu-form>
+        ></MenuForm>
       </v-toolbar>
     </template>
 
     <template v-slot:item.menuName="{ item }">
       <v-label>
-        {{ $ndt(item.menuName) }}
+        {{ item.menuName }}
         <v-icon v-if="!!item.icon" size="small" class="ml-2">{{ item.icon }}</v-icon>
       </v-label>
+    </template>
+
+    <template v-slot:item.trans="{ item }">
+      <v-label>{{ $ndt(item.menuName) }}</v-label>
     </template>
 
     <template v-slot:item.iType="{ value }">
@@ -110,7 +103,7 @@ onMounted(async () => {
     </template>
 
     <template v-slot:item.path="{ value }">
-      <router-link v-if="!!value" class="text" :to="value">{{ value }}</router-link>
+      <router-link v-if="!!value" class="text" :to="value" target="_blank">{{ value }}</router-link>
       <span v-else>-</span>
     </template>
 
@@ -138,7 +131,7 @@ onMounted(async () => {
         class="px-0"
         color="red"
         variant="text"
-        @click="methods.openDeleteConfirmForm(item)"
+        @click="methods.delete(item)"
         min-width="calc(var(--v-btn-height) + 0px)"
         :disabled="item.deleted === 9"
       >
@@ -148,13 +141,6 @@ onMounted(async () => {
 
     <template v-slot:bottom></template>
   </VTreeDataTable>
-
-  <!-- delete confirm -->
-  <VDeleteConfirmForm
-    v-model:dialog="deleteConfirmFormData.dialog"
-    v-model:item="deleteConfirmFormData.item"
-    @confirm="methods.delete"
-  ></VDeleteConfirmForm>
 </template>
 
 <style scoped lang="scss">

@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { VDataTablePagination } from '@nodite-light/vuetify-data-table-pagination';
-import {
-  type ConfirmCallback,
-  VDeleteConfirmForm,
-} from '@nodite-light/vuetify-delete-confirm-form';
 import moment from 'moment';
 
 import { IRole, SequelizePaginationIRole } from '@/api/admin/data-contracts';
+import i18n from '@/plugins/i18n';
 import { useRoleStore } from '@/stores/modules/roleStore';
+import dialogs from '@/utils/dialogs';
 import MenuPermsView from '@/views/role/components/MenuPermsView.vue';
 import RoleForm from '@/views/role/components/RoleForm.vue';
 
@@ -58,12 +56,6 @@ const roleFormData = ref({
   roleId: 0,
 });
 
-// Delete confirm.
-const deleteConfirmFormData = ref({
-  dialog: false,
-  item: {} as IRole,
-});
-
 // Menu perms view.
 const menuPermsView = ref({
   drawer: false,
@@ -91,11 +83,6 @@ const methods = {
     roleFormData.value.dialog = true;
     roleFormData.value.roleId = id;
   },
-  // Open delete confirm form.
-  openDeleteConfirmForm(item: IRole) {
-    deleteConfirmFormData.value.dialog = true;
-    deleteConfirmFormData.value.item = item;
-  },
   // Open menu perms view.
   async openMenuPermsView(item: IRole) {
     menuPermsView.value.drawer = true;
@@ -111,14 +98,15 @@ const methods = {
     await roleStore.edit({ roleId: id, status: status } as IRole);
   },
   // Delete.
-  async delete(item: IRole, cb: ConfirmCallback) {
-    try {
-      await roleStore.delete(item.roleId);
-      await methods.loadList();
-      cb(true);
-    } catch (error) {
-      cb(false);
-    }
+  async delete(item: IRole) {
+    const confirm = await dialogs.deleteConfirm(
+      i18n.ndt('Are you sure to delete this Role ({0})?', [item.roleName]),
+    );
+
+    if (!confirm) return;
+
+    await roleStore.delete(item.roleId);
+    await methods.loadList();
   },
 };
 
@@ -180,7 +168,10 @@ onMounted(async () => {
           color="primary"
           prepend-icon="mdi-magnify"
           density="comfortable"
-          @click="methods.loadList"
+          @click="
+            myRefStore.page = 1;
+            methods.loadList();
+          "
         >
           {{ $ndt('Search') }}
         </v-btn>
@@ -254,7 +245,7 @@ onMounted(async () => {
         class="px-0"
         color="red"
         variant="text"
-        @click="methods.openDeleteConfirmForm(item)"
+        @click="methods.delete(item)"
         min-width="calc(var(--v-btn-height) + 0px)"
         :disabled="item.deleted == 9 || item.roleId == 1"
       >
@@ -311,13 +302,6 @@ onMounted(async () => {
       ></VDataTablePagination>
     </template>
   </v-data-table>
-
-  <!-- delete confirm -->
-  <VDeleteConfirmForm
-    v-model:dialog="deleteConfirmFormData.dialog"
-    v-model:item="deleteConfirmFormData.item"
-    @confirm="methods.delete"
-  ></VDeleteConfirmForm>
 
   <!-- menu perms -->
   <MenuPermsView

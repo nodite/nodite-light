@@ -17,6 +17,7 @@ export const CreateValidation: ValidationSchema = {
         .allow(...MenuType),
       path: Joi.string().optional().max(200).allow('', null),
       component: Joi.string().optional().max(255).allow('', null),
+      parentId: Joi.string().optional().allow('', null),
     })
     .unknown(true),
 };
@@ -35,8 +36,7 @@ export const UpdateValidation: ValidationSchema = {
         .allow(...MenuType),
       path: Joi.string().optional().max(200).allow('', null),
       component: Joi.string().optional().max(255).allow('', null),
+      parentId: Joi.string().optional().allow('', null),
     })
     .unknown(true),
 };
-
-export default {};

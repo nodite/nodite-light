@@ -34,6 +34,7 @@ const localeId = computed({
 
 // Local data.
 const myRefStore = ref({
+  title: '',
   iconDialog: false,
   isFormValid: false,
   isSaving: false,
@@ -45,23 +46,20 @@ const myRefStore = ref({
 const refForm = ref();
 const formData = ref({} as ILocale);
 const formRules = ref({
-  label: [],
   langcode: [(v: string) => !!v || i18n.ndt('Langcode is required.')],
-  momentCode: [],
-  icon: [],
-  orderNum: [],
-  isDefault: [],
-  status: [],
 });
 
 // Methods.
 const methods = {
   // Load form data.
   async loadFormData() {
-    if (!localeId.value) return;
     formData.value = localeId.value
       ? (await localeStore.queryLocale(localeId.value)) || ({} as ILocale)
       : ({} as ILocale);
+
+    myRefStore.value.title = localeId.value
+      ? i18n.ndt('Edit Locale - {0}', [formData.value.label])
+      : i18n.ndt('New Locale');
   },
   // Close locale form.
   closeLocaleForm() {
@@ -106,8 +104,8 @@ const methods = {
   },
 };
 
-watchEffect(() => {
-  methods.loadFormData();
+watchEffect(async () => {
+  await methods.loadFormData();
 });
 </script>
 
@@ -126,11 +124,7 @@ watchEffect(() => {
 
     <v-card density="compact" elevation="8" rounded="lg">
       <v-card-title>
-        <v-label>
-          {{
-            props.localeId > 0 ? $ndt('Edit Locale - {0}', [formData.label]) : $ndt('New Locale')
-          }}
-        </v-label>
+        <v-label>{{ myRefStore.title }}</v-label>
         <v-spacer></v-spacer>
         <v-btn icon @click="methods.closeLocaleForm" density="compact">
           <v-icon>mdi-close</v-icon>
@@ -151,7 +145,6 @@ watchEffect(() => {
                 <v-text-field
                   density="compact"
                   v-model="formData.label"
-                  :rules="formRules.label"
                   validate-on="blur"
                   :error="myRefStore.error"
                   variant="outlined"
@@ -167,7 +160,6 @@ watchEffect(() => {
                   density="compact"
                   :label="$ndt('Order')"
                   v-model="formData.orderNum"
-                  :rules="formRules.orderNum"
                   validate-on="blur"
                   :error="myRefStore.error"
                   variant="outlined"
@@ -206,7 +198,6 @@ watchEffect(() => {
                 <v-text-field
                   density="compact"
                   v-model="formData.momentCode"
-                  :rules="formRules.momentCode"
                   validate-on="blur"
                   :error="myRefStore.error"
                   variant="outlined"
@@ -223,7 +214,6 @@ watchEffect(() => {
               <v-col>
                 <v-radio-group
                   v-model="formData.status"
-                  :rules="formRules.status"
                   validate-on="blur"
                   :error="myRefStore.error"
                   inline

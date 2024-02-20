@@ -3,13 +3,11 @@ import * as MenuApi from '@/api/admin/Menu';
 import lodash from '@/utils/lodash';
 
 interface MenuState {
-  menuList: IMenu[];
   menuTree: DataTreeIMenu[];
 }
 
 export const useMenuStore = defineStore('menu', {
   state: (): MenuState => ({
-    menuList: [],
     menuTree: [],
   }),
 
@@ -21,14 +19,7 @@ export const useMenuStore = defineStore('menu', {
      * @returns
      */
     async list(): Promise<IMenu[]> {
-      if (!lodash.isEmpty(this.menuList)) return this.menuList;
-      this.menuList = lodash.map((await MenuApi.adminMenuList()) || [], (item) => {
-        return {
-          ...item,
-          parentId: item.parentId || '',
-        };
-      });
-      return this.menuList;
+      return (await MenuApi.adminMenuList()) || [];
     },
 
     /**
