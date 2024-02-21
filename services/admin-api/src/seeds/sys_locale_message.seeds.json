@@ -61,6 +61,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "05436309-1010-4711-bd9c-8bafb1f9643c",
+    "langcode": "en",
+    "message": "Role Asgmt"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "05436309-1010-4711-bd9c-8bafb1f9643c",
+    "langcode": "zhHans",
+    "message": "角色分配"
+  },
+  {
+    "createBy": "admin",
     "srcId": "05504b26-9dad-4c93-8ed9-ae7e7961a039",
     "langcode": "en",
     "message": "Role Create"
@@ -70,6 +82,18 @@
     "srcId": "05504b26-9dad-4c93-8ed9-ae7e7961a039",
     "langcode": "zhHans",
     "message": "角色创建"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "06f3acb3-22dd-4e12-8184-18cee2bc0c73",
+    "langcode": "en",
+    "message": "Un-Assign"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "06f3acb3-22dd-4e12-8184-18cee2bc0c73",
+    "langcode": "zhHans",
+    "message": "取消分配"
   },
   {
     "createBy": "admin",
@@ -121,6 +145,30 @@
   },
   {
     "createBy": "admin",
+    "srcId": "0ce24cca-8209-4ff1-8a57-0ae731f6684e",
+    "langcode": "en",
+    "message": "Viewer"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0ce24cca-8209-4ff1-8a57-0ae731f6684e",
+    "langcode": "zhHans",
+    "message": "游客"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0dbb5b56-01c4-410d-87dc-76512370cb1d",
+    "langcode": "en",
+    "message": "Role Overview"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0dbb5b56-01c4-410d-87dc-76512370cb1d",
+    "langcode": "zhHans",
+    "message": "角色概述"
+  },
+  {
+    "createBy": "admin",
     "srcId": "0e10e481-c3a1-4135-9588-a0c969ea4e34",
     "langcode": "en",
     "message": "Menu Name is required."
@@ -169,6 +217,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "12605e3d-acd0-4cfd-8f63-015f0690d734",
+    "langcode": "en",
+    "message": "Admin"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "12605e3d-acd0-4cfd-8f63-015f0690d734",
+    "langcode": "zhHans",
+    "message": "管理员"
+  },
+  {
+    "createBy": "admin",
     "srcId": "13eca577-b77c-4da0-9955-d3ce903a21e6",
     "langcode": "en",
     "message": "Menu"
@@ -202,6 +262,30 @@
     "srcId": "16e9c97b-d9be-488f-af08-bcb389d00256",
     "langcode": "zhHans",
     "message": "上下文"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "18819690-de4e-4f8b-ac71-7fffbccf511f",
+    "langcode": "en",
+    "message": "Assign"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "18819690-de4e-4f8b-ac71-7fffbccf511f",
+    "langcode": "zhHans",
+    "message": "分配"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1b2d227d-c97a-4d82-abbf-91e29d2543d5",
+    "langcode": "en",
+    "message": "User Asgmt"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1b2d227d-c97a-4d82-abbf-91e29d2543d5",
+    "langcode": "zhHans",
+    "message": "用户分配"
   },
   {
     "createBy": "admin",
@@ -268,6 +352,12 @@
     "srcId": "2a81ead2-1bd2-4163-accb-75cea6a8e39b",
     "langcode": "en",
     "message": "Menu Create"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "2a81ead2-1bd2-4163-accb-75cea6a8e39b",
+    "langcode": "zhHans",
+    "message": "菜单创建"
   },
   {
     "createBy": "admin",
@@ -367,6 +457,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "3c4cc3d8-9b46-4406-8445-dc2d348b2a29",
+    "langcode": "en",
+    "message": "Password Reset"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3c4cc3d8-9b46-4406-8445-dc2d348b2a29",
+    "langcode": "zhHans",
+    "message": "密码重置"
+  },
+  {
+    "createBy": "admin",
     "srcId": "3c932509-b0b2-4d6c-a5f7-3852407eb62b",
     "langcode": "en",
     "message": "Secret"
@@ -403,9 +505,51 @@
   },
   {
     "createBy": "admin",
+    "srcId": "428fd447-2707-408a-a427-f5ee496f4fde",
+    "langcode": "en",
+    "message": "User Status"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "428fd447-2707-408a-a427-f5ee496f4fde",
+    "langcode": "zhHans",
+    "message": "用户状态"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "42e29cc1-8bf1-4bf9-b396-4d88cc9f03af",
+    "langcode": "en",
+    "message": "Role Un-Assign"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "42e29cc1-8bf1-4bf9-b396-4d88cc9f03af",
+    "langcode": "zhHans",
+    "message": "取消分配"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "43954eca-c621-4978-a7bf-61aab6ddd294",
+    "langcode": "en",
+    "message": "Change to Light Mode"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "43954eca-c621-4978-a7bf-61aab6ddd294",
+    "langcode": "zhHans",
+    "message": "切换为白天模式"
+  },
+  {
+    "createBy": "admin",
     "srcId": "44134080-0087-4d68-adeb-f740367fd5f1",
     "langcode": "en",
     "message": "Menu Edit"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "44134080-0087-4d68-adeb-f740367fd5f1",
+    "langcode": "zhHans",
+    "message": "菜单编辑"
   },
   {
     "createBy": "admin",
@@ -433,6 +577,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "4623977f-0c27-4a36-b27a-94a420e88ac9",
+    "langcode": "en",
+    "message": "User Delete"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4623977f-0c27-4a36-b27a-94a420e88ac9",
+    "langcode": "zhHans",
+    "message": "用户删除"
+  },
+  {
+    "createBy": "admin",
     "srcId": "464f2949-d079-4669-ba1c-f84136bfadd7",
     "langcode": "en",
     "message": "Sign in to your account"
@@ -442,6 +598,18 @@
     "srcId": "464f2949-d079-4669-ba1c-f84136bfadd7",
     "langcode": "zhHans",
     "message": "请登陆"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "48556f87-e418-4b77-8818-0be54a7ed6bf",
+    "langcode": "en",
+    "message": "Confirm Password"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "48556f87-e418-4b77-8818-0be54a7ed6bf",
+    "langcode": "zhHans",
+    "message": "确认密码"
   },
   {
     "createBy": "admin",
@@ -565,6 +733,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "56a52bd4-e009-4574-8271-e8414b5d8349",
+    "langcode": "en",
+    "message": "Assign Status"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "56a52bd4-e009-4574-8271-e8414b5d8349",
+    "langcode": "zhHans",
+    "message": "分配状态"
+  },
+  {
+    "createBy": "admin",
     "srcId": "573c726a-69c4-4495-a262-c189f433bfbe",
     "langcode": "en",
     "message": "Create Account"
@@ -649,6 +829,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "61ecfd8c-013e-49a0-87a1-22f8ea7c0b8e",
+    "langcode": "en",
+    "message": "Message Upsert"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "61ecfd8c-013e-49a0-87a1-22f8ea7c0b8e",
+    "langcode": "zhHans",
+    "message": "翻译更新"
+  },
+  {
+    "createBy": "admin",
     "srcId": "647c3b7c-024e-4cd8-aefa-fcbddc568e9f",
     "langcode": "en",
     "message": "Role Delete"
@@ -658,6 +850,18 @@
     "srcId": "647c3b7c-024e-4cd8-aefa-fcbddc568e9f",
     "langcode": "zhHans",
     "message": "角色删除"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "649aede4-e396-452a-9a4f-665603ebd9d4",
+    "langcode": "en",
+    "message": "Source Create"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "649aede4-e396-452a-9a4f-665603ebd9d4",
+    "langcode": "zhHans",
+    "message": "源文本创建"
   },
   {
     "createBy": "admin",
@@ -706,6 +910,30 @@
     "srcId": "693a4a1d-527d-4daf-905e-dc130f94a239",
     "langcode": "zhHans",
     "message": "消息"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "694cfbfb-8363-4451-952e-49601ed98474",
+    "langcode": "en",
+    "message": "Reset Password - {0}"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "694cfbfb-8363-4451-952e-49601ed98474",
+    "langcode": "zhHans",
+    "message": "重置密码 - {0}"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6d272bc7-b774-4892-838d-9bff3fd109eb",
+    "langcode": "en",
+    "message": "Assigned"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6d272bc7-b774-4892-838d-9bff3fd109eb",
+    "langcode": "zhHans",
+    "message": "已分配"
   },
   {
     "createBy": "admin",
@@ -775,6 +1003,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "75dbe0ab-ca43-4d7f-9f3e-29495d846a90",
+    "langcode": "zhHans",
+    "message": "菜单删除"
+  },
+  {
+    "createBy": "admin",
     "srcId": "77925c27-76c6-4f8a-82d7-75b5fc4eb78c",
     "langcode": "en",
     "message": "Clear profile cache"
@@ -814,6 +1048,12 @@
     "srcId": "7c5e8cc9-4a5c-4e95-8e7d-b0b954f56852",
     "langcode": "en",
     "message": "Edit Role - {0}"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7c5e8cc9-4a5c-4e95-8e7d-b0b954f56852",
+    "langcode": "zhHans",
+    "message": "编辑角色 - {0}"
   },
   {
     "createBy": "admin",
@@ -889,6 +1129,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "86da0fd0-8309-4291-bf98-4ad1c8c90906",
+    "langcode": "en",
+    "message": "Role Status"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "86da0fd0-8309-4291-bf98-4ad1c8c90906",
+    "langcode": "zhHans",
+    "message": "角色状态"
+  },
+  {
+    "createBy": "admin",
     "srcId": "8971f796-a3d9-4402-ac14-09c00ee0c2fc",
     "langcode": "en",
     "message": "Clear perms cache"
@@ -946,6 +1198,18 @@
     "srcId": "8d0e82a6-f369-43f1-afbd-50f3b7f2db9d",
     "langcode": "zhHans",
     "message": "显示"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "91fc6480-1626-449b-93df-7ff6c607bf77",
+    "langcode": "en",
+    "message": "Perms Update"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "91fc6480-1626-449b-93df-7ff6c607bf77",
+    "langcode": "zhHans",
+    "message": "权限更新"
   },
   {
     "createBy": "admin",
@@ -1105,6 +1369,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "b3fd7c5e-061a-461f-8f87-b37709092c41",
+    "langcode": "en",
+    "message": "Parent Menu cannot be itself."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b3fd7c5e-061a-461f-8f87-b37709092c41",
+    "langcode": "zhHans",
+    "message": "当前菜单不能作为父级菜单"
+  },
+  {
+    "createBy": "admin",
     "srcId": "b5686052-edb2-440b-bf18-eaeddfa30c0f",
     "langcode": "en",
     "message": "Message BatchUpsert"
@@ -1123,6 +1399,24 @@
   },
   {
     "createBy": "admin",
+    "srcId": "b682b37e-cad6-4580-b43f-554645d42adb",
+    "langcode": "zhHans",
+    "message": "菜单查询"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b8fb6457-f7c4-49e8-b0fc-433a3af4371a",
+    "langcode": "en",
+    "message": "Saved successfully."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b8fb6457-f7c4-49e8-b0fc-433a3af4371a",
+    "langcode": "zhHans",
+    "message": "保存成功"
+  },
+  {
+    "createBy": "admin",
     "srcId": "b91ca2d7-ca2a-4975-b991-8495667ade5e",
     "langcode": "en",
     "message": "Message Create"
@@ -1132,6 +1426,18 @@
     "srcId": "b91ca2d7-ca2a-4975-b991-8495667ade5e",
     "langcode": "zhHans",
     "message": "翻译创建"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "bac7d008-c49b-422f-8ae4-44494c93e860",
+    "langcode": "en",
+    "message": "At least one locale must be default."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "bac7d008-c49b-422f-8ae4-44494c93e860",
+    "langcode": "zhHans",
+    "message": "至少需要一个默认区域。"
   },
   {
     "createBy": "admin",
@@ -1156,6 +1462,18 @@
     "srcId": "bbf81f47-9eef-404c-8f9e-b8f1b6569991",
     "langcode": "zhHans",
     "message": "男"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "be778121-c035-4a4b-b6bc-ed00a6d58272",
+    "langcode": "en",
+    "message": "User Create"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "be778121-c035-4a4b-b6bc-ed00a6d58272",
+    "langcode": "zhHans",
+    "message": "用户创建"
   },
   {
     "createBy": "admin",
@@ -1255,6 +1573,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "c8340f36-23f4-4bcc-9177-c569e46096fb",
+    "langcode": "en",
+    "message": "Unassigned"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c8340f36-23f4-4bcc-9177-c569e46096fb",
+    "langcode": "zhHans",
+    "message": "未分配"
+  },
+  {
+    "createBy": "admin",
     "srcId": "c98e8b37-947b-4bbf-bd00-f8d6f585ab6f",
     "langcode": "en",
     "message": "Locales"
@@ -1300,6 +1630,18 @@
     "srcId": "d0426919-d4da-430a-bad9-7fbf52d01a01",
     "langcode": "zhHans",
     "message": "状态"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d16fa5d2-76c9-4763-83c6-8554cb592e96",
+    "langcode": "en",
+    "message": "User Query"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d16fa5d2-76c9-4763-83c6-8554cb592e96",
+    "langcode": "zhHans",
+    "message": "用户查询"
   },
   {
     "createBy": "admin",
@@ -1387,6 +1729,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "dc02b38b-650f-41be-b3d6-bfbd07ef1161",
+    "langcode": "en",
+    "message": "At least one locale must be enable."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "dc02b38b-650f-41be-b3d6-bfbd07ef1161",
+    "langcode": "zhHans",
+    "message": "至少启用一个区域。"
+  },
+  {
+    "createBy": "admin",
     "srcId": "dcb41c04-be08-4214-a999-cf978b78c90a",
     "langcode": "en",
     "message": "Component"
@@ -1396,6 +1750,30 @@
     "srcId": "dcb41c04-be08-4214-a999-cf978b78c90a",
     "langcode": "zhHans",
     "message": "组件"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "df2e6075-f93c-410f-b9a8-e3507646936d",
+    "langcode": "en",
+    "message": "Edit Locale - {0}"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "df2e6075-f93c-410f-b9a8-e3507646936d",
+    "langcode": "zhHans",
+    "message": "编辑区域 - {0}"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "dfa9d84d-e445-4087-bbe5-53cc4c52bd89",
+    "langcode": "en",
+    "message": "User Edit"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "dfa9d84d-e445-4087-bbe5-53cc4c52bd89",
+    "langcode": "zhHans",
+    "message": "用户编辑"
   },
   {
     "createBy": "admin",
@@ -1423,6 +1801,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "e2829fba-cbd3-44e4-b7cc-967b38a63277",
+    "langcode": "en",
+    "message": "Role Assign"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e2829fba-cbd3-44e4-b7cc-967b38a63277",
+    "langcode": "zhHans",
+    "message": "角色分配"
+  },
+  {
+    "createBy": "admin",
     "srcId": "e330a033-4ac2-4010-8a75-d1ace0d2136e",
     "langcode": "en",
     "message": "Source"
@@ -1431,7 +1821,19 @@
     "createBy": "admin",
     "srcId": "e330a033-4ac2-4010-8a75-d1ace0d2136e",
     "langcode": "zhHans",
-    "message": "源"
+    "message": "源文本"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e3d7a714-57ef-4974-a56f-f3bc0679335b",
+    "langcode": "en",
+    "message": "All"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e3d7a714-57ef-4974-a56f-f3bc0679335b",
+    "langcode": "zhHans",
+    "message": "全部"
   },
   {
     "createBy": "admin",
@@ -1540,6 +1942,30 @@
     "srcId": "f089788c-ffad-4d3c-a2bd-650121f50100",
     "langcode": "zhHans",
     "message": "创建用户"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f0eb5898-30ac-4a2b-b57e-b0e9a134fe4e",
+    "langcode": "en",
+    "message": "User Overview"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f0eb5898-30ac-4a2b-b57e-b0e9a134fe4e",
+    "langcode": "zhHans",
+    "message": "用户概述"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f368094b-07b1-4ba0-899b-2ed031b2e7dc",
+    "langcode": "en",
+    "message": "Confirm Password is required."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f368094b-07b1-4ba0-899b-2ed031b2e7dc",
+    "langcode": "zhHans",
+    "message": "密码确认是必填项"
   },
   {
     "createBy": "admin",

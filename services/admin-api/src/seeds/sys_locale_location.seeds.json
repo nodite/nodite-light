@@ -820,5 +820,203 @@
     "srcId": "8971f796-a3d9-4402-ac14-09c00ee0c2fc",
     "type": "module_path",
     "name": "/admin/src/components/toolbar/CacheClear.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "df2e6075-f93c-410f-b9a8-e3507646936d",
+    "type": "module_path",
+    "name": "/admin/src/views/locale/components/LocaleForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b8fb6457-f7c4-49e8-b0fc-433a3af4371a",
+    "type": "module_path",
+    "name": "/admin/src/views/locale/components/LocaleForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1b2d227d-c97a-4d82-abbf-91e29d2543d5",
+    "type": "module_path",
+    "name": "/admin/src/views/role/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "12605e3d-acd0-4cfd-8f63-015f0690d734",
+    "type": "module_path",
+    "name": "/admin/src/views/role/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e2829fba-cbd3-44e4-b7cc-967b38a63277",
+    "type": "module_path",
+    "name": "/admin/src/views/role/components/MenuTreeView.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "42e29cc1-8bf1-4bf9-b396-4d88cc9f03af",
+    "type": "module_path",
+    "name": "/admin/src/views/role/components/MenuTreeView.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "05436309-1010-4711-bd9c-8bafb1f9643c",
+    "type": "module_path",
+    "name": "/admin/src/views/role/components/MenuTreeView.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "91fc6480-1626-449b-93df-7ff6c607bf77",
+    "type": "module_path",
+    "name": "/admin/src/views/role/components/MenuTreeView.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d16fa5d2-76c9-4763-83c6-8554cb592e96",
+    "type": "module_path",
+    "name": "/admin/src/views/role/components/MenuTreeView.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "be778121-c035-4a4b-b6bc-ed00a6d58272",
+    "type": "module_path",
+    "name": "/admin/src/views/role/components/MenuTreeView.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "dfa9d84d-e445-4087-bbe5-53cc4c52bd89",
+    "type": "module_path",
+    "name": "/admin/src/views/role/components/MenuTreeView.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3c4cc3d8-9b46-4406-8445-dc2d348b2a29",
+    "type": "module_path",
+    "name": "/admin/src/views/role/components/MenuTreeView.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "649aede4-e396-452a-9a4f-665603ebd9d4",
+    "type": "module_path",
+    "name": "/admin/src/views/role/components/MenuTreeView.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "61ecfd8c-013e-49a0-87a1-22f8ea7c0b8e",
+    "type": "module_path",
+    "name": "/admin/src/views/role/components/MenuTreeView.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4623977f-0c27-4a36-b27a-94a420e88ac9",
+    "type": "module_path",
+    "name": "/admin/src/views/role/components/MenuTreeView.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0ce24cca-8209-4ff1-8a57-0ae731f6684e",
+    "type": "module_path",
+    "name": "/admin/src/views/role/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e3d7a714-57ef-4974-a56f-f3bc0679335b",
+    "type": "module_path",
+    "name": "/admin/src/components/form/TreeSelect.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "43954eca-c621-4978-a7bf-61aab6ddd294",
+    "type": "module_path",
+    "name": "/admin/src/components/CustomizationMenu.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b3fd7c5e-061a-461f-8f87-b37709092c41",
+    "type": "module_path",
+    "name": "/admin/src/views/menu/components/MenuForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "86da0fd0-8309-4291-bf98-4ad1c8c90906",
+    "type": "module_path",
+    "name": "/admin/src/views/user/RoleAsgmtPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6d272bc7-b774-4892-838d-9bff3fd109eb",
+    "type": "module_path",
+    "name": "/admin/src/views/user/RoleAsgmtPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c8340f36-23f4-4bcc-9177-c569e46096fb",
+    "type": "module_path",
+    "name": "/admin/src/views/user/RoleAsgmtPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "56a52bd4-e009-4574-8271-e8414b5d8349",
+    "type": "module_path",
+    "name": "/admin/src/views/user/RoleAsgmtPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f0eb5898-30ac-4a2b-b57e-b0e9a134fe4e",
+    "type": "module_path",
+    "name": "/admin/src/views/user/RoleAsgmtPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "06f3acb3-22dd-4e12-8184-18cee2bc0c73",
+    "type": "module_path",
+    "name": "/admin/src/views/user/RoleAsgmtPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "694cfbfb-8363-4451-952e-49601ed98474",
+    "type": "module_path",
+    "name": "/admin/src/views/user/components/PassForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "48556f87-e418-4b77-8818-0be54a7ed6bf",
+    "type": "module_path",
+    "name": "/admin/src/views/user/components/PassForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f368094b-07b1-4ba0-899b-2ed031b2e7dc",
+    "type": "module_path",
+    "name": "/admin/src/views/user/components/PassForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0dbb5b56-01c4-410d-87dc-76512370cb1d",
+    "type": "module_path",
+    "name": "/admin/src/views/role/UserAsgmtPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "428fd447-2707-408a-a427-f5ee496f4fde",
+    "type": "module_path",
+    "name": "/admin/src/views/role/UserAsgmtPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "18819690-de4e-4f8b-ac71-7fffbccf511f",
+    "type": "module_path",
+    "name": "/admin/src/views/role/UserAsgmtPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "bac7d008-c49b-422f-8ae4-44494c93e860",
+    "type": "module_path",
+    "name": "/admin/src/utils/requests.ts"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "dc02b38b-650f-41be-b3d6-bfbd07ef1161",
+    "type": "module_path",
+    "name": "/admin/src/utils/requests.ts"
   }
 ]

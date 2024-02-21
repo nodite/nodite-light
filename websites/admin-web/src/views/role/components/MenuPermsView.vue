@@ -65,7 +65,7 @@ const methods = {
       .mapValues((menu) => {
         return {
           id: menu.menuId,
-          text: '',
+          text: i18n.ndt(menu.menuName) + (menu.perms ? ` [${menu.perms}]` : ''),
           item: menu,
           state: {
             opened: myRefStore.value.expand,
@@ -233,7 +233,7 @@ watchEffect(async () => {
         </v-label>
       </v-card-title>
 
-      <v-divider class="my-3" inset></v-divider>
+      <hr class="my-3 linear" />
 
       <v-row>
         <v-spacer></v-spacer>
@@ -264,20 +264,15 @@ watchEffect(async () => {
         <v-spacer></v-spacer>
       </v-row>
 
-      <v-divider class="my-3" inset></v-divider>
+      <hr class="my-3 linear" />
 
-      <vue-tree-view
+      <VueTreeView
         class="menu-treeview"
         :nodes="myRefStore.treeNodes"
         :config="myRefStore.treeConfig"
         @node-checked="methods.checkOrUncheck"
         @node-unchecked="methods.checkOrUncheck"
-      >
-        <template v-slot:input="{ node }">
-          {{ $ndt(node.item.menuName) }}
-          {{ node.item.perms ? `[${node.item.perms}]` : '' }}
-        </template>
-      </vue-tree-view>
+      ></VueTreeView>
 
       <v-card-actions>
         <!-- actions -->
