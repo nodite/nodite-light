@@ -18,5 +18,8 @@
     "lodash-es": "^4.17.21",
     "vue": "^3.3.13",
     "vuetify": "^3.4.8"
+  },
+  "devDependencies": {
+    "@nodite-light/eslint-config-admin-web": "*"
   }
 }

@@ -1,0 +1,1 @@
+# @nodite-light/eslint-config-admin-web

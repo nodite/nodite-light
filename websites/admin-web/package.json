@@ -54,6 +54,7 @@
     "vuetify-sonner": "^0.3.12"
   },
   "devDependencies": {
+    "@nodite-light/eslint-config-admin-web": "*",
     "@faker-js/faker": "^8.3.1",
     "@fortawesome/fontawesome-free": "^6.4.0",
     "@iconify/vue": "^4.1.1",
