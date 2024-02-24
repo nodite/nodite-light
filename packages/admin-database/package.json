@@ -33,6 +33,7 @@
     "sequelize-typescript": "^2.1.6"
   },
   "devDependencies": {
+    "@nodite-light/eslint-config-admin-api": "*",
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.10.6",
     "@types/validator": "^13.11.7",

@@ -34,6 +34,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@nodite-light/eslint-config-admin-api": "*",
     "@types/bluebird": "^3.5.42",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/lodash": "^4.14.202",
