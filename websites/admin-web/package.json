@@ -37,7 +37,6 @@
     "js-cookie": "^3.0.5",
     "lodash-es": "^4.17.21",
     "lottie-web": "^5.12.2",
-    "md-editor-v3": "^4.9.0",
     "md5": "^2.3.0",
     "moment": "^2.30.1",
     "parent-module": "^3.1.0",
@@ -54,10 +53,10 @@
     "vuetify-sonner": "^0.3.12"
   },
   "devDependencies": {
-    "@nodite-light/eslint-config-admin-web": "*",
     "@faker-js/faker": "^8.3.1",
     "@fortawesome/fontawesome-free": "^6.4.0",
     "@iconify/vue": "^4.1.1",
+    "@nodite-light/eslint-config-admin-web": "*",
     "@types/js-cookie": "^3.0.6",
     "@types/lodash-es": "^4.17.12",
     "@types/md5": "^2.3.5",
