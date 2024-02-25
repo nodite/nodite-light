@@ -69,8 +69,15 @@ const methods = {
   // Load list.
   async loadList() {
     myRefStore.value.loading = true;
-    myRefStore.value.pageResult =
-      (await roleStore.list(queryParams.value)) || ({} as SequelizePaginationIRole);
+
+    const pageResult = await roleStore.list({
+      page: queryParamPage.value,
+      itemsPerPage: queryParamItemsPerPage.value,
+      ...queryParams.value,
+    });
+
+    myRefStore.value.pageResult = pageResult || ({} as SequelizePaginationIRole);
+
     myRefStore.value.loading = false;
   },
   // Reset search.
@@ -177,7 +184,6 @@ onMounted(async () => {
         </v-btn>
         <v-btn
           class="align-self-center"
-          color="inherit"
           prepend-icon="mdi-sync"
           density="comfortable"
           @click="methods.resetSearch"
@@ -194,6 +200,7 @@ onMounted(async () => {
       { title: '', align: 'start', key: 'data-table-select' },
       { title: $ndt('ID'), value: 'roleId' },
       { title: $ndt('Role Name'), value: 'roleName' },
+      { title: $ndt('Translation'), value: 'trans' },
       { title: $ndt('Role Key'), value: 'roleKey' },
       { title: $ndt('Order'), value: 'orderNum' },
       { title: $ndt('Status'), value: 'status' },
@@ -204,13 +211,17 @@ onMounted(async () => {
     :items-per-page="queryParamItemsPerPage"
   >
     <template v-slot:top>
-      <v-toolbar density="compact" color="inherit">
+      <v-toolbar density="compact" color="background">
         <RoleForm
           v-model:dialog="roleFormData.dialog"
           v-model:role-id="roleFormData.roleId"
           @save="methods.loadList()"
         ></RoleForm>
       </v-toolbar>
+    </template>
+
+    <template v-slot:item.trans="{ item }">
+      <v-label>{{ $ndt(item.roleName) }}</v-label>
     </template>
 
     <template v-slot:item.status="{ item }">

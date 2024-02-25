@@ -21,7 +21,7 @@ import LocaleSourceSeeds from '@/seeds/sys_locale_source.seeds.json';
   indexes: [
     {
       name: 'source_context',
-      fields: [{ name: 'source', length: 30 }, 'context'],
+      fields: [{ name: 'source', length: 255 }, 'context'],
       unique: true,
     },
   ],

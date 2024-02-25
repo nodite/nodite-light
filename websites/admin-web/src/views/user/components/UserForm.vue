@@ -78,19 +78,19 @@ const methods = {
       ? i18n.ndt('Edit User - {0}', [formData.value.username])
       : i18n.ndt('New User');
   },
-  // Close user form.
-  closeUserForm() {
+  // Reset errors.
+  resetErrors() {
+    myRefStore.value.error = false;
+    myRefStore.value.errorMessage = '';
+  },
+  // Close.
+  close() {
     if (myRefStore.value.isSaving) {
       toast.warning(i18n.ndt("It's saving, please wait a moment."));
       return;
     }
     dialog.value = false;
     userId.value = 0;
-  },
-  // Reset errors.
-  resetErrors() {
-    myRefStore.value.error = false;
-    myRefStore.value.errorMessage = '';
   },
   // Save.
   async save() {
@@ -113,24 +113,25 @@ const methods = {
       myRefStore.value.isSaving = false;
     }
 
-    methods.closeUserForm();
+    methods.close();
 
     emit('save');
   },
 };
 
 // Lifecycle.
-watchEffect(async () => {
-  await methods.loadFormData();
-});
+watch(
+  () => props.dialog,
+  (v) => v && methods.loadFormData(),
+);
 </script>
 
 <template>
   <v-dialog
     v-model="dialog"
-    @click:outside="methods.closeUserForm"
+    @click:outside="methods.close"
     :persistent="myRefStore.isSaving"
-    max-width="750"
+    max-width="550"
   >
     <template v-slot:activator="{ props }">
       <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
@@ -142,7 +143,7 @@ watchEffect(async () => {
       <v-card-title>
         <v-label>{{ myRefStore.title }}</v-label>
         <v-spacer></v-spacer>
-        <v-btn icon @click="methods.closeUserForm" density="compact" variant="text">
+        <v-btn icon @click="methods.close" density="compact" variant="text">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-card-title>
@@ -161,31 +162,25 @@ watchEffect(async () => {
                 <v-text-field
                   density="compact"
                   v-model="formData.username"
+                  :label="$ndt('Username')"
                   :rules="formRules.username"
                   :disabled="!!formData.userId"
                   validate-on="blur"
                   :error="myRefStore.error"
                   variant="outlined"
-                >
-                  <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('Username') }}:</v-label>
-                  </template>
-                </v-text-field>
+                ></v-text-field>
               </v-col>
 
               <v-col>
                 <v-text-field
                   density="compact"
                   v-model="formData.nickname"
+                  :label="$ndt('Nickname')"
                   :rules="formRules.nickname"
                   validate-on="blur"
                   :error="myRefStore.error"
                   variant="outlined"
-                >
-                  <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('Nickname') }}:</v-label>
-                  </template>
-                </v-text-field>
+                ></v-text-field>
               </v-col>
             </v-row>
 
@@ -194,15 +189,13 @@ watchEffect(async () => {
               <v-col>
                 <v-text-field
                   v-model="formData.email"
+                  :label="$ndt('Email')"
                   :rules="formRules.email"
                   validate-on="blur"
                   :error="myRefStore.error"
                   density="compact"
                   variant="outlined"
                 >
-                  <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('Email') }}:</v-label>
-                  </template>
                   <template v-slot:append-inner>
                     <v-icon>mdi-email</v-icon>
                   </template>
@@ -215,15 +208,13 @@ watchEffect(async () => {
               <v-col>
                 <v-text-field
                   v-model="formData.phone"
+                  :label="$ndt('Phone')"
                   :rules="formRules.phone"
                   validate-on="blur"
                   :error="myRefStore.error"
                   density="compact"
                   variant="outlined"
                 >
-                  <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('Phone') }}:</v-label>
-                  </template>
                   <template v-slot:append-inner>
                     <v-icon>mdi-cellphone</v-icon>
                   </template>
@@ -236,6 +227,7 @@ watchEffect(async () => {
               <v-col>
                 <v-text-field
                   v-model="formData.password"
+                  :label="$ndt('Password')"
                   :rules="formRules.password"
                   validate-on="blur"
                   :error="myRefStore.error"
@@ -244,9 +236,6 @@ watchEffect(async () => {
                   density="compact"
                   variant="outlined"
                 >
-                  <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('Password') }}:</v-label>
-                  </template>
                   <template v-slot:append-inner>
                     <v-icon>mdi-lock</v-icon>
                   </template>
@@ -255,7 +244,7 @@ watchEffect(async () => {
             </v-row>
 
             <v-row dense>
-              <!-- sex & status -->
+              <!-- sex -->
               <v-col>
                 <v-radio-group
                   v-model="formData.sex"
@@ -263,6 +252,7 @@ watchEffect(async () => {
                   validate-on="blur"
                   :error="myRefStore.error"
                   inline
+                  hide-details
                 >
                   <template v-slot:prepend>
                     <v-label>{{ $ndt('Sex') }}:</v-label>
@@ -272,7 +262,11 @@ watchEffect(async () => {
                   <v-radio :label="$ndt('Female')" :value="2"></v-radio>
                 </v-radio-group>
               </v-col>
-              <v-col cols="5">
+            </v-row>
+
+            <v-row dense>
+              <!-- status -->
+              <v-col>
                 <v-radio-group
                   v-model="formData.status"
                   :rules="formRules.status"
@@ -280,6 +274,7 @@ watchEffect(async () => {
                   :error="myRefStore.error"
                   :disabled="formData.userId === 1"
                   inline
+                  hide-details
                 >
                   <template v-slot:prepend>
                     <v-label>{{ $ndt('Status') }}:</v-label>
@@ -296,7 +291,7 @@ watchEffect(async () => {
       <v-card-actions>
         <!-- actions -->
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" @click="methods.closeUserForm" :disabled="myRefStore.isSaving">
+        <v-btn color="blue darken-1" @click="methods.close" :disabled="myRefStore.isSaving">
           {{ $ndt('Cancel') }}
         </v-btn>
         <v-btn @click="methods.save" :loading="myRefStore.isSaving" :disabled="myRefStore.isSaving">

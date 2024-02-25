@@ -1,10 +1,24 @@
 [
   {
+    "dictId": "ef109904-866b-4ef9-aea8-215f46a0d1d3",
     "dictGid": "591067cb-3e07-46a1-8f17-a6cb9a1b8968",
     "dictName": "Langcode",
-    "dictDesc": "",
+    "dictStyle": "default",
+    "dictKey": "langcode",
+    "dictDesc": "Currently system supported langcodes.",
     "orderNum": 0,
-    "dictType": "default",
+    "createBy": "admin",
+    "updateBy": "admin",
+    "deleted": 9
+  },
+  {
+    "dictId": "4d0f7d89-e9a0-4e7b-b74c-8c1bd93e0f2f",
+    "dictGid": "591067cb-3e07-46a1-8f17-a6cb9a1b8968",
+    "dictName": "Status",
+    "dictStyle": "default",
+    "dictKey": "status",
+    "dictDesc": "",
+    "orderNum": 1,
     "createBy": "admin",
     "updateBy": "admin",
     "deleted": 9

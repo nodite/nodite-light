@@ -90,7 +90,7 @@ onMounted(async () => {
     :items="myRefStore.locales"
   >
     <template v-slot:top>
-      <v-toolbar density="compact" color="inherit">
+      <v-toolbar density="compact" color="background">
         <LocaleForm
           v-model:dialog="localeFormData.dialog"
           v-model:localeId="localeFormData.localeId"

@@ -61,6 +61,30 @@
   },
   {
     "createBy": "admin",
+    "srcId": "0211164d-b0d7-4047-ae2e-233673ec7575",
+    "langcode": "en",
+    "message": "Dict Type Delete"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0211164d-b0d7-4047-ae2e-233673ec7575",
+    "langcode": "zhHans",
+    "message": "字典类型删除"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "02691e75-b1ec-4e66-a344-5897b4547bee",
+    "langcode": "en",
+    "message": "Dict Name is required."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "02691e75-b1ec-4e66-a344-5897b4547bee",
+    "langcode": "zhHans",
+    "message": "字典名称是必填项"
+  },
+  {
+    "createBy": "admin",
     "srcId": "02a34063-9d1c-4f81-9d6a-7c116899a28e",
     "langcode": "en",
     "message": "Dict Group Create"
@@ -349,6 +373,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "215a4ecd-327b-458c-b26e-f5ff32be6ffc",
+    "langcode": "en",
+    "message": "New Dict Type"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "215a4ecd-327b-458c-b26e-f5ff32be6ffc",
+    "langcode": "zhHans",
+    "message": "新建字典类型"
+  },
+  {
+    "createBy": "admin",
     "srcId": "21bf849c-7a1f-4c9c-9552-9cf61112a9b7",
     "langcode": "en",
     "message": "Role Name"
@@ -421,6 +457,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "308cbb71-5eca-440f-8b06-66eb5900012b",
+    "langcode": "en",
+    "message": "Edit Dict Type - {0}"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "308cbb71-5eca-440f-8b06-66eb5900012b",
+    "langcode": "zhHans",
+    "message": "编辑字典类型 - {0}"
+  },
+  {
+    "createBy": "admin",
     "srcId": "30af8375-9b12-4698-95c4-783e6f9a4fa1",
     "langcode": "en",
     "message": "Set as default"
@@ -478,6 +526,18 @@
     "srcId": "35dad8cd-e460-461e-a226-39b0b2f99da4",
     "langcode": "zhHans",
     "message": "权限标识"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3761cec3-6383-4ecc-b5f5-d0862616aa50",
+    "langcode": "en",
+    "message": "Dict Type Edit"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3761cec3-6383-4ecc-b5f5-d0862616aa50",
+    "langcode": "zhHans",
+    "message": "字典类型编辑"
   },
   {
     "createBy": "admin",
@@ -622,6 +682,18 @@
     "srcId": "444655e4-a884-4339-96f0-17b3a3a955b0",
     "langcode": "zhHans",
     "message": "系统"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "44a30771-5d6b-47ac-876d-dc2f4564940b",
+    "langcode": "en",
+    "message": "Copied to clipboard."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "44a30771-5d6b-47ac-876d-dc2f4564940b",
+    "langcode": "zhHans",
+    "message": "已复制到剪贴板"
   },
   {
     "createBy": "admin",
@@ -865,6 +937,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "57f3bfd0-d6dc-4405-8034-00ed14ee2bec",
+    "langcode": "en",
+    "message": "Let's build amazing products"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "57f3bfd0-d6dc-4405-8034-00ed14ee2bec",
+    "langcode": "zhHans",
+    "message": "Let's build amazing products"
+  },
+  {
+    "createBy": "admin",
     "srcId": "59fbf527-2aa4-46d2-8d77-9172888c15e2",
     "langcode": "en",
     "message": "WeChat"
@@ -925,6 +1009,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "5ffe980f-9c9c-4fa9-a4d7-c2cd803e05ee",
+    "langcode": "en",
+    "message": "Dict Key must be snake_case."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5ffe980f-9c9c-4fa9-a4d7-c2cd803e05ee",
+    "langcode": "zhHans",
+    "message": "字典标识必须是 snake_case"
+  },
+  {
+    "createBy": "admin",
     "srcId": "60ae2f24-8fb1-4a84-aded-165198363a37",
     "langcode": "en",
     "message": "Confirm"
@@ -934,6 +1030,18 @@
     "srcId": "60ae2f24-8fb1-4a84-aded-165198363a37",
     "langcode": "zhHans",
     "message": "确认"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "61b72e4b-f00c-4114-b908-95eeb7f85342",
+    "langcode": "en",
+    "message": "Dict Style is required."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "61b72e4b-f00c-4114-b908-95eeb7f85342",
+    "langcode": "zhHans",
+    "message": "字典样式是必填项"
   },
   {
     "createBy": "admin",
@@ -1033,6 +1141,30 @@
   },
   {
     "createBy": "admin",
+    "srcId": "6989f7a7-3655-4a13-91ee-18366863383d",
+    "langcode": "en",
+    "message": "Langcode"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6989f7a7-3655-4a13-91ee-18366863383d",
+    "langcode": "zhHans",
+    "message": "语言代码"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "69c528aa-4aa6-41fd-a5aa-6ae3f95538b3",
+    "langcode": "en",
+    "message": "Create Dict Type"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "69c528aa-4aa6-41fd-a5aa-6ae3f95538b3",
+    "langcode": "zhHans",
+    "message": "创建字典类型"
+  },
+  {
+    "createBy": "admin",
     "srcId": "6d272bc7-b774-4892-838d-9bff3fd109eb",
     "langcode": "en",
     "message": "Assigned"
@@ -1066,6 +1198,18 @@
     "srcId": "6e39d4c6-cb72-4959-821a-de647f3e4a21",
     "langcode": "zhHans",
     "message": "保存所有 ({0})"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6f3e6e25-a475-4511-a241-5956a794e880",
+    "langcode": "en",
+    "message": "Close"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6f3e6e25-a475-4511-a241-5956a794e880",
+    "langcode": "zhHans",
+    "message": "关闭"
   },
   {
     "createBy": "admin",
@@ -1149,7 +1293,19 @@
     "createBy": "admin",
     "srcId": "7904c14b-5528-46b3-bd57-abc39c3667f9",
     "langcode": "zhHans",
-    "message": "组 Key 是必填项。"
+    "message": "组标识是必填项"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "79a614a8-7b1d-49a8-9102-c33bdc37f50f",
+    "langcode": "en",
+    "message": "Dict Key"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "79a614a8-7b1d-49a8-9102-c33bdc37f50f",
+    "langcode": "zhHans",
+    "message": "字典标识"
   },
   {
     "createBy": "admin",
@@ -1225,6 +1381,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "81fcb7a5-e5c1-4c96-a888-6563c36d57b5",
+    "langcode": "en",
+    "message": "Dict Desc"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "81fcb7a5-e5c1-4c96-a888-6563c36d57b5",
+    "langcode": "zhHans",
+    "message": "字典描述"
+  },
+  {
+    "createBy": "admin",
     "srcId": "8214553b-734d-4055-ae53-bcb3a211707f",
     "langcode": "en",
     "message": "Parent Group"
@@ -1293,7 +1461,7 @@
     "createBy": "admin",
     "srcId": "88e2eb56-119e-4919-ba19-092fb585ac92",
     "langcode": "zhHans",
-    "message": "组 Key 必须是 snake_case"
+    "message": "组标识必须是 snake_case"
   },
   {
     "createBy": "admin",
@@ -1377,7 +1545,7 @@
     "createBy": "admin",
     "srcId": "901225bf-0474-46ee-ab45-1658c41f36f3",
     "langcode": "zhHans",
-    "message": "组 Key"
+    "message": "组标识"
   },
   {
     "createBy": "admin",
@@ -1753,6 +1921,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "c0899f7e-dbfa-4b57-9c6f-13192db24c7a",
+    "langcode": "en",
+    "message": "Are you sure to delete this Dict Type ({0})?"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c0899f7e-dbfa-4b57-9c6f-13192db24c7a",
+    "langcode": "zhHans",
+    "message": "你确定要删除此字典类型({0})吗？"
+  },
+  {
+    "createBy": "admin",
     "srcId": "c098331e-b6c8-4de7-8ad3-40fac43c1910",
     "langcode": "en",
     "message": "Save All"
@@ -1909,6 +2089,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "caf5fb27-ffd4-4345-852c-57c6e6139538",
+    "langcode": "en",
+    "message": "Copy"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "caf5fb27-ffd4-4345-852c-57c6e6139538",
+    "langcode": "zhHans",
+    "message": "复制"
+  },
+  {
+    "createBy": "admin",
     "srcId": "d0426919-d4da-430a-bad9-7fbf52d01a01",
     "langcode": "en",
     "message": "Status"
@@ -1981,6 +2173,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "d4538c78-a0c0-4317-a0a8-47b55d8d07ad",
+    "langcode": "en",
+    "message": "Copied"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d4538c78-a0c0-4317-a0a8-47b55d8d07ad",
+    "langcode": "zhHans",
+    "message": "已复制"
+  },
+  {
+    "createBy": "admin",
     "srcId": "d4f47209-7b77-411a-bdbd-331a44b349db",
     "langcode": "en",
     "message": "Menu Name"
@@ -1990,6 +2194,30 @@
     "srcId": "d4f47209-7b77-411a-bdbd-331a44b349db",
     "langcode": "zhHans",
     "message": "菜单名称"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d5e25b59-5995-40d6-a8db-a6b09129b788",
+    "langcode": "en",
+    "message": "Dict Type Create"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d5e25b59-5995-40d6-a8db-a6b09129b788",
+    "langcode": "zhHans",
+    "message": "字典类型创建"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d5f9513a-df88-46d9-beca-c210229b014b",
+    "langcode": "en",
+    "message": "Clear locale/trans cache"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d5f9513a-df88-46d9-beca-c210229b014b",
+    "langcode": "zhHans",
+    "message": "清理区域/翻译缓存"
   },
   {
     "createBy": "admin",
@@ -2053,6 +2281,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "decfff64-6463-427c-bcf9-c81c09aac322",
+    "langcode": "en",
+    "message": "Dict Style"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "decfff64-6463-427c-bcf9-c81c09aac322",
+    "langcode": "zhHans",
+    "message": "字典样式"
+  },
+  {
+    "createBy": "admin",
     "srcId": "df2e6075-f93c-410f-b9a8-e3507646936d",
     "langcode": "en",
     "message": "Edit Locale - {0}"
@@ -2098,6 +2338,18 @@
     "srcId": "e10edc2e-6c1d-48fe-83e5-3d0c18721d8a",
     "langcode": "zhHans",
     "message": "ID"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e13666a8-5f27-40d6-ae22-07154b777841",
+    "langcode": "en",
+    "message": "Dict Name"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e13666a8-5f27-40d6-ae22-07154b777841",
+    "langcode": "zhHans",
+    "message": "字典名称"
   },
   {
     "createBy": "admin",
@@ -2173,6 +2425,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "e74b36ce-e83e-417b-9145-938057961b2b",
+    "langcode": "en",
+    "message": "Status"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e74b36ce-e83e-417b-9145-938057961b2b",
+    "langcode": "zhHans",
+    "message": "状态"
+  },
+  {
+    "createBy": "admin",
     "srcId": "e772be74-0484-4c24-bc50-76d7cee076bd",
     "langcode": "en",
     "message": "Group"
@@ -2194,6 +2458,18 @@
     "srcId": "e9ac6a3c-b5c1-4808-9d1b-7c17d8a8ec8f",
     "langcode": "zhHans",
     "message": "手机号"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ea29ade0-faf8-4823-aeb2-72bc46a32999",
+    "langcode": "en",
+    "message": "Dict Key is required."
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ea29ade0-faf8-4823-aeb2-72bc46a32999",
+    "langcode": "zhHans",
+    "message": "字典标识是必填项"
   },
   {
     "createBy": "admin",

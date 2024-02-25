@@ -61,8 +61,13 @@ const formRules = ref({
 
 // Methods.
 const methods = {
-  // Close password form.
-  closePassForm() {
+  // Reset errors.
+  resetErrors() {
+    myRefStore.value.error = false;
+    myRefStore.value.errorMessage = '';
+  },
+  // Close.
+  close() {
     if (myRefStore.value.isSaving) {
       toast.warning(i18n.ndt("It's saving, please wait a moment."));
       return;
@@ -72,11 +77,6 @@ const methods = {
     formData.value = {} as IPasswordReset;
     myRefStore.value.showPassword = false;
     myRefStore.value.showConfirmPassword = false;
-  },
-  // Reset errors.
-  resetErrors() {
-    myRefStore.value.error = false;
-    myRefStore.value.errorMessage = '';
   },
   // Save.
   async save() {
@@ -101,7 +101,7 @@ const methods = {
       myRefStore.value.isSaving = false;
     }
 
-    methods.closePassForm();
+    methods.close();
 
     emit('save');
   },
@@ -111,9 +111,9 @@ const methods = {
 <template>
   <v-dialog
     v-model="dialog"
-    @click:outside="methods.closePassForm"
+    @click:outside="methods.close"
     :persistent="myRefStore.isSaving"
-    max-width="700"
+    max-width="550"
   >
     <v-card>
       <v-card-title>
@@ -134,6 +134,7 @@ const methods = {
                 <v-text-field
                   density="compact"
                   v-model="formData.password"
+                  :label="$ndt('Password')"
                   :rules="formRules.password"
                   :disabled="myRefStore.isSaving"
                   :type="myRefStore.showPassword ? 'text' : 'password'"
@@ -142,11 +143,7 @@ const methods = {
                   validate-on="blur"
                   :error="myRefStore.error"
                   variant="outlined"
-                >
-                  <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('Password') }}:</v-label>
-                  </template>
-                </v-text-field>
+                ></v-text-field>
               </v-col>
             </v-row>
 
@@ -156,6 +153,7 @@ const methods = {
                 <v-text-field
                   density="compact"
                   v-model="formData.confirmPassword"
+                  :label="$ndt('Confirm Password')"
                   :rules="formRules.confirmPassword"
                   :disabled="myRefStore.isSaving"
                   :type="myRefStore.showConfirmPassword ? 'text' : 'password'"
@@ -164,11 +162,7 @@ const methods = {
                   validate-on="blur"
                   :error="myRefStore.error"
                   variant="outlined"
-                >
-                  <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('Confirm Password') }}:</v-label>
-                  </template>
-                </v-text-field>
+                ></v-text-field>
               </v-col>
             </v-row>
           </v-container>
@@ -178,7 +172,7 @@ const methods = {
       <v-card-actions>
         <!-- actions -->
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" @click="methods.closePassForm" :disabled="myRefStore.isSaving">
+        <v-btn color="blue darken-1" @click="methods.close" :disabled="myRefStore.isSaving">
           {{ $ndt('Cancel') }}
         </v-btn>
         <v-btn @click="methods.save" :loading="myRefStore.isSaving" :disabled="myRefStore.isSaving">

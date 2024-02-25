@@ -1,12 +1,12 @@
 import { SequelizeModel, Subscribe } from '@nodite-light/admin-database';
 import {
   AllowNull,
-  BelongsTo,
   Column,
   Comment,
   DataType,
   Default,
   ForeignKey,
+  HasOne,
   PrimaryKey,
   Table,
   Unique,
@@ -42,8 +42,14 @@ export default class DictTypeModel extends SequelizeModel<DictTypeModel> {
 
   @Default('default')
   @AllowNull(false)
-  @Column({ field: 'dict_type', type: DataType.STRING(32) })
-  dictType: string;
+  @Column({ field: 'dict_style', type: DataType.STRING(32) })
+  dictStyle: string;
+
+  @Unique
+  @Default('')
+  @AllowNull(false)
+  @Column({ field: 'dict_key', type: DataType.STRING(50) })
+  dictKey: string;
 
   @Default('')
   @AllowNull(false)
@@ -56,8 +62,8 @@ export default class DictTypeModel extends SequelizeModel<DictTypeModel> {
   @Column({ field: 'order_num', type: DataType.INTEGER({ length: 4 }) })
   orderNum: number;
 
-  @BelongsTo(() => DictGroupModel, {
-    foreignKey: 'group_id',
+  @HasOne(() => DictGroupModel, {
+    foreignKey: 'groupId',
     constraints: false,
   })
   dictGroup: DictGroupModel;
@@ -68,7 +74,8 @@ export type IDictType = Pick<
   | 'dictId'
   | 'dictGid'
   | 'dictName'
-  | 'dictType'
+  | 'dictStyle'
+  | 'dictKey'
   | 'dictDesc'
   | 'orderNum'
   | 'status'

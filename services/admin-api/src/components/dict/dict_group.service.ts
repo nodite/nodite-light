@@ -51,8 +51,7 @@ export default class DictGroupService {
    * @returns
    */
   public async create(group: IDictGroupCreate): Promise<IDictGroup> {
-    const createdGroup = await DictGroupModel.create({ ...group });
-    return createdGroup.toJSON();
+    return DictGroupModel.create(group);
   }
 
   /**

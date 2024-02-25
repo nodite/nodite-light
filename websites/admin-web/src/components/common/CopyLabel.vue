@@ -1,22 +1,16 @@
-<!--
-* @Component: CopyLabel
-* @Maintainer: J.K. Yang
-* @Description:
--->
 <script setup lang="ts">
-import clipboard from '@/utils/clipboardUtils';
+import { toast } from 'vuetify-sonner';
+
+import i18n from '@/plugins/i18n';
+import clipboard from '@/utils/clipboard';
 
 // ToolTip
 const tooltip = ref('Copy');
-// SnackBar
-const snackbar = ref(false);
-const timeout = ref('1000');
-const copiedText = 'Copied to clipboard!';
+
 // Copy Animation Flag
 const heartBeat = ref(false);
-// Props
+
 const props = defineProps({
-  // Text to copy to clipboard
   text: {
     type: String,
     default: '',
@@ -29,24 +23,16 @@ const { text } = toRefs(props);
 const copyText = (text: string, event: Event) => {
   clipboard(text, event);
   heartBeat.value = true;
-  snackbar.value = true;
-  tooltip.value = 'Copied!';
+  toast.success(i18n.ndt('Copied to clipboard.'));
+  tooltip.value = 'Copied';
   setTimeout(() => {
     heartBeat.value = false;
-    tooltip.value = 'Copy!';
+    tooltip.value = 'Copy';
   }, 1000);
 };
 </script>
 
 <template>
-  <v-snackbar v-model="snackbar" :timeout="timeout">
-    {{ copiedText }}
-    <template v-slot:actions>
-      <v-btn color="blue" variant="text" @click="snackbar = false" :title="$ndt('Close')">
-        {{ $ndt('Close') }}
-      </v-btn>
-    </template>
-  </v-snackbar>
   <v-tooltip location="bottom">
     <template v-slot:activator="{ props }">
       <span
@@ -60,7 +46,7 @@ const copyText = (text: string, event: Event) => {
         {{ text }}
       </span>
     </template>
-    <span>{{ tooltip }}</span>
+    <span>{{ $ndt(tooltip) }}</span>
   </v-tooltip>
 </template>
 

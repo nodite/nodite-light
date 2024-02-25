@@ -35,6 +35,7 @@ export default class DictGroupModel extends SequelizeModel<DictGroupModel> {
 
   @Unique
   @Default('')
+  @AllowNull(false)
   @Column({ field: 'group_key', type: DataType.STRING(50) })
   groupKey: string;
 
@@ -49,7 +50,7 @@ export default class DictGroupModel extends SequelizeModel<DictGroupModel> {
   orderNum: number;
 
   @HasMany(() => DictTypeModel, {
-    foreignKey: 'dict_gid',
+    foreignKey: 'dictGid',
     constraints: false,
   })
   dictTypes: DictTypeModel[];

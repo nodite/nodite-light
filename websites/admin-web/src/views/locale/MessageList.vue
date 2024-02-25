@@ -161,7 +161,6 @@ onMounted(async () => {
         </v-btn>
         <v-btn
           class="align-self-center"
-          color="inherit"
           prepend-icon="mdi-sync"
           density="comfortable"
           @click="methods.resetSearch"
@@ -219,7 +218,6 @@ onMounted(async () => {
         v-model="message.message"
         @update:model-value="lodash.set(myRefStore.sourceChange, item.srcId, item)"
         rows="1"
-        outlined
         auto-grow
         hide-details
       >

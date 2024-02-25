@@ -338,6 +338,36 @@
                 "createBy": "admin",
                 "updateBy": "admin",
                 "deleted": 9
+              },
+              {
+                "menuId": "f70eed51-f49f-480e-a509-d54c4c18c419",
+                "menuName": "Dict Type Create",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:dict:type:create",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": "51b9fa24-c3e9-4325-8a59-ea989127e422",
+                "menuName": "Dict Type Edit",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:dict:type:edit",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": "5dc29699-fe85-4a3d-aaf7-6c7ea6a81ddf",
+                "menuName": "Dict Type Delete",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:dict:type:delete",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
               }
             ]
           },

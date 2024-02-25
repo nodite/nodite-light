@@ -67,9 +67,9 @@ const resetErrors = () => {
 <template>
   <v-card color="white" class="pa-3 ma-3" elevation="3">
     <v-card-title primary-title class="my-4 text-h4">
-      <span class="flex-fill"> {{ $ndt('Create Account') }} </span>
+      <span class="flex-fill">{{ $ndt('Create Account') }}</span>
     </v-card-title>
-    <v-card-subtitle>Let's build amazing products</v-card-subtitle>
+    <v-card-subtitle>{{ $ndt("Let's build amazing products") }}</v-card-subtitle>
 
     <!-- sign in form -->
     <v-card-text>

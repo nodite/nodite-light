@@ -1180,5 +1180,143 @@
     "srcId": "aec2b1f1-8ae7-4cde-891d-54e6906c4186",
     "type": "module_path",
     "name": "/admin/src/views/menu/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "215a4ecd-327b-458c-b26e-f5ff32be6ffc",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictTypeForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "decfff64-6463-427c-bcf9-c81c09aac322",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e13666a8-5f27-40d6-ae22-07154b777841",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "79a614a8-7b1d-49a8-9102-c33bdc37f50f",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "69c528aa-4aa6-41fd-a5aa-6ae3f95538b3",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictTypeForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6989f7a7-3655-4a13-91ee-18366863383d",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e74b36ce-e83e-417b-9145-938057961b2b",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d5e25b59-5995-40d6-a8db-a6b09129b788",
+    "type": "module_path",
+    "name": "/admin/src/views/menu/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3761cec3-6383-4ecc-b5f5-d0862616aa50",
+    "type": "module_path",
+    "name": "/admin/src/views/menu/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0211164d-b0d7-4047-ae2e-233673ec7575",
+    "type": "module_path",
+    "name": "/admin/src/views/menu/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "81fcb7a5-e5c1-4c96-a888-6563c36d57b5",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictTypeForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ea29ade0-faf8-4823-aeb2-72bc46a32999",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictTypeForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "61b72e4b-f00c-4114-b908-95eeb7f85342",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictTypeForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "02691e75-b1ec-4e66-a344-5897b4547bee",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictTypeForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "308cbb71-5eca-440f-8b06-66eb5900012b",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictTypeForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5ffe980f-9c9c-4fa9-a4d7-c2cd803e05ee",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictTypeForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "57f3bfd0-d6dc-4405-8034-00ed14ee2bec",
+    "type": "module_path",
+    "name": "/admin/src/views/auth/SignupPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "44a30771-5d6b-47ac-876d-dc2f4564940b",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6f3e6e25-a475-4511-a241-5956a794e880",
+    "type": "module_path",
+    "name": "/admin/src/components/common/CopyLabel.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "caf5fb27-ffd4-4345-852c-57c6e6139538",
+    "type": "module_path",
+    "name": "/admin/src/components/common/CopyLabel.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d4538c78-a0c0-4317-a0a8-47b55d8d07ad",
+    "type": "module_path",
+    "name": "/admin/src/components/common/CopyLabel.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d5f9513a-df88-46d9-beca-c210229b014b",
+    "type": "module_path",
+    "name": "/admin/src/components/toolbar/CacheClear.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c0899f7e-dbfa-4b57-9c6f-13192db24c7a",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ListPage.vue"
   }
 ]
