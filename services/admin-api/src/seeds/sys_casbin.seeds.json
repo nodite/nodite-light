@@ -5,6 +5,7 @@
 
   { "ptype": "p", "v0": "sys_role:1", "v1": "*", "v2": "*", "v3": "*" },
   { "ptype": "p", "v0": "sys_user:1", "v1": "*", "v2": "*", "v3": "*" },
+
   { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "menu", "v3": "list" },
   { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "menu", "v3": "query" },
   { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "user", "v3": "list" },
@@ -15,6 +16,7 @@
   { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role:perm", "v3": "list" },
   { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "role:user", "v3": "list" },
   { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "dict", "v3": "list" },
+  { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "dict", "v3": "query" },
   { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "locale", "v3": "list" },
   { "ptype": "p", "v0": "sys_role:2", "v1": "admin", "v2": "locale", "v3": "query" }
 ]

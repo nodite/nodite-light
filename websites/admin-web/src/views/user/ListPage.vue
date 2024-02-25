@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { VDataTablePagination } from '@nodite-light/vuetify-data-table-pagination';
-import {
-  type ConfirmCallback,
-  VDeleteConfirmForm,
-} from '@nodite-light/vuetify-delete-confirm-form';
 import moment from 'moment';
 
 import { IUser, SequelizePaginationIUser } from '@/api/admin/data-contracts';
+import i18n from '@/plugins/i18n';
 import { useProfileStore } from '@/stores/modules/profileStore';
 import { useUserStore } from '@/stores/modules/userStore';
+import dialogs from '@/utils/dialogs';
 import PassForm from '@/views/user/components/PassForm.vue';
 import UserForm from '@/views/user/components/UserForm.vue';
 
@@ -58,7 +56,7 @@ const queryParams = ref({
   status: undefined,
 } as QueryParams);
 
-// User from.
+// User form.
 const userFormData = ref({
   dialog: false,
   userId: 0,
@@ -69,12 +67,6 @@ const passFormData = ref({
   dialog: false,
   username: '',
   userId: 0,
-});
-
-// Delete confirm.
-const deleteConfirmFormData = ref({
-  dialog: false,
-  item: {} as IUser,
 });
 
 // Methods.
@@ -113,11 +105,6 @@ const methods = {
     passFormData.value.username = username;
     passFormData.value.userId = id;
   },
-  // Open delete confirm form.
-  openDeleteConfirmForm(item: IUser) {
-    deleteConfirmFormData.value.dialog = true;
-    deleteConfirmFormData.value.item = item;
-  },
   // Open role asgmt page.
   async openRoleAsgmtPage(item: IUser) {
     await router.push(`/user/${item.userId}/roles`);
@@ -127,14 +114,15 @@ const methods = {
     await userStore.edit({ userId: id, status: status } as IUser);
   },
   // Delete.
-  async delete(item: IUser, cb: ConfirmCallback) {
-    try {
-      await userStore.delete(item.userId);
-      await methods.loadList();
-      cb(true);
-    } catch (error) {
-      cb(false);
-    }
+  async delete(item: IUser) {
+    const confirm = await dialogs.deleteConfirm(
+      i18n.ndt('Are you sure to delete this User ({0})?', [item.username]),
+    );
+
+    if (!confirm) return;
+
+    await userStore.delete(item.userId);
+    await methods.loadList();
   },
 };
 
@@ -145,6 +133,7 @@ onMounted(async () => {
 </script>
 
 <template>
+  <!-- search -->
   <v-card density="compact" class="mb-2 search">
     <v-card-text>
       <v-row dense>
@@ -205,7 +194,10 @@ onMounted(async () => {
           color="primary"
           prepend-icon="mdi-magnify"
           density="comfortable"
-          @click="methods.loadList"
+          @click="
+            myRefStore.page = 1;
+            methods.loadList();
+          "
         >
           {{ $ndt('Search') }}
         </v-btn>
@@ -293,7 +285,7 @@ onMounted(async () => {
         class="px-0"
         color="red"
         variant="text"
-        @click="methods.openDeleteConfirmForm(item)"
+        @click="methods.delete(item)"
         min-width="calc(var(--v-btn-height) + 0px)"
         :disabled="item.deleted === 9 || methods.isSelf(item)"
       >
@@ -339,13 +331,6 @@ onMounted(async () => {
       ></VDataTablePagination>
     </template>
   </v-data-table>
-
-  <!-- delete confirm -->
-  <VDeleteConfirmForm
-    v-model:dialog="deleteConfirmFormData.dialog"
-    v-model:item="deleteConfirmFormData.item"
-    @confirm="methods.delete"
-  ></VDeleteConfirmForm>
 </template>
 
 <style scoped lang="css"></style>

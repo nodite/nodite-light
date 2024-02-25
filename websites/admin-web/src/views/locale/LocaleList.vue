@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ConfirmCallback, VDeleteConfirmForm } from '@nodite-light/vuetify-delete-confirm-form';
 import { Icon } from '@nodite-light/vuetify-icon-picker';
 
 import { ILocale } from '@/api/admin/data-contracts';
+import i18n from '@/plugins/i18n';
 import { useLocaleStore } from '@/stores/modules/localeStore';
+import dialogs from '@/utils/dialogs';
 import lodash from '@/utils/lodash';
 import LocaleForm from '@/views/locale/components/LocaleForm.vue';
 
@@ -19,12 +20,6 @@ const myRefStore = ref({
 const localeFormData = ref({
   dialog: false,
   localeId: 0,
-});
-
-// Delete confirm.
-const deleteConfirmFormData = ref({
-  dialog: false,
-  item: {} as ILocale,
 });
 
 // Methods.
@@ -61,20 +56,16 @@ const methods = {
     localeFormData.value.dialog = true;
     localeFormData.value.localeId = id;
   },
-  // Open delete confirm form.
-  openDeleteConfirmForm(item: ILocale) {
-    deleteConfirmFormData.value.dialog = true;
-    deleteConfirmFormData.value.item = item;
-  },
   // Delete locale.
-  async delete(item: ILocale, cb: ConfirmCallback) {
-    try {
-      await localeStore.deleteLocale(item.localeId);
-      await methods.loadList();
-      cb(true);
-    } catch (e) {
-      cb(false);
-    }
+  async delete(item: ILocale) {
+    const confirm = await dialogs.deleteConfirm(
+      i18n.ndt('Are you sure to delete this Locale ({0})?', [item.label]),
+    );
+
+    if (!confirm) return;
+
+    await localeStore.deleteLocale(item.localeId);
+    await methods.loadList();
   },
 };
 
@@ -154,7 +145,7 @@ onMounted(async () => {
         class="px-0"
         color="red"
         variant="text"
-        @click="methods.openDeleteConfirmForm(item)"
+        @click="methods.delete(item)"
         min-width="calc(var(--v-btn-height) + 0px)"
         :disabled="item.deleted == 9 || item.localeId == 1"
       >
@@ -162,11 +153,4 @@ onMounted(async () => {
       </v-btn>
     </template>
   </v-data-table>
-
-  <!-- delete confirm -->
-  <VDeleteConfirmForm
-    v-model:dialog="deleteConfirmFormData.dialog"
-    v-model:item="deleteConfirmFormData.item"
-    @confirm="methods.delete"
-  ></VDeleteConfirmForm>
 </template>

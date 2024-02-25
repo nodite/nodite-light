@@ -12,6 +12,7 @@ import VueVirtualScroller from 'vue-virtual-scroller';
 import VueApexCharts from 'vue3-apexcharts';
 import Vue3Lottie from 'vue3-lottie';
 import PerfectScrollbar from 'vue3-perfect-scrollbar';
+import { Vuetify3Dialog } from 'vuetify3-dialog';
 
 import App from '@/App.vue';
 import i18n from '@/plugins/i18n';
@@ -36,4 +37,5 @@ app.use(i18n);
 app.use(Vue3Lottie, { name: 'LottieAnimation' });
 app.use(autoAnimatePlugin);
 app.use(vuetify);
+app.use(Vuetify3Dialog, { vuetify });
 app.mount('#app');

@@ -8,7 +8,7 @@ import { IMenu } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
 import { useMenuStore } from '@/stores/modules/menuStore';
 import { useRoleStore } from '@/stores/modules/roleStore';
-import { VueTreeview as VueTreeViewConfig } from '@/types/config';
+import { VueTreeView as VueTreeViewConfig } from '@/types/config';
 import lodash from '@/utils/lodash';
 
 const menuStore = useMenuStore();

@@ -298,7 +298,48 @@
             "createBy": "admin",
             "updateBy": "admin",
             "deleted": 9,
-            "children": []
+            "children": [
+              {
+                "menuId": "2fb4620d-a52b-4b74-beb4-1a597a7c0444",
+                "menuName": "Dict Query",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:dict:query",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": "93af9eb1-4718-446f-8603-79ea18e98871",
+                "menuName": "Dict Group Create",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:dict:group:create",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": "f34adadf-0838-40b3-af56-3a83f30d3adf",
+                "menuName": "Dict Group Edit",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:dict:group:edit",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              },
+              {
+                "menuId": "f4697eaa-d3fe-47ce-a521-ba608b146592",
+                "menuName": "Dict Group Delete",
+                "iType": "action",
+                "hidden": 1,
+                "perms": "admin:dict:group:delete",
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9
+              }
+            ]
           },
           {
             "menuId": "91af5a64-550d-4bb7-88fe-f4185f3ce99f",

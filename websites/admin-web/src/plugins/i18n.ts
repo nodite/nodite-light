@@ -1,4 +1,5 @@
 import parentModule from 'parent-module';
+import template from 'string-template';
 import { createI18n } from 'vue-i18n';
 
 import { ISourceCreate } from '@/api/admin/data-contracts';
@@ -10,8 +11,8 @@ import lodash from '@/utils/lodash';
 
 const i18n = createI18n({
   legacy: false,
-  locale: localeUtil.BROWSER_LOCALE, // 设置默认语言
-  fallbackLocale: localeUtil.BROWSER_LOCALE, // 设置默认语言
+  locale: localeUtil.getCurrLang(), // 设置当前语言
+  fallbackLocale: localeUtil.getDefLang(), // 设置默认语言
   messages: messages,
 });
 
@@ -36,7 +37,11 @@ const ndt = (text?: string, args: any[] = [], options?: LocaleConfig.TOptions): 
     } as ISourceCreate);
   }
 
-  return i18n.global.t(text, args, { fallbackWarn: false });
+  console.warn(
+    `[i18n] not found: ${text}, ${options?.context || '(empty)'}, ${localeUtil.getCurrLang()}`,
+  );
+
+  return template(text, args);
 };
 
 lodash.set(i18n, 'ndt', ndt);

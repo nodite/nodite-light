@@ -635,8 +635,7 @@ export interface PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrGroupKe
   updateTime: string;
   /** @format double */
   orderNum: number;
-  /** @format double */
-  parentId: number;
+  parentId: string;
   groupId: string;
   groupName: string;
   groupKey: string;
@@ -666,6 +665,57 @@ export interface IResponseDataTreeIDictGroupArray {
   message: string;
   data?: DataTreeIDictGroup[];
 }
+
+export interface IResponseIDictGroup {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: IDictGroup;
+}
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickIDictGroupExcludeKeysGroupId {
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  /** @format double */
+  orderNum: number;
+  parentId: string;
+  groupName: string;
+  groupKey: string;
+}
+
+/** Construct a type with the properties of T except for those in type K. */
+export type OmitIDictGroupGroupId = PickIDictGroupExcludeKeysGroupId;
+
+export type IDictGroupCreate = OmitIDictGroupGroupId;
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickIDictGroupExcludeKeysGroupIdOrGroupKey {
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  /** @format double */
+  orderNum: number;
+  parentId: string;
+  groupName: string;
+}
+
+/** Construct a type with the properties of T except for those in type K. */
+export type OmitIDictGroupGroupIdOrGroupKey = PickIDictGroupExcludeKeysGroupIdOrGroupKey;
+
+export type IDictGroupUpdate = OmitIDictGroupGroupIdOrGroupKey;
 
 export interface IResponseTrue {
   error: boolean;

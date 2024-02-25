@@ -1018,5 +1018,167 @@
     "srcId": "dc02b38b-650f-41be-b3d6-bfbd07ef1161",
     "type": "module_path",
     "name": "/admin/src/utils/requests.ts"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1eb9d922-d633-4e1d-ab5b-fd77ad376a04",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3d65856c-9898-4c92-9f80-147ddeecd3e8",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e772be74-0484-4c24-bc50-76d7cee076bd",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "51927c8d-c5c0-4e39-9c57-efb12223e4c7",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c04e3480-17a4-47c2-af10-00f7253fa21e",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictGroupForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "be6849e0-756e-431a-929b-261344bba535",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictGroupForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "8214553b-734d-4055-ae53-bcb3a211707f",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictGroupForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "2c37616f-807b-45e4-b567-ee188d283152",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictGroupForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "4ae6f486-e2c1-45a0-a0ec-470b54a63807",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictGroupForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "8f96dfe7-90d2-4b8f-96c1-9e3563b8fbe4",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictGroupForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "901225bf-0474-46ee-ab45-1658c41f36f3",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictGroupForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7904c14b-5528-46b3-bd57-abc39c3667f9",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictGroupForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7a502d8a-9990-4864-ac0f-007920390c85",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "463f63a0-0254-4522-aa0c-3a1e1bbd7476",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictGroupForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "88e2eb56-119e-4919-ba19-092fb585ac92",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictGroupForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "60ae2f24-8fb1-4a84-aded-165198363a37",
+    "type": "module_path",
+    "name": "/admin/src/utils/dialogs.ts"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c9424898-7a95-4b0d-9d9e-4d1fbdbe2148",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "9351f8fa-a482-4c94-9d77-e738fded447e",
+    "type": "module_path",
+    "name": "/admin/src/views/locale/LocaleList.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "a68eeaee-33f5-4165-aae5-15f1544efd7b",
+    "type": "module_path",
+    "name": "/admin/src/views/menu/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "34244e09-64b8-4f7e-91ac-aae71c65b465",
+    "type": "module_path",
+    "name": "/admin/src/views/role/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b17dc691-5a64-4183-a579-4a61857e74b1",
+    "type": "module_path",
+    "name": "/admin/src/views/user/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d97e2d62-d64e-4321-a946-e82b31f4cf03",
+    "type": "module_path",
+    "name": "/admin/src/utils/dialogs.ts"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "02a34063-9d1c-4f81-9d6a-7c116899a28e",
+    "type": "module_path",
+    "name": "/admin/src/views/menu/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e1886c95-06f9-4276-86cb-9d583f232d30",
+    "type": "module_path",
+    "name": "/admin/src/views/menu/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c6579a75-e967-411a-bf67-7c165a5fd499",
+    "type": "module_path",
+    "name": "/admin/src/views/menu/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "a6b9ce5d-9c71-4827-a57f-ce518a6e0740",
+    "type": "module_path",
+    "name": "/admin/src/views/menu/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "aec2b1f1-8ae7-4cde-891d-54e6906c4186",
+    "type": "module_path",
+    "name": "/admin/src/views/menu/ListPage.vue"
   }
 ]

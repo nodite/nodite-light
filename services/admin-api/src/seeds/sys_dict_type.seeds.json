@@ -1,10 +1,10 @@
 [
   {
-    "dictGid": 1,
+    "dictGid": "591067cb-3e07-46a1-8f17-a6cb9a1b8968",
     "dictName": "Langcode",
     "dictDesc": "",
     "orderNum": 0,
-    "dictType": "select",
+    "dictType": "default",
     "createBy": "admin",
     "updateBy": "admin",
     "deleted": 9

@@ -152,7 +152,10 @@ onMounted(async () => {
           color="primary"
           prepend-icon="mdi-magnify"
           density="comfortable"
-          @click="methods.loadList"
+          @click="
+            myRefStore.page = 1;
+            methods.loadList();
+          "
         >
           {{ $ndt('Search') }}
         </v-btn>

@@ -91,9 +91,9 @@ declare namespace NavigationConfig {
 }
 
 /**
- * @namespace VueTreeview
+ * @namespace VueTreeView
  */
-declare namespace VueTreeview {
+declare namespace VueTreeView {
   interface TreeNode<T> {
     id: string;
     text: string;

@@ -4,6 +4,7 @@ import { toast } from 'vuetify-sonner';
 import { IRole } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
 import { useRoleStore } from '@/stores/modules/roleStore';
+import lodash from '@/utils/lodash';
 
 const roleStore = useRoleStore();
 
@@ -32,6 +33,7 @@ const roleId = computed({
 
 // Local data.
 const myRefStore = ref({
+  title: '',
   isFormValid: false,
   isSaving: false,
   error: false,
@@ -45,10 +47,9 @@ const formRules = ref({
   roleName: [(v: string) => !!v || i18n.ndt('Role Name is required.')],
   roleKey: [
     (v: string) => !!v || i18n.ndt('Role Key is required.'),
+    (v: string) => lodash.snakeCase(v) === v || i18n.ndt('Role Key must be snake_case.'),
     (v: string) => (v && v.length <= 50) || i18n.ndt('Role Key must be less than 50 characters.'),
   ],
-  orderNum: [],
-  status: [],
 });
 
 // Methods.
@@ -58,6 +59,10 @@ const methods = {
     formData.value = roleId.value
       ? (await roleStore.query(roleId.value)) || ({} as IRole)
       : ({} as IRole);
+
+    myRefStore.value.title = roleId.value
+      ? i18n.ndt('Edit Role - {0}', [formData.value.roleName])
+      : i18n.ndt('New Role');
   },
   // Close role form.
   closeRoleForm() {
@@ -121,9 +126,11 @@ watchEffect(async () => {
 
     <v-card density="compact" elevation="8" rounded="lg">
       <v-card-title>
-        <v-label>
-          {{ props.roleId > 0 ? $ndt('Edit Role - {0}', [formData.roleName]) : $ndt('New Role') }}
-        </v-label>
+        <v-label>{{ myRefStore.title }}</v-label>
+        <v-spacer></v-spacer>
+        <v-btn icon @click="methods.closeRoleForm" density="compact" variant="text">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
       </v-card-title>
 
       <v-card-text>
@@ -156,7 +163,6 @@ watchEffect(async () => {
                   density="compact"
                   :label="$ndt('Order')"
                   v-model="formData.orderNum"
-                  :rules="formRules.orderNum"
                   validate-on="blur"
                   :error="myRefStore.error"
                   variant="outlined"
@@ -188,7 +194,6 @@ watchEffect(async () => {
               <v-col>
                 <v-radio-group
                   v-model="formData.status"
-                  :rules="formRules.status"
                   validate-on="blur"
                   :error="myRefStore.error"
                   :disabled="formData.roleId === 1"
