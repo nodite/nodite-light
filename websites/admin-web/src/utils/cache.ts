@@ -26,7 +26,7 @@ const cacheMethods = {
       toast.success('Menu cache cleared');
       window.location.reload();
     },
-    locale: async () => {
+    'locale/trans': async () => {
       await CacheApi.adminCacheInvalidate({ type: 'locale' });
       cacheMethods.invalidateStore.locale();
       toast.success('Locale cache cleared');

@@ -61,19 +61,19 @@ const methods = {
       ? i18n.ndt('Edit Locale - {0}', [formData.value.label])
       : i18n.ndt('New Locale');
   },
-  // Close locale form.
-  closeLocaleForm() {
+  // Reset errors.
+  resetErrors() {
+    myRefStore.value.error = false;
+    myRefStore.value.errorMessage = '';
+  },
+  // Close.
+  close() {
     if (myRefStore.value.isSaving) {
       toast.warning(i18n.ndt("It's saving, please wait a moment."));
       return;
     }
     dialog.value = false;
     localeId.value = 0;
-  },
-  // Reset errors.
-  resetErrors() {
-    myRefStore.value.error = false;
-    myRefStore.value.errorMessage = '';
   },
   // Save.
   async save() {
@@ -98,23 +98,25 @@ const methods = {
       myRefStore.value.isSaving = false;
     }
 
-    methods.closeLocaleForm();
+    methods.close();
 
     emit('save');
   },
 };
 
-watchEffect(async () => {
-  await methods.loadFormData();
-});
+// Lifecycle.
+watch(
+  () => props.dialog,
+  (v) => v && methods.loadFormData(),
+);
 </script>
 
 <template>
   <v-dialog
     v-model="dialog"
-    @click:outside="methods.closeLocaleForm"
+    @click:outside="methods.close"
     :persistent="myRefStore.isSaving"
-    max-width="750"
+    max-width="550"
   >
     <template v-slot:activator="{ props }">
       <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
@@ -126,7 +128,7 @@ watchEffect(async () => {
       <v-card-title>
         <v-label>{{ myRefStore.title }}</v-label>
         <v-spacer></v-spacer>
-        <v-btn icon @click="methods.closeLocaleForm" density="compact">
+        <v-btn icon @click="methods.close" density="compact">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-card-title>
@@ -145,14 +147,11 @@ watchEffect(async () => {
                 <v-text-field
                   density="compact"
                   v-model="formData.label"
+                  :label="$ndt('Label')"
                   validate-on="blur"
                   :error="myRefStore.error"
                   variant="outlined"
-                >
-                  <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('Label') }}:</v-label>
-                  </template>
-                </v-text-field>
+                ></v-text-field>
               </v-col>
               <v-col cols="4">
                 <v-text-field
@@ -184,28 +183,22 @@ watchEffect(async () => {
               <v-col>
                 <LanguageSelector
                   v-model="formData.langcode"
+                  :label="$ndt('Langcode')"
                   density="compact"
                   v-model:error="myRefStore.error"
                   :rules="formRules.langcode"
                   :show-code="true"
-                >
-                  <template v-slot:prepend-inner>
-                    <v-label> {{ $ndt('Langcode') }}: </v-label>
-                  </template>
-                </LanguageSelector>
+                ></LanguageSelector>
               </v-col>
               <v-col>
                 <v-text-field
                   density="compact"
+                  :label="$ndt('Moment Code')"
                   v-model="formData.momentCode"
                   validate-on="blur"
                   :error="myRefStore.error"
                   variant="outlined"
-                >
-                  <template v-slot:prepend-inner>
-                    <v-label> {{ $ndt('Moment Code') }}: </v-label>
-                  </template>
-                </v-text-field>
+                ></v-text-field>
               </v-col>
             </v-row>
 
@@ -217,6 +210,7 @@ watchEffect(async () => {
                   validate-on="blur"
                   :error="myRefStore.error"
                   inline
+                  hide-details
                 >
                   <template v-slot:prepend>
                     <v-label>{{ $ndt('Status') }}:</v-label>
@@ -234,11 +228,7 @@ watchEffect(async () => {
       <v-card-actions>
         <!-- actions -->
         <v-spacer></v-spacer>
-        <v-btn
-          color="blue darken-1"
-          @click="methods.closeLocaleForm"
-          :disabled="myRefStore.isSaving"
-        >
+        <v-btn color="blue darken-1" @click="methods.close" :disabled="myRefStore.isSaving">
           {{ $ndt('Cancel') }}
         </v-btn>
         <v-btn @click="methods.save" :loading="myRefStore.isSaving" :disabled="myRefStore.isSaving">

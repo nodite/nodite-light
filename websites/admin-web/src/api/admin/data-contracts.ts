@@ -624,6 +624,106 @@ export interface IResponseIAvailableMessageArray {
 export type IMessageUpsert = ILocaleMessage;
 
 /** From T, pick a set of properties whose keys are in the union K */
+export interface PickInstanceTypeTypeofDictTypeModelDictIdOrDictGidOrDictNameOrDictStyleOrDictKeyOrDictDescOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  /** @format double */
+  orderNum: number;
+  dictId: string;
+  dictGid: string;
+  dictName: string;
+  dictStyle: string;
+  dictKey: string;
+  dictDesc: string;
+}
+
+export type IDictType =
+  PickInstanceTypeTypeofDictTypeModelDictIdOrDictGidOrDictNameOrDictStyleOrDictKeyOrDictDescOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
+
+export interface SequelizePaginationIDictType {
+  items: IDictType[];
+  /** @format double */
+  count: number;
+  /** @format double */
+  totalCount: number;
+  /** @format double */
+  totalPage: number;
+  /** @format double */
+  page: number;
+  /** @format double */
+  itemsPerPage: number;
+}
+
+export interface IResponseSequelizePaginationIDictType {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: SequelizePaginationIDictType;
+}
+
+export interface IResponseIDictType {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: IDictType;
+}
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickIDictTypeExcludeKeysDictId {
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  /** @format double */
+  orderNum: number;
+  dictGid: string;
+  dictName: string;
+  dictStyle: string;
+  dictKey: string;
+  dictDesc: string;
+}
+
+/** Construct a type with the properties of T except for those in type K. */
+export type OmitIDictTypeDictId = PickIDictTypeExcludeKeysDictId;
+
+export type IDictTypeCreate = OmitIDictTypeDictId;
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickIDictTypeExcludeKeysDictIdOrDictKey {
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  /** @format double */
+  orderNum: number;
+  dictGid: string;
+  dictName: string;
+  dictStyle: string;
+  dictDesc: string;
+}
+
+/** Construct a type with the properties of T except for those in type K. */
+export type OmitIDictTypeDictIdOrDictKey = PickIDictTypeExcludeKeysDictIdOrDictKey;
+
+export type IDictTypeUpdate = OmitIDictTypeDictIdOrDictKey;
+
+/** From T, pick a set of properties whose keys are in the union K */
 export interface PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrGroupKeyOrParentIdOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
   status: 0 | 1;
   deleted: 0 | 1 | 9;

@@ -31,6 +31,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "0211164d-b0d7-4047-ae2e-233673ec7575",
+    "source": "Dict Type Delete",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "02691e75-b1ec-4e66-a344-5897b4547bee",
+    "source": "Dict Name is required.",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "02a34063-9d1c-4f81-9d6a-7c116899a28e",
     "source": "Dict Group Create",
     "context": ""
@@ -175,6 +187,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "215a4ecd-327b-458c-b26e-f5ff32be6ffc",
+    "source": "New Dict Type",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "21bf849c-7a1f-4c9c-9552-9cf61112a9b7",
     "source": "Role Name",
     "context": ""
@@ -211,6 +229,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "308cbb71-5eca-440f-8b06-66eb5900012b",
+    "source": "Edit Dict Type - {0}",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "30af8375-9b12-4698-95c4-783e6f9a4fa1",
     "source": "Set as default",
     "context": ""
@@ -237,6 +261,12 @@
     "createBy": "admin",
     "srcId": "35dad8cd-e460-461e-a226-39b0b2f99da4",
     "source": "Permission",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3761cec3-6383-4ecc-b5f5-d0862616aa50",
+    "source": "Dict Type Edit",
     "context": ""
   },
   {
@@ -309,6 +339,12 @@
     "createBy": "admin",
     "srcId": "444655e4-a884-4339-96f0-17b3a3a955b0",
     "source": "System",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "44a30771-5d6b-47ac-876d-dc2f4564940b",
+    "source": "Copied to clipboard.",
     "context": ""
   },
   {
@@ -433,6 +469,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "57f3bfd0-d6dc-4405-8034-00ed14ee2bec",
+    "source": "Let's build amazing products",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "59fbf527-2aa4-46d2-8d77-9172888c15e2",
     "source": "WeChat",
     "context": ""
@@ -463,8 +505,20 @@
   },
   {
     "createBy": "admin",
+    "srcId": "5ffe980f-9c9c-4fa9-a4d7-c2cd803e05ee",
+    "source": "Dict Key must be snake_case.",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "60ae2f24-8fb1-4a84-aded-165198363a37",
     "source": "Confirm",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "61b72e4b-f00c-4114-b908-95eeb7f85342",
+    "source": "Dict Style is required.",
     "context": ""
   },
   {
@@ -517,6 +571,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "6989f7a7-3655-4a13-91ee-18366863383d",
+    "source": "Langcode",
+    "context": "dict.type"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "69c528aa-4aa6-41fd-a5aa-6ae3f95538b3",
+    "source": "Create Dict Type",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "6d272bc7-b774-4892-838d-9bff3fd109eb",
     "source": "Assigned",
     "context": ""
@@ -531,6 +597,12 @@
     "createBy": "admin",
     "srcId": "6e39d4c6-cb72-4959-821a-de647f3e4a21",
     "source": "Save All ({0})",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6f3e6e25-a475-4511-a241-5956a794e880",
+    "source": "Close",
     "context": ""
   },
   {
@@ -577,6 +649,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "79a614a8-7b1d-49a8-9102-c33bdc37f50f",
+    "source": "Dict Key",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "7a502d8a-9990-4864-ac0f-007920390c85",
     "source": "Common",
     "context": "dict.group"
@@ -609,6 +687,12 @@
     "createBy": "admin",
     "srcId": "80de4a61-ca4f-44bd-9dec-4ef19689a7a5",
     "source": "System Mgmt",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "81fcb7a5-e5c1-4c96-a888-6563c36d57b5",
+    "source": "Dict Desc",
     "context": ""
   },
   {
@@ -877,6 +961,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "c0899f7e-dbfa-4b57-9c6f-13192db24c7a",
+    "source": "Are you sure to delete this Dict Type ({0})?",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "c098331e-b6c8-4de7-8ad3-40fac43c1910",
     "source": "Save All",
     "context": ""
@@ -955,6 +1045,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "caf5fb27-ffd4-4345-852c-57c6e6139538",
+    "source": "Copy",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "d0426919-d4da-430a-bad9-7fbf52d01a01",
     "source": "Status",
     "context": ""
@@ -991,8 +1087,26 @@
   },
   {
     "createBy": "admin",
+    "srcId": "d4538c78-a0c0-4317-a0a8-47b55d8d07ad",
+    "source": "Copied",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "d4f47209-7b77-411a-bdbd-331a44b349db",
     "source": "Menu Name",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d5e25b59-5995-40d6-a8db-a6b09129b788",
+    "source": "Dict Type Create",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d5f9513a-df88-46d9-beca-c210229b014b",
+    "source": "Clear locale/trans cache",
     "context": ""
   },
   {
@@ -1027,6 +1141,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "decfff64-6463-427c-bcf9-c81c09aac322",
+    "source": "Dict Style",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "df2e6075-f93c-410f-b9a8-e3507646936d",
     "source": "Edit Locale - {0}",
     "context": ""
@@ -1047,6 +1167,12 @@
     "createBy": "admin",
     "srcId": "e10edc2e-6c1d-48fe-83e5-3d0c18721d8a",
     "source": "ID",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e13666a8-5f27-40d6-ae22-07154b777841",
+    "source": "Dict Name",
     "context": ""
   },
   {
@@ -1087,6 +1213,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "e74b36ce-e83e-417b-9145-938057961b2b",
+    "source": "Status",
+    "context": "dict.type"
+  },
+  {
+    "createBy": "admin",
     "srcId": "e772be74-0484-4c24-bc50-76d7cee076bd",
     "source": "Group",
     "context": ""
@@ -1095,6 +1227,12 @@
     "createBy": "admin",
     "srcId": "e9ac6a3c-b5c1-4808-9d1b-7c17d8a8ec8f",
     "source": "Phone",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ea29ade0-faf8-4823-aeb2-72bc46a32999",
+    "source": "Dict Key is required.",
     "context": ""
   },
   {

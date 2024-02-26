@@ -203,7 +203,6 @@ onMounted(async () => {
         </v-btn>
         <v-btn
           class="align-self-center"
-          color="inherit"
           prepend-icon="mdi-sync"
           density="comfortable"
           @click="methods.resetSearch"
@@ -230,7 +229,7 @@ onMounted(async () => {
     :items-per-page="queryParamItemsPerPage"
   >
     <template v-slot:top>
-      <v-toolbar density="compact" color="inherit">
+      <v-toolbar density="compact" color="background">
         <UserForm
           v-model:dialog="userFormData.dialog"
           v-model:user-id="userFormData.userId"

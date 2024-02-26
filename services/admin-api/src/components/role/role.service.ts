@@ -60,11 +60,7 @@ export default class RoleService {
    * @returns
    */
   public async create(role: IRoleCreate): Promise<IRole> {
-    const roleInstance = await RoleModel.create({ ...role });
-    if (lodash.isEmpty(roleInstance)) {
-      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Create role failed!');
-    }
-    return roleInstance.toJSON();
+    return RoleModel.create(role);
   }
 
   /**

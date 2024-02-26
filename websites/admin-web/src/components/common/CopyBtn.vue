@@ -1,45 +1,24 @@
-<!--
-* @Component: CopyLabel
-* @Maintainer: J.K. Yang
-* @Description:
--->
 <script setup lang="ts">
-import clipboard from '@/utils/clipboardUtils';
+import { toast } from 'vuetify-sonner';
 
-// SnackBar
-const snackbar = ref(false);
-const timeout = ref('1000');
-const copiedText = 'Copied to clipboard!';
+import i18n from '@/plugins/i18n';
+import clipboard from '@/utils/clipboard';
 
-// Props
 const props = defineProps({
-  // Text to copy to clipboard
   text: {
     type: String,
     default: '',
   },
 });
 
-// Copy Text
 const copyText = (event: Event) => {
-  console.log(props.text);
   clipboard(props.text, event);
-
-  snackbar.value = true;
+  toast.success(i18n.ndt('Copied to clipboard.'));
 };
 </script>
 
 <template>
   <div>
-    <v-snackbar v-model="snackbar" :timeout="timeout">
-      {{ copiedText }}
-      <template v-slot:actions>
-        <v-btn color="blue" variant="text" @click="snackbar = false" :title="$ndt('Close')">
-          {{ $ndt('Close') }}
-        </v-btn>
-      </template>
-    </v-snackbar>
-
     <v-btn v-bind="$attrs" icon @click="copyText($event)" :title="$ndt('Copy')">
       <v-icon>mdi-content-copy</v-icon>
       <v-tooltip activator="parent" location="bottom" text="Copy"></v-tooltip>

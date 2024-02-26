@@ -95,8 +95,7 @@ export default class MenuService {
    * @returns
    */
   public async create(menu: IMenuCreate): Promise<IMenu> {
-    const createdMenu = await MenuModel.create({ ...menu });
-    return createdMenu.toJSON();
+    return MenuModel.create(menu);
   }
 
   /**

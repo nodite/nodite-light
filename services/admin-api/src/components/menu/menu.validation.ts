@@ -15,9 +15,8 @@ export const CreateValidation: ValidationSchema = {
       iType: Joi.string()
         .required()
         .allow(...MenuType),
-      path: Joi.string().optional().max(200).allow('', null),
-      component: Joi.string().optional().max(255).allow('', null),
-      parentId: Joi.string().optional().allow('', null),
+      path: Joi.string().optional().max(200).allow(''),
+      component: Joi.string().optional().max(255).allow(''),
     })
     .unknown(true),
 };
@@ -29,14 +28,13 @@ export const UpdateValidation: ValidationSchema = {
   body: Joi.object()
     .keys({
       menuId: Joi.forbidden(),
-      menuName: Joi.string().required().max(50),
+      menuName: Joi.string().optional().max(50),
       orderNum: Joi.number().optional().max(9999),
       iType: Joi.string()
-        .required()
+        .optional()
         .allow(...MenuType),
-      path: Joi.string().optional().max(200).allow('', null),
-      component: Joi.string().optional().max(255).allow('', null),
-      parentId: Joi.string().optional().allow('', null),
+      path: Joi.string().optional().max(200).allow(''),
+      component: Joi.string().optional().max(255).allow(''),
     })
     .unknown(true),
 };

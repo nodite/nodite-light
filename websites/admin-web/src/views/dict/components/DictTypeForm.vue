@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toast } from 'vuetify-sonner';
 
-import { IDictGroup } from '@/api/admin/data-contracts';
+import { IDictGroup, IDictType } from '@/api/admin/data-contracts';
 import TreeSelect from '@/components/form/TreeSelect.vue';
 import i18n from '@/plugins/i18n';
 import { useDictStore } from '@/stores/modules/dictStore';
@@ -9,7 +9,7 @@ import lodash from '@/utils/lodash';
 
 const dictStore = useDictStore();
 
-const emit = defineEmits(['update:dialog', 'update:groupId', 'save']);
+const emit = defineEmits(['update:dialog', 'update:dictId', 'save']);
 
 const props = defineProps({
   groups: {
@@ -20,13 +20,13 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  groupId: {
+  dictId: {
     type: String,
     default: '',
   },
-  parentId: {
+  dictGid: {
     type: String,
-    default: undefined,
+    default: '',
   },
 });
 
@@ -35,55 +35,52 @@ const dialog = computed({
   set: (v) => emit('update:dialog', v),
 });
 
-const groupId = computed({
-  get: () => props.groupId,
-  set: (v) => emit('update:groupId', v),
+const dictId = computed({
+  get: () => props.dictId,
+  set: (v) => emit('update:dictId', v),
 });
 
 // Local data.
 const myRefStore = ref({
   title: '',
-  parentIdDialog: false,
-  isFormValid: true,
+  dictGidDialog: false,
+  isFormValid: false,
   isSaving: false,
   error: false,
-  errorMessages: '',
+  errorMessage: '',
 });
 
 // Form.
 const refForm = ref();
-const formData = ref({} as IDictGroup);
+const formData = ref({} as IDictType);
 const formRules = ref({
-  parentId: [
-    (v: string) => lodash.isString(v) || (!v && i18n.ndt('Parent Dict Group is required.')),
-    (v: string) =>
-      !groupId.value || v !== groupId.value || i18n.ndt('Parent Dict Group cannot be itself.'),
-  ],
-  groupName: [(v: string) => !!v || i18n.ndt('Group Name is required.')],
-  groupKey: [
-    (v: string) => !!v || i18n.ndt('Group Key is required.'),
-    (v: string) => lodash.snakeCase(v) === v || i18n.ndt('Group Key must be snake_case.'),
-    (v: string) => (v && v.length <= 50) || i18n.ndt('Group Key must be less than 50 characters.'),
+  dictName: [(v: string) => !!v || i18n.ndt('Dict Name is required.')],
+  dictStyle: [(v: string) => !!v || i18n.ndt('Dict Style is required.')],
+  dictKey: [
+    (v: string) => !!v || i18n.ndt('Dict Key is required.'),
+    (v: string) => lodash.snakeCase(v) === v || i18n.ndt('Dict Key must be snake_case.'),
+    (v: string) => (v && v.length <= 50) || i18n.ndt('Dict Key must be less than 50 characters.'),
   ],
 });
 
 // Methods.
 const methods = {
+  // Load form data.
   async loadFormData() {
-    formData.value = groupId.value
-      ? (await dictStore.queryGroup(groupId.value)) || ({} as IDictGroup)
-      : ({} as IDictGroup);
+    formData.value = dictId.value
+      ? (await dictStore.queryType(dictId.value)) || ({} as IDictType)
+      : ({} as IDictType);
 
-    myRefStore.value.title = groupId.value
-      ? i18n.ndt('Edit Dict Group - {0}', [formData.value.groupName])
-      : i18n.ndt('New Dict Group');
+    myRefStore.value.title = dictId.value
+      ? i18n.ndt('Edit Dict Type - {0}', [formData.value.dictName])
+      : i18n.ndt('New Dict Type');
 
-    formData.value.parentId ||= props.parentId || '';
+    formData.value.dictGid ||= props.dictGid;
   },
   // Reset errors.
   resetErrors() {
     myRefStore.value.error = false;
-    myRefStore.value.errorMessages = '';
+    myRefStore.value.errorMessage = '';
   },
   // Close.
   close() {
@@ -92,7 +89,7 @@ const methods = {
       return;
     }
     dialog.value = false;
-    groupId.value = '';
+    dictId.value = '';
   },
   // Save.
   async save() {
@@ -106,9 +103,11 @@ const methods = {
     }
 
     try {
-      await (formData.value.groupId
-        ? dictStore.editGroup(formData.value)
-        : dictStore.createGroup(formData.value));
+      await (formData.value.dictId
+        ? dictStore.editType(formData.value)
+        : dictStore.createType(formData.value));
+
+      toast.success(i18n.ndt('Saved successfully.'));
     } finally {
       myRefStore.value.isSaving = false;
     }
@@ -131,10 +130,16 @@ watch(
     v-model="dialog"
     @click:outside="methods.close"
     :persistent="myRefStore.isSaving"
-    max-width="500"
+    max-width="550"
   >
+    <template v-slot:activator="{ props }">
+      <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
+        {{ $ndt('Create Dict Type') }}
+      </v-btn>
+    </template>
+
     <v-card density="compact" elevation="8" rounded="lg">
-      <v-card-title class="pt-4">
+      <v-card-title>
         <v-label>{{ myRefStore.title }}</v-label>
         <v-spacer></v-spacer>
         <v-btn icon @click="methods.close" density="compact" variant="text">
@@ -154,18 +159,16 @@ watch(
               <!-- parent & order -->
               <v-col>
                 <TreeSelect
-                  v-model="formData.parentId"
-                  v-model:dialog="myRefStore.parentIdDialog"
-                  :label="$ndt('Parent Group')"
+                  v-model="formData.dictGid"
+                  v-model:dialog="myRefStore.dictGidDialog"
+                  :label="$ndt('Dict Group')"
                   :items="groups"
                   item-title="groupName"
                   item-title-context="dict.group"
                   item-value="groupId"
                   parent-value="parentId"
                   variant="outlined"
-                  :rules="formRules.parentId"
                   :error="myRefStore.error"
-                  :disabled-items="groupId ? [formData.groupId] : []"
                   show-root
                   chips
                   clearable
@@ -192,14 +195,32 @@ watch(
             </v-row>
 
             <v-row dense>
-              <!-- group name -->
+              <!-- dict style -->
+              <v-col>
+                <v-select
+                  density="compact"
+                  :label="$ndt('Dict Style')"
+                  v-model="formData.dictStyle"
+                  :items="['default']"
+                  :rules="formRules.dictStyle"
+                  validate-on="blur"
+                  :error="myRefStore.error"
+                  variant="outlined"
+                  chips
+                  clearable
+                ></v-select>
+              </v-col>
+            </v-row>
+
+            <v-row dense>
+              <!-- dict name -->
               <v-col>
                 <v-text-field
                   density="compact"
-                  v-model="formData.groupName"
-                  :rules="formRules.groupName"
+                  v-model="formData.dictName"
+                  :rules="formRules.dictName"
                   :error="myRefStore.error"
-                  :label="$ndt('Group Name')"
+                  :label="$ndt('Dict Name')"
                   validate-on="blur"
                   variant="outlined"
                 ></v-text-field>
@@ -207,19 +228,31 @@ watch(
             </v-row>
 
             <v-row dense>
-              <!-- group key -->
+              <!-- dict key -->
               <v-col>
                 <v-text-field
                   density="compact"
-                  v-model="formData.groupKey"
-                  :rules="formRules.groupKey"
+                  v-model="formData.dictKey"
+                  :label="$ndt('Dict Key')"
+                  :rules="formRules.dictKey"
                   :error="myRefStore.error"
-                  :label="$ndt('Group Key')"
                   validate-on="blur"
                   variant="outlined"
-                  :disabled="!!groupId"
+                  :disabled="!!dictId"
                 ></v-text-field>
               </v-col>
+            </v-row>
+
+            <v-row dense>
+              <!-- dict desc -->
+              <v-textarea
+                density="compact"
+                v-model="formData.dictDesc"
+                :label="$ndt('Dict Desc')"
+                :error="myRefStore.error"
+                validate-on="blur"
+                variant="outlined"
+              ></v-textarea>
             </v-row>
 
             <v-row dense>

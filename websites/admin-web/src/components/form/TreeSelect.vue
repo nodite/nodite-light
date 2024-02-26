@@ -177,12 +177,7 @@ watchEffect(() => {
         },
         children: lodash
           .chain(items.value)
-          .filter((child) => {
-            // root node remove children.
-            if (props.showRoot && id === props.rootValue) return false;
-            // others.
-            return child[props.parentValue] === id;
-          })
+          .filter((child) => child[props.parentValue] === id)
           .map((m) => String(m[props.itemValue]))
           .value(),
       };
@@ -196,7 +191,11 @@ watchEffect(() => {
     checkboxes: props.checkboxes,
     roots: lodash
       .chain(items.value)
-      .filter((node) => !node[props.parentValue])
+      .filter((node) => {
+        return props.showRoot
+          ? lodash.isUndefined(node[props.parentValue])
+          : !node[props.parentValue];
+      })
       .map(props.itemValue)
       .value(),
   };

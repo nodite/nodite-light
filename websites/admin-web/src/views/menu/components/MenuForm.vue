@@ -13,6 +13,10 @@ const menuStore = useMenuStore();
 const emit = defineEmits(['update:dialog', 'update:menuId', 'save']);
 
 const props = defineProps({
+  menus: {
+    type: Array as PropType<IMenu[]>,
+    default: () => [] as IMenu[],
+  },
   dialog: {
     type: Boolean,
     default: false,
@@ -32,8 +36,6 @@ const menuId = computed({
   get: () => props.menuId,
   set: (v) => emit('update:menuId', v),
 });
-
-const menus = ref([] as IMenu[]);
 
 // Local Data.
 const myRefStore = ref({
@@ -77,19 +79,19 @@ const methods = {
       ? i18n.ndt('Edit Menu - {0}', [formData.value.menuName])
       : i18n.ndt('New Menu');
   },
-  // Close menu form.
-  closeMenuForm() {
+  // Reset errors.
+  resetErrors() {
+    myRefStore.value.error = false;
+    myRefStore.value.errorMessages = '';
+  },
+  // Close.
+  close() {
     if (myRefStore.value.isSaving) {
       toast.warning(i18n.ndt("It's saving, please wait a moment."));
       return;
     }
     dialog.value = false;
     menuId.value = '';
-  },
-  // Reset errors.
-  resetErrors() {
-    myRefStore.value.error = false;
-    myRefStore.value.errorMessages = '';
   },
   // Save.
   async save() {
@@ -112,26 +114,23 @@ const methods = {
       myRefStore.value.isSaving = false;
     }
 
-    methods.closeMenuForm();
+    methods.close();
 
     emit('save');
   },
 };
 
 // Lifecycle.
-onMounted(async () => {
-  menus.value = await menuStore.list();
-});
-
-watchEffect(async () => {
-  await methods.loadFormData();
-});
+watch(
+  () => props.dialog,
+  (v) => v && methods.loadFormData(),
+);
 </script>
 
 <template>
   <v-dialog
     v-model="dialog"
-    @click:outside="methods.closeMenuForm"
+    @click:outside="methods.close"
     :persistent="myRefStore.isSaving"
     max-width="750"
   >
@@ -145,7 +144,7 @@ watchEffect(async () => {
       <v-card-title class="pt-4">
         <v-label>{{ myRefStore.title }}</v-label>
         <v-spacer></v-spacer>
-        <v-btn icon @click="methods.closeMenuForm" density="compact" variant="text">
+        <v-btn icon @click="methods.close" density="compact" variant="text">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-card-title>
@@ -168,7 +167,6 @@ watchEffect(async () => {
                   item-title="menuName"
                   item-value="menuId"
                   parent-value="parentId"
-                  prepend-inner-icon="mdi-sort-variant"
                   variant="outlined"
                   :rules="formRules.parentId"
                   :error="myRefStore.error"
@@ -210,7 +208,7 @@ watchEffect(async () => {
                   inline
                 >
                   <template v-slot:prepend>
-                    <v-label> {{ $ndt('Menu Type') }}: </v-label>
+                    <v-label>{{ $ndt('Menu Type') }}:</v-label>
                   </template>
                   <v-radio :label="$ndt('Overline')" value="overline"></v-radio>
                   <v-radio :label="$ndt('Directory')" value="directory"></v-radio>
@@ -359,7 +357,7 @@ watchEffect(async () => {
       <v-card-actions>
         <!-- actions -->
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" @click="methods.closeMenuForm" :disabled="myRefStore.isSaving">
+        <v-btn color="blue darken-1" @click="methods.close" :disabled="myRefStore.isSaving">
           {{ $ndt('Cancel') }}
         </v-btn>
         <v-btn @click="methods.save" :loading="myRefStore.isSaving" :disabled="myRefStore.isSaving">

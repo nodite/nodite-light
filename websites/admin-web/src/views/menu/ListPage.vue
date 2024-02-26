@@ -12,7 +12,8 @@ const menuStore = useMenuStore();
 // Local data.
 const myRefStore = ref({
   loading: true,
-  items: [] as DataTreeIMenu[],
+  menus: [] as IMenu[],
+  menuTree: [] as DataTreeIMenu[],
 });
 
 // Menu form.
@@ -26,7 +27,8 @@ const methods = {
   // Load menu tree.
   async loadMenuTree(force: boolean = false) {
     myRefStore.value.loading = true;
-    myRefStore.value.items = await menuStore.listTree(force);
+    myRefStore.value.menuTree = await menuStore.listTree(force);
+    myRefStore.value.menus = await menuStore.list();
     myRefStore.value.loading = false;
   },
   // Open menu form.
@@ -73,15 +75,16 @@ onMounted(async () => {
         { title: $ndt('Perms'), value: 'perms' },
         { key: 'actions', sortable: false },
       ],
-      items: myRefStore.items,
+      items: myRefStore.menuTree,
     }"
     :offset-columns="['data-table-expand', 'menuName']"
   >
     <template v-slot:top>
-      <v-toolbar density="compact" color="inherit">
+      <v-toolbar density="compact" color="background">
         <MenuForm
           v-model:dialog="menuFormData.dialog"
           v-model:menu-id="menuFormData.menuId"
+          :menus="myRefStore.menus"
           @save="methods.loadMenuTree(true)"
         ></MenuForm>
       </v-toolbar>

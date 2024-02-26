@@ -64,19 +64,19 @@ const methods = {
       ? i18n.ndt('Edit Role - {0}', [formData.value.roleName])
       : i18n.ndt('New Role');
   },
-  // Close role form.
-  closeRoleForm() {
+  // Reset errors.
+  resetErrors() {
+    myRefStore.value.error = false;
+    myRefStore.value.errorMessage = '';
+  },
+  // Close.
+  close() {
     if (myRefStore.value.isSaving) {
       toast.warning(i18n.ndt("It's saving, please wait a moment."));
       return;
     }
     dialog.value = false;
     roleId.value = 0;
-  },
-  // Reset errors.
-  resetErrors() {
-    myRefStore.value.error = false;
-    myRefStore.value.errorMessage = '';
   },
   // Save.
   async save() {
@@ -99,24 +99,25 @@ const methods = {
       myRefStore.value.isSaving = false;
     }
 
-    methods.closeRoleForm();
+    methods.close();
 
     emit('save');
   },
 };
 
 // Lifecycle.
-watchEffect(async () => {
-  await methods.loadFormData();
-});
+watch(
+  () => props.dialog,
+  (v) => v && methods.loadFormData(),
+);
 </script>
 
 <template>
   <v-dialog
     v-model="dialog"
-    @click:outside="methods.closeRoleForm"
+    @click:outside="methods.close"
     :persistent="myRefStore.isSaving"
-    max-width="750"
+    max-width="550"
   >
     <template v-slot:activator="{ props }">
       <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
@@ -128,7 +129,7 @@ watchEffect(async () => {
       <v-card-title>
         <v-label>{{ myRefStore.title }}</v-label>
         <v-spacer></v-spacer>
-        <v-btn icon @click="methods.closeRoleForm" density="compact" variant="text">
+        <v-btn icon @click="methods.close" density="compact" variant="text">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-card-title>
@@ -147,15 +148,12 @@ watchEffect(async () => {
                 <v-text-field
                   density="compact"
                   v-model="formData.roleName"
+                  :label="$ndt('Role Name')"
                   :rules="formRules.roleName"
                   validate-on="blur"
                   :error="myRefStore.error"
                   variant="outlined"
-                >
-                  <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('Role Name') }}:</v-label>
-                  </template>
-                </v-text-field>
+                ></v-text-field>
               </v-col>
               <v-col cols="4">
                 <v-text-field
@@ -176,16 +174,13 @@ watchEffect(async () => {
                 <v-text-field
                   density="compact"
                   v-model="formData.roleKey"
+                  :label="$ndt('Role Key')"
                   :rules="formRules.roleKey"
                   :disabled="!!formData.roleId"
                   validate-on="blur"
                   :error="myRefStore.error"
                   variant="outlined"
-                >
-                  <template v-slot:prepend-inner>
-                    <v-label>{{ $ndt('Role Key') }}:</v-label>
-                  </template>
-                </v-text-field>
+                ></v-text-field>
               </v-col>
             </v-row>
 
@@ -198,6 +193,7 @@ watchEffect(async () => {
                   :error="myRefStore.error"
                   :disabled="formData.roleId === 1"
                   inline
+                  hide-details
                 >
                   <template v-slot:prepend>
                     <v-label>{{ $ndt('Status') }}:</v-label>
@@ -215,7 +211,7 @@ watchEffect(async () => {
       <v-card-actions>
         <!-- actions -->
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" @click="methods.closeRoleForm" :disabled="myRefStore.isSaving">
+        <v-btn color="blue darken-1" @click="methods.close" :disabled="myRefStore.isSaving">
           {{ $ndt('Cancel') }}
         </v-btn>
         <v-btn @click="methods.save" :loading="myRefStore.isSaving" :disabled="myRefStore.isSaving">

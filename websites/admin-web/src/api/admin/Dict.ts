@@ -15,11 +15,166 @@ import { request } from "@/utils/requests";
 import type {
   IDictGroupCreate,
   IDictGroupUpdate,
+  IDictTypeCreate,
+  IDictTypeUpdate,
   IResponseDataTreeIDictGroupArray,
   IResponseIDictGroup,
   IResponseIDictGroupArray,
+  IResponseIDictType,
+  IResponseSequelizePaginationIDictType,
   IResponseVoid,
 } from "./data-contracts";
+
+/**
+ * No description
+ *
+ * @tags dict
+ * @name adminDictTypeList
+ * @summary Get all dict types
+ * @request GET:/dict/type/list
+ */
+export const adminDictTypeList = (
+  query?: {
+    /** @format double */
+    page?: number;
+    /** @format double */
+    itemsPerPage?: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<IResponseSequelizePaginationIDictType>({
+    path: `/dict/type/list`,
+    method: "GET",
+    query: query,
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminDictTypeListSkipErrorHandler = (
+  query?: {
+    /** @format double */
+    page?: number;
+    /** @format double */
+    itemsPerPage?: number;
+  },
+  params: RequestParams = {},
+) =>
+  request<IResponseSequelizePaginationIDictType>({
+    path: `/dict/type/list`,
+    method: "GET",
+    query: query,
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags dict
+ * @name adminDictTypeQuery
+ * @summary Get dict type by id
+ * @request GET:/dict/type/{id}
+ */
+export const adminDictTypeQuery = (id: string, params: RequestParams = {}) =>
+  request<IResponseIDictType>({
+    path: `/dict/type/${id}`,
+    method: "GET",
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminDictTypeQuerySkipErrorHandler = (id: string, params: RequestParams = {}) =>
+  request<IResponseIDictType>({
+    path: `/dict/type/${id}`,
+    method: "GET",
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags dict
+ * @name adminDictTypeEdit
+ * @summary Update dict type
+ * @request PUT:/dict/type/{id}
+ */
+export const adminDictTypeEdit = (id: string, data: IDictTypeUpdate, params: RequestParams = {}) =>
+  request<IResponseIDictType>({
+    path: `/dict/type/${id}`,
+    method: "PUT",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminDictTypeEditSkipErrorHandler = (id: string, data: IDictTypeUpdate, params: RequestParams = {}) =>
+  request<IResponseIDictType>({
+    path: `/dict/type/${id}`,
+    method: "PUT",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags dict
+ * @name adminDictTypeDelete
+ * @summary Delete dict type
+ * @request DELETE:/dict/type/{id}
+ */
+export const adminDictTypeDelete = (id: string, params: RequestParams = {}) =>
+  request<IResponseVoid>({
+    path: `/dict/type/${id}`,
+    method: "DELETE",
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminDictTypeDeleteSkipErrorHandler = (id: string, params: RequestParams = {}) =>
+  request<IResponseVoid>({
+    path: `/dict/type/${id}`,
+    method: "DELETE",
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
+
+/**
+ * No description
+ *
+ * @tags dict
+ * @name adminDictTypeCreate
+ * @summary Create dict type
+ * @request POST:/dict/type
+ */
+export const adminDictTypeCreate = (data: IDictTypeCreate, params: RequestParams = {}) =>
+  request<IResponseIDictType>({
+    path: `/dict/type`,
+    method: "POST",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: false,
+    ...params,
+  });
+export const adminDictTypeCreateSkipErrorHandler = (data: IDictTypeCreate, params: RequestParams = {}) =>
+  request<IResponseIDictType>({
+    path: `/dict/type`,
+    method: "POST",
+    body: data,
+    type: ContentType.Json,
+    format: "json",
+    skipErrorHandler: true,
+    ...params,
+  });
 
 /**
  * No description
