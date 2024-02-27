@@ -62,11 +62,9 @@ export default class LocaleService {
    */
   public async selectLocaleById(id: number): Promise<ILocale> {
     const locale = await LocaleModel.findOne({ where: { localeId: id } });
-
-    if (lodash.isEmpty(locale)) {
-      throw new AppError(httpStatus.NOT_FOUND, 'Locale not found');
+    if (!locale) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Locale not found');
     }
-
     return locale.toJSON();
   }
 
@@ -122,8 +120,11 @@ export default class LocaleService {
    * @param id
    */
   public async deleteLocale(id: number): Promise<void> {
-    const storedLocale = await LocaleModel.findOne({ where: { localeId: id } });
-    await storedLocale.destroy();
+    const locale = await LocaleModel.findOne({ where: { localeId: id } });
+    if (!locale) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Locale not found');
+    }
+    await locale.destroy();
   }
 
   /**
@@ -175,20 +176,20 @@ export default class LocaleService {
 
   /**
    * Create source if missing.
-   * @param source
+   * @param body
    * @returns
    */
-  public async createSourceIfMissing(source: ISourceCreate): Promise<ILocaleSource> {
-    let storedSource = await LocaleSourceModel.findOne({
-      where: { source: source.source, context: source.context },
+  public async createSourceIfMissing(body: ISourceCreate): Promise<ILocaleSource> {
+    let source = await LocaleSourceModel.findOne({
+      where: { source: body.source, context: body.context },
     });
 
-    if (lodash.isEmpty(storedSource)) {
-      storedSource = await LocaleSourceModel.create(lodash.omit(source, 'locations'));
+    if (lodash.isEmpty(source)) {
+      source = await LocaleSourceModel.create(lodash.omit(body, 'locations'));
 
       await LocaleLocationModel.bulkCreate(
-        lodash.map(source.locations, (location) =>
-          lodash.set(location, 'srcId', storedSource.getDataValue('srcId')),
+        lodash.map(body.locations, (location) =>
+          lodash.set(location, 'srcId', source.getDataValue('srcId')),
         ),
       );
 
@@ -199,14 +200,14 @@ export default class LocaleService {
 
       await this.upsertMessages([
         {
-          srcId: storedSource.getDataValue('srcId'),
+          srcId: source.getDataValue('srcId'),
           langcode: defaultLocale.getDataValue('langcode'),
-          message: source.source,
+          message: body.source,
         },
       ] as IMessageUpsert[]);
     }
 
-    return storedSource.toJSON();
+    return source.toJSON();
   }
 
   /**

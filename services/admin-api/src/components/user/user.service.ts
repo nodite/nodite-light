@@ -54,11 +54,9 @@ export default class UserService {
    */
   public async selectUserById(id?: number): Promise<IUser> {
     const user = await UserModel.findOne({ where: { userId: id } });
-
-    if (lodash.isEmpty(user)) {
-      throw new AppError(httpStatus.NOT_FOUND, 'User not found');
+    if (!user) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'User not found');
     }
-
     return user.toJSON();
   }
 
@@ -68,24 +66,24 @@ export default class UserService {
    * @returns
    */
   public async selectProfile(id: number): Promise<IProfile> {
-    const user = (
-      await UserModel.findOne({
-        where: { userId: id },
-        include: [{ model: RoleModel, required: false }],
-      })
-    ).toJSON();
+    const user = await UserModel.findOne({
+      where: { userId: id },
+      include: [{ model: RoleModel, required: false }],
+    });
 
-    if (lodash.isEmpty(user)) {
-      throw new AppError(httpStatus.NOT_FOUND, 'User not found');
+    if (!user) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'User not found');
     }
 
+    const userJson = user.toJSON();
+
     const perms = await Promise.all(
-      lodash.map(user.roles, async (role) => this.roleService.selectMenuPerms(role.roleId)),
+      lodash.map(userJson.roles, async (role) => this.roleService.selectMenuPerms(role.roleId)),
     );
 
     return {
-      ...lodash.omit(user, ['roles']),
-      roles: lodash.map(user.roles, 'roleKey'),
+      ...lodash.omit(userJson, ['roles']),
+      roles: lodash.map(userJson.roles, 'roleKey'),
       perms: lodash.chain(perms).flatten().map('perms').uniq().value(),
     };
   }
@@ -97,11 +95,9 @@ export default class UserService {
    */
   public async getByUsername(username: string): Promise<IUser> {
     const user = await UserModel.findOne({ where: { username } });
-
-    if (lodash.isEmpty(user)) {
-      throw new AppError(httpStatus.NOT_FOUND, 'User not found');
+    if (!user) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'User not found');
     }
-
     return user.toJSON();
   }
 
@@ -112,11 +108,9 @@ export default class UserService {
    */
   public async getByEmail(email: string): Promise<IUser> {
     const user = await UserModel.findOne({ where: { email } });
-
-    if (lodash.isEmpty(user)) {
-      throw new AppError(httpStatus.NOT_FOUND, 'User not found');
+    if (!user) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'User not found');
     }
-
     return user.toJSON();
   }
 
@@ -132,18 +126,22 @@ export default class UserService {
   /**
    * Update.
    * @param id
-   * @param user
+   * @param body
    * @returns
    */
-  public async update(id: number, user: IUserUpdate): Promise<IUser> {
-    const storedUser = await UserModel.findOne({ where: { userId: id } });
+  public async update(id: number, body: IUserUpdate): Promise<IUser> {
+    const preUser = await UserModel.findOne({ where: { userId: id } });
 
-    storedUser.skipBcryptPassword = true;
+    if (!preUser) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'User not found');
+    }
+
+    preUser.skipBcryptPassword = true;
 
     // update user.
-    const updatedUser = await storedUser.update(user);
+    const user = await preUser.update(body);
 
-    return updatedUser;
+    return user;
   }
 
   /**
@@ -160,15 +158,19 @@ export default class UserService {
       );
     }
 
-    const storedUser = await UserModel.findOne({ where: { userId: id } });
+    const user = await UserModel.findOne({ where: { userId: id } });
 
-    if (!data.password || storedUser.getDataValue('password') === data.password) {
-      storedUser.skipBcryptPassword = true;
-    } else {
-      storedUser.skipBcryptPassword = false;
+    if (!user) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'User not found');
     }
 
-    return storedUser.update({ password: data.password });
+    if (!data.password || user.getDataValue('password') === data.password) {
+      user.skipBcryptPassword = true;
+    } else {
+      user.skipBcryptPassword = false;
+    }
+
+    return user.update({ password: data.password });
   }
 
   /**
@@ -187,13 +189,17 @@ export default class UserService {
       throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Cannot delete yourself!');
     }
 
-    const storedUser = await UserModel.findOne({ where: { userId: id } });
+    const user = await UserModel.findOne({ where: { userId: id } });
 
-    if (storedUser.getDataValue('deleted') === 9) {
+    if (!user) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'User not found');
+    }
+
+    if (user.getDataValue('deleted') === 9) {
       throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'User is not allow delete!');
     }
 
-    return storedUser.destroy();
+    return user.destroy();
   }
 
   /**

@@ -368,6 +368,52 @@
                 "createBy": "admin",
                 "updateBy": "admin",
                 "deleted": 9
+              },
+              {
+                "menuId": "24556eb3-6e7b-4371-9f71-5e1f047e57da",
+                "menuName": "Dict Item Mgmt",
+                "icon": "mdi-checkbox-multiple-marked-outline",
+                "iType": "menu",
+                "path": "/dict/:dictKey/items",
+                "component": "dict/ItemPage",
+                "layout": "ui",
+                "perms": "admin:dict:list",
+                "hidden": 1,
+                "createBy": "admin",
+                "updateBy": "admin",
+                "deleted": 9,
+                "children": [
+                  {
+                    "menuId": "dbefdfca-1f3b-4937-8dd5-0ae0fa8e300b",
+                    "menuName": "Dict Item Create",
+                    "iType": "action",
+                    "hidden": 1,
+                    "perms": "admin:dict:item:create",
+                    "createBy": "admin",
+                    "updateBy": "admin",
+                    "deleted": 9
+                  },
+                  {
+                    "menuId": "ab25da90-c2e5-48a1-852b-c66271b1e2ba",
+                    "menuName": "Dict Item Edit",
+                    "iType": "action",
+                    "hidden": 1,
+                    "perms": "admin:dict:item:edit",
+                    "createBy": "admin",
+                    "updateBy": "admin",
+                    "deleted": 9
+                  },
+                  {
+                    "menuId": "42b88465-0256-4c7b-8781-2656099201d7",
+                    "menuName": "Dict Item Delete",
+                    "iType": "action",
+                    "hidden": 1,
+                    "perms": "admin:dict:item:delete",
+                    "createBy": "admin",
+                    "updateBy": "admin",
+                    "deleted": 9
+                  }
+                ]
               }
             ]
           },

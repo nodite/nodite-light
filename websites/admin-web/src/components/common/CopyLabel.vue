@@ -34,7 +34,7 @@ const copyText = (text: string, event: Event) => {
 
 <template>
   <v-tooltip location="bottom">
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <span
         :class="{
           heartBeat: heartBeat === true,

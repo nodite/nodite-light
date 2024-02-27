@@ -1,6 +1,6 @@
 import { Permissions } from '@nodite-light/admin-auth';
 import { IResponse, validate } from '@nodite-light/admin-core';
-import { SequelizePagination } from '@nodite-light/admin-database';
+import { Cacheable, CacheClear, SequelizePagination } from '@nodite-light/admin-database';
 import httpStatus from 'http-status';
 import {
   Body,
@@ -19,7 +19,7 @@ import {
 import BaseController from '@/components/base.controller';
 import { IDictTypeCreate, IDictTypeUpdate } from '@/components/dict/dict.interface';
 import { CreateTypeValidation, UpdateTypeValidation } from '@/components/dict/dict.validation';
-import { IDictType } from '@/components/dict/dict_type.model';
+import { IDictType, IDictTypeWithItems } from '@/components/dict/dict_type.model';
 import DictTypeService from '@/components/dict/dict_type.service';
 import { QueryParams } from '@/interfaces';
 
@@ -41,7 +41,7 @@ export class DictTypeController extends BaseController {
   @Permissions('admin:dict:list')
   public async list(
     @Queries() params?: QueryParams,
-  ): Promise<IResponse<SequelizePagination<IDictType>>> {
+  ): Promise<IResponse<SequelizePagination<IDictTypeWithItems>>> {
     const page = await this.dictTypeService.selectDictTypeList(params);
     this.setStatus(200);
     return this.response(page);
@@ -53,7 +53,8 @@ export class DictTypeController extends BaseController {
   @Get('{id}')
   @OperationId('admin:dict:type:query')
   @Permissions('admin:dict:query')
-  public async query(@Path() id: string): Promise<IResponse<IDictType>> {
+  @Cacheable({ hashKey: 'dict:type:query', cacheKey: (args) => args[0] })
+  public async query(@Path() id: string): Promise<IResponse<IDictTypeWithItems>> {
     const dictType = await this.dictTypeService.selectDictTypeById(id);
     this.setStatus(200);
     return this.response(dictType);
@@ -79,6 +80,7 @@ export class DictTypeController extends BaseController {
   @Middlewares([validate(UpdateTypeValidation)])
   @OperationId('admin:dict:type:edit')
   @Permissions('admin:dict:type:edit')
+  @CacheClear({ hashKey: 'dict:type:query', cacheKey: (args) => args[0] })
   public async update(
     @Path() id: string,
     @Body() body: IDictTypeUpdate,
@@ -94,6 +96,7 @@ export class DictTypeController extends BaseController {
   @Delete('{id}')
   @OperationId('admin:dict:type:delete')
   @Permissions('admin:dict:type:delete')
+  @CacheClear({ hashKey: 'dict:type:query', cacheKey: (args) => args[0] })
   public async delete(@Path() id: string): Promise<IResponse<void>> {
     await this.dictTypeService.delete(id);
     this.setStatus(httpStatus.NO_CONTENT);

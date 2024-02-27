@@ -27,7 +27,7 @@ export class CacheController extends BaseController {
     @Query() type: string,
     @Request() req: AuthorizedRequest,
   ): Promise<IResponse<void>> {
-    this.cacheService.clearAllCache(type, req.user?.userId);
+    await this.cacheService.clearAllCache(type, req.user?.userId);
     this.setStatus(200);
     return this.response();
   }

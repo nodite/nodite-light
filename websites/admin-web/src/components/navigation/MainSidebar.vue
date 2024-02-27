@@ -50,7 +50,7 @@ const scrollToBottom = () => {
     <!-- ---------------------------------------------- -->
     <!---Top Area -->
     <!-- ---------------------------------------------- -->
-    <template v-slot:prepend>
+    <template #prepend>
       <v-card
         style="box-shadow: rgba(0, 0, 0, 0.05) 0px 25px 15px -20px"
         height="100"
@@ -76,7 +76,7 @@ const scrollToBottom = () => {
     <!-- ---------------------------------------------- -->
     <!---Bottom Area -->
     <!-- ---------------------------------------------- -->
-    <template v-if="!customizeTheme.mainSidebarRail" v-slot:append>
+    <template v-if="!customizeTheme.mainSidebarRail" #append>
       <v-card
         theme="dark"
         height="225"

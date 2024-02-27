@@ -17,19 +17,21 @@ export class CacheService {
   /**
    * Clear all cache.
    */
-  public clearAllCache(type: string, userId?: number): void {
-    if (type === 'all') {
+  public async clearAllCache(type: string, userId?: number): Promise<void> {
+    if (['all', 'menu'].includes(type)) {
       this.clearMenuCache(userId);
+    }
+
+    if (['all', 'dict'].includes(type)) {
+      this.clearDictCache();
+    }
+
+    if (['all', 'locale'].includes(type)) {
       this.clearLocaleCache();
-      this.clearPermsCache(userId);
-    } else if (type === 'menu') {
-      this.clearMenuCache(userId);
-    } else if (type === 'locale') {
-      this.clearLocaleCache();
-    } else if (type === 'perms') {
-      this.clearPermsCache(userId);
-    } else {
-      throw new Error('Invalid cache type');
+    }
+
+    if (['all', 'perms'].includes(type)) {
+      await this.clearPermsCache(userId);
     }
   }
 
@@ -37,15 +39,27 @@ export class CacheService {
    * Clear menu cache.
    * @param userId
    */
-  @CacheClear({ hashKey: 'menu:tree', cacheKey: (args) => args[0] || '*' })
+  @CacheClear({ hashKey: 'menu:tree', cacheKey: (args) => args[0] || '*', isPattern: true })
   public clearMenuCache(userId?: number): void {}
+
+  /**
+   * Clear dict cache.
+   * @param dictKey
+   */
+  @CacheClear({ hashKey: 'dict:group:tree' })
+  @CacheClear({ hashKey: 'dict:type:query', cacheKey: (args) => args[0] || '*', isPattern: true })
+  public clearDictCache(dictKey?: string): void {}
 
   /**
    * Clear locale cache.
    * @param langcode
    */
   @CacheClear({ hashKey: 'locale:available' })
-  @CacheClear({ hashKey: 'locale:message:available', cacheKey: (args) => args[0] || '*' })
+  @CacheClear({
+    hashKey: 'locale:message:available',
+    cacheKey: (args) => args[0] || '*',
+    isPattern: true,
+  })
   public clearLocaleCache(langcode?: string): void {}
 
   /**
@@ -66,14 +80,14 @@ export class CacheService {
    * Clear user's role cache.
    * @param userId
    */
-  @CacheClear({ hashKey: 'user:role:list', cacheKey: (args) => args[0] || '*' })
+  @CacheClear({ hashKey: 'user:role:list', cacheKey: (args) => args[0] || '*', isPattern: true })
   public clearUserRoleCache(userId?: number): void {}
 
   /**
    * Clear role's perm cache.
    * @param roleId
    */
-  @CacheClear({ hashKey: 'role:perm:list', cacheKey: (args) => args[0] || '*' })
+  @CacheClear({ hashKey: 'role:perm:list', cacheKey: (args) => args[0] || '*', isPattern: true })
   public clearRolePermCache(roleId?: number): void {}
 }
 

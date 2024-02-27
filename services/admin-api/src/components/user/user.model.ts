@@ -21,7 +21,7 @@ import {
 
 import RoleModel from '@/components/role/role.model';
 import RoleUserModel from '@/components/role/role_user.model';
-import UserSeeds from '@/seeds/sys_user.seeds.json';
+import UserSeeds from '@/seeds/sys_user.json';
 
 const TABLE_NAME = 'sys_user';
 
@@ -43,20 +43,20 @@ export default class UserModel extends SequelizeModel<UserModel> {
 
   @Unique
   @AllowNull(false)
-  @Column(DataType.STRING(32))
+  @Column(DataType.STRING(50))
   username: string;
 
   @Default('')
   @AllowNull(false)
-  @Column(DataType.STRING(32))
+  @Column(DataType.STRING(50))
   nickname: string;
 
   @Unique
   @Validate({ isEmail: true })
-  @Column(DataType.STRING(128))
+  @Column(DataType.STRING(100))
   email: string;
 
-  @Column(DataType.STRING(32))
+  @Column(DataType.STRING(50))
   phone: string;
 
   @Default(0)

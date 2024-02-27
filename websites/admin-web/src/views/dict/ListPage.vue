@@ -2,10 +2,16 @@
 import '@employee87/vue3-treeview/dist/style.css';
 
 import VueTreeView from '@employee87/vue3-treeview';
+import { VDataTablePagination } from '@nodite-light/vuetify-data-table-pagination';
 import moment from 'moment';
 
-import { IDictGroup, IDictType, SequelizePaginationIDictType } from '@/api/admin/data-contracts';
+import {
+  IDictGroup,
+  IDictType,
+  SequelizePaginationIDictTypeWithItems,
+} from '@/api/admin/data-contracts';
 import CopyLabel from '@/components/common/CopyLabel.vue';
+import DictElement from '@/components/form/DictElement.vue';
 import i18n from '@/plugins/i18n';
 import { useDictStore } from '@/stores/modules/dictStore';
 import { VueTreeView as VueTreeViewConfig } from '@/types/config';
@@ -17,7 +23,10 @@ import DictTypeForm from '@/views/dict/components/DictTypeForm.vue';
 const dictStore = useDictStore();
 
 interface QueryParams {
-  dictGid?: string;
+  _dictGid?: string;
+  dictName?: string;
+  dictKey?: string;
+  status?: 0 | 1;
 }
 
 // Local data.
@@ -26,8 +35,7 @@ const myRefStore = ref({
 
   groups: [] as IDictGroup[],
   sideGroups: [] as IDictGroup[],
-  pageResult: {} as SequelizePaginationIDictType,
-  items: [] as IDictType[],
+  pageResult: {} as SequelizePaginationIDictTypeWithItems,
 
   page: 1,
   itemsPerPage: 10,
@@ -48,7 +56,7 @@ const dictGroupFormData = ref({
 // Dict Type form.
 const dictTypeFormData = ref({
   dialog: false,
-  dictId: '',
+  dictKey: '',
 });
 
 // Query params.
@@ -56,7 +64,7 @@ const queryParamPage = computed({
   get: () => myRefStore.value.page || 1,
   set: (v: number) => {
     myRefStore.value.page = v;
-    methods.loadTypeList();
+    methods.loadDictTypeList();
   },
 });
 
@@ -64,7 +72,7 @@ const queryParamItemsPerPage = computed({
   get: () => myRefStore.value.itemsPerPage || 10,
   set: (v: number) => {
     myRefStore.value.itemsPerPage = v;
-    methods.loadTypeList();
+    methods.loadDictTypeList();
   },
 });
 
@@ -82,13 +90,13 @@ const methods = {
   },
   // Filter group.
   async filterGroup(node?: VueTreeViewConfig.TreeNode<IDictGroup>) {
-    queryParams.value.dictGid = node?.id;
-    await methods.loadTypeList();
+    queryParams.value._dictGid = node?.id;
+    await methods.loadDictTypeList();
   },
   // Reset search.
   async resetSearch() {
     queryParams.value = {} as QueryParams;
-    await methods.loadTypeList();
+    await methods.loadDictTypeList();
   },
   // Open dict group form.
   openDictGroupForm(groupId?: string, parentId?: string) {
@@ -104,8 +112,8 @@ const methods = {
 
     if (!confirm) return;
 
-    if (queryParams.value.dictGid === item.groupId) {
-      queryParams.value.dictGid = '';
+    if (queryParams.value._dictGid === item.groupId) {
+      queryParams.value._dictGid = '';
     }
 
     await dictStore.deleteGroup(item.groupId);
@@ -121,45 +129,46 @@ const methods = {
   },
 
   // Load list.
-  async loadTypeList() {
+  async loadDictTypeList() {
     myRefStore.value.loading = true;
 
     const pageResult = await dictStore.listType({
       page: queryParamPage.value,
       itemsPerPage: queryParamItemsPerPage.value,
       ...queryParams.value,
+      _dictGid: queryParams.value._dictGid ? `eq:${queryParams.value._dictGid}` : '',
     });
 
-    myRefStore.value.pageResult = pageResult || ({} as SequelizePaginationIDictType);
+    myRefStore.value.pageResult = pageResult || ({} as SequelizePaginationIDictTypeWithItems);
 
     myRefStore.value.loading = false;
   },
   // Change dict type status.
-  async changeDictTypeStatus(id: string, status: number) {
-    await dictStore.editType({ dictId: id, status: status } as IDictType);
+  async changeDictTypeStatus(dictKey: string, status: number) {
+    await dictStore.editType({ dictKey: dictKey, status: status } as IDictType);
   },
   // Open dict type form.
-  openDictTypeForm(id: string) {
+  openDictTypeForm(dictKey: string) {
     dictTypeFormData.value.dialog = true;
-    dictTypeFormData.value.dictId = id;
+    dictTypeFormData.value.dictKey = dictKey;
   },
   // Delete dict type.
-  async deleteType(item: IDictType) {
+  async deleteDictType(item: IDictType) {
     const confirm = await dialogs.deleteConfirm(
       i18n.ndt('Are you sure to delete this Dict Type ({0})?', [item.dictName]),
     );
 
     if (!confirm) return;
 
-    await dictStore.deleteType(item.dictId);
-    await methods.loadTypeList();
+    await dictStore.deleteType(item.dictKey);
+    await methods.loadDictTypeList();
   },
 };
 
 // Lifecycle.
 onMounted(() => {
   methods.loadGroupList();
-  methods.loadTypeList();
+  methods.loadDictTypeList();
 });
 
 watchEffect(async () => {
@@ -174,7 +183,7 @@ watchEffect(async () => {
           groupTree.value.nodes[group.groupId]?.state?.opened ||
           group.groupName === 'Root' ||
           false,
-        checked: group.groupId === queryParams.value.dictGid,
+        checked: group.groupId === queryParams.value._dictGid,
         disabled: false,
       },
       children: lodash
@@ -186,8 +195,8 @@ watchEffect(async () => {
     .keyBy('id')
     .value();
 
-  if (queryParams.value.dictGid) {
-    methods._openParent(groupTree.value.nodes[queryParams.value.dictGid]);
+  if (queryParams.value._dictGid) {
+    methods._openParent(groupTree.value.nodes[queryParams.value._dictGid]);
   }
 
   groupTree.value.config = {
@@ -210,7 +219,7 @@ watchEffect(async () => {
           <v-select
             density="compact"
             :label="$ndt('Dict Group')"
-            v-model="queryParams.dictGid"
+            v-model="queryParams._dictGid"
             variant="outlined"
             :items="myRefStore.sideGroups"
             item-title="groupName"
@@ -221,12 +230,49 @@ watchEffect(async () => {
             clearable
             readonly
           >
-            <template v-slot:chip="{ item }">
+            <template #chip="{ item }">
               <v-chip density="comfortable">
                 {{ $ndt(item.title, undefined, { context: 'dict.group' }) }}
               </v-chip>
             </template>
           </v-select>
+        </v-col>
+        <v-col cols="12" lg="2" md="3" sm="6">
+          <v-text-field
+            density="compact"
+            :label="$ndt('Dict Name')"
+            v-model="queryParams.dictName"
+            variant="outlined"
+            hide-details
+            clearable
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" lg="2" md="3" sm="6">
+          <v-text-field
+            density="compact"
+            :label="$ndt('Dict Key')"
+            v-model="queryParams.dictKey"
+            variant="outlined"
+            hide-details
+            clearable
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" lg="2" md="3" sm="6">
+          <DictElement
+            component="VSelect"
+            dict-key="status"
+            v-model="queryParams.status"
+            :component-props="{
+              density: 'compact',
+              variant: 'outlined',
+              hideDetails: true,
+              clearable: true,
+            }"
+          >
+            <template #chip="{ item }">
+              <v-chip density="comfortable">{{ item.title }}</v-chip>
+            </template>
+          </DictElement>
         </v-col>
         <v-spacer></v-spacer>
         <v-btn
@@ -236,7 +282,7 @@ watchEffect(async () => {
           density="comfortable"
           @click="
             myRefStore.page = 1;
-            methods.loadTypeList();
+            methods.loadDictTypeList();
           "
         >
           {{ $ndt('Search') }}
@@ -265,7 +311,7 @@ watchEffect(async () => {
               :config="groupTree.config"
               @node-focus="methods.filterGroup"
             >
-              <template v-slot:after-input="{ node }">
+              <template #after-input="{ node }">
                 <v-btn
                   v-if="node.item.groupName !== 'Root'"
                   class="text-primary"
@@ -304,33 +350,32 @@ watchEffect(async () => {
       <!-- dict -->
       <v-col cols="12" lg="9" md="8">
         <v-data-table
-          item-value="dictId"
+          item-value="dictKey"
           :headers="[
             { title: '', align: 'start', key: 'data-table-select' },
             { title: $ndt('Dict Name'), value: 'dictName' },
-            { title: $ndt('Translation'), value: 'trans' },
             { title: $ndt('Dict Style'), value: 'dictStyle' },
-            { title: $ndt('Order'), value: 'orderNum' },
             { title: $ndt('Status'), value: 'status' },
+            { title: $ndt('Dict Items'), value: 'dictItems', align: 'center' },
             { title: $ndt('Create Time'), value: 'createTime' },
             { key: 'actions', sortable: false },
           ]"
           :items="myRefStore.pageResult.items"
           :items-per-page="queryParamItemsPerPage"
         >
-          <template v-slot:top>
+          <template #top>
             <v-toolbar density="compact" color="background">
               <DictTypeForm
                 v-model:dialog="dictTypeFormData.dialog"
-                v-model:dict-id="dictTypeFormData.dictId"
+                v-model:dictKey="dictTypeFormData.dictKey"
                 :groups="myRefStore.groups"
-                :dict-gid="queryParams.dictGid"
-                @save="methods.loadTypeList"
+                :dict-gid="queryParams._dictGid"
+                @save="methods.loadDictTypeList"
               ></DictTypeForm>
             </v-toolbar>
           </template>
 
-          <template v-slot:item.dictName="{ item }">
+          <template #item.dictName="{ item }">
             <v-label>
               <span>
                 {{ item.dictName }}
@@ -340,13 +385,14 @@ watchEffect(async () => {
               </span>
               &nbsp;(<CopyLabel :text="item.dictKey"></CopyLabel>)
             </v-label>
+            <br />
+            <v-label class="text-caption text-disabled">
+              {{ $ndt('Translation') }}:
+              {{ $ndt(item.dictName, undefined, { context: 'dict.type' }) }}
+            </v-label>
           </template>
 
-          <template v-slot:item.trans="{ item }">
-            <v-label>{{ $ndt(item.dictName, undefined, { context: 'dict.type' }) }}</v-label>
-          </template>
-
-          <template v-slot:item.status="{ item }">
+          <template #item.status="{ item }">
             <!-- status -->
             <v-switch
               color="success"
@@ -354,20 +400,26 @@ watchEffect(async () => {
               v-model="item.status"
               :true-value="1"
               :false-value="0"
-              @change="methods.changeDictTypeStatus(item.dictId, Number(item.status))"
+              @change="methods.changeDictTypeStatus(item.dictKey, Number(item.status))"
               hide-details
             ></v-switch>
           </template>
 
-          <template v-slot:item.createTime="{ value }">
+          <template #item.dictItems="{ item }">
+            <router-link class="link" :to="`/dict/${item.dictKey}/items`">
+              {{ '< ' + item.dictItems.length + ' >' }}
+            </router-link>
+          </template>
+
+          <template #item.createTime="{ value }">
             <v-label>{{ moment(value).format('YYYY-MM-DD HH:mm:ss') }}</v-label>
           </template>
 
-          <template v-slot:item.actions="{ item }">
+          <template #item.actions="{ item }">
             <v-btn
               class="px-0"
               variant="text"
-              @click="methods.openDictTypeForm(item.dictId)"
+              @click="methods.openDictTypeForm(item.dictKey)"
               min-width="calc(var(--v-btn-height) + 0px)"
             >
               <v-icon>mdi-square-edit-outline</v-icon>
@@ -377,12 +429,22 @@ watchEffect(async () => {
               class="px-0"
               color="red"
               variant="text"
-              @click="methods.deleteType(item)"
+              @click="methods.deleteDictType(item)"
               min-width="calc(var(--v-btn-height) + 0px)"
               :disabled="item.deleted === 9"
             >
               <v-icon>mdi-delete</v-icon>
             </v-btn>
+          </template>
+
+          <template #bottom>
+            <VDataTablePagination
+              v-model:page="queryParamPage"
+              v-model:items-per-page="queryParamItemsPerPage"
+              :current-count="myRefStore.pageResult.count"
+              :total-count="myRefStore.pageResult.totalCount"
+              :total-page="myRefStore.pageResult.totalPage"
+            ></VDataTablePagination>
           </template>
         </v-data-table>
       </v-col>

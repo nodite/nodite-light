@@ -26,7 +26,7 @@ const navs = [
     <!-- ---------------------------------------------- -->
     <!-- Activator Btn -->
     <!-- ---------------------------------------------- -->
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <v-btn class="mx-2" icon v-bind="props">
         <v-badge content="2" color="success" dot bordered>
           <v-avatar size="40">
@@ -40,7 +40,7 @@ const navs = [
       <v-list lines="three" density="compact">
         <!-- Profile Area -->
         <v-list-item to="/profile">
-          <template v-slot:prepend>
+          <template #prepend>
             <v-avatar size="40">
               <v-img src="/admin/src/assets/default_avatar.jpeg"></v-img>
             </v-avatar>
@@ -70,7 +70,7 @@ const navs = [
           link
           density="compact"
         >
-          <template v-slot:prepend>
+          <template #prepend>
             <v-avatar size="30">
               <v-icon>{{ nav.icon }}</v-icon>
             </v-avatar>
@@ -88,7 +88,7 @@ const navs = [
       <v-list variant="flat" elevation="0" :lines="false" density="compact">
         <!-- Help Center -->
         <v-list-item color="primary" to="nav.link" link density="compact">
-          <template v-slot:prepend>
+          <template #prepend>
             <v-avatar size="30">
               <v-icon>mdi-lifebuoy</v-icon>
             </v-avatar>
@@ -99,7 +99,7 @@ const navs = [
 
         <!-- Logout -->
         <v-list-item color="primary" link @click="authStore.logout(true)" density="compact">
-          <template v-slot:prepend>
+          <template #prepend>
             <v-avatar size="30">
               <v-icon>mdi-logout</v-icon>
             </v-avatar>

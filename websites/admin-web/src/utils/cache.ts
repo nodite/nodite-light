@@ -1,6 +1,7 @@
 import { toast } from 'vuetify-sonner';
 
 import * as CacheApi from '@/api/admin/Cache';
+import { useDictStore } from '@/stores/modules/dictStore';
 import { useLocaleStore } from '@/stores/modules/localeStore';
 import { useMenuStore } from '@/stores/modules/menuStore';
 import { useNavStore } from '@/stores/modules/navStore';
@@ -24,6 +25,12 @@ const cacheMethods = {
       await CacheApi.adminCacheInvalidate({ type: 'menu' });
       cacheMethods.invalidateStore['menu/nav']();
       toast.success('Menu cache cleared');
+      window.location.reload();
+    },
+    dict: async () => {
+      await CacheApi.adminCacheInvalidate({ type: 'dict' });
+      cacheMethods.invalidateStore.dict();
+      toast.success('Dict cache cleared');
       window.location.reload();
     },
     'locale/trans': async () => {
@@ -52,6 +59,9 @@ const cacheMethods = {
     'menu/nav': () => {
       useMenuStore().$reset();
       useNavStore().$reset();
+    },
+    dict: () => {
+      useDictStore().$reset();
     },
     locale: () => {
       useLocaleStore().$reset();

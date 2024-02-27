@@ -54,7 +54,7 @@ const setStatus = (status: string) => {
 
 <template>
   <v-menu scroll-y :close-on-content-click="false">
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <v-btn width="60" variant="text" size="small" v-bind="props" :color="currentStatus.color">
         {{ currentStatus.label }}
       </v-btn>

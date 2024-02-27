@@ -27,7 +27,7 @@ watchEffect(async () => {
 </script>
 <template>
   <v-menu>
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <v-btn icon v-bind="props" :title="$ndt('Language Switcher')">
         <v-icon color="primary">mdi-translate</v-icon>
       </v-btn>
@@ -40,7 +40,7 @@ watchEffect(async () => {
         density="compact"
         :active="locale.langcode === current"
       >
-        <template v-slot:prepend>
+        <template #prepend>
           <Icon :icon="locale.icon" classes="mr-2" />
         </template>
         <v-list-item-title> {{ locale.label }}</v-list-item-title>

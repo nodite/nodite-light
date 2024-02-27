@@ -13,7 +13,7 @@ import {
 
 import LocaleLocationModel from '@/components/locale/locale_location.model';
 import LocaleMessageModel from '@/components/locale/locale_message.model';
-import LocaleSourceSeeds from '@/seeds/sys_locale_source.seeds.json';
+import LocaleSourceSeeds from '@/seeds/sys_locale_source.json';
 
 @Table({
   ...SequelizeModel.TableOptions,
@@ -36,7 +36,6 @@ export default class LocaleSourceModel extends SequelizeModel<LocaleSourceModel>
   @Column({ field: 'src_id', type: DataType.UUID })
   srcId: string;
 
-  @Default('')
   @AllowNull(false)
   @Comment('The original string.')
   @Column({

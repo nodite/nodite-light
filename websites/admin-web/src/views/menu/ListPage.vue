@@ -67,7 +67,6 @@ onMounted(async () => {
       headers: [
         { title: '', align: 'start', key: 'data-table-expand' },
         { title: $ndt('Menu Name'), value: 'menuName' },
-        { title: $ndt('Translation'), value: 'trans' },
         { title: $ndt('Order'), value: 'orderNum' },
         { title: $ndt('Path'), value: 'path' },
         { title: $ndt('Type'), value: 'iType' },
@@ -79,7 +78,7 @@ onMounted(async () => {
     }"
     :offset-columns="['data-table-expand', 'menuName']"
   >
-    <template v-slot:top>
+    <template #top>
       <v-toolbar density="compact" color="background">
         <MenuForm
           v-model:dialog="menuFormData.dialog"
@@ -90,37 +89,37 @@ onMounted(async () => {
       </v-toolbar>
     </template>
 
-    <template v-slot:item.menuName="{ item }">
+    <template #item.menuName="{ item }">
       <v-label>
         {{ item.menuName }}
         <v-icon v-if="!!item.icon" size="small" class="ml-2">{{ item.icon }}</v-icon>
       </v-label>
+      <br />
+      <v-label class="text-caption text-disabled">
+        {{ $ndt('Translation') }}: {{ $ndt(item.menuName) }}
+      </v-label>
     </template>
 
-    <template v-slot:item.trans="{ item }">
-      <v-label>{{ $ndt(item.menuName) }}</v-label>
-    </template>
-
-    <template v-slot:item.iType="{ value }">
+    <template #item.iType="{ value }">
       {{ $ndt(value) }}
     </template>
 
-    <template v-slot:item.path="{ value }">
-      <router-link v-if="!!value" class="text" :to="value" target="_blank">{{ value }}</router-link>
+    <template #item.path="{ value }">
+      <router-link v-if="!!value" class="link" :to="value" target="_blank">{{ value }}</router-link>
       <span v-else>-</span>
     </template>
 
-    <template v-slot:item.hidden="{ value }">
+    <template #item.hidden="{ value }">
       <v-chip size="small" :color="value ? 'red' : 'green'">
         {{ value ? $ndt('Hidden') : $ndt('Show') }}
       </v-chip>
     </template>
 
-    <template v-slot:item.perms="{ value }">
+    <template #item.perms="{ value }">
       {{ value || '-' }}
     </template>
 
-    <template v-slot:item.actions="{ item }">
+    <template #item.actions="{ item }">
       <v-btn
         class="px-0"
         variant="text"
@@ -142,16 +141,11 @@ onMounted(async () => {
       </v-btn>
     </template>
 
-    <template v-slot:bottom></template>
+    <template #bottom></template>
   </VTreeDataTable>
 </template>
 
 <style scoped lang="scss">
-.text {
-  cursor: pointer;
-  display: inline-block;
-  border-bottom: 1px dashed;
-}
 .v-data-table :deep(.v-data-table__td) {
   white-space: nowrap;
 }

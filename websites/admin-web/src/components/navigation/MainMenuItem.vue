@@ -76,9 +76,9 @@ const validator = {
       <!-- no-rail -->
       <v-list-group v-if="!customizeTheme.mainSidebarRail">
         <!-- activator -->
-        <template v-slot:activator="{ props }">
+        <template #activator="{ props }">
           <v-list-item v-bind="props" :title="$ndt(menuItem.meta?.title)" density="compact">
-            <template v-slot:prepend>
+            <template #prepend>
               <v-icon size="small">{{ menuItem.meta?.icon || 'mdi-circle-medium' }}</v-icon>
             </template>
           </v-list-item>
@@ -98,9 +98,9 @@ const validator = {
       <!-- rail -->
       <v-menu v-if="customizeTheme.mainSidebarRail" location="end" open-on-hover open-on-click>
         <!-- activator -->
-        <template v-slot:activator="{ props }">
+        <template #activator="{ props }">
           <v-list-item v-bind="props" :title="$ndt(menuItem.meta?.title)" density="compact">
-            <template v-slot:prepend>
+            <template #prepend>
               <v-icon size="small">{{ menuItem.meta?.icon || 'mdi-circle-medium' }}</v-icon>
             </template>
           </v-list-item>
@@ -132,7 +132,7 @@ const validator = {
         :active-class="`active-nav-${customizeTheme.primaryColor.colorName}`"
         density="compact"
       >
-        <template v-slot:prepend>
+        <template #prepend>
           <v-icon size="small">{{ menuItem.meta?.icon || 'mdi-circle-medium' }}</v-icon>
         </template>
         <v-list-item-title v-bind="props">

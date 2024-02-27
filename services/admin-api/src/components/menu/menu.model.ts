@@ -15,7 +15,7 @@ import {
 
 import RoleModel from '@/components/role/role.model';
 import RoleMenuModel from '@/components/role/role_menu.model';
-import MenuSeeds from '@/seeds/sys_menu.seeds.json';
+import MenuSeeds from '@/seeds/sys_menu.json';
 import lodash from '@/utils/lodash';
 
 const TABLE_NAME = 'sys_menu';
@@ -76,22 +76,22 @@ export default class MenuModel extends SequelizeModel<MenuModel> {
   @Default('')
   @AllowNull(false)
   @Comment('menu type: overline, directory, menu, action')
-  @Column({ field: 'i_type', type: DataType.STRING(32) })
+  @Column({ field: 'i_type', type: DataType.STRING(50) })
   iType: string;
 
   @Default('')
   @AllowNull(false)
-  @Column(DataType.STRING(200))
+  @Column(DataType.STRING(100))
   path: string;
 
   @Default('')
   @AllowNull(false)
-  @Column(DataType.STRING(200))
+  @Column(DataType.STRING(100))
   redirect: string;
 
   @Default('')
   @AllowNull(false)
-  @Column(DataType.STRING(255))
+  @Column(DataType.STRING(100))
   component: string;
 
   @Default(0)
@@ -102,7 +102,7 @@ export default class MenuModel extends SequelizeModel<MenuModel> {
 
   @Default('')
   @AllowNull(false)
-  @Column(DataType.STRING(32))
+  @Column(DataType.STRING(50))
   layout: string;
 
   @Default('')

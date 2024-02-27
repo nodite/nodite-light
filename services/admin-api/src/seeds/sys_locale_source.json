@@ -85,6 +85,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "0b6a49f3-a98c-4f68-8536-a8af68b04996",
+    "source": "DictType Overview",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "0bb4ba4e-2c54-46ff-aff4-78596c2a4db2",
     "source": "Root",
     "context": ""
@@ -124,6 +130,12 @@
     "srcId": "1087d82e-c287-4bbe-b3b4-001fc5aa60c2",
     "source": "Create Locale",
     "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "113e8b81-07d8-409b-8e06-034a4bc5b182",
+    "source": "Item Key",
+    "context": "dict.item"
   },
   {
     "createBy": "admin",
@@ -169,6 +181,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "1d2ed639-b277-4e64-bf06-4e55122e1f8c",
+    "source": "Langcode",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "1dbe48a9-8408-4511-8742-1f413e38f93c",
     "source": "Menu Type",
     "context": ""
@@ -178,6 +196,12 @@
     "srcId": "1eb9d922-d633-4e1d-ab5b-fd77ad376a04",
     "source": "Dict",
     "context": "dict.group"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1ebc4155-d004-43ea-94e3-6997ffc361ed",
+    "source": "Korean (한국어)",
+    "context": "dict.type.langcode"
   },
   {
     "createBy": "admin",
@@ -205,9 +229,39 @@
   },
   {
     "createBy": "admin",
+    "srcId": "290ccdce-4ec6-408a-885d-14a99ff68539",
+    "source": "Serbian (srpski jezik)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "290ef4d1-86b2-41e9-9144-ca58baed0fe0",
+    "source": "Item Key must be snake_case.",
+    "context": "dict.item"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "29b8d85b-63ae-40d0-abaf-a34957a5e23c",
+    "source": "Item Value",
+    "context": "dict.item"
+  },
+  {
+    "createBy": "admin",
     "srcId": "2a81ead2-1bd2-4163-accb-75cea6a8e39b",
     "source": "Menu Create",
     "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "2c0018f7-ecc0-489b-825c-c6e3e17381cf",
+    "source": "Finnish (suomi)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "2c0950d9-e0c8-425b-a4fc-0772739a9167",
+    "source": "Spanish (Español)",
+    "context": "dict.type.langcode"
   },
   {
     "createBy": "admin",
@@ -219,6 +273,18 @@
     "createBy": "admin",
     "srcId": "2dac52a8-826d-4fa4-9e3b-b6d80eadd008",
     "source": "Don't have an account?",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "2fe5d63f-925a-401c-a142-a076e16fec54",
+    "source": "Dict Items",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "30041880-6c7a-441d-9b1d-d0736ee96cc5",
+    "source": "New Dict Item",
     "context": ""
   },
   {
@@ -237,6 +303,12 @@
     "createBy": "admin",
     "srcId": "30af8375-9b12-4698-95c4-783e6f9a4fa1",
     "source": "Set as default",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3152f7ae-50fd-4fa3-96f0-b81b500ff875",
+    "source": "\"dictKey\" is not allowed",
     "context": ""
   },
   {
@@ -307,8 +379,26 @@
   },
   {
     "createBy": "admin",
+    "srcId": "3e062725-1fce-42ed-9e46-ab48b67d3f25",
+    "source": "Greek (Ελληνικά)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
     "srcId": "3f524cbe-c027-4b0b-971d-ea333bcb62ae",
     "source": "(empty)",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3fbc5656-52a5-441c-9a21-f11920e79cf0",
+    "source": "Dict Item Create",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3fce88a8-cbb4-4cac-9bfe-9e6fa3f0dc65",
+    "source": "Are you sure to delete this Dict Item ({0})?",
     "context": ""
   },
   {
@@ -433,6 +523,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "50f36be8-7379-404d-904c-b43e725dd610",
+    "source": "Vietnamese (Tiếng Việt)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
     "srcId": "512237b0-3f64-4acb-baf7-f6fe532f4eef",
     "source": "Edit Menu - {0}",
     "context": ""
@@ -493,15 +589,21 @@
   },
   {
     "createBy": "admin",
-    "srcId": "5b419471-e200-4f2f-bbf3-374b766b7b8d",
-    "source": "Langcode",
-    "context": ""
+    "srcId": "5af493a4-dd61-4af9-98db-c4876eaad136",
+    "source": "Item Key is required.",
+    "context": "dict.item"
   },
   {
     "createBy": "admin",
     "srcId": "5d7e9d06-8a7e-4f7b-8390-d9f33dbd7915",
     "source": "By signing up, you agree to the",
     "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5f5ab0a4-2e32-4fab-80a9-1e851e173f64",
+    "source": "Persian (فارسی)",
+    "context": "dict.type.langcode"
   },
   {
     "createBy": "admin",
@@ -517,6 +619,18 @@
   },
   {
     "createBy": "admin",
+    "srcId": "60dbf804-a5c2-4b41-ac91-cd64c1ce8ef7",
+    "source": "English",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "612e32e4-46c7-4ccf-893a-a93c792044f3",
+    "source": "Ukrainian (Українська)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
     "srcId": "61b72e4b-f00c-4114-b908-95eeb7f85342",
     "source": "Dict Style is required.",
     "context": ""
@@ -529,6 +643,24 @@
   },
   {
     "createBy": "admin",
+    "srcId": "63459e6c-d081-4491-8c48-3d79e0125937",
+    "source": "Japanese (日本語)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "63b858db-c385-4e94-a74b-d4b79e93ad73",
+    "source": "Swedish (svenska)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "642a095c-c9ad-45b0-b190-9be1e945ae09",
+    "source": "Hebrew (עברית)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
     "srcId": "647c3b7c-024e-4cd8-aefa-fcbddc568e9f",
     "source": "Role Delete",
     "context": ""
@@ -538,6 +670,12 @@
     "srcId": "649aede4-e396-452a-9a4f-665603ebd9d4",
     "source": "Source Create",
     "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6690091d-8384-4708-8ee2-842f9c078f2c",
+    "source": "Turkish (Türkçe)",
+    "context": "dict.type.langcode"
   },
   {
     "createBy": "admin",
@@ -583,6 +721,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "6c0e15bb-4235-4cde-8c12-fdb8ff43fb65",
+    "source": "Chinese (正體中文)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
     "srcId": "6d272bc7-b774-4892-838d-9bff3fd109eb",
     "source": "Assigned",
     "context": ""
@@ -592,6 +736,12 @@
     "srcId": "6def3cfa-3d38-4cde-9bf1-9c98fe840b51",
     "source": "Email",
     "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6e157d54-8f3c-495d-b15b-ee39a6b59259",
+    "source": "Croatian (hrvatski jezik)",
+    "context": "dict.type.langcode"
   },
   {
     "createBy": "admin",
@@ -615,6 +765,18 @@
     "createBy": "admin",
     "srcId": "6fa3d516-efe4-4642-8809-f3febf079d67",
     "source": "Auth",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "70c4f28f-af8c-4753-89ee-cb159d25663e",
+    "source": "Latvian (latviešu valoda)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "72efb45c-0386-4797-a14c-1027607c8556",
+    "source": "Finnish (suomi)",
     "context": ""
   },
   {
@@ -655,9 +817,21 @@
   },
   {
     "createBy": "admin",
+    "srcId": "7a33f716-f1e8-4486-a4cf-4c73cd58d3a5",
+    "source": "Disabled",
+    "context": "dict.type.status"
+  },
+  {
+    "createBy": "admin",
     "srcId": "7a502d8a-9990-4864-ac0f-007920390c85",
-    "source": "Common",
+    "source": "System",
     "context": "dict.group"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7ab1f585-73aa-4a48-abe8-e43584d6e174",
+    "source": "Romanian (Română)",
+    "context": "dict.type.langcode"
   },
   {
     "createBy": "admin",
@@ -691,6 +865,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "80e1a275-e477-49b7-8c88-944c9ef65966",
+    "source": "Dict Item Delete",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "81fcb7a5-e5c1-4c96-a888-6563c36d57b5",
     "source": "Dict Desc",
     "context": ""
@@ -700,6 +880,12 @@
     "srcId": "8214553b-734d-4055-ae53-bcb3a211707f",
     "source": "Parent Group",
     "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "83e70dc0-4680-4b5c-983a-cfe4d5df8439",
+    "source": "Italian (Italiano)",
+    "context": "dict.type.langcode"
   },
   {
     "createBy": "admin",
@@ -721,8 +907,26 @@
   },
   {
     "createBy": "admin",
+    "srcId": "860f8525-7c1c-4474-ac20-3dbf8c599bf9",
+    "source": "Portuguese (Português)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "868506d4-2495-4c6b-ba57-89749dd8500d",
+    "source": "Bulgarian (български)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
     "srcId": "86da0fd0-8309-4291-bf98-4ad1c8c90906",
     "source": "Role Status",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "878ad1b9-3c83-4903-a7e2-432672e37739",
+    "source": "Dict Item Edit",
     "context": ""
   },
   {
@@ -739,9 +943,21 @@
   },
   {
     "createBy": "admin",
+    "srcId": "89c5bd5d-1814-4979-9a56-6a7a7634c2e6",
+    "source": "Russian (Русский)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
     "srcId": "89d768cc-6c79-44ba-93ba-8b3dd63ac6eb",
     "source": "Edit User - {0}",
     "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "8b7c3f52-de88-4910-9941-949f158bd95d",
+    "source": "Enabled",
+    "context": "dict.type.status"
   },
   {
     "createBy": "admin",
@@ -775,6 +991,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "917b729d-b896-491c-809a-d68291e2180d",
+    "source": "Edit Dict Item - {0}",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "91fc6480-1626-449b-93df-7ff6c607bf77",
     "source": "Perms Update",
     "context": ""
@@ -799,9 +1021,21 @@
   },
   {
     "createBy": "admin",
+    "srcId": "9640f23c-1f88-4a66-af0e-545798b04fa6",
+    "source": "German (Deutsch)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
     "srcId": "9aa06c03-de7f-4928-bc4a-f13f7ad9bef2",
     "source": "Clear all cache",
     "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "9b3abf29-3dc3-4a7f-9773-562d3cb1c15a",
+    "source": "Estonian (eesti)",
+    "context": "dict.type.langcode"
   },
   {
     "createBy": "admin",
@@ -829,9 +1063,21 @@
   },
   {
     "createBy": "admin",
+    "srcId": "a2bbae03-193a-403c-96e8-6029992ff06a",
+    "source": "Central Kurdish (کوردی)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
     "srcId": "a338f2f5-b1a4-4923-aca4-2048f7bbc120",
     "source": "Password",
     "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "a61e7e61-f279-4c12-9533-33d421c1c8ff",
+    "source": "Arabic (العربية)",
+    "context": "dict.type.langcode"
   },
   {
     "createBy": "admin",
@@ -865,15 +1111,39 @@
   },
   {
     "createBy": "admin",
+    "srcId": "acd6492b-2447-4745-b415-8833909f6d94",
+    "source": "Polish (język polski)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
     "srcId": "ad766c76-1319-4a12-8829-ca3d8a2a708d",
     "source": "Langcode is required.",
     "context": ""
   },
   {
     "createBy": "admin",
+    "srcId": "ae1a2746-182f-4e2a-a15c-5277efad3c1c",
+    "source": "Dutch (Nederlands)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
     "srcId": "aec2b1f1-8ae7-4cde-891d-54e6906c4186",
     "source": "Translation",
     "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "af7a28bf-2be0-4d9f-a1fd-c876f92147e6",
+    "source": "Danish (Dansk)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "afb64a58-cc86-4379-a2b1-fae8f4be8068",
+    "source": "Khmer (ខ្មែរ)",
+    "context": "dict.type.langcode"
   },
   {
     "createBy": "admin",
@@ -895,6 +1165,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "b4355857-5b8e-4e8b-a02c-672a02118cc9",
+    "source": "French (Français)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
     "srcId": "b5686052-edb2-440b-bf18-eaeddfa30c0f",
     "source": "Message BatchUpsert",
     "context": ""
@@ -904,6 +1180,12 @@
     "srcId": "b682b37e-cad6-4580-b43f-554645d42adb",
     "source": "Menu Query",
     "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b8ae9585-c379-4752-af26-039102990e52",
+    "source": "Chinese (中文)",
+    "context": "dict.type.langcode"
   },
   {
     "createBy": "admin",
@@ -937,6 +1219,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "bc449ace-1f82-481e-8a72-70daf8a33129",
+    "source": "Czech (čeština)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
     "srcId": "be6849e0-756e-431a-929b-261344bba535",
     "source": "New Dict Group",
     "context": ""
@@ -951,6 +1239,12 @@
     "createBy": "admin",
     "srcId": "bfa7378d-ed05-4bce-a1b7-91059c720a09",
     "source": "Hidden",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c00b20b9-a0d5-4b92-96c1-6b735c22be34",
+    "source": "Create Dict Item",
     "context": ""
   },
   {
@@ -973,6 +1267,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "c2bf416b-65d5-4d98-9e3a-4b28a2e1815b",
+    "source": "Slovene (slovenski jezik)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
     "srcId": "c2dfa960-9aee-41bc-afc0-610b1561640e",
     "source": "Format: [dom]:[obj]:[act], e.g. admin:menu:create",
     "context": ""
@@ -985,8 +1285,20 @@
   },
   {
     "createBy": "admin",
+    "srcId": "c38a4736-e015-4c77-bfb3-c70e12b2320c",
+    "source": "Indonesian (Indonesian)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
     "srcId": "c4a807e0-7071-4e19-9fd6-f5a5ea34aa87",
     "source": "Create one here",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c578ba65-6524-469c-b307-4e2eb2301b44",
+    "source": "Save successfully.",
     "context": ""
   },
   {
@@ -1021,15 +1333,39 @@
   },
   {
     "createBy": "admin",
+    "srcId": "c8924178-3819-452c-9187-e4780a50663f",
+    "source": "Hungarian (magyar)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c8a29518-2bf5-4bb3-bcaa-03ca455370e1",
+    "source": "Norwegian (Norsk)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
     "srcId": "c9424898-7a95-4b0d-9d9e-4d1fbdbe2148",
     "source": "Are you sure to delete this Dict Group ({0})?",
     "context": ""
   },
   {
     "createBy": "admin",
+    "srcId": "c9770304-3c60-45ed-a93b-e20b4726649d",
+    "source": "Item Desc",
+    "context": "dict.item"
+  },
+  {
+    "createBy": "admin",
     "srcId": "c98e8b37-947b-4bbf-bd00-f8d6f585ab6f",
     "source": "Locales",
     "context": "locale.tab"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ca857c39-9b84-49b7-a84c-460bf5a5fb43",
+    "source": "Internal Server Error",
+    "context": ""
   },
   {
     "createBy": "admin",
@@ -1053,6 +1389,18 @@
     "createBy": "admin",
     "srcId": "d0426919-d4da-430a-bad9-7fbf52d01a01",
     "source": "Status",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d066b659-691f-4b4a-a77c-36993209f8e8",
+    "source": "Serbian (српски језик)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d09c23db-4dd7-42fb-a8dd-aee4c33abddd",
+    "source": "Dict Item Mgmt",
     "context": ""
   },
   {
@@ -1141,6 +1489,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "dddf68f7-e623-46ed-9211-f4ce70bd734c",
+    "source": "Update Time",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "decfff64-6463-427c-bcf9-c81c09aac322",
     "source": "Dict Style",
     "context": ""
@@ -1156,6 +1510,12 @@
     "srcId": "dfa9d84d-e445-4087-bbe5-53cc4c52bd89",
     "source": "User Edit",
     "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "dff9f71d-016d-4a3d-9fdd-b0aa9e662240",
+    "source": "Thai (ไทย)",
+    "context": "dict.type.langcode"
   },
   {
     "createBy": "admin",
@@ -1201,9 +1561,21 @@
   },
   {
     "createBy": "admin",
+    "srcId": "e3df39ff-6de3-4429-a945-bdd0d4374ad4",
+    "source": "Afrikaans (Afrikaans)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
     "srcId": "e4e0e597-b4f2-45c6-9ffc-5ba1018adb7e",
     "source": "User Un-Assign",
     "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e5398502-48db-46bc-a0f6-ed3e77749f03",
+    "source": "Lithuanian (lietuvių kalba)",
+    "context": "dict.type.langcode"
   },
   {
     "createBy": "admin",
@@ -1222,6 +1594,12 @@
     "srcId": "e772be74-0484-4c24-bc50-76d7cee076bd",
     "source": "Group",
     "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e97a2354-e250-4580-89f1-c6cd7ca29337",
+    "source": "Azerbaijani (Azərbaycan)",
+    "context": "dict.type.langcode"
   },
   {
     "createBy": "admin",
@@ -1255,6 +1633,12 @@
   },
   {
     "createBy": "admin",
+    "srcId": "ec049f66-36eb-4bc1-943a-0a7dcdea4db8",
+    "source": "Slovak (slovenčina)",
+    "context": "dict.type.langcode"
+  },
+  {
+    "createBy": "admin",
     "srcId": "ec0f5022-37ef-402f-b1c1-120ee76d195c",
     "source": "Create Menu",
     "context": ""
@@ -1279,9 +1663,21 @@
   },
   {
     "createBy": "admin",
+    "srcId": "f36072ea-a1d5-4644-959f-aee192f3ed03",
+    "source": "Dict Type not found",
+    "context": ""
+  },
+  {
+    "createBy": "admin",
     "srcId": "f368094b-07b1-4ba0-899b-2ed031b2e7dc",
     "source": "Confirm Password is required.",
     "context": ""
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f38ff29c-ae9a-415d-8207-b64d0d2c813f",
+    "source": "Catalan (català)",
+    "context": "dict.type.langcode"
   },
   {
     "createBy": "admin",

@@ -3,7 +3,7 @@ import { AllowNull, Column, DataType, ForeignKey, PrimaryKey, Table } from 'sequ
 
 import MenuModel, { IMenu } from '@/components/menu/menu.model';
 import RoleModel, { IRole } from '@/components/role/role.model';
-import RoleMenuSeeds from '@/seeds/sys_role_menu.seeds.json';
+import RoleMenuSeeds from '@/seeds/sys_role_menu.json';
 
 @Table({
   ...SequelizeModel.TableOptions,

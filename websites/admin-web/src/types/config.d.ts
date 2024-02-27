@@ -5,6 +5,14 @@ import { RouteRecordRaw } from 'vue-router';
  */
 declare namespace Common {
   type ArrayElem<ArrType> = ArrType extends readonly (infer ElementType)[] ? ElementType : never;
+  type ValueOf<T> = T[keyof T];
+  type InstanceTypeValueOf<T> = InstanceType<ValueOf<T>>;
+  type VuePropType<T> = T extends { $props: infer P } ? P : never;
+  type PropsValueType<T, K extends keyof T> = T[K] extends {
+    $props: infer P;
+  }
+    ? P
+    : never;
 }
 
 /**

@@ -46,11 +46,9 @@ export default class RoleService {
    */
   public async selectRoleById(id: number): Promise<IRole> {
     const role = await RoleModel.findOne({ where: { roleId: id } });
-
-    if (lodash.isEmpty(role)) {
-      throw new AppError(httpStatus.NOT_FOUND, 'Role not found');
+    if (!role) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Role not found');
     }
-
     return role.toJSON();
   }
 
@@ -65,13 +63,16 @@ export default class RoleService {
 
   /**
    * Update role.
-   * @param role
+   * @param body
    * @returns
    */
-  public async update(id: number, role: IRoleUpdate): Promise<IRole> {
-    const storedRole = await RoleModel.findOne({ where: { roleId: id } });
-    const updatedRole = await storedRole.update(role);
-    return updatedRole.toJSON();
+  public async update(id: number, body: IRoleUpdate): Promise<IRole> {
+    const preRole = await RoleModel.findOne({ where: { roleId: id } });
+    if (!preRole) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Role not found');
+    }
+    const role = await preRole.update(body);
+    return role.toJSON();
   }
 
   /**
@@ -88,17 +89,17 @@ export default class RoleService {
       throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Role is using, please unassign first!');
     }
 
-    const storedRole = await RoleModel.findOne({ where: { roleId: id } });
+    const role = await RoleModel.findOne({ where: { roleId: id } });
 
-    if (lodash.isEmpty(storedRole)) {
+    if (!role) {
       throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Role was not found!');
     }
 
-    if (storedRole.getDataValue('deleted') === 9) {
+    if (role.getDataValue('deleted') === 9) {
       throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Role is not allow delete!');
     }
 
-    return storedRole.destroy();
+    return role.destroy();
   }
 
   /**
@@ -123,7 +124,7 @@ export default class RoleService {
       ],
     });
 
-    return role.menus || [];
+    return role?.menus || [];
   }
 
   /**

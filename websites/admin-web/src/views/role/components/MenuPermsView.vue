@@ -151,7 +151,7 @@ const methods = {
 
       await roleStore.updateMenuPerms(roleId.value, ids);
 
-      toast.success(i18n.ndt('Save successfully.'));
+      toast.success(i18n.ndt('Saved successfully.'));
     } finally {
       myRefStore.value.isSaving = false;
     }
