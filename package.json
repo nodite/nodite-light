@@ -37,8 +37,8 @@
     "test": "lerna run test"
   },
   "devDependencies": {
-    "@commitlint/cli": "18.6.1",
-    "@commitlint/config-conventional": "18.6.2",
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
     "@rushstack/eslint-patch": "^1.6.0",
     "@testing-library/jest-dom": "^6.1.5",
     "@types/jest": "^29.5.10",
