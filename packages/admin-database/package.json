@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@nodite-light/admin-core": "*",
-    "@type-cacheable/core": "^13.0.0",
+    "@type-cacheable/core": "^14.0.1",
     "@type-cacheable/redis-adapter": "^17.0.1",
     "express-http-context": "^1.2.4",
     "glob": "^10.3.10",
