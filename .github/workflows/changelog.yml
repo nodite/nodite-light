@@ -1,0 +1,43 @@
+name: Changelog
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  changelog:
+    if: "!startsWith(github.event.head_commit.message, 'docs: changelog')"
+    runs-on: ubuntu-latest
+    name: "Create changelog with commitizen"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Configure Git user
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Install commitizen
+        run: pip install --user -U Commitizen
+
+      - name: Gen changelog
+        run: cz changelog --incremental
+
+      - name: Commit changelog
+        run: |
+          if [[ -n $(git status -s) ]]; then
+            git add CHANGELOG.md
+            git commit -m "docs: changelog"
+            git push
+          else
+            echo "No changes to commit"
+          fi

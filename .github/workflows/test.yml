@@ -2,7 +2,7 @@ name: build
 on: [push, pull_request]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -35,6 +35,3 @@ jobs:
 
       - name: Test packages
         run: npm test
-
-      - name: Codecov
-        uses: codecov/codecov-action@v4
