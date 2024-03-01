@@ -1,4 +1,4 @@
-name: Changelog
+name: changelog
 
 on:
   push:
@@ -9,7 +9,6 @@ jobs:
   changelog:
     if: "!startsWith(github.event.head_commit.message, 'docs: changelog')"
     runs-on: ubuntu-latest
-    name: "Create changelog with commitizen"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
