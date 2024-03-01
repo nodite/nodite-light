@@ -15,7 +15,7 @@ module.exports = {
     project: ['tsconfig.json'],
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'jest', 'security'],
+  plugins: ['jest', 'security'],
   rules: {
     // TODO: resolve the following offs
     'import/extensions': 'off',
