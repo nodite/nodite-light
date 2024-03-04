@@ -1,6 +1,5 @@
 {
   "name": "@nodite-light/eslint-config-base",
-  "version": "0.0.1",
   "private": true,
   "description": "@nodite-light/eslint-config-base",
   "author": "Oscaner Miao <oscaner1997@gmail.com>",
