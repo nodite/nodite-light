@@ -2,6 +2,7 @@
 
 ### Feat
 
+- dict item
 - dict type
 - dict group
 - treeview select
