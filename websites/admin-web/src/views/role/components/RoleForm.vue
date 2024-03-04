@@ -2,6 +2,7 @@
 import { toast } from 'vuetify-sonner';
 
 import { IRole } from '@/api/admin/data-contracts';
+import DictElement from '@/components/form/DictElement.vue';
 import i18n from '@/plugins/i18n';
 import { useRoleStore } from '@/stores/modules/roleStore';
 import lodash from '@/utils/lodash';
@@ -119,7 +120,7 @@ watch(
     :persistent="myRefStore.isSaving"
     max-width="550"
   >
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
         {{ $ndt('Create Role') }}
       </v-btn>
@@ -187,21 +188,20 @@ watch(
             <v-row dense>
               <!-- status -->
               <v-col>
-                <v-radio-group
+                <DictElement
+                  component="VRadioGroup"
+                  dict-key="status"
                   v-model="formData.status"
-                  validate-on="blur"
-                  :error="myRefStore.error"
-                  :disabled="formData.roleId === 1"
-                  inline
-                  hide-details
-                >
-                  <template v-slot:prepend>
-                    <v-label>{{ $ndt('Status') }}:</v-label>
-                  </template>
-
-                  <v-radio :label="$ndt('Enabled')" :value="1"></v-radio>
-                  <v-radio :label="$ndt('Disabled')" :value="0"></v-radio>
-                </v-radio-group>
+                  :component-props="{
+                    validateOn: 'blur',
+                    error: myRefStore.error,
+                    disabled: formData.roleId === 1,
+                    inline: true,
+                    hideDetails: true,
+                  }"
+                  :show-label="false"
+                  :show-prepend-label="true"
+                ></DictElement>
               </v-col>
             </v-row>
           </v-container>

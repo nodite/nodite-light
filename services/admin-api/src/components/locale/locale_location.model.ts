@@ -13,7 +13,7 @@ import {
 } from 'sequelize-typescript';
 
 import LocaleSourceModel from '@/components/locale/locale_source.model';
-import LocaleLocationSeeds from '@/seeds/sys_locale_location.seeds.json';
+import LocaleLocationSeeds from '@/seeds/sys_locale_location.json';
 
 @Table({
   ...SequelizeModel.TableOptions,

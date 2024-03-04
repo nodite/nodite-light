@@ -5,9 +5,8 @@ export const CreateGroupValidation: ValidationSchema = {
   body: Joi.object()
     .keys({
       groupId: Joi.forbidden(),
-      groupName: Joi.string().required().max(50),
-      groupKey: Joi.string().required().max(50),
-      orderNum: Joi.number().optional().max(9999),
+      groupKey: Joi.string().max(50).required(),
+      groupName: Joi.string().max(50).required(),
     })
     .unknown(true),
 };
@@ -16,9 +15,8 @@ export const UpdateGroupValidation: ValidationSchema = {
   body: Joi.object()
     .keys({
       groupId: Joi.forbidden(),
-      groupName: Joi.string().optional().max(50),
       groupKey: Joi.forbidden(),
-      orderNum: Joi.number().optional().max(9999),
+      groupName: Joi.string().max(50).optional(),
     })
     .unknown(true),
 };
@@ -27,10 +25,9 @@ export const CreateTypeValidation: ValidationSchema = {
   body: Joi.object()
     .keys({
       dictId: Joi.forbidden(),
-      dictName: Joi.string().optional().max(50),
-      dictType: Joi.string().optional().max(32),
-      dictKey: Joi.string().required().max(50),
-      orderNum: Joi.number().optional().max(9999),
+      dictKey: Joi.string().max(50).required(),
+      dictName: Joi.string().max(50).optional(),
+      dictStyle: Joi.string().max(50).optional(),
     })
     .unknown(true),
 };
@@ -39,10 +36,31 @@ export const UpdateTypeValidation: ValidationSchema = {
   body: Joi.object()
     .keys({
       dictId: Joi.forbidden(),
-      dictName: Joi.string().optional().max(50),
-      dictType: Joi.string().optional().max(32),
       dictKey: Joi.forbidden(),
-      orderNum: Joi.number().optional().max(9999),
+      dictName: Joi.string().max(50).optional(),
+      dictStyle: Joi.string().max(50).optional(),
+    })
+    .unknown(true),
+};
+
+export const CreateItemValidation: ValidationSchema = {
+  body: Joi.object()
+    .keys({
+      itemId: Joi.forbidden(),
+      dictKey: Joi.string().max(50).required(),
+      itemKey: Joi.string().max(50).required(),
+      itemValue: Joi.string().max(100).optional().allow(''),
+    })
+    .unknown(true),
+};
+
+export const UpdateItemValidation: ValidationSchema = {
+  body: Joi.object()
+    .keys({
+      itemId: Joi.forbidden(),
+      dictKey: Joi.forbidden(),
+      itemKey: Joi.forbidden(),
+      itemValue: Joi.string().max(100).optional().allow(''),
     })
     .unknown(true),
 };

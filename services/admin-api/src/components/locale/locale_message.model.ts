@@ -12,7 +12,7 @@ import {
 
 import LocaleModel from '@/components/locale/locale.model';
 import LocaleSourceModel from '@/components/locale/locale_source.model';
-import LocaleMessageSeeds from '@/seeds/sys_locale_message.seeds.json';
+import LocaleMessageSeeds from '@/seeds/sys_locale_message.json';
 
 @Table({
   ...SequelizeModel.TableOptions,
@@ -42,7 +42,6 @@ export default class LocaleMessageModel extends SequelizeModel<LocaleMessageMode
   @Column(DataType.STRING(20))
   langcode: string;
 
-  @Default('')
   @AllowNull(false)
   @Comment('Translation string value in this language.')
   @Column({

@@ -11,8 +11,8 @@ import {
   Unique,
 } from 'sequelize-typescript';
 
-import DictTypeModel from '@/components/dict/dict_type.model';
-import DictGroupSeeds from '@/seeds/sys_dict_group.seeds.json';
+import DictTypeModel, { IDictType } from '@/components/dict/dict_type.model';
+import DictGroupSeeds from '@/seeds/sys_dict_group.json';
 
 @Table({
   ...SequelizeModel.TableOptions,
@@ -70,3 +70,7 @@ export type IDictGroup = Pick<
   | 'updateBy'
   | 'updateTime'
 >;
+
+export interface IDictGroupWithTypes extends IDictGroup {
+  dictTypes: IDictType[];
+}

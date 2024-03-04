@@ -4,7 +4,7 @@ import CacheUtil from '@/utils/cache';
 
 <template>
   <v-menu>
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <v-btn icon v-bind="props" :title="$ndt('Clear Cache')">
         <v-icon color="primary">mdi-broom</v-icon>
       </v-btn>
@@ -17,7 +17,7 @@ import CacheUtil from '@/utils/cache';
         @click="fn"
         density="compact"
       >
-        <template v-slot:prepend>
+        <template #prepend>
           <v-icon class="mr-1">mdi-broom</v-icon>
         </template>
         <v-list-item-title>{{ $ndt(`Clear ${key} cache`) }}</v-list-item-title>

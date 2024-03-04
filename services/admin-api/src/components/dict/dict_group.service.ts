@@ -1,4 +1,5 @@
-import { type DataTree, DataTreeUtil } from '@nodite-light/admin-core';
+import { AppError, type DataTree, DataTreeUtil } from '@nodite-light/admin-core';
+import httpStatus from 'http-status';
 
 import { IDictGroupCreate, IDictGroupUpdate } from '@/components/dict/dict.interface';
 import DictGroupModel, { IDictGroup } from '@/components/dict/dict_group.model';
@@ -42,6 +43,9 @@ export default class DictGroupService {
    */
   public async selectDictGroupById(id: string): Promise<IDictGroup> {
     const group = await DictGroupModel.findOne({ where: { groupId: id } });
+    if (!group) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Dict Group not found');
+    }
     return group.toJSON();
   }
 
@@ -57,13 +61,16 @@ export default class DictGroupService {
   /**
    * Update dict group.
    * @param id
-   * @param group
+   * @param body
    * @returns
    */
-  public async update(id: string, group: IDictGroupUpdate): Promise<IDictGroup> {
-    const storedGroup = await DictGroupModel.findOne({ where: { groupId: id } });
-    const updatedGroup = await storedGroup.update(group);
-    return updatedGroup.toJSON();
+  public async update(id: string, body: IDictGroupUpdate): Promise<IDictGroup> {
+    const preGroup = await DictGroupModel.findOne({ where: { groupId: id } });
+    if (!preGroup) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Dict Group not found');
+    }
+    const group = await preGroup.update(body);
+    return group.toJSON();
   }
 
   /**
@@ -71,7 +78,10 @@ export default class DictGroupService {
    * @param id
    */
   public async delete(id: string): Promise<void> {
-    const storedGroup = await DictGroupModel.findOne({ where: { groupId: id } });
-    await storedGroup.destroy();
+    const group = await DictGroupModel.findOne({ where: { groupId: id } });
+    if (!group) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Dict Group not found');
+    }
+    await group.destroy();
   }
 }

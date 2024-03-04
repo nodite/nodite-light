@@ -37,12 +37,6 @@
   },
   {
     "createBy": "admin",
-    "srcId": "5b419471-e200-4f2f-bbf3-374b766b7b8d",
-    "type": "module_path",
-    "name": "/admin/src/views/locale/LocaleList.vue"
-  },
-  {
-    "createBy": "admin",
     "srcId": "49462796-818a-410c-8f3d-506370224c2a",
     "type": "module_path",
     "name": "/admin/src/views/locale/LocaleList.vue"
@@ -1318,5 +1312,407 @@
     "srcId": "c0899f7e-dbfa-4b57-9c6f-13192db24c7a",
     "type": "module_path",
     "name": "/admin/src/views/dict/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "2fe5d63f-925a-401c-a142-a076e16fec54",
+    "type": "module_path",
+    "name": "/admin/src/views/menu/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3fbc5656-52a5-441c-9a21-f11920e79cf0",
+    "type": "module_path",
+    "name": "/admin/src/views/menu/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "878ad1b9-3c83-4903-a7e2-432672e37739",
+    "type": "module_path",
+    "name": "/admin/src/views/menu/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "80e1a275-e477-49b7-8c88-944c9ef65966",
+    "type": "module_path",
+    "name": "/admin/src/views/menu/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "29b8d85b-63ae-40d0-abaf-a34957a5e23c",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "0b6a49f3-a98c-4f68-8536-a8af68b04996",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "113e8b81-07d8-409b-8e06-034a4bc5b182",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ca857c39-9b84-49b7-a84c-460bf5a5fb43",
+    "type": "module_path",
+    "name": "/admin/src/utils/requests.ts"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f36072ea-a1d5-4644-959f-aee192f3ed03",
+    "type": "module_path",
+    "name": "/admin/src/utils/requests.ts"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d09c23db-4dd7-42fb-a8dd-aee4c33abddd",
+    "type": "module_path",
+    "name": "/admin/src/views/menu/ListPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "dddf68f7-e623-46ed-9211-f4ce70bd734c",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c9770304-3c60-45ed-a93b-e20b4726649d",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "a61e7e61-f279-4c12-9533-33d421c1c8ff",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e3df39ff-6de3-4429-a945-bdd0d4374ad4",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "bc449ace-1f82-481e-8a72-70daf8a33129",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "9640f23c-1f88-4a66-af0e-545798b04fa6",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "af7a28bf-2be0-4d9f-a1fd-c876f92147e6",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e97a2354-e250-4580-89f1-c6cd7ca29337",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "a2bbae03-193a-403c-96e8-6029992ff06a",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "868506d4-2495-4c6b-ba57-89749dd8500d",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "f38ff29c-ae9a-415d-8207-b64d0d2c813f",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3e062725-1fce-42ed-9e46-ab48b67d3f25",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3fce88a8-cbb4-4cac-9bfe-9e6fa3f0dc65",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c00b20b9-a0d5-4b92-96c1-6b735c22be34",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictItemForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "30041880-6c7a-441d-9b1d-d0736ee96cc5",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictItemForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "917b729d-b896-491c-809a-d68291e2180d",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictItemForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5af493a4-dd61-4af9-98db-c4876eaad136",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictItemForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "290ef4d1-86b2-41e9-9144-ca58baed0fe0",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictItemForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c578ba65-6524-469c-b307-4e2eb2301b44",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/components/DictItemForm.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "72efb45c-0386-4797-a14c-1027607c8556",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "3152f7ae-50fd-4fa3-96f0-b81b500ff875",
+    "type": "module_path",
+    "name": "/admin/src/utils/requests.ts"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1d2ed639-b277-4e64-bf06-4e55122e1f8c",
+    "type": "module_path",
+    "name": "/admin/src/views/locale/MessageList.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6e157d54-8f3c-495d-b15b-ee39a6b59259",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c8924178-3819-452c-9187-e4780a50663f",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c38a4736-e015-4c77-bfb3-c70e12b2320c",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "60dbf804-a5c2-4b41-ac91-cd64c1ce8ef7",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "642a095c-c9ad-45b0-b190-9be1e945ae09",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "2c0950d9-e0c8-425b-a4fc-0772739a9167",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b4355857-5b8e-4e8b-a02c-672a02118cc9",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "1ebc4155-d004-43ea-94e3-6997ffc361ed",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "83e70dc0-4680-4b5c-983a-cfe4d5df8439",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "afb64a58-cc86-4379-a2b1-fae8f4be8068",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "63459e6c-d081-4491-8c48-3d79e0125937",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "e5398502-48db-46bc-a0f6-ed3e77749f03",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ae1a2746-182f-4e2a-a15c-5277efad3c1c",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "70c4f28f-af8c-4753-89ee-cb159d25663e",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c8a29518-2bf5-4bb3-bcaa-03ca455370e1",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "9b3abf29-3dc3-4a7f-9773-562d3cb1c15a",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "acd6492b-2447-4745-b415-8833909f6d94",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "5f5ab0a4-2e32-4fab-80a9-1e851e173f64",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "860f8525-7c1c-4474-ac20-3dbf8c599bf9",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7ab1f585-73aa-4a48-abe8-e43584d6e174",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "89c5bd5d-1814-4979-9a56-6a7a7634c2e6",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "c2bf416b-65d5-4d98-9e3a-4b28a2e1815b",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "ec049f66-36eb-4bc1-943a-0a7dcdea4db8",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "d066b659-691f-4b4a-a77c-36993209f8e8",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "63b858db-c385-4e94-a74b-d4b79e93ad73",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "290ccdce-4ec6-408a-885d-14a99ff68539",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "dff9f71d-016d-4a3d-9fdd-b0aa9e662240",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6690091d-8384-4708-8ee2-842f9c078f2c",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "50f36be8-7379-404d-904c-b43e725dd610",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "612e32e4-46c7-4ccf-893a-a93c792044f3",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "b8ae9585-c379-4752-af26-039102990e52",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "6c0e15bb-4235-4cde-8c12-fdb8ff43fb65",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "2c0018f7-ecc0-489b-825c-c6e3e17381cf",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "8b7c3f52-de88-4910-9941-949f158bd95d",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
+  },
+  {
+    "createBy": "admin",
+    "srcId": "7a33f716-f1e8-4486-a4cf-4c73cd58d3a5",
+    "type": "module_path",
+    "name": "/admin/src/views/dict/ItemPage.vue"
   }
 ]

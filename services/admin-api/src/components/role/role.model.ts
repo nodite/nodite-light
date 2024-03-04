@@ -16,7 +16,7 @@ import MenuModel from '@/components/menu/menu.model';
 import RoleMenuModel from '@/components/role/role_menu.model';
 import RoleUserModel from '@/components/role/role_user.model';
 import UserModel from '@/components/user/user.model';
-import RoleSeeds from '@/seeds/sys_role.seeds.json';
+import RoleSeeds from '@/seeds/sys_role.json';
 
 const TABLE_NAME = 'sys_role';
 

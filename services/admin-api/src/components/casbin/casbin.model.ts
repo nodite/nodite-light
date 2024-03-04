@@ -5,7 +5,7 @@ import { CasbinRule } from 'casbin-sequelize-adapter/lib/casbinRule';
 import { Transaction } from 'sequelize';
 import { Table } from 'sequelize-typescript';
 
-import CasbinSeeds from '@/seeds/sys_casbin.seeds.json';
+import CasbinSeeds from '@/seeds/sys_casbin.json';
 
 /**
  * Class CasbinModel.

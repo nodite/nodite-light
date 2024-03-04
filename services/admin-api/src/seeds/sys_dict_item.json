@@ -1,0 +1,318 @@
+[
+  {
+    "dictKey": "langcode",
+    "orderNum": 0,
+    "createBy": "admin",
+    "itemKey": "af",
+    "itemValue": "Afrikaans (Afrikaans)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 1,
+    "createBy": "admin",
+    "itemKey": "ar",
+    "itemValue": "Arabic (العربية)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 2,
+    "createBy": "admin",
+    "itemKey": "az",
+    "itemValue": "Azerbaijani (Azərbaycan)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 3,
+    "createBy": "admin",
+    "itemKey": "bg",
+    "itemValue": "Bulgarian (български)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 4,
+    "createBy": "admin",
+    "itemKey": "ca",
+    "itemValue": "Catalan (català)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 5,
+    "createBy": "admin",
+    "itemKey": "ckb",
+    "itemValue": "Central Kurdish (کوردی)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 6,
+    "createBy": "admin",
+    "itemKey": "cs",
+    "itemValue": "Czech (čeština)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 7,
+    "createBy": "admin",
+    "itemKey": "da",
+    "itemValue": "Danish (Dansk)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 8,
+    "createBy": "admin",
+    "itemKey": "de",
+    "itemValue": "German (Deutsch)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 9,
+    "createBy": "admin",
+    "itemKey": "el",
+    "itemValue": "Greek (Ελληνικά)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 10,
+    "createBy": "admin",
+    "itemKey": "en",
+    "itemValue": "English"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 11,
+    "createBy": "admin",
+    "itemKey": "es",
+    "itemValue": "Spanish (Español)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 12,
+    "createBy": "admin",
+    "itemKey": "et",
+    "itemValue": "Estonian (eesti)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 13,
+    "createBy": "admin",
+    "itemKey": "fa",
+    "itemValue": "Persian (فارسی)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 14,
+    "createBy": "admin",
+    "itemKey": "fi",
+    "itemValue": "Finnish (suomi)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 15,
+    "createBy": "admin",
+    "itemKey": "fr",
+    "itemValue": "French (Français)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 16,
+    "createBy": "admin",
+    "itemKey": "he",
+    "itemValue": "Hebrew (עברית)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 17,
+    "createBy": "admin",
+    "itemKey": "hr",
+    "itemValue": "Croatian (hrvatski jezik)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 18,
+    "createBy": "admin",
+    "itemKey": "hu",
+    "itemValue": "Hungarian (magyar)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 19,
+    "createBy": "admin",
+    "itemKey": "id",
+    "itemValue": "Indonesian (Indonesian)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 20,
+    "createBy": "admin",
+    "itemKey": "it",
+    "itemValue": "Italian (Italiano)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 21,
+    "createBy": "admin",
+    "itemKey": "ja",
+    "itemValue": "Japanese (日本語)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 22,
+    "createBy": "admin",
+    "itemKey": "km",
+    "itemValue": "Khmer (ខ្មែរ)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 23,
+    "createBy": "admin",
+    "itemKey": "ko",
+    "itemValue": "Korean (한국어)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 24,
+    "createBy": "admin",
+    "itemKey": "lt",
+    "itemValue": "Lithuanian (lietuvių kalba)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 25,
+    "createBy": "admin",
+    "itemKey": "lv",
+    "itemValue": "Latvian (latviešu valoda)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 26,
+    "createBy": "admin",
+    "itemKey": "nl",
+    "itemValue": "Dutch (Nederlands)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 27,
+    "createBy": "admin",
+    "itemKey": "no",
+    "itemValue": "Norwegian (Norsk)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 28,
+    "createBy": "admin",
+    "itemKey": "pl",
+    "itemValue": "Polish (język polski)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 29,
+    "createBy": "admin",
+    "itemKey": "pt",
+    "itemValue": "Portuguese (Português)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 30,
+    "createBy": "admin",
+    "itemKey": "ro",
+    "itemValue": "Romanian (Română)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 31,
+    "createBy": "admin",
+    "itemKey": "ru",
+    "itemValue": "Russian (Русский)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 32,
+    "createBy": "admin",
+    "itemKey": "sk",
+    "itemValue": "Slovak (slovenčina)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 33,
+    "createBy": "admin",
+    "itemKey": "sl",
+    "itemValue": "Slovene (slovenski jezik)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 34,
+    "createBy": "admin",
+    "itemKey": "srCyrl",
+    "itemValue": "Serbian (српски језик)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 35,
+    "createBy": "admin",
+    "itemKey": "srLatn",
+    "itemValue": "Serbian (srpski jezik)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 36,
+    "createBy": "admin",
+    "itemKey": "sv",
+    "itemValue": "Swedish (svenska)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 37,
+    "createBy": "admin",
+    "itemKey": "th",
+    "itemValue": "Thai (ไทย)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 38,
+    "createBy": "admin",
+    "itemKey": "tr",
+    "itemValue": "Turkish (Türkçe)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 39,
+    "createBy": "admin",
+    "itemKey": "uk",
+    "itemValue": "Ukrainian (Українська)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 40,
+    "createBy": "admin",
+    "itemKey": "vi",
+    "itemValue": "Vietnamese (Tiếng Việt)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 41,
+    "createBy": "admin",
+    "itemKey": "zhHans",
+    "itemValue": "Chinese (中文)"
+  },
+  {
+    "dictKey": "langcode",
+    "orderNum": 42,
+    "createBy": "admin",
+    "itemKey": "zhHant",
+    "itemValue": "Chinese (正體中文)"
+  },
+
+  {
+    "dictKey": "status",
+    "orderNum": 0,
+    "createBy": "admin",
+    "itemKey": 1,
+    "itemValue": "Enabled"
+  },
+  {
+    "dictKey": "status",
+    "orderNum": 1,
+    "createBy": "admin",
+    "itemKey": 0,
+    "itemValue": "Disabled"
+  }
+]

@@ -2,6 +2,7 @@
 import moment from 'moment';
 
 import { IRole, IUserWithRoles } from '@/api/admin/data-contracts';
+import DictElement from '@/components/form/DictElement.vue';
 import { useRoleStore } from '@/stores/modules/roleStore';
 import lodash from '@/utils/lodash';
 
@@ -12,25 +13,26 @@ interface IUser extends IUserWithRoles {
   assignStatus: IUserWithRoles['status'];
 }
 
-const roleId = computed(() => lodash.toInteger(route.params.id));
+interface QueryParams {
+  username?: string;
+  nickname?: string;
+  email?: string;
+  status?: 0 | 1;
+  assignStatus?: 0 | 1;
+}
 
-// Query params
-const queryParams = ref({
-  username: undefined,
-  nickname: undefined,
-  email: undefined,
-  status: undefined,
-  assignStatus: undefined,
-});
+const roleId = computed(() => lodash.toInteger(route.params.id));
 
 // Local data.
 const myRefStore = ref({
   loading: false,
-  operating: false,
   role: {} as IRole,
   users: [] as IUser[],
   filteredUsers: [] as IUser[],
 });
+
+// Query params
+const queryParams = ref({} as QueryParams);
 
 // Methods.
 const methods = {
@@ -64,34 +66,27 @@ const methods = {
       let result = true;
       lodash.forEach(queryParams.value, (value, key) => {
         if (lodash.isUndefined(value) || lodash.isNull(value)) return;
-        if (lodash.isString(value)) {
-          result = result && lodash.get(user, key, '')?.includes(value);
-        } else {
-          result = result && lodash.get(user, key, '') === value;
-        }
+        result = result && lodash.get(user, key, '')?.toString().includes(String(value));
       });
       return result;
     });
   },
   // Assign.
   async assign(items: IUser[]) {
-    myRefStore.value.operating = true;
     await roleStore.assignRoleToUsers(roleId.value, lodash.map(items, 'userId'));
     await methods.loadRoleUsers();
-    myRefStore.value.operating = false;
   },
   // Unassign.
   async unassign(items: IUser[]) {
-    myRefStore.value.operating = true;
     await roleStore.unassignRoleOfUsers(roleId.value, lodash.map(items, 'userId'));
     await methods.loadRoleUsers();
-    myRefStore.value.operating = false;
   },
 };
 
 // Lifecycle.
-onMounted(async () => {
-  await Promise.all([methods.lodaRole(), methods.loadRoleUsers()]);
+onMounted(() => {
+  methods.lodaRole();
+  methods.loadRoleUsers();
 });
 </script>
 
@@ -135,23 +130,23 @@ onMounted(async () => {
           ></v-text-field>
         </v-col>
         <v-col cols="12" lg="2" md="3" sm="6">
-          <v-select
-            density="compact"
-            :label="$ndt('User Status')"
+          <DictElement
+            component="VSelect"
+            dict-key="status"
             v-model="queryParams.status"
             @update:model-value="methods.search"
-            variant="outlined"
-            :items="[
-              { title: $ndt('Enabled'), value: 1 },
-              { title: $ndt('Disabled'), value: 0 },
-            ]"
-            hide-details
-            clearable
+            :component-props="{
+              label: $ndt('User Status'),
+              density: 'compact',
+              variant: 'outlined',
+              hideDetails: true,
+              clearable: true,
+            }"
           >
-            <template v-slot:chip="{ item }">
+            <template #chip="{ item }">
               <v-chip density="comfortable">{{ item.title }}</v-chip>
             </template>
-          </v-select>
+          </DictElement>
         </v-col>
         <v-col cols="12" lg="2" md="3" sm="6">
           <v-select
@@ -204,12 +199,23 @@ onMounted(async () => {
                   {
                     title: $ndt('Status'),
                     key: 'status',
-                    value: myRefStore.role.status ? $ndt('Enabled') : $ndt('Disabled'),
+                    value: myRefStore.role.status
+                      ? $ndt('Enabled', undefined, { context: 'dict.type.status' })
+                      : $ndt('Disabled', undefined, { context: 'dict.type.status' }),
                   },
                   {
                     title: $ndt('Create Time'),
                     key: 'createTime',
-                    value: moment(myRefStore.role.createTime).format('YYYY-MM-DD HH:mm:ss'),
+                    value: myRefStore.role.createTime
+                      ? moment(myRefStore.role.createTime).format('YYYY-MM-DD HH:mm:ss')
+                      : '',
+                  },
+                  {
+                    title: $ndt('Update Time'),
+                    key: 'updateTime',
+                    value: myRefStore.role.updateTime
+                      ? moment(myRefStore.role.updateTime).format('YYYY-MM-DD HH:mm:ss')
+                      : '',
                   },
                 ]"
                 :key="item.key"
@@ -239,27 +245,29 @@ onMounted(async () => {
           :items="myRefStore.filteredUsers"
           item-selectable="selectable"
         >
-          <template v-slot:item.status="{ value }">
+          <template #item.status="{ value }">
             <v-chip :color="value == '1' ? 'green' : ''" density="comfortable">
               <v-label>
-                {{ value == '1' ? $ndt('Enabled') : $ndt('Disabled') }}
+                {{
+                  value == '1'
+                    ? $ndt('Enabled', undefined, { context: 'dict.type.status' })
+                    : $ndt('Disabled', undefined, { context: 'dict.type.status' })
+                }}
               </v-label>
             </v-chip>
           </template>
 
-          <template v-slot:item.createTime="{ value }">
+          <template #item.createTime="{ value }">
             <v-label>{{ moment(value).format('YYYY-MM-DD HH:mm:ss') }}</v-label>
           </template>
 
-          <template v-slot:item.actions="{ item }">
+          <template #item.actions="{ item }">
             <v-btn
               v-if="lodash.isEmpty(item.roles)"
               color="green"
               density="comfortable"
               @click="methods.assign([item])"
               prepend-icon="mdi-sticker-plus-outline"
-              :loading="myRefStore.operating"
-              :disabled="myRefStore.operating"
             >
               <v-label>{{ $ndt('Assign') }}</v-label>
             </v-btn>
@@ -269,8 +277,7 @@ onMounted(async () => {
               density="comfortable"
               @click="methods.unassign([item])"
               prepend-icon="mdi-delete"
-              :loading="myRefStore.operating"
-              :disabled="(item.userId === 1 && roleId === 1) || myRefStore.operating"
+              :disabled="item.userId === 1 && roleId === 1"
             >
               <v-label>{{ $ndt('Un-Assign') }}</v-label>
             </v-btn>

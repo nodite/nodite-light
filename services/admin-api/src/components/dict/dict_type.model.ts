@@ -6,14 +6,17 @@ import {
   DataType,
   Default,
   ForeignKey,
+  HasMany,
   HasOne,
+  Index,
   PrimaryKey,
   Table,
   Unique,
 } from 'sequelize-typescript';
 
 import DictGroupModel from '@/components/dict/dict_group.model';
-import DictTypeSeeds from '@/seeds/sys_dict_type.seeds.json';
+import DictItemModel, { IDictItem } from '@/components/dict/dict_item.model';
+import DictTypeSeeds from '@/seeds/sys_dict_type.json';
 
 @Table({
   ...SequelizeModel.TableOptions,
@@ -42,18 +45,18 @@ export default class DictTypeModel extends SequelizeModel<DictTypeModel> {
 
   @Default('default')
   @AllowNull(false)
-  @Column({ field: 'dict_style', type: DataType.STRING(32) })
+  @Column({ field: 'dict_style', type: DataType.STRING(50) })
   dictStyle: string;
 
   @Unique
   @Default('')
   @AllowNull(false)
+  @Index('dict_key')
   @Column({ field: 'dict_key', type: DataType.STRING(50) })
   dictKey: string;
 
   @Default('')
   @AllowNull(false)
-  @Comment('dict desc')
   @Column({ field: 'dict_desc', type: DataType.TEXT })
   dictDesc: string;
 
@@ -67,6 +70,13 @@ export default class DictTypeModel extends SequelizeModel<DictTypeModel> {
     constraints: false,
   })
   dictGroup: DictGroupModel;
+
+  @HasMany(() => DictItemModel, {
+    sourceKey: 'dictKey',
+    foreignKey: 'dictKey',
+    constraints: false,
+  })
+  dictItems: DictItemModel[];
 }
 
 export type IDictType = Pick<
@@ -85,3 +95,7 @@ export type IDictType = Pick<
   | 'updateBy'
   | 'updateTime'
 >;
+
+export interface IDictTypeWithItems extends IDictType {
+  dictItems: IDictItem[];
+}

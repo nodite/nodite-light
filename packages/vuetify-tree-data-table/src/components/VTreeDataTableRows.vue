@@ -36,12 +36,12 @@ const { items: tableItems } = useDataTableItems(props, { value: props.columns })
 
 <template>
   <v-data-table-rows v-bind="{ ...$props }" :items="tableItems" :cell-props="cellProps">
-    <template v-for="(_, name) in $slots" v-slot:[name]="data">
+    <template v-for="(_, name) in $slots" #[name]="data">
       <!-- slots -->
       <slot :name="name" v-bind="data"></slot>
     </template>
 
-    <template v-slot:expanded-row="expandedProps">
+    <template #expanded-row="expandedProps">
       <v-tree-data-table-rows
         v-if="!_isEmpty((expandedProps.item as any)?.children)"
         :level="level + 1"
@@ -51,7 +51,7 @@ const { items: tableItems } = useDataTableItems(props, { value: props.columns })
         :offset-columns="offsetColumns"
         :cell-props="cellProps"
       >
-        <template v-for="(_, name) in $slots" v-slot:[name]="data">
+        <template v-for="(_, name) in $slots" #[name]="data">
           <!-- slots -->
           <slot :name="name" v-bind="data"></slot>
         </template>

@@ -2,6 +2,7 @@
 import { toast } from 'vuetify-sonner';
 
 import { IDictGroup, IDictType } from '@/api/admin/data-contracts';
+import DictElement from '@/components/form/DictElement.vue';
 import TreeSelect from '@/components/form/TreeSelect.vue';
 import i18n from '@/plugins/i18n';
 import { useDictStore } from '@/stores/modules/dictStore';
@@ -9,7 +10,7 @@ import lodash from '@/utils/lodash';
 
 const dictStore = useDictStore();
 
-const emit = defineEmits(['update:dialog', 'update:dictId', 'save']);
+const emit = defineEmits(['update:dialog', 'update:dictKey', 'save']);
 
 const props = defineProps({
   groups: {
@@ -20,7 +21,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  dictId: {
+  dictKey: {
     type: String,
     default: '',
   },
@@ -35,9 +36,9 @@ const dialog = computed({
   set: (v) => emit('update:dialog', v),
 });
 
-const dictId = computed({
-  get: () => props.dictId,
-  set: (v) => emit('update:dictId', v),
+const dictKey = computed({
+  get: () => props.dictKey,
+  set: (v) => emit('update:dictKey', v),
 });
 
 // Local data.
@@ -67,11 +68,11 @@ const formRules = ref({
 const methods = {
   // Load form data.
   async loadFormData() {
-    formData.value = dictId.value
-      ? (await dictStore.queryType(dictId.value)) || ({} as IDictType)
+    formData.value = dictKey.value
+      ? (await dictStore.queryType(dictKey.value)) || ({} as IDictType)
       : ({} as IDictType);
 
-    myRefStore.value.title = dictId.value
+    myRefStore.value.title = dictKey.value
       ? i18n.ndt('Edit Dict Type - {0}', [formData.value.dictName])
       : i18n.ndt('New Dict Type');
 
@@ -89,7 +90,7 @@ const methods = {
       return;
     }
     dialog.value = false;
-    dictId.value = '';
+    dictKey.value = '';
   },
   // Save.
   async save() {
@@ -103,7 +104,7 @@ const methods = {
     }
 
     try {
-      await (formData.value.dictId
+      await (formData.value.dictKey
         ? dictStore.editType(formData.value)
         : dictStore.createType(formData.value));
 
@@ -113,7 +114,6 @@ const methods = {
     }
 
     methods.close();
-
     emit('save');
   },
 };
@@ -132,7 +132,7 @@ watch(
     :persistent="myRefStore.isSaving"
     max-width="550"
   >
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
         {{ $ndt('Create Dict Type') }}
       </v-btn>
@@ -173,7 +173,7 @@ watch(
                   chips
                   clearable
                 >
-                  <template v-slot:chip="{ item }">
+                  <template #chip="{ item }">
                     <v-chip>
                       {{ $ndt(item.raw.groupName, undefined, { context: 'dict.group' }) }}
                     </v-chip>
@@ -238,7 +238,7 @@ watch(
                   :error="myRefStore.error"
                   validate-on="blur"
                   variant="outlined"
-                  :disabled="!!dictId"
+                  :disabled="!!dictKey"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -258,20 +258,19 @@ watch(
             <v-row dense>
               <!-- status -->
               <v-col>
-                <v-radio-group
+                <DictElement
+                  component="VRadioGroup"
+                  dict-key="status"
                   v-model="formData.status"
-                  validate-on="blur"
-                  :error="myRefStore.error"
-                  inline
-                  hide-details
-                >
-                  <template v-slot:prepend>
-                    <v-label>{{ $ndt('Status') }}:</v-label>
-                  </template>
-
-                  <v-radio :label="$ndt('Enabled')" :value="1"></v-radio>
-                  <v-radio :label="$ndt('Disabled')" :value="0"></v-radio>
-                </v-radio-group>
+                  :component-props="{
+                    validateOn: 'blur',
+                    error: myRefStore.error,
+                    inline: true,
+                    hideDetails: true,
+                  }"
+                  :show-label="false"
+                  :show-prepend-label="true"
+                ></DictElement>
               </v-col>
             </v-row>
           </v-container>

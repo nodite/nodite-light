@@ -1,8 +1,8 @@
 [
   {
     "groupId": "591067cb-3e07-46a1-8f17-a6cb9a1b8968",
-    "groupName": "Common",
-    "groupKey": "common",
+    "groupName": "System",
+    "groupKey": "system",
     "parentId": "",
     "orderNum": 0,
     "createBy": "admin",

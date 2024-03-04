@@ -3,6 +3,7 @@ import '@employee87/vue3-treeview/dist/style.css';
 
 import VueTreeView from '@employee87/vue3-treeview';
 import { PropType } from 'vue';
+import { VSelect } from 'vuetify/components';
 
 import i18n from '@/plugins/i18n';
 import { VueTreeView as VueTreeViewConfig } from '@/types/config';
@@ -56,16 +57,7 @@ const props = defineProps({
     default: 'mdi-sort-variant',
   },
   variant: {
-    type: String as PropType<
-      | 'outlined'
-      | 'filled'
-      | 'plain'
-      | 'underlined'
-      | 'solo'
-      | 'solo-inverted'
-      | 'solo-filled'
-      | undefined
-    >,
+    type: String as PropType<VSelect['$props']['variant']>,
     default: 'outlined',
   },
   rules: {
@@ -204,7 +196,7 @@ watchEffect(() => {
 
 <template>
   <v-dialog v-model="dialogValue" :max-width="maxWidth">
-    <template v-slot:activator="{ props: actProps }">
+    <template #activator="{ props: actProps }">
       <v-select
         density="compact"
         v-model="modelValue"
@@ -221,11 +213,11 @@ watchEffect(() => {
         :menuIcon="''"
         readonly
       >
-        <template v-for="(_, name) in $slots" v-slot:[name]="data">
+        <template v-for="(_, name) in $slots" #[name]="data">
           <!-- slots -->
           <slot :name="name" v-bind="data"></slot>
         </template>
-        <template v-slot:append-inner>
+        <template #append-inner>
           <v-btn v-bind="actProps" variant="text" density="compact" icon="mdi-chevron-down"></v-btn>
         </template>
       </v-select>

@@ -50,7 +50,7 @@ export default class MenuService {
         ],
       });
 
-      if (lodash.isEmpty(user)) {
+      if (!user) {
         throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'User not found');
       }
 
@@ -86,6 +86,9 @@ export default class MenuService {
    */
   public async selectMenuById(id: string): Promise<IMenu> {
     const menu = await MenuModel.findOne({ where: { menuId: id } });
+    if (!menu) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Menu not found');
+    }
     return menu.toJSON();
   }
 
@@ -101,13 +104,16 @@ export default class MenuService {
   /**
    * Update menu.
    * @param id
-   * @param menu
+   * @param body
    * @returns
    */
-  public async update(id: string, menu: IMenuUpdate): Promise<IMenu> {
-    const storedMenu = await MenuModel.findOne({ where: { menuId: id } });
-    const updatedUser = await storedMenu.update(menu);
-    return updatedUser.toJSON();
+  public async update(id: string, body: IMenuUpdate): Promise<IMenu> {
+    const preMenu = await MenuModel.findOne({ where: { menuId: id } });
+    if (!preMenu) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Menu not found');
+    }
+    const menu = await preMenu.update(body);
+    return menu.toJSON();
   }
 
   /**
@@ -115,12 +121,16 @@ export default class MenuService {
    * @param id
    */
   public async delete(id: string): Promise<void> {
-    const storedMenu = await MenuModel.findOne({ where: { menuId: id } });
+    const menu = await MenuModel.findOne({ where: { menuId: id } });
 
-    if (storedMenu.getDataValue('deleted') === 9) {
+    if (!menu) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Menu not found');
+    }
+
+    if (menu.getDataValue('deleted') === 9) {
       throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Menu is not allow delete!');
     }
 
-    return storedMenu.destroy();
+    return menu.destroy();
   }
 }

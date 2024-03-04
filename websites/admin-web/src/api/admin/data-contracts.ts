@@ -624,6 +624,29 @@ export interface IResponseIAvailableMessageArray {
 export type IMessageUpsert = ILocaleMessage;
 
 /** From T, pick a set of properties whose keys are in the union K */
+export interface PickInstanceTypeTypeofDictItemModelItemIdOrDictKeyOrItemKeyOrItemValueOrItemDescOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  /** @format double */
+  orderNum: number;
+  dictKey: string;
+  /** @format double */
+  itemId: number;
+  itemKey: string;
+  itemValue: string;
+  itemDesc: string;
+}
+
+export type IDictItem =
+  PickInstanceTypeTypeofDictItemModelItemIdOrDictKeyOrItemKeyOrItemValueOrItemDescOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
+
+/** From T, pick a set of properties whose keys are in the union K */
 export interface PickInstanceTypeTypeofDictTypeModelDictIdOrDictGidOrDictNameOrDictStyleOrDictKeyOrDictDescOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {
   status: 0 | 1;
   deleted: 0 | 1 | 9;
@@ -643,11 +666,28 @@ export interface PickInstanceTypeTypeofDictTypeModelDictIdOrDictGidOrDictNameOrD
   dictDesc: string;
 }
 
-export type IDictType =
-  PickInstanceTypeTypeofDictTypeModelDictIdOrDictGidOrDictNameOrDictStyleOrDictKeyOrDictDescOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
+export interface IDictTypeWithItems {
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  /** @format double */
+  orderNum: number;
+  dictId: string;
+  dictGid: string;
+  dictName: string;
+  dictStyle: string;
+  dictKey: string;
+  dictDesc: string;
+  dictItems: IDictItem[];
+}
 
-export interface SequelizePaginationIDictType {
-  items: IDictType[];
+export interface SequelizePaginationIDictTypeWithItems {
+  items: IDictTypeWithItems[];
   /** @format double */
   count: number;
   /** @format double */
@@ -660,13 +700,24 @@ export interface SequelizePaginationIDictType {
   itemsPerPage: number;
 }
 
-export interface IResponseSequelizePaginationIDictType {
+export interface IResponseSequelizePaginationIDictTypeWithItems {
   error: boolean;
   /** @format double */
   httpCode: number;
   message: string;
-  data?: SequelizePaginationIDictType;
+  data?: SequelizePaginationIDictTypeWithItems;
 }
+
+export interface IResponseIDictTypeWithItems {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: IDictTypeWithItems;
+}
+
+export type IDictType =
+  PickInstanceTypeTypeofDictTypeModelDictIdOrDictGidOrDictNameOrDictStyleOrDictKeyOrDictDescOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime;
 
 export interface IResponseIDictType {
   error: boolean;
@@ -722,6 +773,80 @@ export interface PickIDictTypeExcludeKeysDictIdOrDictKey {
 export type OmitIDictTypeDictIdOrDictKey = PickIDictTypeExcludeKeysDictIdOrDictKey;
 
 export type IDictTypeUpdate = OmitIDictTypeDictIdOrDictKey;
+
+export interface SequelizePaginationIDictItem {
+  items: IDictItem[];
+  /** @format double */
+  count: number;
+  /** @format double */
+  totalCount: number;
+  /** @format double */
+  totalPage: number;
+  /** @format double */
+  page: number;
+  /** @format double */
+  itemsPerPage: number;
+}
+
+export interface IResponseSequelizePaginationIDictItem {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: SequelizePaginationIDictItem;
+}
+
+export interface IResponseIDictItem {
+  error: boolean;
+  /** @format double */
+  httpCode: number;
+  message: string;
+  data?: IDictItem;
+}
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickIDictItemExcludeKeysItemId {
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  /** @format double */
+  orderNum: number;
+  dictKey: string;
+  itemKey: string;
+  itemValue: string;
+  itemDesc: string;
+}
+
+/** Construct a type with the properties of T except for those in type K. */
+export type OmitIDictItemItemId = PickIDictItemExcludeKeysItemId;
+
+export type IDictItemCreate = OmitIDictItemItemId;
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickIDictItemExcludeKeysItemIdOrDictKeyOrItemKey {
+  status: 0 | 1;
+  deleted: 0 | 1 | 9;
+  createBy: string;
+  /** @format date-time */
+  createTime: string;
+  updateBy: string;
+  /** @format date-time */
+  updateTime: string;
+  /** @format double */
+  orderNum: number;
+  itemValue: string;
+  itemDesc: string;
+}
+
+/** Construct a type with the properties of T except for those in type K. */
+export type OmitIDictItemItemIdOrDictKeyOrItemKey = PickIDictItemExcludeKeysItemIdOrDictKeyOrItemKey;
+
+export type IDictItemUpdate = OmitIDictItemItemIdOrDictKeyOrItemKey;
 
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickInstanceTypeTypeofDictGroupModelGroupIdOrGroupNameOrGroupKeyOrParentIdOrOrderNumOrStatusOrDeletedOrCreateByOrCreateTimeOrUpdateByOrUpdateTime {

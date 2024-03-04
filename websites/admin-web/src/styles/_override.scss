@@ -37,6 +37,12 @@ html {
     text-decoration: inherit;
   }
 
+  a.link {
+    cursor: pointer;
+    display: inline-block;
+    border-bottom: 1px dashed;
+  }
+
   h1,
   h2,
   h3,

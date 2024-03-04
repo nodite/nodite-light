@@ -81,11 +81,11 @@
             <v-card-text class="text-content">
               <div>
                 <v-radio-group color="accent" v-model="favoriteRadios">
-                  <template v-slot:label>
+                  <template #label>
                     <div>Your favorite <strong>search engine</strong></div>
                   </template>
                   <v-radio value="Google">
-                    <template v-slot:label>
+                    <template #label>
                       <v-row align="center">
                         <v-col cols="6" sm="5" md="3">
                           <span> Of course it's</span>
@@ -103,7 +103,7 @@
                     </template>
                   </v-radio>
                   <v-radio value="Duckduckgo">
-                    <template v-slot:label>
+                    <template #label>
                       <v-row align="center">
                         <v-col cols="6" sm="5" md="3">
                           <span> Of course it's</span>

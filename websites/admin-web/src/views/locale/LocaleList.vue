@@ -89,7 +89,7 @@ onMounted(async () => {
     ]"
     :items="myRefStore.locales"
   >
-    <template v-slot:top>
+    <template #top>
       <v-toolbar density="compact" color="background">
         <LocaleForm
           v-model:dialog="localeFormData.dialog"
@@ -99,14 +99,14 @@ onMounted(async () => {
       </v-toolbar>
     </template>
 
-    <template v-slot:item.label="{ item }">
+    <template #item.label="{ item }">
       <v-label>
         <Icon :icon="item.icon" class="mr-2"></Icon>
         {{ item.label }}
       </v-label>
     </template>
 
-    <template v-slot:item.isDefault="{ item }">
+    <template #item.isDefault="{ item }">
       <v-switch
         color="success"
         density="compact"
@@ -119,7 +119,7 @@ onMounted(async () => {
       ></v-switch>
     </template>
 
-    <template v-slot:item.status="{ item }">
+    <template #item.status="{ item }">
       <v-switch
         color="success"
         density="compact"
@@ -131,7 +131,7 @@ onMounted(async () => {
       ></v-switch>
     </template>
 
-    <template v-slot:item.actions="{ item }">
+    <template #item.actions="{ item }">
       <v-btn
         class="px-0"
         variant="text"

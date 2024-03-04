@@ -1,9 +1,11 @@
 import { AppError } from '@nodite-light/admin-core';
 import { SequelizePagination } from '@nodite-light/admin-database';
 import httpStatus from 'http-status';
+import { Op } from 'sequelize';
 
 import { IDictTypeCreate, IDictTypeUpdate } from '@/components/dict/dict.interface';
-import DictTypeModel, { IDictType } from '@/components/dict/dict_type.model';
+import DictItemModel from '@/components/dict/dict_item.model';
+import DictTypeModel, { IDictType, IDictTypeWithItems } from '@/components/dict/dict_type.model';
 import { QueryParams } from '@/interfaces';
 import lodash from '@/utils/lodash';
 
@@ -16,13 +18,26 @@ export default class DictTypeService {
    * @param params
    * @returns
    */
-  public async selectDictTypeList(params?: QueryParams): Promise<SequelizePagination<IDictType>> {
+  public async selectDictTypeList(
+    params?: QueryParams,
+  ): Promise<SequelizePagination<IDictTypeWithItems>> {
     const page = await DictTypeModel.paginate({
       where: DictTypeModel.buildQueryWhere(params),
       ...lodash.pick(params, ['itemsPerPage', 'page']),
       order: [
         ['orderNum', 'ASC'],
         ['dictId', 'ASC'],
+      ],
+      include: [
+        {
+          model: DictItemModel,
+          required: false,
+          attributes: ['itemId'],
+          order: [
+            ['orderNum', 'ASC'],
+            ['itemId', 'ASC'],
+          ],
+        },
       ],
     });
 
@@ -37,13 +52,23 @@ export default class DictTypeService {
    * @param id
    * @returns
    */
-  public async selectDictTypeById(id: string): Promise<IDictType> {
-    const dictType = await DictTypeModel.findOne({ where: { dictId: id } });
-
-    if (lodash.isEmpty(dictType)) {
-      throw new AppError(httpStatus.NOT_FOUND, 'Dict type not found');
+  public async selectDictTypeById(id: string): Promise<IDictTypeWithItems> {
+    const dictType = await DictTypeModel.findOne({
+      where: { [Op.or]: { dictId: id, dictKey: id } },
+      include: [
+        {
+          model: DictItemModel,
+          required: false,
+          order: [
+            ['orderNum', 'ASC'],
+            ['itemId', 'ASC'],
+          ],
+        },
+      ],
+    });
+    if (!dictType) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Dict Type not found');
     }
-
     return dictType.toJSON();
   }
 
@@ -59,22 +84,31 @@ export default class DictTypeService {
   /**
    * Update dict type.
    * @param id
-   * @param dictType
+   * @param body
    * @returns
    */
-  public async update(id: string, dictType: IDictTypeUpdate): Promise<IDictType> {
-    const storedDictType = await DictTypeModel.findOne({ where: { dictId: id } });
-    const updatedDictType = await storedDictType.update(dictType);
-    return updatedDictType.toJSON();
+  public async update(id: string, body: IDictTypeUpdate): Promise<IDictType> {
+    const preDictType = await DictTypeModel.findOne({
+      where: { [Op.or]: { dictId: id, dictKey: id } },
+    });
+    if (!preDictType) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Dict Type not found');
+    }
+    const dictType = await preDictType.update(body);
+    return dictType.toJSON();
   }
 
   /**
    * Delete dict type.
    * @param id
-   * @returns
    */
   public async delete(id: string): Promise<void> {
-    const storedDictType = await DictTypeModel.findOne({ where: { dictId: id } });
-    await storedDictType.destroy();
+    const dictType = await DictTypeModel.findOne({
+      where: { [Op.or]: { dictId: id, dictKey: id } },
+    });
+    if (!dictType) {
+      throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'Dict Type not found');
+    }
+    await dictType.destroy();
   }
 }

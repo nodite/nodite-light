@@ -3,7 +3,7 @@ import { AllowNull, Column, DataType, ForeignKey, PrimaryKey, Table } from 'sequ
 
 import RoleModel, { IRole } from '@/components/role/role.model';
 import UserModel, { IUser } from '@/components/user/user.model';
-import RoleUserSeeds from '@/seeds/sys_role_user.seeds.json';
+import RoleUserSeeds from '@/seeds/sys_role_user.json';
 
 @Table({
   ...SequelizeModel.TableOptions,

@@ -29,12 +29,12 @@ const cellProps = ({ item, column }: { item: Item; column: { key: string } }) =>
 
 <template>
   <v-data-table v-bind="$props.tableProps" :cell-props="cellProps">
-    <template v-for="(_, name) in $slots" v-slot:[name]="data">
+    <template v-for="(_, name) in $slots" #[name]="data">
       <!-- slots -->
       <slot :name="name" v-bind="data"></slot>
     </template>
 
-    <template v-slot:expanded-row="{ columns, item }">
+    <template #expanded-row="{ columns, item }">
       <v-tree-data-table-rows
         :level="1"
         :items="item.children || []"
@@ -43,7 +43,7 @@ const cellProps = ({ item, column }: { item: Item; column: { key: string } }) =>
         :offset-columns="$props.offsetColumns"
         :cell-props="cellProps"
       >
-        <template v-for="(_, name) in $slots" v-slot:[name]="data">
+        <template v-for="(_, name) in $slots" #[name]="data">
           <!-- slots -->
           <slot :name="name" v-bind="data"></slot>
         </template>

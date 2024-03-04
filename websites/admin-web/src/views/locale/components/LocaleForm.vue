@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { IconPicker } from '@nodite-light/vuetify-icon-picker';
-import { LanguageSelector } from '@nodite-light/vuetify-language-selector';
 import { toast } from 'vuetify-sonner';
 
 import { ILocale } from '@/api/admin/data-contracts';
+import DictElement from '@/components/form/DictElement.vue';
 import i18n from '@/plugins/i18n';
 import { useLocaleStore } from '@/stores/modules/localeStore';
 
@@ -118,7 +118,7 @@ watch(
     :persistent="myRefStore.isSaving"
     max-width="550"
   >
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
         {{ $ndt('Create Locale') }}
       </v-btn>
@@ -181,14 +181,17 @@ watch(
             <v-row dense>
               <!-- langcode & momentCode -->
               <v-col>
-                <LanguageSelector
+                <DictElement
+                  component="VAutocomplete"
+                  dict-key="langcode"
                   v-model="formData.langcode"
-                  :label="$ndt('Langcode')"
-                  density="compact"
-                  v-model:error="myRefStore.error"
-                  :rules="formRules.langcode"
-                  :show-code="true"
-                ></LanguageSelector>
+                  :component-props="{
+                    density: 'compact',
+                    variant: 'outlined',
+                    error: myRefStore.error,
+                    rules: formRules.langcode,
+                  }"
+                ></DictElement>
               </v-col>
               <v-col>
                 <v-text-field
@@ -205,20 +208,19 @@ watch(
             <v-row dense>
               <!-- status -->
               <v-col>
-                <v-radio-group
+                <DictElement
+                  component="VRadioGroup"
+                  dict-key="status"
                   v-model="formData.status"
-                  validate-on="blur"
-                  :error="myRefStore.error"
-                  inline
-                  hide-details
-                >
-                  <template v-slot:prepend>
-                    <v-label>{{ $ndt('Status') }}:</v-label>
-                  </template>
-
-                  <v-radio :label="$ndt('Enabled')" :value="1"></v-radio>
-                  <v-radio :label="$ndt('Disabled')" :value="0"></v-radio>
-                </v-radio-group>
+                  :component-props="{
+                    validateOn: 'blur',
+                    error: myRefStore.error,
+                    inline: true,
+                    hideDetails: true,
+                  }"
+                  :show-label="false"
+                  :show-prepend-label="true"
+                ></DictElement>
               </v-col>
             </v-row>
           </v-container>

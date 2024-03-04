@@ -134,7 +134,7 @@ watch(
     :persistent="myRefStore.isSaving"
     max-width="750"
   >
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
         {{ $ndt('Create Menu') }}
       </v-btn>
@@ -175,10 +175,10 @@ watch(
                   chips
                   clearable
                 >
-                  <template v-slot:prepend>
+                  <template #prepend>
                     <v-label>{{ $ndt('Parent Menu') }}:</v-label>
                   </template>
-                  <template v-slot:chip="{ item }">
+                  <template #chip="{ item }">
                     <v-chip>{{ $ndt(item.raw.menuName) }}</v-chip>
                   </template>
                 </TreeSelect>
@@ -207,7 +207,7 @@ watch(
                   :error="myRefStore.error"
                   inline
                 >
-                  <template v-slot:prepend>
+                  <template #prepend>
                     <v-label>{{ $ndt('Menu Type') }}:</v-label>
                   </template>
                   <v-radio :label="$ndt('Overline')" value="overline"></v-radio>
@@ -229,7 +229,7 @@ watch(
                   :error="myRefStore.error"
                   variant="outlined"
                 >
-                  <template v-slot:prepend>
+                  <template #prepend>
                     <v-label> {{ $ndt('Menu Name') }}: </v-label>
                   </template>
                 </v-text-field>
@@ -257,7 +257,7 @@ watch(
                   density="compact"
                   variant="outlined"
                 >
-                  <template v-slot:prepend>
+                  <template #prepend>
                     <v-label> {{ $ndt('Permission') }}: </v-label>
                   </template>
                 </v-text-field>
@@ -275,7 +275,7 @@ watch(
                   density="compact"
                   variant="outlined"
                 >
-                  <template v-slot:prepend-inner>
+                  <template #prepend-inner>
                     <v-label>{{ $ndt('Path') }}:</v-label>
                   </template>
                 </v-text-field>
@@ -289,7 +289,7 @@ watch(
                   density="compact"
                   variant="outlined"
                 >
-                  <template v-slot:prepend-inner>
+                  <template #prepend-inner>
                     <v-label>{{ $ndt('redirect to') }}:</v-label>
                   </template>
                 </v-text-field>
@@ -307,7 +307,7 @@ watch(
                   validate-on="blur"
                   :error="myRefStore.error"
                 >
-                  <template v-slot:prepend>
+                  <template #prepend>
                     <v-label>{{ $ndt('Component') }}:</v-label>
                   </template>
                 </v-text-field>
@@ -342,7 +342,7 @@ watch(
                   :error="myRefStore.error"
                   inline
                 >
-                  <template v-slot:prepend>
+                  <template #prepend>
                     <v-label>{{ $ndt('Visibility') }}:</v-label>
                   </template>
                   <v-radio :label="$ndt('Show')" :value="0"></v-radio>

@@ -206,10 +206,10 @@ onMounted(async () => {
     :items="sources"
     :items-per-page="queryParamItemsPerPage"
   >
-    <template v-slot:item.context="{ item }">
+    <template #item.context="{ item }">
       {{ item.context || $ndt('(empty)') }}
     </template>
-    <template v-slot:item.messages="{ item }">
+    <template #item.messages="{ item }">
       <v-textarea
         density="compact"
         variant="outlined"
@@ -226,7 +226,7 @@ onMounted(async () => {
             lodash.find(myRefStore.pageResult.items, item)?.messages[idx].message !==
             message.message
           "
-          v-slot:append
+          #append
         >
           <v-btn
             class="align-self-center"
@@ -242,7 +242,7 @@ onMounted(async () => {
       </v-textarea>
     </template>
 
-    <template v-slot:bottom>
+    <template #bottom>
       <VDataTablePagination
         v-model:page="queryParamPage"
         v-model:items-per-page="queryParamItemsPerPage"

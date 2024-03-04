@@ -1,9 +1,12 @@
 import {
   DataTreeIDictGroup,
   IDictGroup,
+  IDictItem,
   IDictType,
+  IDictTypeWithItems,
   QueryParams,
-  SequelizePaginationIDictType,
+  SequelizePaginationIDictItem,
+  SequelizePaginationIDictTypeWithItems,
 } from '@/api/admin/data-contracts';
 import * as DictApi from '@/api/admin/Dict';
 import lodash from '@/utils/lodash';
@@ -72,7 +75,9 @@ export const useDictStore = defineStore('dict', {
      * @param groupId
      * @returns
      */
-    async listType(params?: QueryParams): Promise<SequelizePaginationIDictType | undefined> {
+    async listType(
+      params?: QueryParams,
+    ): Promise<SequelizePaginationIDictTypeWithItems | undefined> {
       return await DictApi.adminDictTypeList(params);
     },
     /**
@@ -80,7 +85,7 @@ export const useDictStore = defineStore('dict', {
      * @param id
      * @returns
      */
-    async queryType(id: string): Promise<IDictType | undefined> {
+    async queryType(id: string): Promise<IDictTypeWithItems | undefined> {
       return await DictApi.adminDictTypeQuery(id);
     },
     /**
@@ -95,7 +100,7 @@ export const useDictStore = defineStore('dict', {
      * @param type
      */
     async editType(type: IDictType): Promise<void> {
-      await DictApi.adminDictTypeEdit(type.dictId, lodash.omit(type, ['dictId', 'dictKey']));
+      await DictApi.adminDictTypeEdit(type.dictKey, lodash.omit(type, ['dictId', 'dictKey']));
     },
     /**
      * Delete type.
@@ -103,6 +108,47 @@ export const useDictStore = defineStore('dict', {
      */
     async deleteType(id: string): Promise<void> {
       await DictApi.adminDictTypeDelete(id);
+    },
+
+    /**
+     * List item.
+     * @param params
+     * @returns
+     */
+    async listItem(params?: QueryParams): Promise<SequelizePaginationIDictItem | undefined> {
+      return await DictApi.adminDictItemList(params);
+    },
+    /**
+     * Query item.
+     * @param id
+     * @returns
+     */
+    async queryItem(id: number): Promise<IDictItem | undefined> {
+      return await DictApi.adminDictItemQuery(id);
+    },
+    /**
+     * Create item.
+     * @param item
+     */
+    async createItem(item: IDictItem): Promise<void> {
+      await DictApi.adminDictItemCreate(lodash.omit(item, ['itemId']));
+    },
+    /**
+     * Edit item.
+     * @param item
+     */
+    async editItem(item: IDictItem): Promise<void> {
+      await DictApi.adminDictItemEdit(
+        item.itemId,
+        lodash.omit(item, ['itemId', 'dictKey', 'itemKey']),
+      );
+    },
+    /**
+     * Delete item.
+     * @param id
+     */
+    async deleteItem(id: number): Promise<void> {
+      await DictApi.adminDictItemDelete(id);
     },
   },
 });

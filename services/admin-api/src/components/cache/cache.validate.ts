@@ -4,7 +4,7 @@ import Joi from 'joi';
 export const CacheInvalidateValidation: ValidationSchema = {
   query: Joi.object()
     .keys({
-      type: Joi.string().valid('all', 'menu', 'locale').required(),
+      type: Joi.string().valid('all', 'menu', 'dict', 'locale', 'perms').required(),
     })
     .unknown(true),
 };

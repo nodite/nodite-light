@@ -2,6 +2,7 @@
 import { toast } from 'vuetify-sonner';
 
 import { IUser } from '@/api/admin/data-contracts';
+import DictElement from '@/components/form/DictElement.vue';
 import i18n from '@/plugins/i18n';
 import { useUserStore } from '@/stores/modules/userStore';
 
@@ -48,7 +49,7 @@ const formRules = ref({
     (v: string) => (v && v.length <= 25) || i18n.ndt('Username must be less than 25 characters.'),
   ],
   nickname: [
-    (v: string) => !v || v.length <= 32 || i18n.ndt('Nickname must be less than 32 characters.'),
+    (v: string) => !v || v.length <= 50 || i18n.ndt('Nickname must be less than 50 characters.'),
   ],
   email: [
     (v: string) => !v || v.length <= 50 || i18n.ndt('Email must be less than 50 characters.'),
@@ -63,7 +64,6 @@ const formRules = ref({
       (v && v.length <= 25) ||
       i18n.ndt('Password must be less than 25 characters.'),
   ],
-  status: [],
 });
 
 // Methods.
@@ -133,7 +133,7 @@ watch(
     :persistent="myRefStore.isSaving"
     max-width="550"
   >
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <v-btn v-bind="props" prepend-icon="mdi-creation" variant="tonal" density="comfortable">
         {{ $ndt('Create User') }}
       </v-btn>
@@ -196,7 +196,7 @@ watch(
                   density="compact"
                   variant="outlined"
                 >
-                  <template v-slot:append-inner>
+                  <template #append-inner>
                     <v-icon>mdi-email</v-icon>
                   </template>
                 </v-text-field>
@@ -215,7 +215,7 @@ watch(
                   density="compact"
                   variant="outlined"
                 >
-                  <template v-slot:append-inner>
+                  <template #append-inner>
                     <v-icon>mdi-cellphone</v-icon>
                   </template>
                 </v-text-field>
@@ -236,7 +236,7 @@ watch(
                   density="compact"
                   variant="outlined"
                 >
-                  <template v-slot:append-inner>
+                  <template #append-inner>
                     <v-icon>mdi-lock</v-icon>
                   </template>
                 </v-text-field>
@@ -254,7 +254,7 @@ watch(
                   inline
                   hide-details
                 >
-                  <template v-slot:prepend>
+                  <template #prepend>
                     <v-label>{{ $ndt('Sex') }}:</v-label>
                   </template>
                   <v-radio :label="$ndt('Secret')" :value="0"></v-radio>
@@ -267,21 +267,20 @@ watch(
             <v-row dense>
               <!-- status -->
               <v-col>
-                <v-radio-group
+                <DictElement
+                  component="VRadioGroup"
+                  dict-key="status"
                   v-model="formData.status"
-                  :rules="formRules.status"
-                  validate-on="blur"
-                  :error="myRefStore.error"
-                  :disabled="formData.userId === 1"
-                  inline
-                  hide-details
-                >
-                  <template v-slot:prepend>
-                    <v-label>{{ $ndt('Status') }}:</v-label>
-                  </template>
-                  <v-radio :label="$ndt('Enabled')" :value="1"></v-radio>
-                  <v-radio :label="$ndt('Disabled')" :value="0"></v-radio>
-                </v-radio-group>
+                  :component-props="{
+                    validateOn: 'blur',
+                    error: myRefStore.error,
+                    disabled: formData.userId === 1,
+                    inline: true,
+                    hideDetails: true,
+                  }"
+                  :show-label="false"
+                  :show-prepend-label="true"
+                ></DictElement>
               </v-col>
             </v-row>
           </v-container>

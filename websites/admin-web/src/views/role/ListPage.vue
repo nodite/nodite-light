@@ -3,6 +3,7 @@ import { VDataTablePagination } from '@nodite-light/vuetify-data-table-paginatio
 import moment from 'moment';
 
 import { IRole, SequelizePaginationIRole } from '@/api/admin/data-contracts';
+import DictElement from '@/components/form/DictElement.vue';
 import i18n from '@/plugins/i18n';
 import { useRoleStore } from '@/stores/modules/roleStore';
 import dialogs from '@/utils/dialogs';
@@ -15,7 +16,7 @@ const router = useRouter();
 interface QueryParams {
   roleName?: string;
   roleKey?: string;
-  status?: number;
+  status?: 0 | 1;
 }
 
 // Local data.
@@ -150,24 +151,21 @@ onMounted(async () => {
           ></v-text-field>
         </v-col>
         <v-col cols="12" lg="2" md="3" sm="6">
-          <v-select
-            density="compact"
-            :label="$ndt('Status')"
+          <DictElement
+            component="VSelect"
+            dict-key="status"
             v-model="queryParams.status"
-            variant="outlined"
-            :items="[
-              { title: $ndt('Enabled'), value: 1 },
-              { title: $ndt('Disabled'), value: 0 },
-            ]"
-            item-title="title"
-            item-value="value"
-            hide-details
-            clearable
+            :component-props="{
+              density: 'compact',
+              variant: 'outlined',
+              hideDetails: true,
+              clearable: true,
+            }"
           >
-            <template v-slot:chip="{ item }">
+            <template #chip="{ item }">
               <v-chip density="comfortable">{{ item.title }}</v-chip>
             </template>
-          </v-select>
+          </DictElement>
         </v-col>
         <v-spacer></v-spacer>
         <v-btn
@@ -200,7 +198,6 @@ onMounted(async () => {
       { title: '', align: 'start', key: 'data-table-select' },
       { title: $ndt('ID'), value: 'roleId' },
       { title: $ndt('Role Name'), value: 'roleName' },
-      { title: $ndt('Translation'), value: 'trans' },
       { title: $ndt('Role Key'), value: 'roleKey' },
       { title: $ndt('Order'), value: 'orderNum' },
       { title: $ndt('Status'), value: 'status' },
@@ -210,7 +207,7 @@ onMounted(async () => {
     :items="myRefStore.pageResult.items"
     :items-per-page="queryParamItemsPerPage"
   >
-    <template v-slot:top>
+    <template #top>
       <v-toolbar density="compact" color="background">
         <RoleForm
           v-model:dialog="roleFormData.dialog"
@@ -220,11 +217,15 @@ onMounted(async () => {
       </v-toolbar>
     </template>
 
-    <template v-slot:item.trans="{ item }">
-      <v-label>{{ $ndt(item.roleName) }}</v-label>
+    <template #item.roleName="{ value }">
+      <v-label>{{ value }}</v-label>
+      <br />
+      <v-label class="text-caption text-disabled">
+        {{ $ndt('Translation') }}: {{ $ndt(value) }}
+      </v-label>
     </template>
 
-    <template v-slot:item.status="{ item }">
+    <template #item.status="{ item }">
       <!-- status -->
       <v-switch
         color="success"
@@ -238,11 +239,11 @@ onMounted(async () => {
       ></v-switch>
     </template>
 
-    <template v-slot:item.createTime="{ value }">
+    <template #item.createTime="{ value }">
       <v-label>{{ moment(value).format('YYYY-MM-DD HH:mm:ss') }}</v-label>
     </template>
 
-    <template v-slot:item.actions="{ item }">
+    <template #item.actions="{ item }">
       <v-btn
         class="px-0"
         variant="text"
@@ -265,7 +266,7 @@ onMounted(async () => {
 
       <!-- expand actions -->
       <v-menu transition="scroll-y-transition">
-        <template v-slot:activator="{ props }">
+        <template #activator="{ props }">
           <v-btn
             v-bind="props"
             class="px-0"
@@ -303,7 +304,7 @@ onMounted(async () => {
       </v-menu>
     </template>
 
-    <template v-slot:bottom>
+    <template #bottom>
       <VDataTablePagination
         v-model:page="queryParamPage"
         v-model:items-per-page="queryParamItemsPerPage"

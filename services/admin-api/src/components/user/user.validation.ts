@@ -23,7 +23,7 @@ export const EditValidation: ValidationSchema = {
     .keys({
       userId: Joi.forbidden(),
       username: Joi.forbidden(),
-      email: Joi.string().email().optional().allow(null, ''),
+      email: Joi.string().email().optional().allow(''),
       password: Joi.forbidden(),
     })
     .unknown(true),

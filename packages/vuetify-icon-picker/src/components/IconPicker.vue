@@ -3,6 +3,7 @@ import { kebabCase } from 'change-case';
 import { ref } from 'vue';
 import { computed, PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { VTextField } from 'vuetify/components';
 
 import IconCommon from '../assets/icons/common';
 import IconData from '../assets/icons/data';
@@ -35,16 +36,7 @@ const props = defineProps({
     default: '',
   },
   variant: {
-    type: String as PropType<
-      | 'outlined'
-      | 'filled'
-      | 'plain'
-      | 'underlined'
-      | 'solo'
-      | 'solo-inverted'
-      | 'solo-filled'
-      | undefined
-    >,
+    type: String as PropType<VTextField['$props']['variant']>,
     default: 'outlined',
   },
   readonly: {
@@ -124,7 +116,7 @@ const methods = {
 
 <template>
   <v-dialog v-model="dialogValue" :max-width="maxWidth">
-    <template v-slot:activator="{ props: actProps }">
+    <template #activator="{ props: actProps }">
       <v-text-field
         density="compact"
         v-model="modelValue"
@@ -136,10 +128,10 @@ const methods = {
         validate-on="blur"
         :error="error"
       >
-        <template v-if="modelValue" v-slot:prepend-inner>
+        <template v-if="modelValue" #prepend-inner>
           <Icon :icon="modelValue"></Icon>
         </template>
-        <template v-slot:append-inner>
+        <template #append-inner>
           <v-btn
             v-bind="actProps"
             variant="tonal"
