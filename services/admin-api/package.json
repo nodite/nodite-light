@@ -1,6 +1,5 @@
 {
   "name": "@nodite-light/admin-api",
-  "version": "0.0.1",
   "private": true,
   "main": "src/server.ts",
   "engines": {
