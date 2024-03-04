@@ -8,6 +8,7 @@ module.exports = {
       2,
       'always',
       [
+        'bump',
         'all',
         'deps',
         'deps-dev',
