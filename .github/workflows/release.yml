@@ -1,0 +1,26 @@
+name: release
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  release:
+    if: "!startsWith(github.event.head_commit.message, 'bump:')"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: "${{ secrets.GITHUB_TOKEN }}"
+      - id: cz
+        name: Create bump and changelog
+        uses: commitizen-tools/commitizen-action@master
+        with:
+          git_name: nodite-light[bot]
+          git_email: nodite-light[bot]@users.noreply.github.com
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Print version
+        run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
