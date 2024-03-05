@@ -4,6 +4,24 @@ module.exports = {
   extends: ['@commitlint/config-conventional'],
   rules: {
     'body-max-line-length': [1, 'always', 100],
+    'type-enum': [
+      2,
+      'always',
+      [
+        'build',
+        'chore',
+        'ci',
+        'docs',
+        'feat',
+        'fix',
+        'perf',
+        'refactor',
+        'revert',
+        'style',
+        'test',
+        'bump',
+      ],
+    ],
     'scope-enum': [
       2,
       'always',
