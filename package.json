@@ -1,6 +1,6 @@
 {
   "name": "@nodite-light/root",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A web framework with Vuetify & Express, use Typescript for everything.",
   "repository": "git@github.com:nodite/nodite-light.git",
   "author": "Oscaner Miao <oscaner1997@gmail.com>",
