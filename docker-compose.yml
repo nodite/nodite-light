@@ -1,0 +1,110 @@
+version: "3"
+
+services:
+  ############################################
+  # mysql
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: nodite-light
+      MYSQL_ROOT_PASSWORD: nodite-light
+    ports:
+      - 3306:3306
+    volumes:
+      - nodite-volume-mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "-uroot", "-p${MYSQL_ROOT_PASSWORD}", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 10s
+      retries: 3
+    networks:
+      - default
+
+  ############################################
+  # redis
+  redis:
+    image: redis:7
+    ports:
+      - 6379:6379
+    volumes:
+      - nodite-volume-redis:/data
+    networks:
+      - default
+
+  ############################################
+  # redis-commander
+  redis-commander:
+    image: eburypartners/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "6378:8081"
+    depends_on:
+      - redis
+    networks:
+      - default
+
+  ############################################
+  # admin-api
+  # admin-api:
+  #   image: node:20-alpine
+  #   command: npm run start:admin-api
+  #   working_dir: /app
+  #   env_file:
+  #     - services/admin-api/.env
+  #   ports:
+  #     - 8080:8080
+  #     - 9229:9229
+  #   volumes:
+  #     - .:/app
+  #   depends_on:
+  #     - mysql
+  #   networks:
+  #     - default
+
+  ############################################
+  # admin-web
+  # admin-web:
+  #   image: node:20-alpine
+  #   command: npm run start:admin-web
+  #   working_dir: /app
+  #   env_file:
+  #     - websites/admin-web/.env
+  #   ports:
+  #     - 4399:4399
+  #   volumes:
+  #     - .:/app
+  #   networks:
+  #     - default
+
+  # ############################################
+  # pgsql
+  # pgsql:
+  #   build:
+  #     context: .
+  #     dockerfile: docker/postgres/Dockerfile
+  #   privileged: true
+  #   environment:
+  #     - PG_MAJOR
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #     - POSTGRES_DB=nodite
+  #     - PGDATA=/var/lib/postgresql/data/pgdata
+  #   ports:
+  #     - 5432:5432
+  #   volumes:
+  #     - ./volumes/postgres:/var/lib/postgresql/data
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U postgres"]
+  #     interval: 5s
+  #     timeout: 5s
+  #     retries: 5
+  #   networks:
+  #     - default
+
+networks:
+  default:
+
+volumes:
+  nodite-volume-mysql:
+  nodite-volume-redis:

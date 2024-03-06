@@ -1,2 +1,9 @@
-node_modules
-npm-debug.log
+**/node_modules/
+**/dist
+**/lib
+**/.git
+**/npm-debug.log
+**/.coverage
+**/.coverage.*
+**/.aws
+**/.env

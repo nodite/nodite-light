@@ -2,8 +2,8 @@
   "name": "@nodite-light/admin-web",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "vite build",
-    "start:dev": "vite",
+    "build": "vite build --mode prod",
+    "start": "vite --mode development",
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",

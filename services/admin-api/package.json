@@ -8,9 +8,9 @@
   "scripts": {
     "build": "npm run tsoa && tsc && tsc-alias",
     "build:watch": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")",
-    "start:dev": "npm run tsoa && (concurrently \"nodemon\" \"npm run server:dev\")",
-    "start:prod": "node dist/server.js",
+    "start": "npm run tsoa && (concurrently \"nodemon\" \"npm run server:dev\")",
     "server:dev": "ts-node-dev --transpile-only --inspect=0.0.0.0:9229 --exit-child --respawn -r tsconfig-paths/register src/server.ts",
+    "start:prod": "node dist/server.js",
     "test": "jest -c jest.config.js --env=node",
     "test:cov": "jest -c jest.config.js --coverage --env=node",
     "test:watch": "jest -c jest.config.js -i --watchAll",

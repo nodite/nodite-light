@@ -19,9 +19,9 @@ const envsSchema = Joi.object()
     JWT_EXPIRES_IN: Joi.number().default(3600),
     // TODO: multiple db engine.
     DB_ENGINE: Joi.string().default('mysql').valid('mysql'),
-    DB_NAME: Joi.string().default('nodite'),
+    DB_NAME: Joi.string().default('nodite-light'),
     DB_USER: Joi.string().default('root'),
-    DB_PASS: Joi.string().default('nodite'),
+    DB_PASS: Joi.string().required(),
     DB_HOST: Joi.string().default('localhost'),
     DB_PORT: Joi.number().default(3306),
     REDIS_URL: Joi.string().default('redis://localhost:6379'),

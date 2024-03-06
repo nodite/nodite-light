@@ -66,6 +66,7 @@ export default defineConfig(({ command, mode }) => {
     build: {
       rollupOptions: {
         output: {
+          dir: `dist/${env.VITE_APP_BASE_PATH || ''}`,
           // inlineDynamicImports: true,
           manualChunks: {
             'vue3-lottie': ['vue3-lottie'],
