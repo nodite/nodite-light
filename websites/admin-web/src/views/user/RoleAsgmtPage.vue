@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import lodash from 'lodash';
 import moment from 'moment';
 
 import { IRoleWithUsers, IUser } from '@/api/admin/data-contracts';
 import DictElement from '@/components/form/DictElement.vue';
 import { useUserStore } from '@/stores/modules/userStore';
-import lodash from '@/utils/lodash';
 
 const userStore = useUserStore();
 const route = useRoute();

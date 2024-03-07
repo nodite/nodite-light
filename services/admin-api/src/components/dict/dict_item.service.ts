@@ -1,11 +1,11 @@
 import { AppError } from '@nodite-light/admin-core';
 import { SequelizePagination } from '@nodite-light/admin-database';
 import httpStatus from 'http-status';
+import lodash from 'lodash';
 
 import { IDictItemCreate, IDictItemUpdate } from '@/components/dict/dict.interface';
 import DictItemModel, { IDictItem } from '@/components/dict/dict_item.model';
 import { QueryParams } from '@/interfaces';
-import lodash from '@/utils/lodash';
 
 /**
  * Class DictItemService.

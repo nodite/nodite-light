@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import lodash from 'lodash';
 import { toast } from 'vuetify-sonner';
 
 import { IDictItem, IDictType } from '@/api/admin/data-contracts';
 import DictElement from '@/components/form/DictElement.vue';
 import i18n from '@/plugins/i18n';
 import { useDictStore } from '@/stores/modules/dictStore';
-import lodash from '@/utils/lodash';
 
 const dictStore = useDictStore();
 

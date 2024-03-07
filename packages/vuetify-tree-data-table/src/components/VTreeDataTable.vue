@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isEmpty as _isEmpty } from 'lodash-es';
+import { isEmpty as _isEmpty } from 'lodash';
 
 import { DataTableItemProps, Item } from '../types/VDataTable';
 import VTreeDataTableRows from './VTreeDataTableRows.vue';

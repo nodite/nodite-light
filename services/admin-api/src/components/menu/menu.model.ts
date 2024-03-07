@@ -1,5 +1,6 @@
 import { type DataTree } from '@nodite-light/admin-core';
 import { SequelizeDatabase, SequelizeModel } from '@nodite-light/admin-database';
+import lodash from 'lodash';
 import { Attributes, FindOptions } from 'sequelize';
 import {
   AllowNull,
@@ -16,7 +17,6 @@ import {
 import RoleModel from '@/components/role/role.model';
 import RoleMenuModel from '@/components/role/role_menu.model';
 import MenuSeeds from '@/seeds/sys_menu.json';
-import lodash from '@/utils/lodash';
 
 const TABLE_NAME = 'sys_menu';
 

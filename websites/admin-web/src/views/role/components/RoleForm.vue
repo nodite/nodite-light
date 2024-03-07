@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import lodash from 'lodash';
 import { toast } from 'vuetify-sonner';
 
 import { IRole } from '@/api/admin/data-contracts';
 import DictElement from '@/components/form/DictElement.vue';
 import i18n from '@/plugins/i18n';
 import { useRoleStore } from '@/stores/modules/roleStore';
-import lodash from '@/utils/lodash';
 
 const roleStore = useRoleStore();
 

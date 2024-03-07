@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import lodash from 'lodash';
+
 import i18n from '@/plugins/i18n';
 import { Common, NavigationConfig } from '@/types/config';
 import { BreadcrumbItem } from '@/types/vuetify/components/VBreadcrumbs';
-import lodash from '@/utils/lodash';
 
 const route = useRoute() as unknown as NavigationConfig.Route;
 

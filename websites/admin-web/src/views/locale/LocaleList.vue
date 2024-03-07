@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { Icon } from '@nodite-light/vuetify-icon-picker';
+import lodash from 'lodash';
 
 import { ILocale } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
 import { useLocaleStore } from '@/stores/modules/localeStore';
 import dialogs from '@/utils/dialogs';
-import lodash from '@/utils/lodash';
 import LocaleForm from '@/views/locale/components/LocaleForm.vue';
 
 const localeStore = useLocaleStore();

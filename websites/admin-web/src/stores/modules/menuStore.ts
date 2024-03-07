@@ -1,6 +1,7 @@
+import lodash from 'lodash';
+
 import { DataTreeIMenu, IMenu } from '@/api/admin/data-contracts';
 import * as MenuApi from '@/api/admin/Menu';
-import lodash from '@/utils/lodash';
 
 interface MenuState {
   menuTree: DataTreeIMenu[];

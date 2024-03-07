@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import lodash from 'lodash';
 import { PropType } from 'vue';
 import * as Components from 'vuetify/components';
 
@@ -6,7 +7,6 @@ import { IDictTypeWithItems } from '@/api/admin/data-contracts';
 import i18n from '@/plugins/i18n';
 import { useDictStore } from '@/stores/modules/dictStore';
 import { Common } from '@/types/config';
-import lodash from '@/utils/lodash';
 
 const dictStore = useDictStore();
 

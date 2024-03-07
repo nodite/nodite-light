@@ -1,9 +1,9 @@
 import { AppError, type DataTree, DataTreeUtil } from '@nodite-light/admin-core';
 import httpStatus from 'http-status';
+import lodash from 'lodash';
 
 import { IDictGroupCreate, IDictGroupUpdate } from '@/components/dict/dict.interface';
 import DictGroupModel, { IDictGroup } from '@/components/dict/dict_group.model';
-import lodash from '@/utils/lodash';
 
 /**
  * Class DictGroupService.

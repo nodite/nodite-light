@@ -1,7 +1,7 @@
 import { exit } from 'node:process';
 
 import { logger } from '@nodite-light/admin-core';
-import _map from 'lodash/map';
+import lodash from 'lodash';
 import { ModelCtor, Sequelize } from 'sequelize-typescript';
 
 import { SequelizeStoreOptions } from '@/nodite-sequelize/interface';
@@ -101,13 +101,13 @@ export default class Database {
 
       logger.info(`Successfully connected to "${engine}" database server`);
 
-      Database.client.addModels(_map(Database.models, 'model'));
+      Database.client.addModels(lodash.map(Database.models, 'model'));
       await Database.client.sync();
 
       logger.info('Successfully synced models');
 
       await Promise.all(
-        _map(Database.models, async (meta) => {
+        lodash.map(Database.models, async (meta) => {
           if (!meta.seeds) return;
 
           logger.debug(`found model seed: ${meta.model.getTableName()}`);

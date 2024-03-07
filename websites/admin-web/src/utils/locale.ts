@@ -1,9 +1,9 @@
+import lodash from 'lodash';
 import md5 from 'md5';
 
 import { ILocationCreate } from '@/api/admin/data-contracts';
 import messages from '@/locales';
 import { Locale as LocaleConfig } from '@/types/config';
-import lodash from '@/utils/lodash';
 import url from '@/utils/url';
 
 const PREFIX = 'ndt';

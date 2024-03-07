@@ -1,4 +1,5 @@
 import httpStatus from 'http-status';
+import lodash from 'lodash';
 import moment from 'moment';
 
 import {
@@ -14,7 +15,6 @@ import i18n from '@/plugins/i18n';
 import { useProfileStore } from '@/stores/modules/profileStore';
 import { Locale as LocaleConfig } from '@/types/config';
 import localeUtil from '@/utils/locale';
-import lodash from '@/utils/lodash';
 import axios from '@/utils/requests';
 
 interface LocaleState {

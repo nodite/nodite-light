@@ -2,6 +2,7 @@
 import '@employee87/vue3-treeview/dist/style.css';
 
 import VueTreeView from '@employee87/vue3-treeview';
+import lodash from 'lodash';
 import { toast } from 'vuetify-sonner';
 
 import { IMenu } from '@/api/admin/data-contracts';
@@ -9,7 +10,6 @@ import i18n from '@/plugins/i18n';
 import { useMenuStore } from '@/stores/modules/menuStore';
 import { useRoleStore } from '@/stores/modules/roleStore';
 import { VueTreeView as VueTreeViewConfig } from '@/types/config';
-import lodash from '@/utils/lodash';
 
 const menuStore = useMenuStore();
 const roleStore = useRoleStore();

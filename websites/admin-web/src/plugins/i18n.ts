@@ -1,3 +1,4 @@
+import lodash from 'lodash';
 import parentModule from 'parent-module';
 import template from 'string-template';
 import { createI18n } from 'vue-i18n';
@@ -7,7 +8,6 @@ import messages from '@/locales';
 import { useLocaleStore } from '@/stores/modules/localeStore';
 import { Locale as LocaleConfig } from '@/types/config';
 import localeUtil from '@/utils/locale';
-import lodash from '@/utils/lodash';
 
 const i18n = createI18n({
   legacy: false,

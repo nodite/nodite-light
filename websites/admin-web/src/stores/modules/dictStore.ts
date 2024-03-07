@@ -1,3 +1,5 @@
+import lodash from 'lodash';
+
 import {
   DataTreeIDictGroup,
   IDictGroup,
@@ -9,7 +11,6 @@ import {
   SequelizePaginationIDictTypeWithItems,
 } from '@/api/admin/data-contracts';
 import * as DictApi from '@/api/admin/Dict';
-import lodash from '@/utils/lodash';
 
 interface DictState {
   groupTree: DataTreeIDictGroup[];

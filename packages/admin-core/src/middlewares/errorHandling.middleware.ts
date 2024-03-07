@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
-import _map from 'lodash/map';
-import _mapValues from 'lodash/mapValues';
+import lodash from 'lodash';
 import { ValidationError as SequelizeValidationError } from 'sequelize';
 import { ValidateError } from 'tsoa';
 
@@ -23,12 +22,12 @@ const errorHandling = (
   if (error instanceof ValidateError) {
     wrappedError = new AppError(
       httpStatus.BAD_REQUEST,
-      _mapValues(error.fields, (f) => f.message).toString(),
+      lodash.mapValues(error.fields, (f) => f.message).toString(),
     );
   } else if (error instanceof SequelizeValidationError) {
     wrappedError = new AppError(
       httpStatus.UNPROCESSABLE_ENTITY,
-      `${error.message}: ${_map(error.errors, 'message').toString()}`,
+      `${error.message}: ${lodash.map(error.errors, 'message').toString()}`,
     );
   }
 
