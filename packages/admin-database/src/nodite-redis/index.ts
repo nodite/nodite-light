@@ -22,7 +22,7 @@ export default class Database {
    * @param options
    * @returns
    */
-  async connect(options: RedisStoreOptions): Promise<typeof Database.client> {
+  static async connect(options: RedisStoreOptions): Promise<typeof Database.client> {
     try {
       Database.client = createClient({
         ...options,
@@ -54,7 +54,7 @@ export default class Database {
   /**
    * Disconnect from the database
    */
-  async disconnect(): Promise<void> {
+  static async disconnect(): Promise<void> {
     await Database.client?.disconnect();
   }
 }

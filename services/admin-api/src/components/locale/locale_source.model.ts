@@ -1,4 +1,4 @@
-import { SequelizeModel, Subscribe } from '@nodite-light/admin-database';
+import { SequelizeDatabase, SequelizeModel } from '@nodite-light/admin-database';
 import {
   AllowNull,
   Column,
@@ -26,7 +26,7 @@ import LocaleSourceSeeds from '@/seeds/sys_locale_source.json';
     },
   ],
 })
-@Subscribe(LocaleSourceSeeds)
+@SequelizeDatabase.subscribe(LocaleSourceSeeds)
 export default class LocaleSourceModel extends SequelizeModel<LocaleSourceModel> {
   @Unique
   @PrimaryKey

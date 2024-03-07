@@ -3,11 +3,11 @@ import { FindOptions as CoreFindOptions } from 'sequelize';
 import Model from '@/nodite-sequelize/model';
 
 export interface SequelizeStoreOptions {
-  host?: string;
-  port?: number;
-  user?: string;
-  pass?: string;
-  dbName?: string;
+  host: string;
+  port: number;
+  user: string;
+  pass: string;
+  dbName: string;
   engine?: string;
   storagePath?: string;
   exitOnFail?: boolean;

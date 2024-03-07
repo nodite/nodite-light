@@ -1,4 +1,4 @@
-import { SequelizeModel, Subscribe } from '@nodite-light/admin-database';
+import { SequelizeDatabase, SequelizeModel } from '@nodite-light/admin-database';
 import {
   AllowNull,
   AutoIncrement,
@@ -25,7 +25,7 @@ import LocaleLocationSeeds from '@/seeds/sys_locale_location.json';
     },
   ],
 })
-@Subscribe(LocaleLocationSeeds)
+@SequelizeDatabase.subscribe(LocaleLocationSeeds)
 export default class LocaleLocationModel extends SequelizeModel<LocaleLocationModel> {
   @Unique
   @PrimaryKey

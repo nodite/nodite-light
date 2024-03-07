@@ -1,4 +1,4 @@
-import { SequelizeModel, Subscribe } from '@nodite-light/admin-database';
+import { SequelizeDatabase, SequelizeModel } from '@nodite-light/admin-database';
 import {
   AllowNull,
   AutoIncrement,
@@ -19,7 +19,7 @@ import LocaleSeeds from '@/seeds/sys_locale.json';
   ...SequelizeModel.TableOptions,
   tableName: 'sys_locale',
 })
-@Subscribe(LocaleSeeds)
+@SequelizeDatabase.subscribe(LocaleSeeds)
 export default class LocaleModel extends SequelizeModel<LocaleModel> {
   @Unique
   @PrimaryKey

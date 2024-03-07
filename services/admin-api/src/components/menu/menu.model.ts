@@ -1,5 +1,5 @@
 import { type DataTree } from '@nodite-light/admin-core';
-import { SequelizeModel, Subscribe } from '@nodite-light/admin-database';
+import { SequelizeDatabase, SequelizeModel } from '@nodite-light/admin-database';
 import { Attributes, FindOptions } from 'sequelize';
 import {
   AllowNull,
@@ -44,7 +44,7 @@ async function initialSeeds(model: typeof MenuModel, seeds: DataTree<IMenu>[] = 
   ...SequelizeModel.TableOptions,
   tableName: TABLE_NAME,
 })
-@Subscribe(MenuSeeds, initialSeeds)
+@SequelizeDatabase.subscribe(MenuSeeds, initialSeeds)
 export default class MenuModel extends SequelizeModel<MenuModel> {
   @Unique
   @PrimaryKey
