@@ -9,8 +9,8 @@ import _isEmpty from 'lodash/isEmpty';
 import _isString from 'lodash/isString';
 import _toInteger from 'lodash/toInteger';
 
+import casbin from '@/_casbin';
 import { AuthorizedRequest, PermissionOptions } from '@/interfaces/authorization';
-import casbin from '@/nd-casbin';
 import * as utils from '@/utils';
 import { jwtAsync } from '@/utils/jwt';
 
