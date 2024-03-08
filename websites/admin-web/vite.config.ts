@@ -50,10 +50,10 @@ export default defineConfig(({ command, mode }) => {
     server: {
       port: 4399,
       proxy: {
-        '/api': {
-          target: env.VITE_APP_BASE_API,
+        '/admin-api': {
+          target: env.VITE_APP_ADMIN_API,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
+          rewrite: (path) => path.replace(/^\/admin-api/, ''),
         },
       },
     },

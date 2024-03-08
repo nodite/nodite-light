@@ -1,5 +1,6 @@
 import { AppError, config, logger } from '@nodite-light/admin-core';
 import { NextFunction, Request, Response } from 'express';
+import { unless } from 'express-unless';
 import httpStatus from 'http-status';
 
 const apiKey = (req: Request, res: Response, next: NextFunction) => {
@@ -19,4 +20,8 @@ const apiKey = (req: Request, res: Response, next: NextFunction) => {
   return next(new AppError(httpStatus.UNAUTHORIZED, 'Access forbidden: invalid x-api-key'));
 };
 
+// add unless method to middleware.
+apiKey.unless = unless;
+
+// export middleware
 export default apiKey;

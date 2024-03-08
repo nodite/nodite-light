@@ -2,6 +2,7 @@ import type { AxiosResponse } from 'axios';
 import axios from 'axios';
 import { setupCache } from 'axios-cache-interceptor';
 import httpStatus from 'http-status';
+import lodash from 'lodash';
 import { toast } from 'vuetify-sonner';
 
 import i18n from '@/plugins/i18n';
@@ -16,7 +17,7 @@ axios.defaults.headers['Content-Type'] = ContentType.Json;
 // Create axios instance
 const axiosInstance = setupCache(
   axios.create({
-    baseURL: import.meta.env.VITE_APP_BASE_API || '/api',
+    baseURL: '/admin-api',
     timeout: 15 * 1000,
     paramsSerializer: {
       indexes: null,
@@ -31,7 +32,7 @@ const axiosInstance = setupCache(
 // Request interceptors
 axiosInstance.interceptors.request.use((config) => {
   config.headers.Authorization = `Bearer ${toolkit.token.get()}`;
-  config.headers['x-api-key'] = import.meta.env.VITE_APP_API_KEY || '';
+  config.headers['x-api-key'] = import.meta.env.VITE_APP_ADMIN_API_KEY || '';
   config.headers.datasource = 'master';
   requestCanceler.addPendingRequest(config);
   return config;
@@ -118,7 +119,7 @@ export async function request({
   const code = axiosResponse.data?.httpCode || axiosResponse.status;
 
   // successful response
-  if (httpStatus[`${code}_CLASS`] === httpStatus.classes.SUCCESSFUL) {
+  if (lodash.get(httpStatus, `${code}_CLASS`) === httpStatus.classes.SUCCESSFUL) {
     return axiosResponse.data?.data ?? axiosResponse.data;
   }
 

@@ -3,7 +3,7 @@
   "private": true,
   "main": "src/server.ts",
   "engines": {
-    "node": ">=8.10.0"
+    "node": ">=10"
   },
   "scripts": {
     "build": "npm run tsoa && tsc && tsc-alias",

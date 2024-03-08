@@ -13,6 +13,7 @@ const envsSchema = Joi.object()
   .keys({
     NODE_ENV: Joi.string().valid('production', 'development').required(),
     PORT: Joi.number().default(8080),
+    API_ROOT_PATH: Joi.string().required(),
     API_KEY_TOKEN: Joi.string().required(),
     JWT_SECRET: Joi.string().required(),
     JWT_EXPIRES_IN: Joi.number().default(3600),
@@ -44,6 +45,7 @@ if (error) {
 export default {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
+  apiRootPath: envVars.API_ROOT_PATH,
   xApiKey: envVars.API_KEY_TOKEN,
   jwtSecret: envVars.JWT_SECRET,
   jwtExpiresIn: envVars.JWT_EXPIRES_IN,

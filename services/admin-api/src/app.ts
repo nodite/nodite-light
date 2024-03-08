@@ -1,6 +1,6 @@
 import { ApiKeyMiddleware, AuthorizedMiddleware } from '@nodite-light/admin-auth';
 import {
-  consts,
+  config,
   ErrorHandlingMiddleware,
   httpLogger,
   UniqueReqIdMiddleware,
@@ -14,8 +14,6 @@ import { unless } from 'express-unless';
 import helmet from 'helmet';
 
 import http404 from '@/components/404/404.router';
-import health from '@/components/health/health.router';
-import swaggerApiDocs from '@/components/swagger/swagger.router';
 
 const app: Application = express();
 
@@ -41,12 +39,26 @@ app.use(UniqueReqIdMiddleware);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
-  consts.API_ROOT_PATH,
-  [ApiKeyMiddleware, AuthorizedMiddleware.unless({ path: consts.AUTH_WHITELIST })],
+  config.apiRootPath,
+  [
+    ApiKeyMiddleware.unless({
+      path: [/^\/api-docs/, '/health'],
+      useOriginalUrl: false,
+    }),
+    AuthorizedMiddleware.unless({
+      path: [
+        /^\/api-docs/,
+        '/health',
+        '/auth/login',
+        '/auth/register',
+        '/locale/i/available',
+        '/locale/message/available',
+      ],
+      useOriginalUrl: false,
+    }),
+  ],
   api,
 );
-app.use(swaggerApiDocs);
-app.use(health);
 app.use(http404);
 
 app.use(ErrorHandlingMiddleware);

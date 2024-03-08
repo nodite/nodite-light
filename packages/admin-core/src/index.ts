@@ -1,5 +1,4 @@
 export { default as config } from '@/config/config';
-export { default as consts } from '@/config/consts';
 export { type DataTree, BuildOptions as DataTreeBuildOptions } from '@/interfaces/dataTree';
 export { IResponse } from '@/interfaces/httpResponse';
 export { ValidationSchema } from '@/interfaces/validationSchema';
