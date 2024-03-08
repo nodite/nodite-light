@@ -7,8 +7,6 @@ import { generateApi } from 'swagger-typescript-api';
 const cwd = process.cwd();
 const templatesDir = path.resolve(cwd, './templates');
 
-const envPath = ['.env'];
-
 const commonParams: Partial<GenerateApiParams> = {
   modular: true,
   cleanOutput: true,
@@ -24,28 +22,26 @@ const commonParams: Partial<GenerateApiParams> = {
 };
 
 const gen = async () => {
-  let API_HOST = 'http://localhost:8080';
+  dotenv.config({ path: '.env' });
 
-  envPath.some((path) => {
-    dotenv.config({
-      path,
+  for (const [key, value] of Object.entries(process.env)) {
+    if (!key.startsWith('VITE_APP_')) continue;
+
+    const [, scope] = /^VITE_APP_([^_]+)_API$/g.exec(key) || [];
+
+    if (!scope) continue;
+
+    console.log(`> Generating API for ${scope}...`);
+
+    await generateApi({
+      url: `${value}/api-docs/swagger.json`,
+      output: path.resolve(cwd, `./src/api/${scope.toLocaleLowerCase()}`),
+      templates: templatesDir,
+      ...commonParams,
     });
 
-    const VITE_OPENAPI_HOST = process.env.VITE_OPENAPI_HOST;
-
-    if (VITE_OPENAPI_HOST) {
-      API_HOST = VITE_OPENAPI_HOST;
-    }
-
-    return !!VITE_OPENAPI_HOST;
-  });
-
-  await generateApi({
-    url: `${API_HOST}/api-docs/swagger.json`,
-    output: path.resolve(cwd, './src/api/admin'),
-    templates: templatesDir,
-    ...commonParams,
-  });
+    console.log(`> API for ${scope} generated.`);
+  }
 
   process.exit();
 };
