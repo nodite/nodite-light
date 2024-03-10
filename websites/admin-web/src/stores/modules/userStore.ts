@@ -1,3 +1,5 @@
+import lodash from 'lodash';
+
 import {
   IRoleWithUsers,
   IUser,
@@ -5,7 +7,6 @@ import {
   SequelizePaginationIUser,
 } from '@/api/admin/data-contracts';
 import * as UserApi from '@/api/admin/User';
-import lodash from '@/utils/lodash';
 
 interface UserState {}
 

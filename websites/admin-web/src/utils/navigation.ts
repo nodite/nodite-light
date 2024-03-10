@@ -1,8 +1,9 @@
+import lodash from 'lodash';
+
 import { DataTreeIMenu } from '@/api/admin/data-contracts';
 import { useMenuStore } from '@/stores/modules/menuStore';
 import { useNavStore } from '@/stores/modules/navStore';
 import { NavigationConfig } from '@/types/config';
-import lodash from '@/utils/lodash';
 
 const views = import.meta.glob('@/views/**/*.vue');
 

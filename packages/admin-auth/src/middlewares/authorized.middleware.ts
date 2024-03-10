@@ -5,12 +5,10 @@ import { unless } from 'express-unless';
 import httpStatus from 'http-status';
 import { JwtPayload } from 'jsonwebtoken';
 import { TokenDestroyedError, TokenInvalidError } from 'jwt-redis';
-import _isEmpty from 'lodash/isEmpty';
-import _isString from 'lodash/isString';
-import _toInteger from 'lodash/toInteger';
+import lodash from 'lodash';
 
+import casbin from '@/_casbin';
 import { AuthorizedRequest, PermissionOptions } from '@/interfaces/authorization';
-import casbin from '@/nd-casbin';
 import * as utils from '@/utils';
 import { jwtAsync } from '@/utils/jwt';
 
@@ -20,6 +18,9 @@ import { jwtAsync } from '@/utils/jwt';
  * @returns
  */
 export function Permissions(perms?: string | string[], options: PermissionOptions = {}) {
+  /**
+   * Wrapper function.
+   */
   return function wrapperFn(target: object, propertyKey: string, descriptor: PropertyDescriptor) {
     // original method.
     const original = descriptor.value;
@@ -34,13 +35,13 @@ export function Permissions(perms?: string | string[], options: PermissionOption
       if (!user) throw new AppError(httpStatus.UNAUTHORIZED, 'Unauthorized');
 
       // skip perms if not provided.
-      if (_isEmpty(perms)) return original.apply(this, args);
+      if (lodash.isEmpty(perms)) return original.apply(this, args);
 
       // self bypass.
       if (
         !!options?.selfBypass &&
         !!options?.userIdDetector &&
-        _toInteger(options.userIdDetector(args)) === user.userId
+        lodash.toInteger(options.userIdDetector(args)) === user.userId
       ) {
         return original.apply(this, args);
       }
@@ -48,7 +49,7 @@ export function Permissions(perms?: string | string[], options: PermissionOption
       // casbin enforce to check permissions.
       const enforcer = await casbin();
 
-      const promises = (_isString(perms) ? [perms] : perms).map(async (perm) => {
+      const promises = (lodash.isString(perms) ? [perms] : perms).map(async (perm) => {
         const [dom, obj, act] = utils.permToCasbinPolicy(perm);
 
         const isValid = await enforcer.enforce(`sys_user:${user.userId}`, dom, obj, act);

@@ -1,5 +1,6 @@
 import { type DataTree } from '@nodite-light/admin-core';
-import { SequelizeModel, Subscribe } from '@nodite-light/admin-database';
+import { SequelizeDatabase, SequelizeModel } from '@nodite-light/admin-database';
+import lodash from 'lodash';
 import { Attributes, FindOptions } from 'sequelize';
 import {
   AllowNull,
@@ -16,7 +17,6 @@ import {
 import RoleModel from '@/components/role/role.model';
 import RoleMenuModel from '@/components/role/role_menu.model';
 import MenuSeeds from '@/seeds/sys_menu.json';
-import lodash from '@/utils/lodash';
 
 const TABLE_NAME = 'sys_menu';
 
@@ -44,7 +44,7 @@ async function initialSeeds(model: typeof MenuModel, seeds: DataTree<IMenu>[] = 
   ...SequelizeModel.TableOptions,
   tableName: TABLE_NAME,
 })
-@Subscribe(MenuSeeds, initialSeeds)
+@SequelizeDatabase.subscribe(MenuSeeds, initialSeeds)
 export default class MenuModel extends SequelizeModel<MenuModel> {
   @Unique
   @PrimaryKey

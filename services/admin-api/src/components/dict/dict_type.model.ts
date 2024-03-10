@@ -1,4 +1,4 @@
-import { SequelizeModel, Subscribe } from '@nodite-light/admin-database';
+import { SequelizeDatabase, SequelizeModel } from '@nodite-light/admin-database';
 import {
   AllowNull,
   Column,
@@ -22,7 +22,7 @@ import DictTypeSeeds from '@/seeds/sys_dict_type.json';
   ...SequelizeModel.TableOptions,
   tableName: 'sys_dict_type',
 })
-@Subscribe(DictTypeSeeds)
+@SequelizeDatabase.subscribe(DictTypeSeeds)
 export default class DictTypeModel extends SequelizeModel<DictTypeModel> {
   @Unique
   @PrimaryKey

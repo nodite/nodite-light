@@ -3,8 +3,8 @@ declare interface ImportMeta {
     // Environment variables defined in .env
     readonly VITE_APP_TITLE: string;
     readonly VITE_APP_BASE_PATH: string;
-    readonly VITE_APP_BASE_API: string;
-    readonly VITE_APP_API_KEY: string;
+    readonly VITE_APP_ADMIN_API: string;
+    readonly VITE_APP_ADMIN_API_KEY: string;
   };
   glob: (glob: string | string[], options?: ImportGlobOptions) => Record<string, any>;
 }

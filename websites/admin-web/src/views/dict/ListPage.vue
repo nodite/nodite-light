@@ -3,6 +3,7 @@ import '@employee87/vue3-treeview/dist/style.css';
 
 import VueTreeView from '@employee87/vue3-treeview';
 import { VDataTablePagination } from '@nodite-light/vuetify-data-table-pagination';
+import lodash from 'lodash';
 import moment from 'moment';
 
 import {
@@ -16,7 +17,6 @@ import i18n from '@/plugins/i18n';
 import { useDictStore } from '@/stores/modules/dictStore';
 import { VueTreeView as VueTreeViewConfig } from '@/types/config';
 import dialogs from '@/utils/dialogs';
-import lodash from '@/utils/lodash';
 import DictGroupForm from '@/views/dict/components/DictGroupForm.vue';
 import DictTypeForm from '@/views/dict/components/DictTypeForm.vue';
 

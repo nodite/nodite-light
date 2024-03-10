@@ -5,7 +5,6 @@ import dynamicRoutes from '@/router/dynamic.routes';
 import staticRoutes from '@/router/static.routes';
 import { useAppStore } from '@/stores/modules/appStore';
 import { useAuthStore } from '@/stores/modules/authStore';
-import { useLocaleStore } from '@/stores/modules/localeStore';
 import { useNavStore } from '@/stores/modules/navStore';
 import { useProfileStore } from '@/stores/modules/profileStore';
 import * as navUtil from '@/utils/navigation';

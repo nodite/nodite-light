@@ -21,11 +21,12 @@
     "framework"
   ],
   "scripts": {
-    "postinstall": "husky install",
-    "start:dev": "lerna run start:dev --parallel",
-    "start:dev:admin-api": "lerna run start:dev --scope @nodite-light/admin-api",
-    "start:dev:admin-web": "lerna run start:dev --scope @nodite-light/admin-web",
+    "prepare": "husky",
+    "start": "lerna run start --parallel",
+    "start:admin-api": "lerna run start --scope @nodite-light/admin-api",
+    "start:admin-web": "lerna run start --scope @nodite-light/admin-web",
     "build": "lerna run build",
+    "build:admin-api": "lerna run build --scope @nodite-light/admin-api",
     "build:admin-web": "lerna run build --scope @nodite-light/admin-web",
     "preview": "lerna run preview --parallel",
     "preview:admin-web": "lerna run preview --scope @nodite-light/admin-web",
@@ -76,5 +77,8 @@
       "services/*",
       "websites/*"
     ]
+  },
+  "dependencies": {
+    "tslib": "^2.6.2"
   }
 }

@@ -7,9 +7,9 @@
       "path": "packages/admin-auth",
       "group": "build",
       "problemMatcher": [],
-      // "runOptions": {
-      //   "runOn": "folderOpen"
-      // },
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
       "label": "npm: build:watch - packages/admin-auth",
       "detail": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")"
     },
@@ -19,9 +19,9 @@
       "path": "packages/admin-core",
       "group": "build",
       "problemMatcher": [],
-      // "runOptions": {
-      //   "runOn": "folderOpen"
-      // },
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
       "label": "npm: build:watch - packages/admin-core",
       "detail": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")"
     },
@@ -31,9 +31,9 @@
       "path": "packages/admin-database",
       "group": "build",
       "problemMatcher": [],
-      // "runOptions": {
-      //   "runOn": "folderOpen"
-      // },
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
       "label": "npm: build:watch - packages/admin-database",
       "detail": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")"
     }

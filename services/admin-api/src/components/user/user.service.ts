@@ -3,6 +3,7 @@ import { AppError } from '@nodite-light/admin-core';
 import { SequelizePagination } from '@nodite-light/admin-database';
 import httpContext from 'express-http-context';
 import httpStatus from 'http-status';
+import lodash from 'lodash';
 import { Transaction } from 'sequelize';
 
 import CasbinModel from '@/components/casbin/casbin.model';
@@ -17,7 +18,6 @@ import {
 } from '@/components/user/user.interface';
 import UserModel, { IUser } from '@/components/user/user.model';
 import { QueryParams } from '@/interfaces';
-import lodash from '@/utils/lodash';
 
 /**
  * Class UserService.

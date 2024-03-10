@@ -1,0 +1,101 @@
+version: "3"
+
+services:
+  ############################################
+  # mysql
+  mysql:
+    container_name: nodite-mysql
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: nodite-light
+      MYSQL_ROOT_PASSWORD: nodite-light
+    # ports:
+    #   - 3306:3306
+    volumes:
+      - nodite-volume-mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "-uroot", "-p${MYSQL_ROOT_PASSWORD}", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 10s
+      retries: 3
+    networks:
+      - default
+
+  ############################################
+  # redis
+  redis:
+    container_name: nodite-redis
+    image: redis:7
+    # ports:
+    #   - 6379:6379
+    volumes:
+      - nodite-volume-redis:/data
+    networks:
+      - default
+
+  ############################################
+  # admin-api
+  admin-api:
+    container_name: nodite-admin-api
+    build:
+      context: ../../
+      dockerfile: services/admin-api/Dockerfile
+    # ports:
+    #   - 8080:8080
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - API_ROOT_PATH=/admin-api
+      - API_KEY_TOKEN=8ke2rt6d3JKyD4
+      # jwt
+      - JWT_SECRET=YUJ3nJfcoHuj8V
+      - JWT_EXPIRES_IN=86400
+      # database
+      - DB_ENGINE=mysql
+      - DB_NAME=nodite-light
+      - DB_USER=root
+      - DB_PASS=nodite-light
+      - DB_HOST=nodite-mysql
+      - DB_PORT=3306
+      # redis
+      - REDIS_URL=redis://nodite-redis:6379
+      - REDIS_USER=
+      - REDIS_PASS=
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://localhost:8080/admin-api/health",
+        ]
+      interval: 5s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  ############################################
+  # admin-web
+  admin-web:
+    container_name: nodite-admin-web
+    build:
+      context: ../../
+      dockerfile: websites/admin-web/Dockerfile
+    ports:
+      - 4399:80
+    depends_on:
+      admin-api:
+        condition: service_healthy
+
+volumes:
+  nodite-volume-mysql:
+  nodite-volume-redis:
+
+networks:
+  default:

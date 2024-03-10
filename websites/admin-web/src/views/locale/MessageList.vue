@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { VDataTablePagination } from '@nodite-light/vuetify-data-table-pagination';
+import lodash from 'lodash';
 
 import {
   ILocaleMessage,
@@ -7,7 +8,6 @@ import {
   SequelizePaginationISourceWithMessages,
 } from '@/api/admin/data-contracts';
 import { useLocaleStore } from '@/stores/modules/localeStore';
-import lodash from '@/utils/lodash';
 
 const localeStore = useLocaleStore();
 

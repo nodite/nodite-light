@@ -1,7 +1,8 @@
+import lodash from 'lodash';
+
 import { IProfile } from '@/api/admin/data-contracts';
 import * as UserApi from '@/api/admin/User';
 import { useAuthStore } from '@/stores/modules/authStore';
-import lodash from '@/utils/lodash';
 
 interface ProfileState {
   profile: IProfile;

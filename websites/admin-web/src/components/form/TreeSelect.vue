@@ -2,12 +2,12 @@
 import '@employee87/vue3-treeview/dist/style.css';
 
 import VueTreeView from '@employee87/vue3-treeview';
+import lodash from 'lodash';
 import { PropType } from 'vue';
 import { VSelect } from 'vuetify/components';
 
 import i18n from '@/plugins/i18n';
 import { VueTreeView as VueTreeViewConfig } from '@/types/config';
-import lodash from '@/utils/lodash';
 
 const emit = defineEmits(['update:modelValue', 'update:dialog', 'update:error']);
 

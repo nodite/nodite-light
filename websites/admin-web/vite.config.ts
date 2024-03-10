@@ -2,7 +2,7 @@
 import { fileURLToPath, URL } from 'node:url';
 
 import vue from '@vitejs/plugin-vue';
-import { merge } from 'lodash-es';
+import lodash from 'lodash';
 import AutoImport from 'unplugin-auto-import/vite';
 import { defineConfig, loadEnv, version as viteVersion } from 'vite';
 import { compression } from 'vite-plugin-compression2';
@@ -29,7 +29,7 @@ export default defineConfig(({ command, mode }) => {
       compression(),
     ],
     define: {
-      'process.env': merge(env, {
+      'process.env': lodash.merge(env, {
         vite: viteVersion,
         vue: vuePkg.version,
         vuetify: vuetifyPkg.version,
@@ -50,10 +50,10 @@ export default defineConfig(({ command, mode }) => {
     server: {
       port: 4399,
       proxy: {
-        '/api': {
-          target: env.VITE_APP_BASE_API,
+        '/admin-api': {
+          target: env.VITE_APP_ADMIN_API,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
+          rewrite: (path) => path.replace(/^\/admin-api/, ''),
         },
       },
     },
@@ -66,10 +66,11 @@ export default defineConfig(({ command, mode }) => {
     build: {
       rollupOptions: {
         output: {
+          dir: `dist/${env.VITE_APP_BASE_PATH || ''}`,
+          // inlineDynamicImports: true,
           manualChunks: {
             'vue3-lottie': ['vue3-lottie'],
             'vue3-apexcharts': ['vue3-apexcharts'],
-            'lodash-es': ['lodash-es'],
             vuetify: ['vuetify'],
             moment: ['moment'],
           },

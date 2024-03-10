@@ -13,14 +13,15 @@ const envsSchema = Joi.object()
   .keys({
     NODE_ENV: Joi.string().valid('production', 'development').required(),
     PORT: Joi.number().default(8080),
+    API_ROOT_PATH: Joi.string().required(),
     API_KEY_TOKEN: Joi.string().required(),
     JWT_SECRET: Joi.string().required(),
     JWT_EXPIRES_IN: Joi.number().default(3600),
     // TODO: multiple db engine.
     DB_ENGINE: Joi.string().default('mysql').valid('mysql'),
-    DB_NAME: Joi.string().default('nodite'),
+    DB_NAME: Joi.string().default('nodite-light'),
     DB_USER: Joi.string().default('root'),
-    DB_PASS: Joi.string().default('nodite'),
+    DB_PASS: Joi.string().required(),
     DB_HOST: Joi.string().default('localhost'),
     DB_PORT: Joi.number().default(3306),
     REDIS_URL: Joi.string().default('redis://localhost:6379'),
@@ -44,6 +45,7 @@ if (error) {
 export default {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
+  apiRootPath: envVars.API_ROOT_PATH,
   xApiKey: envVars.API_KEY_TOKEN,
   jwtSecret: envVars.JWT_SECRET,
   jwtExpiresIn: envVars.JWT_EXPIRES_IN,

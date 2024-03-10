@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isEmpty as _isEmpty } from 'lodash-es';
+import { isEmpty as _isEmpty } from 'lodash';
 import { useDataTableItems } from 'vuetify/lib/components/VDataTable/composables/items.mjs';
 
 import { DataTableItemProps } from '../types/VDataTable';

@@ -1,30 +1,44 @@
-# Production Dockerfile
+####################
+# base
+FROM node:20-alpine AS base
 
-# First stage: Build the application
-FROM node:20-alpine as builder
+ENV PYTHONUNBUFFERED=1
+RUN apk update && \
+  apk add --update --no-cache libc6-compat bash git make g++ python3 py3-pip python3-dev && \
+  ln -sf python3 /usr/bin/python
 
-WORKDIR /app
+ENV ROOT_DIR services/admin-api
+ENV LIBS_DIR packages
 
-# Copy package.json and package-lock.json files first
-COPY package*.json ./
+ENV APP_HOME /app
+WORKDIR ${APP_HOME}
 
-# Install dependencies
-RUN npm install
+COPY ["package.json", "package-lock.json", "tsconfig.json", "lerna.json", "./"]
+COPY ${ROOT_DIR}/package.json ./${ROOT_DIR}/package.json
+COPY ${LIBS_DIR}/ ./${LIBS_DIR}
 
-COPY . .
+####################
+# builder.
+FROM base as builder
 
-# Build application
+RUN npm ci
+
+COPY ${ROOT_DIR}/ ./${ROOT_DIR}
+
 RUN npm run build
 
-# Second stage: Setup the production image
-FROM node:20-alpine
+####################
+# server.
+FROM base AS server
 
-# Copy built assets from the builder stage to production image
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/node_modules ./node_modules
+RUN npm ci --omit=dev --ignore-scripts && \
+  npm rebuild bcrypt
 
-# Run the server in production mode
-CMD npm run start:prod
+COPY --from=builder ${APP_HOME}/${ROOT_DIR}/dist ./
+COPY --from=builder ${APP_HOME}/${LIBS_DIR}/ ./${LIBS_DIR}
 
 EXPOSE 8080
+
+# Run the server in production mode
+ENV NODE_ENV production
+CMD ["node", "server.js"]

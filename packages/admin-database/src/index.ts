@@ -1,6 +1,6 @@
 export { default as Redis } from '@/nodite-redis';
 export * from '@/nodite-redis/cache';
-export { default as SequelizeDatabase, Subscribe } from '@/nodite-sequelize';
+export { default as SequelizeDatabase } from '@/nodite-sequelize';
 export {
   PaginateOptons as SequelizePaginateOptons,
   Pagination as SequelizePagination,

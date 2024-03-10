@@ -1,6 +1,7 @@
 import { AppError } from '@nodite-light/admin-core';
 import { SequelizePagination } from '@nodite-light/admin-database';
 import httpStatus from 'http-status';
+import lodash from 'lodash';
 import { Op } from 'sequelize';
 
 import {
@@ -16,7 +17,6 @@ import LocaleModel, { ILocale } from '@/components/locale/locale.model';
 import LocaleLocationModel from '@/components/locale/locale_location.model';
 import LocaleMessageModel from '@/components/locale/locale_message.model';
 import { QueryParams } from '@/interfaces';
-import lodash from '@/utils/lodash';
 
 import LocaleSourceModel, { ILocaleSource } from './locale_source.model';
 

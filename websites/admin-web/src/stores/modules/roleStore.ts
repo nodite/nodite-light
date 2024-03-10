@@ -1,3 +1,5 @@
+import lodash from 'lodash';
+
 import {
   IRole,
   IUserWithRoles,
@@ -6,7 +8,6 @@ import {
   SequelizePaginationIRole,
 } from '@/api/admin/data-contracts';
 import * as RoleApi from '@/api/admin/Role';
-import lodash from '@/utils/lodash';
 
 interface RoleState {
   roles: IRole[];

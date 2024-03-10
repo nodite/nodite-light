@@ -1,31 +1,44 @@
 import { exit } from 'node:process';
 
 import { logger } from '@nodite-light/admin-core';
-import _map from 'lodash/map';
+import lodash from 'lodash';
 import { ModelCtor, Sequelize } from 'sequelize-typescript';
 
 import { SequelizeStoreOptions } from '@/nodite-sequelize/interface';
 
 type SeedsHandler = (model: ModelCtor, seeds: Array<object>) => void;
 
+/**
+ * Class Database.
+ */
 export default class Database {
   static client: Sequelize | null;
 
   static models: Array<{ model: ModelCtor; seeds: Array<object>; seedsHandler: SeedsHandler }> = [];
 
   /**
+   * Subscribe to the database
+   * @param seeds
+   * @param seedsHandler
+   * @returns
+   */
+  static subscribe(seeds?: Array<object>, seedsHandler?: SeedsHandler) {
+    return (target: unknown) => {
+      Database.models.push({
+        model: target as ModelCtor,
+        seeds,
+        seedsHandler,
+      });
+    };
+  }
+
+  /**
    * Connect to the database
    * @param options
    * @returns
    */
-  async connect(options: SequelizeStoreOptions): Promise<Sequelize | null> {
-    const {
-      host = 'localhost',
-      port = 3306,
-      user = 'root',
-      pass = 'nodite',
-      dbName = 'nodite',
-    } = options;
+  static async connect(options: SequelizeStoreOptions): Promise<Sequelize | null> {
+    const { host, port, user, pass, dbName } = options;
 
     // for sqlite engines
     let { engine = 'memory', storagePath = '' } = options;
@@ -88,13 +101,13 @@ export default class Database {
 
       logger.info(`Successfully connected to "${engine}" database server`);
 
-      Database.client.addModels(_map(Database.models, 'model'));
+      Database.client.addModels(lodash.map(Database.models, 'model'));
       await Database.client.sync();
 
       logger.info('Successfully synced models');
 
       await Promise.all(
-        _map(Database.models, async (meta) => {
+        lodash.map(Database.models, async (meta) => {
           if (!meta.seeds) return;
 
           logger.debug(`found model seed: ${meta.model.getTableName()}`);
@@ -121,17 +134,7 @@ export default class Database {
   /**
    * Disconnect from the database
    */
-  async disconnect() {
+  static async disconnect() {
     await Database.client?.close();
   }
-}
-
-export function Subscribe(seeds?: Array<object>, seedsHandler?: SeedsHandler) {
-  return (target: unknown) => {
-    Database.models.push({
-      model: target as ModelCtor,
-      seeds,
-      seedsHandler,
-    });
-  };
 }

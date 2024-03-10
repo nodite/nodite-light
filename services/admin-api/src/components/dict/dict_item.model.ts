@@ -1,4 +1,4 @@
-import { SequelizeModel, Subscribe } from '@nodite-light/admin-database';
+import { SequelizeDatabase, SequelizeModel } from '@nodite-light/admin-database';
 import {
   AllowNull,
   AutoIncrement,
@@ -25,7 +25,7 @@ import DictItemSeeds from '@/seeds/sys_dict_item.json';
     },
   ],
 })
-@Subscribe(DictItemSeeds)
+@SequelizeDatabase.subscribe(DictItemSeeds)
 export default class DictItemModel extends SequelizeModel<DictItemModel> {
   @Unique
   @PrimaryKey

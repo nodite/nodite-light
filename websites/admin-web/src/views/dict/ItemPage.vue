@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { VDataTablePagination } from '@nodite-light/vuetify-data-table-pagination';
+import lodash from 'lodash';
 import moment from 'moment';
 
 import { IDictItem, IDictType, SequelizePaginationIDictItem } from '@/api/admin/data-contracts';
@@ -8,7 +9,6 @@ import DictElement from '@/components/form/DictElement.vue';
 import i18n from '@/plugins/i18n';
 import { useDictStore } from '@/stores/modules/dictStore';
 import dialogs from '@/utils/dialogs';
-import lodash from '@/utils/lodash';
 import DictItemForm from '@/views/dict/components/DictItemForm.vue';
 
 const route = useRoute();

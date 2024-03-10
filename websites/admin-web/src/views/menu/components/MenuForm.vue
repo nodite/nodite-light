@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { IconPicker } from '@nodite-light/vuetify-icon-picker';
+import lodash from 'lodash';
 import { toast } from 'vuetify-sonner';
 
 import { IMenu } from '@/api/admin/data-contracts';
 import TreeSelect from '@/components/form/TreeSelect.vue';
 import i18n from '@/plugins/i18n';
 import { useMenuStore } from '@/stores/modules/menuStore';
-import lodash from '@/utils/lodash';
 
 const menuStore = useMenuStore();
 
