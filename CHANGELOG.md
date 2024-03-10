@@ -1,5 +1,14 @@
 ## Unreleased
 
+### Feat
+
+- docker
+
+### Fix
+
+- missing next for apiKey middleware
+- missing host & port of casbin adapter
+
 ## 1.0.0 (2024-03-05)
 
 ### Feat
