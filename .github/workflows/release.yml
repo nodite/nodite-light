@@ -23,7 +23,7 @@ jobs:
       - name: Print version
         run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
       - name: release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           body_path: CHANGELOG.md
           tag_name: ${{ env.REVISION }}
