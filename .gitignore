@@ -27,3 +27,7 @@ yarn-error.log*
 /volumes
 .env
 tmp
+
+# vitepress
+docs/.vitepress/dist
+docs/.vitepress/cache
