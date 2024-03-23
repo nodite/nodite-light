@@ -18,6 +18,21 @@ export default defineConfig({
     ]
   },
 
+  ignoreDeadLinks: [
+    // ignore exact url "/playground"
+    '/playground',
+    // ignore all localhost links
+    /^https?:\/\/localhost/,
+    // ignore all links include "/repl/""
+    /\/repl\//,
+    // ignore all links start with "./"
+    /^\.\//,
+    // custom function, ignore all links include "ignore"
+    (url) => {
+      return url.toLowerCase().includes('ignore')
+    }
+  ],
+
   locales: {
     root: { label: 'English', ...en },
   }
