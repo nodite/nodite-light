@@ -5,11 +5,15 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/nodite/nodite-light/actions/workflows/test.yml?query=branch%3Amain">
-    <img src="https://github.com/nodite/nodite-light/actions/workflows/test.yml/badge.svg" />
-  </a>
   <a href="https://github.com/nodite/nodite-light/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/nodite/nodite-light" />
+  </a>
+  <br />
+  <a href="https://github.com/nodite/nodite-light/actions/workflows/test.yml?query=branch%3Amain">
+    <img src="https://github.com/nodite/nodite-light/actions/workflows/test.yml/badge.svg?branch=main" />
+  </a>
+  <a href="https://github.com/nodite/nodite-light/actions/workflows/docs.yml?query=branch%3Amain">
+    <img src="https://github.com/nodite/nodite-light/actions/workflows/docs.yml/badge.svg?branch=main" />
   </a>
   <br />
   <a href="https://github.com/nodite/nodite-light">
