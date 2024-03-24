@@ -5,6 +5,8 @@ import { en } from './en.mts'
 export default defineConfig({
   title: "Nodite Light",
 
+  base: '/nodite-light/',
+
   lastUpdated: true,
   cleanUrls: true,
   metaChunk: true,

@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://nodite-light.nodite.com" target="_blank">
+  <a href="https://docs.nodite.com/nodite-light" target="_blank">
     <img alt="Nodite Logo" width="100" src="/assets/logo.png">
   </a>
 </p>
@@ -65,7 +65,7 @@ Nodite-Light supports all modern browsers, including Safari 13+ (using [polyfill
 
 ### 🖥️ Documentation (coming soon...)
 
-To check out the docs, visit [nodite-light.nodite.com](https://nodite-light.nodite.com)
+To check out the docs, visit [https://docs.nodite.com/nodite-light](https://docs.nodite.com/nodite-light)
 
 <!--
 ```shell

@@ -43,7 +43,7 @@ Nodite-Light supports all modern browsers, including Safari 13+ (using [polyfill
 
 ## 🖥️ Documentation (coming soon...)
 
-To check out the docs, visit [nodite-light.nodite.com](https://nodite-light.nodite.com)
+To check out the docs, visit [https://docs.nodite.com/nodite-light](https://docs.nodite.com/nodite-light)
 
 <!--
 ```shell
