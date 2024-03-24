@@ -2,6 +2,7 @@
 
 ### Feat
 
+- enable gzip for nginx
 - docker
 
 ### Fix
