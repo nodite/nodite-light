@@ -43,7 +43,7 @@
     "vue-virtual-scroller": "^2.0.0-beta.8",
     "vue3-apexcharts": "^1.4.1",
     "vue3-lottie": "^3.2.0",
-    "vue3-perfect-scrollbar": "^1.6.1",
+    "vue3-perfect-scrollbar": "^2.0.0",
     "vuetify": "^3.4.6",
     "vuetify-sonner": "^0.3.12",
     "vuetify3-dialog": "^1.4.5"
