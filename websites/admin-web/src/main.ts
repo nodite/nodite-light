@@ -11,7 +11,7 @@ import { createApp } from 'vue';
 import VueVirtualScroller from 'vue-virtual-scroller';
 import VueApexCharts from 'vue3-apexcharts';
 import Vue3Lottie from 'vue3-lottie';
-import PerfectScrollbar from 'vue3-perfect-scrollbar';
+import { PerfectScrollbarPlugin } from 'vue3-perfect-scrollbar';
 import { Vuetify3Dialog } from 'vuetify3-dialog';
 
 import App from '@/App.vue';
@@ -30,7 +30,7 @@ app.use(pinia);
 useLocaleStore().initialize();
 
 app.use(router);
-app.use(PerfectScrollbar);
+app.use(PerfectScrollbarPlugin);
 app.use(VueVirtualScroller);
 app.use(VueApexCharts);
 app.use(i18n);
