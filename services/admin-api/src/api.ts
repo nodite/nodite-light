@@ -15,15 +15,15 @@ const router: Router = Router();
 // disable tsoa validation.
 // @see https://github.com/lukeautry/tsoa/issues/181#issuecomment-1487811378
 ValidationService.prototype.ValidateParam = (
-  _property,
+  property,
   rawValue,
-  _name = '',
-  _fieldErrors,
-  _parent = '',
-  _minimalSwaggerConfig,
+  name = '',
+  fieldErrors,
+  isBodyParam,
+  parent = '',
 ) => rawValue;
 
-RegisterRoutes.prototype.getValidatedArgs = (args: never, _request: never, _response: never) =>
+RegisterRoutes.prototype.getValidatedArgs = (args: unknown, request: unknown, response: unknown) =>
   Object.keys(args);
 
 RegisterRoutes(router);
