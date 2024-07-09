@@ -38,6 +38,6 @@
     "@types/lodash": "^4.14.202",
     "@types/md5": "^2.3.5",
     "node-mocks-http": "^1.14.0",
-    "rimraf": "^5.0.5"
+    "rimraf": "^6.0.0"
   }
 }
