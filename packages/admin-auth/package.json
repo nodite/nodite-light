@@ -38,6 +38,6 @@
     "@types/jsonwebtoken": "^9.0.5",
     "@types/lodash": "^4.14.202",
     "node-mocks-http": "^1.14.0",
-    "rimraf": "^5.0.5"
+    "rimraf": "^6.0.1"
   }
 }
