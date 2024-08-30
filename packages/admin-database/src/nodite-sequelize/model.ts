@@ -182,7 +182,7 @@ export default abstract class BaseModel<T extends Model<T>> extends Model<T> {
       else if (val === 'null') val = null;
 
       // set where.
-      lodash.set(where, key, { [lodash.get(Op, op)]: val });
+      lodash.set(where, key, { [lodash.get(Op, op) as string]: val });
     });
 
     return where;
