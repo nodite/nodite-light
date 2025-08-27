@@ -1,8 +1,10 @@
 {
   "name": "@nodite-light/vuetify-data-table-pagination",
-  "private": true,
-  "description": "@nodite-light/vuetify-data-table-pagination",
+  "version": "1.0.0",
+  "description": "Vuetify data table pagination component",
+  "license": "Apache-2.0",
   "author": "Oscaner Miao <oscaner1997@gmail.com>",
+  "private": true,
   "main": "src/index.ts",
   "files": [
     "src"
@@ -11,7 +13,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check \"{*.js,!(node*)**/*.ts}\"",
-    "prettier:fix": "prettier --write \"{*.js,!(node*)**/*.ts}\""
+    "prettier:fix": "prettier --write \"{*.js,!(node*)**/*.ts}\"",
+    "clean": "rimraf lib"
   },
   "dependencies": {
     "vue": "^3.3.13",
@@ -19,6 +22,7 @@
     "vuetify": "^3.4.8"
   },
   "devDependencies": {
-    "@nodite-light/eslint-config-admin-web": "*"
+    "@nodite-light/eslint-config-admin-web": "*",
+    "rimraf": "^6.0.1"
   }
 }

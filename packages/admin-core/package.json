@@ -1,8 +1,10 @@
 {
   "name": "@nodite-light/admin-core",
-  "private": true,
-  "description": "admin core",
+  "version": "1.0.0",
+  "description": "Admin core utilities and middleware",
+  "license": "Apache-2.0",
   "author": "Oscaner Miao <oscaner1997@gmail.com>",
+  "private": true,
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [

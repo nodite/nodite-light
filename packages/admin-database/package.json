@@ -1,8 +1,10 @@
 {
   "name": "@nodite-light/admin-database",
-  "private": true,
-  "description": "admin database",
+  "version": "1.0.0",
+  "description": "Database connection and ORM utilities",
+  "license": "Apache-2.0",
   "author": "Oscaner Miao <oscaner1997@gmail.com>",
+  "private": true,
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [

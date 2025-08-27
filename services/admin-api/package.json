@@ -1,9 +1,13 @@
 {
   "name": "@nodite-light/admin-api",
+  "version": "1.0.0",
+  "description": "Admin management API service",
+  "license": "Apache-2.0",
+  "author": "Oscaner Miao <oscaner1997@gmail.com>",
   "private": true,
   "main": "src/server.ts",
   "engines": {
-    "node": ">=10"
+    "node": ">=18"
   },
   "scripts": {
     "build": "npm run tsoa && tsc && tsc-alias",
@@ -22,8 +26,6 @@
     "loglevel:change": "runtime-node-refresh",
     "tsoa": "tsoa spec-and-routes"
   },
-  "author": "Oscaner Miao <oscaner1997@gmail.com>",
-  "license": "Apache-2.0",
   "dependencies": {
     "@nodite-light/admin-auth": "*",
     "@nodite-light/admin-core": "*",

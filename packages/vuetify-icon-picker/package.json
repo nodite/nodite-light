@@ -1,8 +1,10 @@
 {
   "name": "@nodite-light/vuetify-icon-picker",
-  "private": true,
-  "description": "@nodite-light/vuetify-icon-picker",
+  "version": "1.0.0",
+  "description": "Vuetify icon picker component",
+  "license": "Apache-2.0",
   "author": "Oscaner Miao <oscaner1997@gmail.com>",
+  "private": true,
   "main": "src/index.ts",
   "files": [
     "src"
@@ -11,7 +13,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check \"{*.js,!(node*)**/*.ts}\"",
-    "prettier:fix": "prettier --write \"{*.js,!(node*)**/*.ts}\""
+    "prettier:fix": "prettier --write \"{*.js,!(node*)**/*.ts}\"",
+    "clean": "rimraf lib"
   },
   "dependencies": {
     "change-case": "^5.3.0",
@@ -21,6 +24,7 @@
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.1",
-    "@nodite-light/eslint-config-admin-web": "*"
+    "@nodite-light/eslint-config-admin-web": "*",
+    "rimraf": "^6.0.1"
   }
 }

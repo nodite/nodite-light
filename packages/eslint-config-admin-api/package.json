@@ -1,9 +1,14 @@
 {
   "name": "@nodite-light/eslint-config-admin-api",
-  "private": true,
-  "description": "@nodite-light/eslint-config-admin-api",
+  "version": "1.0.0",
+  "description": "ESLint configuration for admin API projects",
+  "license": "Apache-2.0",
   "author": "Oscaner Miao <oscaner1997@gmail.com>",
+  "private": true,
   "main": "index.js",
+  "scripts": {
+    "clean": "rimraf lib"
+  },
   "devDependencies": {
     "@nodite-light/eslint-config-base": "*",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -13,6 +18,7 @@
     "eslint-plugin-jest": "^28.8.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^5.0.1",
-    "eslint-plugin-security": "^2.1.0"
+    "eslint-plugin-security": "^2.1.0",
+    "rimraf": "^6.0.1"
   }
 }

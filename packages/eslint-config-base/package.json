@@ -1,9 +1,14 @@
 {
   "name": "@nodite-light/eslint-config-base",
-  "private": true,
-  "description": "@nodite-light/eslint-config-base",
+  "version": "1.0.0",
+  "description": "Base ESLint configuration for Nodite Light projects",
+  "license": "Apache-2.0",
   "author": "Oscaner Miao <oscaner1997@gmail.com>",
+  "private": true,
   "main": "index.js",
+  "scripts": {
+    "clean": "rimraf lib"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
@@ -14,6 +19,7 @@
     "eslint-plugin-simple-import-sort": "^12.0.0",
     "eslint-plugin-tsdoc": "^0.2.17",
     "eslint-plugin-unused-imports": "^3.1.0",
-    "prettier": "^3.2.5"
+    "prettier": "^3.2.5",
+    "rimraf": "^6.0.1"
   }
 }

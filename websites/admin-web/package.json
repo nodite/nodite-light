@@ -1,6 +1,14 @@
 {
   "name": "@nodite-light/admin-web",
+  "version": "1.0.0",
+  "description": "Admin management web interface",
   "license": "Apache-2.0",
+  "author": "Oscaner Miao <oscaner1997@gmail.com>",
+  "private": true,
+  "engines": {
+    "node": ">=18",
+    "npm": ">=8"
+  },
   "scripts": {
     "build": "vite build --mode prod",
     "start": "vite --mode development",
